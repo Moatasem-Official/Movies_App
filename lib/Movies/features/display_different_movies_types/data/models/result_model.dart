@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/Movies/features/now_playing_movies/domain/entities/now_playing_movies_entity.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
 part 'result_model.g.dart';
 
 @JsonSerializable()

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:movies_app/Movies/features/now_playing_movies/data/models/now_playing_movies_model.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/data/models/now_playing_movies_model.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';

@@ -1,10 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class NowplayingMoviesEntity extends Equatable {
+class DisplayDifferentMoviesTypesEntity extends Equatable {
   final DatesEntity dates;
   final List<ResultEntity> results;
 
-  const NowplayingMoviesEntity({required this.dates, required this.results});
+  const DisplayDifferentMoviesTypesEntity({
+    required this.dates,
+    required this.results,
+  });
 
   @override
   List<Object?> get props => [dates, results];
