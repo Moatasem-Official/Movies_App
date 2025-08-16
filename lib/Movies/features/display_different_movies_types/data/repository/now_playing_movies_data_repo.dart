@@ -10,4 +10,14 @@ class NowPlayingMoviesDataRepo implements DifferentMoviesTypesDomainRepo {
   Future<DisplayDifferentMoviesTypesEntity> getNowPlayingMovies() async {
     return await remoteDataSource.getNowPlayingMovies();
   }
+
+  @override
+  Future<DisplayDifferentMoviesTypesEntity> getPopularMovies() async {
+    return await remoteDataSource.getPopularMovies();
+  }
+
+  @override
+  Future<DisplayDifferentMoviesTypesEntity> getTopRatedMovies() async {
+    return await remoteDataSource.getTopRatedMovies();
+  }
 }

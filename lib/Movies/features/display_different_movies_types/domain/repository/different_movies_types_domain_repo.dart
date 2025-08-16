@@ -2,4 +2,6 @@ import 'package:movies_app/Movies/features/display_different_movies_types/domain
 
 abstract class DifferentMoviesTypesDomainRepo {
   Future<DisplayDifferentMoviesTypesEntity> getNowPlayingMovies();
+  Future<DisplayDifferentMoviesTypesEntity> getPopularMovies();
+  Future<DisplayDifferentMoviesTypesEntity> getTopRatedMovies();
 }
