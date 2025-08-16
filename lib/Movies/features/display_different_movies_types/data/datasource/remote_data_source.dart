@@ -12,4 +12,10 @@ abstract class RemoteDataSource {
 
   @GET("movie/now_playing")
   Future<NowPlayingMoviesModel> getNowPlayingMovies();
+
+  @GET('movie/popular')
+  Future<NowPlayingMoviesModel> getPopularMovies();
+
+  @GET('movie/top_rated')
+  Future<NowPlayingMoviesModel> getTopRatedMovies();
 }
