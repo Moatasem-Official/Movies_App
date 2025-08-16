@@ -1,20 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'now_playing_movies_model.dart';
+part of 'display_different_movies_types_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-NowPlayingMoviesModel _$NowPlayingMoviesModelFromJson(
+DisplayDifferentMoviesTypesModel _$DisplayDifferentMoviesTypesModelFromJson(
   Map<String, dynamic> json,
-) => NowPlayingMoviesModel(
+) => DisplayDifferentMoviesTypesModel(
   dates: DatesModel.fromJson(json['dates'] as Map<String, dynamic>),
   results: (json['results'] as List<dynamic>)
       .map((e) => ResultModel.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
-Map<String, dynamic> _$NowPlayingMoviesModelToJson(
-  NowPlayingMoviesModel instance,
+Map<String, dynamic> _$DisplayDifferentMoviesTypesModelToJson(
+  DisplayDifferentMoviesTypesModel instance,
 ) => <String, dynamic>{'dates': instance.dates, 'results': instance.results};

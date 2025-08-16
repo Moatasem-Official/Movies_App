@@ -20,12 +20,12 @@ class _RemoteDataSource implements RemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NowPlayingMoviesModel> getNowPlayingMovies() async {
+  Future<DisplayDifferentMoviesTypesModel> getNowPlayingMovies() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NowPlayingMoviesModel>(
+    final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -36,9 +36,9 @@ class _RemoteDataSource implements RemoteDataSource {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NowPlayingMoviesModel _value;
+    late DisplayDifferentMoviesTypesModel _value;
     try {
-      _value = NowPlayingMoviesModel.fromJson(_result.data!);
+      _value = DisplayDifferentMoviesTypesModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -47,12 +47,12 @@ class _RemoteDataSource implements RemoteDataSource {
   }
 
   @override
-  Future<NowPlayingMoviesModel> getPopularMovies() async {
+  Future<DisplayDifferentMoviesTypesModel> getPopularMovies() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NowPlayingMoviesModel>(
+    final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -63,9 +63,9 @@ class _RemoteDataSource implements RemoteDataSource {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NowPlayingMoviesModel _value;
+    late DisplayDifferentMoviesTypesModel _value;
     try {
-      _value = NowPlayingMoviesModel.fromJson(_result.data!);
+      _value = DisplayDifferentMoviesTypesModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -74,12 +74,12 @@ class _RemoteDataSource implements RemoteDataSource {
   }
 
   @override
-  Future<NowPlayingMoviesModel> getTopRatedMovies() async {
+  Future<DisplayDifferentMoviesTypesModel> getTopRatedMovies() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NowPlayingMoviesModel>(
+    final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -90,9 +90,9 @@ class _RemoteDataSource implements RemoteDataSource {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NowPlayingMoviesModel _value;
+    late DisplayDifferentMoviesTypesModel _value;
     try {
-      _value = NowPlayingMoviesModel.fromJson(_result.data!);
+      _value = DisplayDifferentMoviesTypesModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
