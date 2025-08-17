@@ -10,12 +10,12 @@ part 'remote_data_source.g.dart';
 abstract class RemoteDataSource {
   factory RemoteDataSource(Dio dio, {String baseUrl}) = _RemoteDataSource;
 
-  @GET("movie/now_playing")
+  @GET("movie/now_playing?api_key=${AppConstants.kApiKey}")
   Future<DisplayDifferentMoviesTypesModel> getNowPlayingMovies();
 
-  @GET('movie/popular')
+  @GET('movie/popular?api_key=${AppConstants.kApiKey}')
   Future<DisplayDifferentMoviesTypesModel> getPopularMovies();
 
-  @GET('movie/top_rated')
+  @GET("movie/top_rated?api_key=${AppConstants.kApiKey}")
   Future<DisplayDifferentMoviesTypesModel> getTopRatedMovies();
 }

@@ -29,7 +29,7 @@ class _RemoteDataSource implements RemoteDataSource {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'movie/now_playing',
+            'movie/now_playing?api_key=0c0c7744db435d591d976e6422a9ef8e',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -56,7 +56,7 @@ class _RemoteDataSource implements RemoteDataSource {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'movie/popular',
+            'movie/popular?api_key=0c0c7744db435d591d976e6422a9ef8e',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -83,7 +83,7 @@ class _RemoteDataSource implements RemoteDataSource {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'movie/top_rated',
+            'movie/top_rated?api_key=0c0c7744db435d591d976e6422a9ef8e',
             queryParameters: queryParameters,
             data: _data,
           )
