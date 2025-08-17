@@ -5,8 +5,6 @@ class MoviesHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(child: Center(child: Text('Movies Home Screen'))),
-    );
+    return Scaffold(body: Center(child: Text('Movies Home Screen')));
   }
 }
