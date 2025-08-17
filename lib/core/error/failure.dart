@@ -27,11 +27,3 @@ class DatabaseFailure extends Failure {
 class UnknownFailure extends Failure {
   const UnknownFailure(super.message);
 }
-
-class AuthFailure extends Failure {
-  const AuthFailure(super.message);
-}
-
-class PermissionFailure extends Failure {
-  const PermissionFailure(super.message);
-}

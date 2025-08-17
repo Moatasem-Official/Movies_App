@@ -11,11 +11,11 @@ abstract class RemoteDataSource {
   factory RemoteDataSource(Dio dio, {String baseUrl}) = _RemoteDataSource;
 
   @GET("movie/now_playing?api_key=${AppConstants.kApiKey}")
-  Future<DisplayDifferentMoviesTypesModel> getNowPlayingMovies();
+  Future<List<DisplayDifferentMoviesTypesModel>> getNowPlayingMovies();
 
   @GET('movie/popular?api_key=${AppConstants.kApiKey}')
-  Future<DisplayDifferentMoviesTypesModel> getPopularMovies();
+  Future<List<DisplayDifferentMoviesTypesModel>> getPopularMovies();
 
   @GET("movie/top_rated?api_key=${AppConstants.kApiKey}")
-  Future<DisplayDifferentMoviesTypesModel> getTopRatedMovies();
+  Future<List<DisplayDifferentMoviesTypesModel>> getTopRatedMovies();
 }
