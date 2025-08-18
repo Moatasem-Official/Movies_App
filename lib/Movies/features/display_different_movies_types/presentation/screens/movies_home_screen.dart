@@ -9,7 +9,6 @@ class MoviesHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF303030),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -22,35 +21,21 @@ class MoviesHomeScreen extends StatelessWidget {
                         height: 400,
                         child: Stack(
                           children: [
-                            // الصورة الأصلية
-                            Positioned.fill(
+                            ShaderMask(
+                              shaderCallback: (rect) {
+                                return const LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.black, // الصورة تبان كاملة
+                                    Colors.transparent, // تلاشي من تحت
+                                  ],
+                                ).createShader(rect);
+                              },
+                              blendMode: BlendMode.dstIn,
                               child: Image.asset(
                                 "assets/images/1852.jpg",
                                 fit: BoxFit.cover,
-                              ),
-                            ),
-
-                            // نسخة بلور من الصورة
-                            Positioned.fill(
-                              child: ShaderMask(
-                                shaderCallback: (rect) {
-                                  return LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [Colors.transparent, Colors.black],
-                                  ).createShader(rect);
-                                },
-                                blendMode: BlendMode.dstIn,
-                                child: ImageFiltered(
-                                  imageFilter: ImageFilter.blur(
-                                    sigmaX: 0,
-                                    sigmaY: 10,
-                                  ),
-                                  child: Image.asset(
-                                    "assets/images/1852.jpg",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
                               ),
                             ),
                             Positioned(
@@ -63,24 +48,31 @@ class MoviesHomeScreen extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.star, color: Colors.yellow),
-                                      const SizedBox(width: 5),
-                                      Text(
+                                      Container(
+                                        width: 15,
+                                        height: 15,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.redAccent,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 7),
+                                      const Text(
                                         "NOW PLAYING",
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                     ],
                                   ),
                                   const SizedBox(height: 20),
-                                  Text(
+                                  const Text(
                                     "The Dark Knight",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -106,7 +98,7 @@ class MoviesHomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 20)),
+          SliverToBoxAdapter(child: const SizedBox(height: 50)),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
@@ -236,6 +228,7 @@ class MoviesHomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          SliverToBoxAdapter(child: const SizedBox(height: 30)),
         ],
       ),
     );
