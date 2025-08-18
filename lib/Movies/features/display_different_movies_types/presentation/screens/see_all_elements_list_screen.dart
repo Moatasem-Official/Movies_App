@@ -21,9 +21,9 @@ class SeeAllElementsListScreen extends StatelessWidget {
         surfaceTintColor: Colors.black.withAlpha(180),
         elevation: 0,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
       body: Padding(
