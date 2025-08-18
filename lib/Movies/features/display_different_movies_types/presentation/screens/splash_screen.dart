@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController.forward();
 
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 1), () {
       Navigator.pushReplacementNamed(context, AppRouter.appHomeScreen);
     });
   }
