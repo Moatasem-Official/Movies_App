@@ -3,10 +3,9 @@ import 'package:movies_app/Movies/features/display_different_movies_types/domain
 import 'package:movies_app/core/error/failure.dart';
 
 abstract class DifferentMoviesTypesDomainRepo {
-  Future<Either<Failure, List<DisplayDifferentMoviesTypesEntity>>>
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
   getNowPlayingMovies();
-  Future<Either<Failure, List<DisplayDifferentMoviesTypesEntity>>>
-  getPopularMovies();
-  Future<Either<Failure, List<DisplayDifferentMoviesTypesEntity>>>
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getPopularMovies();
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
   getTopRatedMovies();
 }

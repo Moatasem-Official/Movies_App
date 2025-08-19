@@ -10,7 +10,7 @@ class NowPlayingMoviesDataRepo implements DifferentMoviesTypesDomainRepo {
   NowPlayingMoviesDataRepo(this.remoteDataSource);
 
   @override
-  Future<Either<Failure, List<DisplayDifferentMoviesTypesEntity>>>
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
   getNowPlayingMovies() async {
     try {
       return Right(await remoteDataSource.getNowPlayingMovies());
@@ -20,7 +20,7 @@ class NowPlayingMoviesDataRepo implements DifferentMoviesTypesDomainRepo {
   }
 
   @override
-  Future<Either<Failure, List<DisplayDifferentMoviesTypesEntity>>>
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
   getPopularMovies() async {
     try {
       return Right(await remoteDataSource.getPopularMovies());
@@ -30,7 +30,7 @@ class NowPlayingMoviesDataRepo implements DifferentMoviesTypesDomainRepo {
   }
 
   @override
-  Future<Either<Failure, List<DisplayDifferentMoviesTypesEntity>>>
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
   getTopRatedMovies() async {
     try {
       return Right(await remoteDataSource.getTopRatedMovies());

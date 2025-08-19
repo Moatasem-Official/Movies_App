@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_now_playing_movies_use_case.dart';
+import 'package:movies_app/Movies/movies_injection.dart';
 import 'package:movies_app/app/app_router.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,6 +33,12 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(const Duration(seconds: 1), () {
       Navigator.pushReplacementNamed(context, AppRouter.appHomeScreen);
     });
+    getData();
+  }
+
+  void getData() async {
+    final result = await getIt<GetNowPlayingMoviesUseCase>().call();
+    print(result);
   }
 
   @override

@@ -6,6 +6,6 @@ import 'package:movies_app/core/error/failure.dart';
 class GetTopRatedMoviesUseCase {
   final DifferentMoviesTypesDomainRepo differentMoviesTypesDomainRepo;
   GetTopRatedMoviesUseCase(this.differentMoviesTypesDomainRepo);
-  Future<Either<Failure, List<DisplayDifferentMoviesTypesEntity>>> call() =>
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call() =>
       differentMoviesTypesDomainRepo.getTopRatedMovies();
 }

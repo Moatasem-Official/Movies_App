@@ -4,7 +4,7 @@ part 'result_model.g.dart';
 
 @JsonSerializable()
 class ResultModel extends ResultEntity {
-  ResultModel({
+  const ResultModel({
     required super.backdropPath,
     required super.genreIds,
     required super.id,

@@ -7,6 +7,6 @@ class GetNowPlayingMoviesUseCase {
   final DifferentMoviesTypesDomainRepo nowPlayingMoviesDomainRepo;
   GetNowPlayingMoviesUseCase(this.nowPlayingMoviesDomainRepo);
 
-  Future<Either<Failure, List<DisplayDifferentMoviesTypesEntity>>> call() =>
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call() =>
       nowPlayingMoviesDomainRepo.getNowPlayingMovies();
 }
