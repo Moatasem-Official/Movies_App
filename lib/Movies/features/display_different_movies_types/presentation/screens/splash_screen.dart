@@ -36,15 +36,15 @@ class _SplashScreenState extends State<SplashScreen>
     getData();
   }
 
-  void getData() async {
-    final result = await getIt<GetNowPlayingMoviesUseCase>().call();
-    print(result);
-  }
-
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+
+  void getData() async {
+    final result = await getIt<GetNowPlayingMoviesUseCase>().call();
+    print(result);
   }
 
   @override

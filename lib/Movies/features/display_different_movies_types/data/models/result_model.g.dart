@@ -25,16 +25,16 @@ ResultModel _$ResultModelFromJson(Map<String, dynamic> json) => ResultModel(
 
 Map<String, dynamic> _$ResultModelToJson(ResultModel instance) =>
     <String, dynamic>{
-      'backdropPath': instance.backdropPath,
-      'genreIds': instance.genreIds,
+      'backdrop_path': instance.backdropPath,
+      'genre_ids': instance.genreIds,
       'id': instance.id,
-      'originalLanguage': instance.originalLanguage,
-      'originalTitle': instance.originalTitle,
+      'original_language': instance.originalLanguage,
+      'original_title': instance.originalTitle,
       'overview': instance.overview,
       'popularity': instance.popularity,
-      'posterPath': instance.posterPath,
-      'releaseDate': instance.releaseDate,
+      'poster_path': instance.posterPath,
+      'release_date': instance.releaseDate,
       'title': instance.title,
-      'voteAverage': instance.voteAverage,
-      'voteCount': instance.voteCount,
+      'vote_average': instance.voteAverage,
+      'vote_count': instance.voteCount,
     };
