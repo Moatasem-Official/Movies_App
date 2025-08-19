@@ -9,10 +9,15 @@ final GetIt getIt = GetIt.instance;
 
 void setupMoviesInjection() {
   getIt.registerSingleton(RemoteDataSource(getDioInfo()));
-  getIt.registerSingleton(NowPlayingMoviesDataRepo(getIt<RemoteDataSource>()));
-  getIt.registerSingleton<DifferentMoviesTypesDomainRepo>(
+
+  getIt.registerSingleton<NowPlayingMoviesDataRepo>(
     NowPlayingMoviesDataRepo(getIt<RemoteDataSource>()),
   );
+
+  getIt.registerSingleton<DifferentMoviesTypesDomainRepo>(
+    getIt<NowPlayingMoviesDataRepo>(),
+  );
+
   getIt.registerSingleton(
     GetNowPlayingMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
   );
