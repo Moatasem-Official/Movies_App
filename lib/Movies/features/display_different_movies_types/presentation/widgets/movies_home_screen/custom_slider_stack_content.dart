@@ -42,12 +42,15 @@ class CustomSliderStackContent extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Text(
-            subtitle,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+          Align(
+            child: Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: subtitle.length > 20 ? 20 : 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],

@@ -6,7 +6,7 @@ import 'package:movies_app/Movies/movies_injection.dart';
 
 class MoviesHomeScreenCubit
     extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
-  MoviesHomeScreenCubit() : super(const Idle());
+  MoviesHomeScreenCubit(GetNowPlayingMoviesUseCase getNowPlayingMoviesUseCase) : super(const Idle());
 
   Future<void> getNowPlayingMovies() async {
     emit(const Loading());

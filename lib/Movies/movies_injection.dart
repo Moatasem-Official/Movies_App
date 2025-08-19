@@ -4,6 +4,7 @@ import 'package:movies_app/Movies/features/display_different_movies_types/data/d
 import 'package:movies_app/Movies/features/display_different_movies_types/data/repository/different_movies_types_data_repo.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/repository/different_movies_types_domain_repo.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_now_playing_movies_use_case.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubit/movies_home_screen_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -20,6 +21,10 @@ void setupMoviesInjection() {
 
   getIt.registerSingleton<GetNowPlayingMoviesUseCase>(
     GetNowPlayingMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+  );
+
+  getIt.registerFactory<MoviesHomeScreenCubit>(
+    () => MoviesHomeScreenCubit(getIt<GetNowPlayingMoviesUseCase>()),
   );
 }
 

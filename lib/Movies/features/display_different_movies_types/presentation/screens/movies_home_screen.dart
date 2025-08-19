@@ -12,13 +12,7 @@ class MoviesHomeScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
-            child: CustomSlider(
-              title: "NOW PLAYING",
-              subtitle: "The Dark Knight",
-              imageUrl: "assets/images/1852.jpg",
-            ),
-          ),
+          SliverToBoxAdapter(child: CustomSlider(title: "NOW PLAYING")),
           SliverToBoxAdapter(child: const SizedBox(height: 50)),
           SliverToBoxAdapter(
             child: CustomTitleOfListOfElements(
