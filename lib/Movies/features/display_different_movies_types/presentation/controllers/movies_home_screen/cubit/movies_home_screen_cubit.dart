@@ -5,4 +5,10 @@ import 'package:movies_app/Movies/features/display_different_movies_types/presen
 class MoviesHomeScreenCubit
     extends Cubit<MoviesModuleStates<ResultModel, String>> {
   MoviesHomeScreenCubit() : super(MoviesModuleStates.idle());
+
+  Future<void> getNowPlayingMovies() async {}
+
+  Future<void> getPopularMovies() async {}
+
+  Future<void> getTopRatedMovies() async {}
 }
