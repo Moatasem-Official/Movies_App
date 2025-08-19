@@ -5,9 +5,9 @@ import 'package:movies_app/Movies/features/display_different_movies_types/domain
 import 'package:movies_app/core/error/exceptions.dart';
 import 'package:movies_app/core/error/failure.dart';
 
-class NowPlayingMoviesDataRepo implements DifferentMoviesTypesDomainRepo {
+class DifferentMoviesTypesDataRepo implements DifferentMoviesTypesDomainRepo {
   final RemoteDataSource remoteDataSource;
-  NowPlayingMoviesDataRepo(this.remoteDataSource);
+  DifferentMoviesTypesDataRepo(this.remoteDataSource);
 
   @override
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>

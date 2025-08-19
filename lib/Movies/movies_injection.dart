@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/data/datasource/remote_data_source.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/data/repository/now_playing_movies_data_repo.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/data/repository/different_movies_types_data_repo.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/repository/different_movies_types_domain_repo.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_now_playing_movies_use_case.dart';
 
@@ -10,15 +10,15 @@ final GetIt getIt = GetIt.instance;
 void setupMoviesInjection() {
   getIt.registerSingleton(RemoteDataSource(getDioInfo()));
 
-  getIt.registerSingleton<NowPlayingMoviesDataRepo>(
-    NowPlayingMoviesDataRepo(getIt<RemoteDataSource>()),
+  getIt.registerSingleton<DifferentMoviesTypesDataRepo>(
+    DifferentMoviesTypesDataRepo(getIt<RemoteDataSource>()),
   );
 
   getIt.registerSingleton<DifferentMoviesTypesDomainRepo>(
-    getIt<NowPlayingMoviesDataRepo>(),
+    getIt<DifferentMoviesTypesDataRepo>(),
   );
 
-  getIt.registerSingleton(
+  getIt.registerSingleton<GetNowPlayingMoviesUseCase>(
     GetNowPlayingMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
   );
 }
