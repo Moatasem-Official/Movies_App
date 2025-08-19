@@ -11,9 +11,14 @@ class MoviesHomeScreenCubit
   Future<void> getNowPlayingMovies() async {
     emit(const Loading());
     final result = await getIt<GetNowPlayingMoviesUseCase>().call();
+
     result.fold(
-      (left) => emit(Error(left.message)),
-      (right) => emit(Loaded(right.results)),
+      (failure) {
+        emit(Error(failure));
+      },
+      (movies) {
+        emit(MoviesModuleStates.loaded(movies.results));
+      },
     );
   }
 

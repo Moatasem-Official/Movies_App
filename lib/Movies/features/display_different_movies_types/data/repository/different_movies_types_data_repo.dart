@@ -2,7 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/data/datasource/remote_data_source.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/repository/different_movies_types_domain_repo.dart';
-import 'package:movies_app/core/error/exceptions.dart';
+import 'package:movies_app/core/error/exceptions/failure_mapper.dart';
+import 'package:movies_app/core/error/exceptions/network_exception.dart';
 import 'package:movies_app/core/error/failure.dart';
 
 class DifferentMoviesTypesDataRepo implements DifferentMoviesTypesDomainRepo {
@@ -14,8 +15,9 @@ class DifferentMoviesTypesDataRepo implements DifferentMoviesTypesDomainRepo {
   getNowPlayingMovies() async {
     try {
       return Right(await remoteDataSource.getNowPlayingMovies());
-    } on NetworkExceptions catch (e) {
-      return Left(ServerFailure(e.errorModel.statusMessage));
+    } on NetworkException catch (e) {
+      final exception = NetworkException.getDioException(e);
+      return Left(FailureMapper.mapExceptionToFailure(exception));
     }
   }
 
@@ -24,8 +26,9 @@ class DifferentMoviesTypesDataRepo implements DifferentMoviesTypesDomainRepo {
   getPopularMovies() async {
     try {
       return Right(await remoteDataSource.getPopularMovies());
-    } on NetworkExceptions catch (e) {
-      return Left(ServerFailure(e.errorModel.statusMessage));
+    } on NetworkException catch (e) {
+      final exception = NetworkException.getDioException(e);
+      return Left(FailureMapper.mapExceptionToFailure(exception));
     }
   }
 
@@ -34,8 +37,9 @@ class DifferentMoviesTypesDataRepo implements DifferentMoviesTypesDomainRepo {
   getTopRatedMovies() async {
     try {
       return Right(await remoteDataSource.getTopRatedMovies());
-    } on NetworkExceptions catch (e) {
-      return Left(ServerFailure(e.errorModel.statusMessage));
+    } on NetworkException catch (e) {
+      final exception = NetworkException.getDioException(e);
+      return Left(FailureMapper.mapExceptionToFailure(exception));
     }
   }
 }
