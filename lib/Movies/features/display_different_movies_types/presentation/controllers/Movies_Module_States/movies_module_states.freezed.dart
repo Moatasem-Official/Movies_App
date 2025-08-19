@@ -12,7 +12,7 @@ part of 'movies_module_states.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MoviesModuleStates<T,E> implements DiagnosticableTreeMixin {
+mixin _$MoviesModuleStates<T> implements DiagnosticableTreeMixin {
 
 
 
@@ -20,13 +20,13 @@ mixin _$MoviesModuleStates<T,E> implements DiagnosticableTreeMixin {
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T, $E>'))
+    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T>'))
     ;
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MoviesModuleStates<T, E>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MoviesModuleStates<T>);
 }
 
 
@@ -35,20 +35,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MoviesModuleStates<$T, $E>()';
+  return 'MoviesModuleStates<$T>()';
 }
 
 
 }
 
 /// @nodoc
-class $MoviesModuleStatesCopyWith<T,E,$Res>  {
-$MoviesModuleStatesCopyWith(MoviesModuleStates<T, E> _, $Res Function(MoviesModuleStates<T, E>) __);
+class $MoviesModuleStatesCopyWith<T,$Res>  {
+$MoviesModuleStatesCopyWith(MoviesModuleStates<T> _, $Res Function(MoviesModuleStates<T>) __);
 }
 
 
 /// Adds pattern-matching-related methods to [MoviesModuleStates].
-extension MoviesModuleStatesPatterns<T,E> on MoviesModuleStates<T, E> {
+extension MoviesModuleStatesPatterns<T> on MoviesModuleStates<T> {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -61,13 +61,13 @@ extension MoviesModuleStatesPatterns<T,E> on MoviesModuleStates<T, E> {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Idle<T, E> value)?  idle,TResult Function( _Loading<T, E> value)?  loading,TResult Function( _Loaded<T, E> value)?  loaded,TResult Function( _Error<T, E> value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Idle<T> value)?  idle,TResult Function( Loading<T> value)?  loading,TResult Function( Loaded<T> value)?  loaded,TResult Function( Error<T> value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Idle() when idle != null:
-return idle(_that);case _Loading() when loading != null:
-return loading(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _Error() when error != null:
+case Idle() when idle != null:
+return idle(_that);case Loading() when loading != null:
+return loading(_that);case Loaded() when loaded != null:
+return loaded(_that);case Error() when error != null:
 return error(_that);case _:
   return orElse();
 
@@ -86,13 +86,13 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Idle<T, E> value)  idle,required TResult Function( _Loading<T, E> value)  loading,required TResult Function( _Loaded<T, E> value)  loaded,required TResult Function( _Error<T, E> value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Idle<T> value)  idle,required TResult Function( Loading<T> value)  loading,required TResult Function( Loaded<T> value)  loaded,required TResult Function( Error<T> value)  error,}){
 final _that = this;
 switch (_that) {
-case _Idle():
-return idle(_that);case _Loading():
-return loading(_that);case _Loaded():
-return loaded(_that);case _Error():
+case Idle():
+return idle(_that);case Loading():
+return loading(_that);case Loaded():
+return loaded(_that);case Error():
 return error(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -110,13 +110,13 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Idle<T, E> value)?  idle,TResult? Function( _Loading<T, E> value)?  loading,TResult? Function( _Loaded<T, E> value)?  loaded,TResult? Function( _Error<T, E> value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Idle<T> value)?  idle,TResult? Function( Loading<T> value)?  loading,TResult? Function( Loaded<T> value)?  loaded,TResult? Function( Error<T> value)?  error,}){
 final _that = this;
 switch (_that) {
-case _Idle() when idle != null:
-return idle(_that);case _Loading() when loading != null:
-return loading(_that);case _Loaded() when loaded != null:
-return loaded(_that);case _Error() when error != null:
+case Idle() when idle != null:
+return idle(_that);case Loading() when loading != null:
+return loading(_that);case Loaded() when loaded != null:
+return loaded(_that);case Error() when error != null:
 return error(_that);case _:
   return null;
 
@@ -134,12 +134,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function()?  loading,TResult Function( T movies)?  loaded,TResult Function( E message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function()?  loading,TResult Function( T movies)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Idle() when idle != null:
-return idle();case _Loading() when loading != null:
-return loading();case _Loaded() when loaded != null:
-return loaded(_that.movies);case _Error() when error != null:
+case Idle() when idle != null:
+return idle();case Loading() when loading != null:
+return loading();case Loaded() when loaded != null:
+return loaded(_that.movies);case Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -158,12 +158,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function()  loading,required TResult Function( T movies)  loaded,required TResult Function( E message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function()  loading,required TResult Function( T movies)  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
-case _Idle():
-return idle();case _Loading():
-return loading();case _Loaded():
-return loaded(_that.movies);case _Error():
+case Idle():
+return idle();case Loading():
+return loading();case Loaded():
+return loaded(_that.movies);case Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -181,12 +181,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function()?  loading,TResult? Function( T movies)?  loaded,TResult? Function( E message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function()?  loading,TResult? Function( T movies)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
-case _Idle() when idle != null:
-return idle();case _Loading() when loading != null:
-return loading();case _Loaded() when loaded != null:
-return loaded(_that.movies);case _Error() when error != null:
+case Idle() when idle != null:
+return idle();case Loading() when loading != null:
+return loading();case Loaded() when loaded != null:
+return loaded(_that.movies);case Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -198,8 +198,8 @@ return error(_that.message);case _:
 /// @nodoc
 
 
-class _Idle<T,E> with DiagnosticableTreeMixin implements MoviesModuleStates<T, E> {
-  const _Idle();
+class Idle<T> with DiagnosticableTreeMixin implements MoviesModuleStates<T> {
+  const Idle();
   
 
 
@@ -209,13 +209,13 @@ class _Idle<T,E> with DiagnosticableTreeMixin implements MoviesModuleStates<T, E
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T, $E>.idle'))
+    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T>.idle'))
     ;
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Idle<T, E>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Idle<T>);
 }
 
 
@@ -224,7 +224,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MoviesModuleStates<$T, $E>.idle()';
+  return 'MoviesModuleStates<$T>.idle()';
 }
 
 
@@ -236,8 +236,8 @@ String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
 /// @nodoc
 
 
-class _Loading<T,E> with DiagnosticableTreeMixin implements MoviesModuleStates<T, E> {
-  const _Loading();
+class Loading<T> with DiagnosticableTreeMixin implements MoviesModuleStates<T> {
+  const Loading();
   
 
 
@@ -247,13 +247,13 @@ class _Loading<T,E> with DiagnosticableTreeMixin implements MoviesModuleStates<T
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T, $E>.loading'))
+    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T>.loading'))
     ;
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading<T, E>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading<T>);
 }
 
 
@@ -262,7 +262,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MoviesModuleStates<$T, $E>.loading()';
+  return 'MoviesModuleStates<$T>.loading()';
 }
 
 
@@ -274,8 +274,8 @@ String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
 /// @nodoc
 
 
-class _Loaded<T,E> with DiagnosticableTreeMixin implements MoviesModuleStates<T, E> {
-  const _Loaded(this.movies);
+class Loaded<T> with DiagnosticableTreeMixin implements MoviesModuleStates<T> {
+  const Loaded(this.movies);
   
 
  final  T movies;
@@ -284,19 +284,19 @@ class _Loaded<T,E> with DiagnosticableTreeMixin implements MoviesModuleStates<T,
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$LoadedCopyWith<T, E, _Loaded<T, E>> get copyWith => __$LoadedCopyWithImpl<T, E, _Loaded<T, E>>(this, _$identity);
+$LoadedCopyWith<T, Loaded<T>> get copyWith => _$LoadedCopyWithImpl<T, Loaded<T>>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T, $E>.loaded'))
+    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T>.loaded'))
     ..add(DiagnosticsProperty('movies', movies));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded<T, E>&&const DeepCollectionEquality().equals(other.movies, movies));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded<T>&&const DeepCollectionEquality().equals(other.movies, movies));
 }
 
 
@@ -305,15 +305,15 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MoviesModuleStates<$T, $E>.loaded(movies: $movies)';
+  return 'MoviesModuleStates<$T>.loaded(movies: $movies)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$LoadedCopyWith<T,E,$Res> implements $MoviesModuleStatesCopyWith<T, E, $Res> {
-  factory _$LoadedCopyWith(_Loaded<T, E> value, $Res Function(_Loaded<T, E>) _then) = __$LoadedCopyWithImpl;
+abstract mixin class $LoadedCopyWith<T,$Res> implements $MoviesModuleStatesCopyWith<T, $Res> {
+  factory $LoadedCopyWith(Loaded<T> value, $Res Function(Loaded<T>) _then) = _$LoadedCopyWithImpl;
 @useResult
 $Res call({
  T movies
@@ -324,17 +324,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$LoadedCopyWithImpl<T,E,$Res>
-    implements _$LoadedCopyWith<T, E, $Res> {
-  __$LoadedCopyWithImpl(this._self, this._then);
+class _$LoadedCopyWithImpl<T,$Res>
+    implements $LoadedCopyWith<T, $Res> {
+  _$LoadedCopyWithImpl(this._self, this._then);
 
-  final _Loaded<T, E> _self;
-  final $Res Function(_Loaded<T, E>) _then;
+  final Loaded<T> _self;
+  final $Res Function(Loaded<T>) _then;
 
 /// Create a copy of MoviesModuleStates
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? movies = freezed,}) {
-  return _then(_Loaded<T, E>(
+  return _then(Loaded<T>(
 freezed == movies ? _self.movies : movies // ignore: cast_nullable_to_non_nullable
 as T,
   ));
@@ -346,49 +346,49 @@ as T,
 /// @nodoc
 
 
-class _Error<T,E> with DiagnosticableTreeMixin implements MoviesModuleStates<T, E> {
-  const _Error(this.message);
+class Error<T> with DiagnosticableTreeMixin implements MoviesModuleStates<T> {
+  const Error(this.message);
   
 
- final  E message;
+ final  String message;
 
 /// Create a copy of MoviesModuleStates
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ErrorCopyWith<T, E, _Error<T, E>> get copyWith => __$ErrorCopyWithImpl<T, E, _Error<T, E>>(this, _$identity);
+$ErrorCopyWith<T, Error<T>> get copyWith => _$ErrorCopyWithImpl<T, Error<T>>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T, $E>.error'))
+    ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T>.error'))
     ..add(DiagnosticsProperty('message', message));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error<T, E>&&const DeepCollectionEquality().equals(other.message, message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Error<T>&&(identical(other.message, message) || other.message == message));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(message));
+int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MoviesModuleStates<$T, $E>.error(message: $message)';
+  return 'MoviesModuleStates<$T>.error(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<T,E,$Res> implements $MoviesModuleStatesCopyWith<T, E, $Res> {
-  factory _$ErrorCopyWith(_Error<T, E> value, $Res Function(_Error<T, E>) _then) = __$ErrorCopyWithImpl;
+abstract mixin class $ErrorCopyWith<T,$Res> implements $MoviesModuleStatesCopyWith<T, $Res> {
+  factory $ErrorCopyWith(Error<T> value, $Res Function(Error<T>) _then) = _$ErrorCopyWithImpl;
 @useResult
 $Res call({
- E message
+ String message
 });
 
 
@@ -396,19 +396,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$ErrorCopyWithImpl<T,E,$Res>
-    implements _$ErrorCopyWith<T, E, $Res> {
-  __$ErrorCopyWithImpl(this._self, this._then);
+class _$ErrorCopyWithImpl<T,$Res>
+    implements $ErrorCopyWith<T, $Res> {
+  _$ErrorCopyWithImpl(this._self, this._then);
 
-  final _Error<T, E> _self;
-  final $Res Function(_Error<T, E>) _then;
+  final Error<T> _self;
+  final $Res Function(Error<T>) _then;
 
 /// Create a copy of MoviesModuleStates
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? message = freezed,}) {
-  return _then(_Error<T, E>(
-freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as E,
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(Error<T>(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
