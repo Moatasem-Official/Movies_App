@@ -25,8 +25,10 @@ class AppRouter {
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider<MoviesHomeScreenCubit>(
-                create: (_) =>
-                    getIt<MoviesHomeScreenCubit>()..getNowPlayingMovies(),
+                create: (_) => getIt<MoviesHomeScreenCubit>()
+                  ..getNowPlayingMovies()
+                  ..getPopularMovies()
+                  ..getTopRatedMovies(),
               ),
             ],
             child: AppHomeScreen(),
