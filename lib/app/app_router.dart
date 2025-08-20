@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubit/movies_home_screen_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/app_home_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movie_details_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movies_home_screen.dart';
@@ -24,11 +26,16 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider<MoviesHomeScreenCubit>(
-                create: (_) => getIt<MoviesHomeScreenCubit>()
-                  ..getNowPlayingMovies()
-                  ..getPopularMovies()
-                  ..getTopRatedMovies(),
+              BlocProvider<NowPlayingMoviesCubit>(
+                create: (_) =>
+                    getIt<NowPlayingMoviesCubit>()..getNowPlayingMovies(),
+              ),
+              BlocProvider<PopularMoviesCubit>(
+                create: (_) => getIt<PopularMoviesCubit>()..getPopularMovies(),
+              ),
+              BlocProvider<TopRatedMoviesCubit>(
+                create: (_) =>
+                    getIt<TopRatedMoviesCubit>()..getTopRatedMovies(),
               ),
             ],
             child: AppHomeScreen(),

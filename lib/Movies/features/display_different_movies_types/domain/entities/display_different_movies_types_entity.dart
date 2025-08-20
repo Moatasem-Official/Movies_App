@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class DisplayDifferentMoviesTypesEntity extends Equatable {
-  final DatesEntity dates;
+  final DatesEntity? dates;
   final List<ResultEntity> results;
 
   const DisplayDifferentMoviesTypesEntity({

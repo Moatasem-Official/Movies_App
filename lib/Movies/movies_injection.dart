@@ -4,7 +4,11 @@ import 'package:movies_app/Movies/features/display_different_movies_types/data/d
 import 'package:movies_app/Movies/features/display_different_movies_types/data/repository/different_movies_types_data_repo.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/repository/different_movies_types_domain_repo.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_now_playing_movies_use_case.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubit/movies_home_screen_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_popular_movies_use_case.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_top_rated_movies_use_case.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -22,9 +26,24 @@ void setupMoviesInjection() {
   getIt.registerSingleton<GetNowPlayingMoviesUseCase>(
     GetNowPlayingMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
   );
+  getIt.registerSingleton<GetTopRatedMoviesUseCase>(
+    GetTopRatedMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+  );
 
-  getIt.registerFactory<MoviesHomeScreenCubit>(
-    () => MoviesHomeScreenCubit(getIt<GetNowPlayingMoviesUseCase>()),
+  getIt.registerSingleton<GetPopularMoviesUseCase>(
+    GetPopularMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+  );
+
+  getIt.registerFactory<NowPlayingMoviesCubit>(
+    () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
+  );
+
+  getIt.registerFactory<TopRatedMoviesCubit>(
+    () => TopRatedMoviesCubit(getIt<GetTopRatedMoviesUseCase>()),
+  );
+
+  getIt.registerFactory<PopularMoviesCubit>(
+    () => PopularMoviesCubit(getIt<GetPopularMoviesUseCase>()),
   );
 }
 

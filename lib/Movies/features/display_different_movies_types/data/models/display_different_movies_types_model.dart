@@ -9,7 +9,7 @@ part 'display_different_movies_types_model.g.dart';
 class DisplayDifferentMoviesTypesModel
     extends DisplayDifferentMoviesTypesEntity {
   @override
-  final DatesModel dates;
+  final DatesModel? dates;
   @override
   final List<ResultModel> results;
 
