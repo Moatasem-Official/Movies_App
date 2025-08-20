@@ -42,4 +42,15 @@ class DifferentMoviesTypesDataRepo implements DifferentMoviesTypesDomainRepo {
       return Left(FailureMapper.mapExceptionToFailure(exception));
     }
   }
+
+  @override
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+  getUpcomingMovies() async {
+    try {
+      return Right(await remoteDataSource.getUpcomingMovies());
+    } on NetworkException catch (e) {
+      final exception = NetworkException.getDioException(e);
+      return Left(FailureMapper.mapExceptionToFailure(exception));
+    }
+  }
 }

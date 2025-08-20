@@ -8,4 +8,6 @@ abstract class DifferentMoviesTypesDomainRepo {
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getPopularMovies();
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
   getTopRatedMovies();
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+  getUpcomingMovies();
 }

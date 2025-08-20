@@ -18,4 +18,7 @@ abstract class RemoteDataSource {
 
   @GET("movie/top_rated?api_key=${AppConstants.kApiKey}")
   Future<DisplayDifferentMoviesTypesModel> getTopRatedMovies();
+
+  @GET("movie/upcoming?api_key=${AppConstants.kApiKey}")
+  Future<DisplayDifferentMoviesTypesModel> getUpcomingMovies();
 }

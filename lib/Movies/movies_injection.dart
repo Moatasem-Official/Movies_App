@@ -6,9 +6,11 @@ import 'package:movies_app/Movies/features/display_different_movies_types/domain
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_now_playing_movies_use_case.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_popular_movies_use_case.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_top_rated_movies_use_case.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_upcomming_movies_use_case.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -34,6 +36,10 @@ void setupMoviesInjection() {
     GetPopularMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
   );
 
+  getIt.registerSingleton<GetUpcommingMoviesUseCase>(
+    GetUpcommingMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+  );
+
   getIt.registerFactory<NowPlayingMoviesCubit>(
     () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
   );
@@ -44,6 +50,10 @@ void setupMoviesInjection() {
 
   getIt.registerFactory<PopularMoviesCubit>(
     () => PopularMoviesCubit(getIt<GetPopularMoviesUseCase>()),
+  );
+
+  getIt.registerFactory<UpcommingMoviesCubit>(
+    () => UpcommingMoviesCubit(getIt<GetUpcommingMoviesUseCase>()),
   );
 }
 
