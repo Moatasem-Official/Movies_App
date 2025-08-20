@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/movies_home_screen/custom_slider_stack_content.dart';
+import 'package:movies_app/app/app_router.dart';
 import 'package:movies_app/core/error/failure.dart';
 
-class CustomSlider extends StatelessWidget {
-  const CustomSlider({super.key, required this.title});
+class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
+    extends StatelessWidget {
+  const CustomSlider({super.key, required this.title, required this.cubit});
 
   final String title;
+  final C cubit;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<
-      NowPlayingMoviesCubit,
-      MoviesModuleStates<List<ResultEntity>>
-    >(
+    return BlocBuilder<C, MoviesModuleStates<List<ResultEntity>>>(
+      bloc: cubit,
       builder: (context, state) {
         return state.when(
           idle: () {
@@ -36,32 +36,42 @@ class CustomSlider extends StatelessWidget {
               itemCount: movies.length,
               itemBuilder:
                   (BuildContext context, int itemIndex, int pageViewIndex) =>
-                      SizedBox(
-                        width: double.infinity,
-                        height: 400,
-                        child: Stack(
-                          children: [
-                            ShaderMask(
-                              shaderCallback: (rect) {
-                                return const LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [Colors.black, Colors.transparent],
-                                ).createShader(rect);
-                              },
-                              blendMode: BlendMode.dstIn,
-                              child: Image.network(
-                                '$baseUrl${movies[itemIndex].backdropPath}',
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: 400,
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          AppRouter.seeAllElementsListScreen,
+                          arguments: {
+                            "title": "Now Playing Movies",
+                            "cubit": context.read<C>(),
+                          },
+                        ),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 400,
+                          child: Stack(
+                            children: [
+                              ShaderMask(
+                                shaderCallback: (rect) {
+                                  return const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [Colors.black, Colors.transparent],
+                                  ).createShader(rect);
+                                },
+                                blendMode: BlendMode.dstIn,
+                                child: Image.network(
+                                  '$baseUrl${movies[itemIndex].backdropPath}',
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: 400,
+                                ),
                               ),
-                            ),
-                            CustomSliderStackContent(
-                              title: title,
-                              subtitle: movies[itemIndex].title,
-                            ),
-                          ],
+                              CustomSliderStackContent(
+                                title: title,
+                                subtitle: movies[itemIndex].title,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
               options: CarouselOptions(

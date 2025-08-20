@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
@@ -16,7 +17,12 @@ class MoviesHomeScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(child: CustomSlider(title: "NOW PLAYING")),
+          SliverToBoxAdapter(
+            child: CustomSlider(
+              title: "NOW PLAYING",
+              cubit: context.read<NowPlayingMoviesCubit>(),
+            ),
+          ),
           SliverToBoxAdapter(child: const SizedBox(height: 50)),
           SliverToBoxAdapter(
             child: CustomTitleOfListOfElements(
