@@ -9,6 +9,7 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String baseUrl = "https://image.tmdb.org/t/p/w500";
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, AppRouter.movieDetailsScreen),
       child: Container(
@@ -32,7 +33,7 @@ class CustomCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: NetworkImage(resultEntity.backdropPath),
+                  image: NetworkImage('$baseUrl${resultEntity.posterPath}'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -79,7 +80,7 @@ class CustomCard extends StatelessWidget {
                           children: [
                             Icon(Icons.star, size: 18, color: Colors.amber),
                             Text(
-                              resultEntity.voteAverage.toString(),
+                              resultEntity.voteAverage.toStringAsFixed(1),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,

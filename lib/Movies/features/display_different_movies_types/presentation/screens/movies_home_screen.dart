@@ -23,6 +23,10 @@ class MoviesHomeScreen extends StatelessWidget {
               onTap: () => Navigator.pushNamed(
                 context,
                 AppRouter.seeAllElementsListScreen,
+                arguments: {
+                  "title": "Popular Movies",
+                  "cubit": context.read<PopularMoviesCubit>(),
+                },
               ),
             ),
           ),
@@ -36,7 +40,14 @@ class MoviesHomeScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: CustomTitleOfListOfElements(
               title: "Top Rated Movies",
-              onTap: () {},
+              onTap: () => Navigator.pushNamed(
+                context,
+                AppRouter.seeAllElementsListScreen,
+                arguments: {
+                  "title": "Top Rated Movies",
+                  "cubit": context.read<TopRatedMoviesCubit>(),
+                },
+              ),
             ),
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 10)),

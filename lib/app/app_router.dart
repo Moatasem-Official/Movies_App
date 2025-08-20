@@ -7,7 +7,7 @@ import 'package:movies_app/Movies/features/display_different_movies_types/presen
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/app_home_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movie_details_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movies_home_screen.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/see_all_elements_list_screen.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/public_screens/see_all_elements_list_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/splash_screen.dart';
 import 'package:movies_app/Movies/movies_injection.dart';
 
@@ -44,7 +44,13 @@ class AppRouter {
       case moviesHomeScreen:
         return MaterialPageRoute(builder: (_) => MoviesHomeScreen());
       case seeAllElementsListScreen:
-        return MaterialPageRoute(builder: (_) => SeeAllElementsListScreen());
+        final arguments = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => SeeAllElementsListScreen(
+            title: arguments["title"],
+            cubit: arguments["cubit"],
+          ),
+        );
       case movieDetailsScreen:
         return MaterialPageRoute(builder: (_) => MovieDetailsScreen());
       default:
