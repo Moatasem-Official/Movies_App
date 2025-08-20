@@ -128,12 +128,12 @@ class _RemoteDataSource implements RemoteDataSource {
   }
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getMovieDetails(int movieId) async {
+  Future<MovieDetailsModel> getMovieDetails(int movieId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(
+    final _options = _setStreamType<MovieDetailsModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -144,9 +144,9 @@ class _RemoteDataSource implements RemoteDataSource {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late DisplayDifferentMoviesTypesModel _value;
+    late MovieDetailsModel _value;
     try {
-      _value = DisplayDifferentMoviesTypesModel.fromJson(_result.data!);
+      _value = MovieDetailsModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

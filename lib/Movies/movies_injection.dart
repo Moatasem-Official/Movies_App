@@ -3,10 +3,12 @@ import 'package:get_it/get_it.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/data/datasource/remote_data_source.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/data/repository/different_movies_types_data_repo.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/repository/different_movies_types_domain_repo.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movie_Details_Screen/get_movie_details_use_case.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movies_Home_Screen/get_now_playing_movies_use_case.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movies_Home_Screen/get_popular_movies_use_case.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movies_Home_Screen/get_top_rated_movies_use_case.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movies_Home_Screen/get_upcomming_movies_use_case.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/movie_details_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
@@ -40,6 +42,10 @@ void setupMoviesInjection() {
     GetUpcommingMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
   );
 
+  getIt.registerSingleton<GetMovieDetailsUseCase>(
+    GetMovieDetailsUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+  );
+
   getIt.registerFactory<NowPlayingMoviesCubit>(
     () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
   );
@@ -54,6 +60,10 @@ void setupMoviesInjection() {
 
   getIt.registerFactory<UpcommingMoviesCubit>(
     () => UpcommingMoviesCubit(getIt<GetUpcommingMoviesUseCase>()),
+  );
+
+  getIt.registerFactory<MovieDetailsCubit>(
+    () => MovieDetailsCubit(getIt<GetMovieDetailsUseCase>()),
   );
 }
 

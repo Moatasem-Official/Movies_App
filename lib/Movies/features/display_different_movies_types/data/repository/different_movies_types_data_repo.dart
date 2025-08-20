@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/data/datasource/remote_data_source.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/repository/different_movies_types_domain_repo.dart';
 import 'package:movies_app/core/error/exceptions/failure_mapper.dart';
 import 'package:movies_app/core/error/exceptions/network_exception.dart';
@@ -55,7 +56,7 @@ class DifferentMoviesTypesDataRepo implements DifferentMoviesTypesDomainRepo {
   }
 
   @override
-  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getMovieDetails({
+  Future<Either<Failure, MovieDetailsEntity>> getMovieDetails({
     required int movieId,
   }) async {
     try {
