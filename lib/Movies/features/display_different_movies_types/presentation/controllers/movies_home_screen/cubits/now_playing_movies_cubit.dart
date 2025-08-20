@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/get_now_playing_movies_use_case.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movies_Home_Screen/get_now_playing_movies_use_case.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/Movies/movies_injection.dart';
 
