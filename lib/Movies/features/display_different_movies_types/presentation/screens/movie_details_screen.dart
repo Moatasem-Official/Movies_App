@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
+import 'package:movies_app/core/utils/app_helpers.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
-  const MovieDetailsScreen({super.key});
+  const MovieDetailsScreen({super.key, required this.resultEntity});
+
+  final ResultEntity resultEntity;
 
   @override
   Widget build(BuildContext context) {
+    final String baseUrl = "https://image.tmdb.org/t/p/w500";
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -19,8 +24,8 @@ class MovieDetailsScreen extends StatelessWidget {
             pinned: true,
             expandedHeight: 250,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/images/1852.jpg",
+              background: Image.network(
+                '$baseUrl${resultEntity.backdropPath}',
                 fit: BoxFit.cover,
               ),
             ),
@@ -29,8 +34,8 @@ class MovieDetailsScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: const Text(
-                "The Dark Knight Rises",
+              child: Text(
+                resultEntity.title,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -51,8 +56,8 @@ class MovieDetailsScreen extends StatelessWidget {
                     color: Colors.redAccent,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text(
-                    "2022",
+                  child: Text(
+                    resultEntity.releaseDate.split('-')[0],
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 13,
@@ -65,8 +70,8 @@ class MovieDetailsScreen extends StatelessWidget {
                   spacing: 5,
                   children: [
                     Icon(Icons.star, size: 22, color: Colors.amber),
-                    const Text(
-                      "8.4",
+                    Text(
+                      resultEntity.voteAverage.toStringAsFixed(1),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -77,7 +82,9 @@ class MovieDetailsScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 30),
                 Text(
-                  '1h 30m',
+                  AppHelpers.formatDuration(
+                    DateTime.parse(resultEntity.releaseDate),
+                  ),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -91,8 +98,8 @@ class MovieDetailsScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.only(left: 8),
-              child: const Text(
-                "Plot Summary : Gotham City's own detective, Bruce Wayne, is forced to face his greatest challenge yet: a villain who holds the key to the future of Gotham City and the world beyond.",
+              child: Text(
+                resultEntity.overview,
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
@@ -101,8 +108,8 @@ class MovieDetailsScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.only(left: 8),
-              child: const Text(
-                "Genres : Action, Crime, Drama, Thriller",
+              child: Text(
+                "Genres : ${resultEntity.genreIds.join(", ")}",
                 style: TextStyle(color: Colors.blueGrey, fontSize: 16),
               ),
             ),

@@ -11,7 +11,11 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final String baseUrl = "https://image.tmdb.org/t/p/w500";
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, AppRouter.movieDetailsScreen),
+      onTap: () => Navigator.pushNamed(
+        context,
+        AppRouter.movieDetailsScreen,
+        arguments: resultEntity,
+      ),
       child: Container(
         margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
         padding: const EdgeInsets.only(left: 10, right: 10),
