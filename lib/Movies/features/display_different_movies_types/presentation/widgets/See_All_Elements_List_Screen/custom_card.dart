@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/app/app_router.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({super.key});
+  const CustomCard({super.key, required this.resultEntity});
+
+  final ResultEntity resultEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +31,8 @@ class CustomCard extends StatelessWidget {
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/1852.jpg"),
+                image: DecorationImage(
+                  image: NetworkImage(resultEntity.backdropPath),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -41,8 +44,8 @@ class CustomCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "The Dark Knight Rises (2012)",
+                    Text(
+                      resultEntity.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -61,8 +64,8 @@ class CustomCard extends StatelessWidget {
                             color: Colors.redAccent,
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: const Text(
-                            "2022",
+                          child: Text(
+                            resultEntity.releaseDate.split("-")[0],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,
@@ -75,8 +78,8 @@ class CustomCard extends StatelessWidget {
                           spacing: 5,
                           children: [
                             Icon(Icons.star, size: 18, color: Colors.amber),
-                            const Text(
-                              "8.4",
+                            Text(
+                              resultEntity.voteAverage.toString(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -88,8 +91,8 @@ class CustomCard extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 50),
-                    const Text(
-                      "Action, Crime, Drama Thriller | 2h 32min | 2022 | 2h 32min | 2022 | 2h 32min | 2022 | 2h 32min | 2022 | 2h 32min | 2022",
+                    Text(
+                      resultEntity.overview,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
