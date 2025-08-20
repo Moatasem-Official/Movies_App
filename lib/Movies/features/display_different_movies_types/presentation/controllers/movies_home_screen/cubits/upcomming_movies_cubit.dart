@@ -9,7 +9,7 @@ class UpcommingMoviesCubit
   UpcommingMoviesCubit(GetUpcommingMoviesUseCase getUpcommingMoviesUseCase)
     : super(const Idle());
 
-  Future<void> getTopRatedMovies() async {
+  Future<void> getUpcommingMovies() async {
     emit(const Loading());
     final result = await getIt<GetUpcommingMoviesUseCase>().call();
     result.fold(

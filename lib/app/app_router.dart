@@ -5,6 +5,7 @@ import 'package:movies_app/Movies/features/display_different_movies_types/domain
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/app_home_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movie_details_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movies_home_screen.dart';
@@ -37,6 +38,10 @@ class AppRouter {
               BlocProvider<TopRatedMoviesCubit>(
                 create: (_) =>
                     getIt<TopRatedMoviesCubit>()..getTopRatedMovies(),
+              ),
+              BlocProvider<UpcommingMoviesCubit>(
+                create: (_) =>
+                    getIt<UpcommingMoviesCubit>()..getUpcommingMovies(),
               ),
             ],
             child: AppHomeScreen(),
