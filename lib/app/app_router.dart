@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/movie_details_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/similar_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/app_home_screen.dart';
@@ -60,9 +61,17 @@ class AppRouter {
       case movieDetailsScreen:
         final arg = settings.arguments as int;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<MovieDetailsCubit>(
-            create: (context) =>
-                getIt<MovieDetailsCubit>()..getMovieDetails(movieId: arg),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider<MovieDetailsCubit>(
+                create: (_) =>
+                    getIt<MovieDetailsCubit>()..getMovieDetails(movieId: arg),
+              ),
+              BlocProvider<SimilarMoviesCubit>(
+                create: (_) =>
+                    getIt<SimilarMoviesCubit>()..getSimilarMovies(movieId: arg),
+              ),
+            ],
             child: MovieDetailsScreen(),
           ),
         );
