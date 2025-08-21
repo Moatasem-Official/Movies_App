@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/movie_details_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/similar_movies_cubit.dart';
 import 'package:movies_app/core/error/failure.dart';
 import 'package:movies_app/core/utils/app_helpers.dart';
 
@@ -267,31 +269,59 @@ class MovieDetailsScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 10)),
-          SliverToBoxAdapter(
-            child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 0.7,
-              ),
-              itemCount: 12,
-              itemBuilder: (context, index) => Container(
-                width: 120,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/1852.jpg"),
-                    fit: BoxFit.cover,
+          BlocBuilder<
+            SimilarMoviesCubit,
+            MoviesModuleStates<List<ResultEntity>>
+          >(
+            builder: (context, state) {
+              return state.when(
+                idle: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
+                loading: () => SliverToBoxAdapter(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 250,
+                    child: Center(child: CircularProgressIndicator()),
                   ),
                 ),
-              ),
-            ),
+                loaded: (List<ResultEntity> similarMovies) {
+                  final baseUrl = "https://image.tmdb.org/t/p/w500";
+                  return SliverToBoxAdapter(
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      scrollDirection: Axis.vertical,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 0.7,
+                          ),
+                      itemCount: similarMovies.length,
+                      itemBuilder: (context, index) => Container(
+                        width: 120,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              similarMovies[index].posterPath == null
+                                  ? '$baseUrl${similarMovies[index].backdropPath}'
+                                  : '$baseUrl${similarMovies[index].posterPath}',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                error: (Failure failure) => SliverToBoxAdapter(
+                  child: Center(child: Text(failure.message)),
+                ),
+              );
+            },
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 20)),
         ],

@@ -4,8 +4,7 @@ import 'package:movies_app/Movies/features/display_different_movies_types/domain
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/Movies/movies_injection.dart';
 
-class SimilarMoviesCubit
-    extends Cubit<MoviesModuleStates<DisplayDifferentMoviesTypesEntity>> {
+class SimilarMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetSimilarMoviesUseCase getSimilarMoviesUseCase;
   SimilarMoviesCubit(this.getSimilarMoviesUseCase)
     : super(MoviesModuleStates.idle());
@@ -18,7 +17,7 @@ class SimilarMoviesCubit
     emit(
       failureOrSimilarMovies.fold(
         (failure) => Error(failure),
-        (movies) => Loaded(movies),
+        (movies) => Loaded(movies.results),
       ),
     );
   }

@@ -6,7 +6,7 @@ part 'result_model.g.dart';
 class ResultModel extends ResultEntity {
   @override
   @JsonKey(name: 'backdrop_path')
-  final String backdropPath;
+  final String? backdropPath;
   @override
   @JsonKey(name: 'genre_ids')
   final List<int> genreIds;
@@ -24,7 +24,7 @@ class ResultModel extends ResultEntity {
   final double popularity;
   @override
   @JsonKey(name: 'poster_path')
-  final String posterPath;
+  final String? posterPath;
   @override
   @JsonKey(name: 'release_date')
   final String releaseDate;

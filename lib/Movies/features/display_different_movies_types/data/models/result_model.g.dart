@@ -7,7 +7,7 @@ part of 'result_model.dart';
 // **************************************************************************
 
 ResultModel _$ResultModelFromJson(Map<String, dynamic> json) => ResultModel(
-  backdropPath: json['backdrop_path'] as String,
+  backdropPath: json['backdrop_path'] as String?,
   genreIds: (json['genre_ids'] as List<dynamic>)
       .map((e) => (e as num).toInt())
       .toList(),
@@ -16,7 +16,7 @@ ResultModel _$ResultModelFromJson(Map<String, dynamic> json) => ResultModel(
   originalTitle: json['original_title'] as String,
   overview: json['overview'] as String,
   popularity: (json['popularity'] as num).toDouble(),
-  posterPath: json['poster_path'] as String,
+  posterPath: json['poster_path'] as String?,
   releaseDate: json['release_date'] as String,
   title: json['title'] as String,
   voteAverage: (json['vote_average'] as num).toDouble(),
