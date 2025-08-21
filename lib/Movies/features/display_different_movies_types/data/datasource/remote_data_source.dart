@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/data/models/display_different_movies_types_model.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/data/models/movie_details_model.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/data/models/movie_videos_model.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -30,4 +31,7 @@ abstract class RemoteDataSource {
   Future<DisplayDifferentMoviesTypesModel> getSimilarMovies(
     @Path("movie_id") int movieId,
   );
+
+  @GET("movie/{movie_id}/videos?api_key=${AppConstants.kApiKey}")
+  Future<MovieVideosModel> getMovieVideos(@Path("movie_id") int movieId);
 }
