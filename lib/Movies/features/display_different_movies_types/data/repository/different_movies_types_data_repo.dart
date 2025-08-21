@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/data/datasource/remote_data_source.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_details_entity.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_videos_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/repository/different_movies_types_domain_repo.dart';
 import 'package:movies_app/core/error/exceptions/failure_mapper.dart';
 import 'package:movies_app/core/error/exceptions/network_exception.dart';
@@ -73,6 +74,18 @@ class DifferentMoviesTypesDataRepo implements DifferentMoviesTypesDomainRepo {
   }) async {
     try {
       return Right(await remoteDataSource.getSimilarMovies(movieId));
+    } on NetworkException catch (e) {
+      final exception = NetworkException.getDioException(e);
+      return Left(FailureMapper.mapExceptionToFailure(exception));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MovieVideosEntity>> getMovieVideos({
+    required int movieId,
+  }) async {
+    try {
+      return Right(await remoteDataSource.getMovieVideos(movieId));
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);
       return Left(FailureMapper.mapExceptionToFailure(exception));
