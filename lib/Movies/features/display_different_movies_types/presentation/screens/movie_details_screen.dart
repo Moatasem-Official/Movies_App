@@ -85,7 +85,9 @@ class MovieDetailsScreen extends StatelessWidget {
           >(
             cubit: context.read<MovieDetailsCubit>(),
             builder: (data) {
-              return CustomMovieGenresWidget(genres: data.genres.join(", "));
+              return CustomMovieGenresWidget(
+                genres: data.genres.map((e) => e.name).join(", "),
+              );
             },
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 40)),
