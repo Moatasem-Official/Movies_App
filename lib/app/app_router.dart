@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/movie_details_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
@@ -58,9 +58,13 @@ class AppRouter {
           ),
         );
       case movieDetailsScreen:
-        final arg = settings.arguments as ResultEntity;
+        final arg = settings.arguments as int;
         return MaterialPageRoute(
-          builder: (_) => MovieDetailsScreen(resultEntity: arg),
+          builder: (_) => BlocProvider<MovieDetailsCubit>(
+            create: (context) =>
+                getIt<MovieDetailsCubit>()..getMovieDetails(movieId: arg),
+            child: MovieDetailsScreen(),
+          ),
         );
       default:
         return null;

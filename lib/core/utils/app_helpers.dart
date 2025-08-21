@@ -1,20 +1,18 @@
 class AppHelpers {
-  static String formatDuration(DateTime releaseDate) {
-    DateTime now = DateTime.now();
-    Duration diff = releaseDate.difference(now);
-
-    if (diff.isNegative) {
-      return "Released";
+  static String formatRuntime(int? runtimeMinutes) {
+    if (runtimeMinutes == null || runtimeMinutes == 0) {
+      return "Runtime not available";
     }
 
-    int days = diff.inDays;
-    int hours = diff.inHours.remainder(24);
-    int minutes = diff.inMinutes.remainder(60);
+    int hours = runtimeMinutes ~/ 60;
+    int minutes = runtimeMinutes % 60;
 
-    if (days > 0) {
-      return "${days}d ${hours}h";
-    } else {
+    if (hours > 0 && minutes > 0) {
       return "${hours}h ${minutes}m";
+    } else if (hours > 0) {
+      return "${hours}h";
+    } else {
+      return "${minutes}m";
     }
   }
 }

@@ -9,26 +9,63 @@ class MovieDetailsModel extends MovieDetailsEntity {
   @override
   final List<GenresModel> genres;
   @override
+  @JsonKey(name: 'spoken_languages')
   final List<SpokenLanguageModel> spokenLanguages;
+  @override
+  @JsonKey(name: 'backdrop_path')
+  final dynamic backdropPath;
+  @override
+  @JsonKey(name: 'belongs_to_collection')
+  final dynamic belongsToCollection;
+  @override
+  @JsonKey(name: 'imdb_id')
+  final String imdbId;
+  @override
+  @JsonKey(name: 'origin_country')
+  final List<String> originCountry;
+  @override
+  @JsonKey(name: 'original_language')
+  final String originalLanguage;
+  @override
+  @JsonKey(name: 'original_title')
+  final String originalTitle;
+  @override
+  @JsonKey(name: 'poster_path')
+  final String posterPath;
+  @override
+  @JsonKey(name: 'production_companies')
+  final List<dynamic> productionCompanies;
+  @override
+  @JsonKey(name: 'production_countries')
+  final List<dynamic> productionCountries;
+  @override
+  @JsonKey(name: 'release_date')
+  final String releaseDate;
+  @override
+  @JsonKey(name: 'vote_average')
+  final int voteAverage;
+  @override
+  @JsonKey(name: 'vote_count')
+  final int voteCount;
 
   const MovieDetailsModel({
     required super.adult,
-    required super.backdropPath,
-    required super.belongsToCollection,
+    required this.backdropPath,
+    required this.belongsToCollection,
     required super.budget,
     required this.genres,
     required super.homepage,
     required super.id,
-    required super.imdbId,
-    required super.originCountry,
-    required super.originalLanguage,
-    required super.originalTitle,
+    required this.imdbId,
+    required this.originCountry,
+    required this.originalLanguage,
+    required this.originalTitle,
     required super.overview,
     required super.popularity,
-    required super.posterPath,
-    required super.productionCompanies,
-    required super.productionCountries,
-    required super.releaseDate,
+    required this.posterPath,
+    required this.productionCompanies,
+    required this.productionCountries,
+    required this.releaseDate,
     required super.revenue,
     required super.runtime,
     required this.spokenLanguages,
@@ -36,9 +73,24 @@ class MovieDetailsModel extends MovieDetailsEntity {
     required super.tagline,
     required super.title,
     required super.video,
-    required super.voteAverage,
-    required super.voteCount,
-  }) : super(genres: genres, spokenLanguages: spokenLanguages);
+    required this.voteAverage,
+    required this.voteCount,
+  }) : super(
+         genres: genres,
+         spokenLanguages: spokenLanguages,
+         backdropPath: backdropPath,
+         belongsToCollection: belongsToCollection,
+         imdbId: imdbId,
+         originCountry: originCountry,
+         originalLanguage: originalLanguage,
+         originalTitle: originalTitle,
+         posterPath: posterPath,
+         productionCompanies: productionCompanies,
+         productionCountries: productionCountries,
+         releaseDate: releaseDate,
+         voteAverage: voteAverage,
+         voteCount: voteCount,
+       );
 
   factory MovieDetailsModel.fromJson(Map<String, dynamic> json) =>
       _$MovieDetailsModelFromJson(json);

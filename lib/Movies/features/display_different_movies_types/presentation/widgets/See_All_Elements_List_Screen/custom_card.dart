@@ -14,7 +14,7 @@ class CustomCard extends StatelessWidget {
       onTap: () => Navigator.pushNamed(
         context,
         AppRouter.movieDetailsScreen,
-        arguments: resultEntity,
+        arguments: resultEntity.id,
       ),
       child: Container(
         margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
