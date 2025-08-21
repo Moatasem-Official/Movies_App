@@ -328,7 +328,43 @@ class MovieDetailsScreen extends StatelessWidget {
               );
             },
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 20)),
+          SliverToBoxAdapter(child: const SizedBox(height: 40)),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: const Text(
+                "Movie Videos",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(child: const SizedBox(height: 10)),
+          SliverToBoxAdapter(
+            child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              scrollDirection: Axis.vertical,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 0.7,
+              ),
+              itemCount: 9,
+              itemBuilder: (context, index) => Container(
+                width: 120,
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: const AssetImage('assets/images/1852.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
