@@ -119,6 +119,7 @@ class MovieDetailsScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 10)),
           CustomMovieVideosGridViewWidget(),
+          SliverToBoxAdapter(child: const SizedBox(height: 50)),
         ],
       ),
     );
