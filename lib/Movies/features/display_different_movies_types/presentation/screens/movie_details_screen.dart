@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_details_entity.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_videos_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/movie_details_screen/custom_app_bar.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/movie_details_screen/custom_bloc_builder_templete.dart';
@@ -118,7 +120,13 @@ class MovieDetailsScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 10)),
-          CustomMovieVideosGridViewWidget(),
+          CustomMovieDetailsBlocBuilderTemplete<
+            MovieVideosCubti,
+            List<ResultVideoEntity>
+          >(
+            cubit: context.read<MovieVideosCubti>(),
+            builder: (data) => CustomMovieVideosGridViewWidget(videos: data),
+          ),
           SliverToBoxAdapter(child: const SizedBox(height: 50)),
         ],
       ),
