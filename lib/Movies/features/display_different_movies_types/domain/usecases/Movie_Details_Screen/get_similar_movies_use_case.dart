@@ -5,7 +5,7 @@ import 'package:movies_app/core/error/failure.dart';
 
 class GetSimilarMoviesUseCase {
   final DifferentMoviesTypesDomainRepo differentMoviesTypesDomainRepo;
-  GetSimilarMoviesUseCase({required this.differentMoviesTypesDomainRepo});
+  GetSimilarMoviesUseCase(this.differentMoviesTypesDomainRepo);
 
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call({
     required int movieId,
