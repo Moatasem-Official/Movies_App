@@ -305,11 +305,16 @@ class MovieDetailsScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
-                            image: NetworkImage(
-                              similarMovies[index].posterPath == null
-                                  ? '$baseUrl${similarMovies[index].backdropPath}'
-                                  : '$baseUrl${similarMovies[index].posterPath}',
-                            ),
+                            image: (similarMovies[index].posterPath != null)
+                                ? NetworkImage(
+                                    '$baseUrl${similarMovies[index].posterPath}',
+                                  )
+                                : (similarMovies[index].backdropPath != null)
+                                ? NetworkImage(
+                                    '$baseUrl${similarMovies[index].backdropPath}',
+                                  )
+                                : const AssetImage('assets/images/1852.jpg')
+                                      as ImageProvider,
                             fit: BoxFit.cover,
                           ),
                         ),
