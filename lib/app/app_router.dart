@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
@@ -70,6 +71,10 @@ class AppRouter {
               BlocProvider<SimilarMoviesCubit>(
                 create: (_) =>
                     getIt<SimilarMoviesCubit>()..getSimilarMovies(movieId: arg),
+              ),
+              BlocProvider<MovieVideosCubti>(
+                create: (_) =>
+                    getIt<MovieVideosCubti>()..getMovieVideos(movieId: arg),
               ),
             ],
             child: MovieDetailsScreen(),

@@ -7,4 +7,13 @@ class MovieVideosCubti
     extends Cubit<MoviesModuleStates<List<ResultVideoEntity>>> {
   GetMovieVideosUseCase getMovieVideosUseCase;
   MovieVideosCubti(this.getMovieVideosUseCase) : super(const Idle());
+
+  Future<void> getMovieVideos({required int movieId}) async {
+    emit(Loading());
+    final result = await getMovieVideosUseCase.call(movieId: movieId);
+    result.fold(
+      (failure) => emit(Error(failure)),
+      (videos) => emit(Loaded(videos.results)),
+    );
+  }
 }
