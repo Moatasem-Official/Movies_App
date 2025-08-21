@@ -14,4 +14,7 @@ abstract class DifferentMoviesTypesDomainRepo {
   Future<Either<Failure, MovieDetailsEntity>> getMovieDetails({
     required int movieId,
   });
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getSimilarMovies({
+    required int movieId,
+  });
 }
