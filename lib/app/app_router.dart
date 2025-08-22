@@ -12,6 +12,7 @@ import 'package:movies_app/Movies/features/display_different_movies_types/presen
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movie_details_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movies_home_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/public_screens/see_all_elements_list_screen.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/show_and_play_videos_screen.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/splash_screen.dart';
 import 'package:movies_app/Movies/movies_injection.dart';
 
@@ -21,6 +22,7 @@ class AppRouter {
   static const String moviesHomeScreen = '/moviesHomeScreen';
   static const String seeAllElementsListScreen = '/seeAllElementsListScreen';
   static const String movieDetailsScreen = '/movieDetailsScreen';
+  static const String showAndPlayVideosScreen = '/showAndPlayVideosScreen';
 
   static Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -80,6 +82,8 @@ class AppRouter {
             child: MovieDetailsScreen(),
           ),
         );
+      case showAndPlayVideosScreen:
+        return MaterialPageRoute(builder: (_) => ShowAndPlayVideosScreen());
       default:
         return null;
     }
