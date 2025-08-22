@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_videos_entity.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CustomMovieVideosGridViewWidget extends StatelessWidget {
   const CustomMovieVideosGridViewWidget({super.key, required this.videos});
@@ -19,7 +21,7 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Colors.blueGrey,
+                color: Colors.blueGrey.withAlpha(100),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
@@ -59,6 +61,27 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
                           size: 50,
                         ),
                       ),
+                      videos[index].official
+                          ? Positioned(
+                              top: 5,
+                              right: 5,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.green.withAlpha(180),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  MdiIcons.checkBold,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                            )
+                          : const SizedBox.shrink(),
                     ],
                   ),
 
@@ -75,18 +98,132 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.withAlpha(180),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: const Text(
+                            "Type",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.withAlpha(180),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            videos[index].official
+                                ? '${videos[index].type} ( Official )'
+                                : videos[index].type,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.withAlpha(180),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            timeago.format(
+                              parseDate(videos[index].publishedAt)!,
+                            ),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blue.withAlpha(180),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                MdiIcons.youtube,
+                                color: Colors.red,
+                                size: 20,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                videos[index].site,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           );
         },
         options: CarouselOptions(
-          height: 280,
+          height: 350,
           viewportFraction: 1,
           autoPlay: true,
           enableInfiniteScroll: true,
         ),
       ),
     );
+  }
+
+  DateTime? parseDate(String? date) {
+    try {
+      return DateTime.parse(date!);
+    } catch (e) {
+      return null;
+    }
   }
 }
