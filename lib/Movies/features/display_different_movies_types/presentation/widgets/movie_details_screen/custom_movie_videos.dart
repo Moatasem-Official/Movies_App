@@ -21,7 +21,9 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: const AssetImage('assets/images/1852.jpg'),
+                    image: NetworkImage(
+                      'https://img.youtube.com/vi/${videos[index].key}/0.jpg',
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -35,23 +37,6 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
                 ),
                 child: const Center(
                   child: Icon(Icons.play_arrow, color: Colors.white, size: 50),
-                ),
-              ),
-              Positioned(
-                bottom: 10,
-                child: SizedBox(
-                  width: 300,
-                  height: 20,
-                  child: Text(
-                    videos[index].name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
                 ),
               ),
             ],
