@@ -21,10 +21,12 @@ class ShowAndPlayVideosScreen extends StatefulWidget {
 
 class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
   late YoutubePlayerController _controller;
+  late int _selectedIndex;
   @override
   void initState() {
+    _selectedIndex = widget.videoIndex;
     _controller = YoutubePlayerController(
-      initialVideoId: widget.videos[widget.videoIndex].key,
+      initialVideoId: widget.videos[_selectedIndex].key,
       flags: const YoutubePlayerFlags(autoPlay: true, mute: false, loop: true),
     );
     super.initState();
@@ -49,7 +51,7 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
             SliverToBoxAdapter(child: const SizedBox(height: 20)),
             SliverToBoxAdapter(
               child: Text(
-                widget.videos[widget.videoIndex].name,
+                widget.videos[_selectedIndex].name,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -60,9 +62,11 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
             SliverToBoxAdapter(child: const SizedBox(height: 10)),
             CustomVideosListWidget(
               videos: widget.videos,
-              selectedIndex: widget.videoIndex,
+              selectedIndex: _selectedIndex,
               onTap: (index) {
-                setState(() {});
+                setState(() {
+                  _selectedIndex = index;
+                });
                 _controller.load(widget.videos[index].key);
               },
             ),

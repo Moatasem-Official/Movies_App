@@ -25,7 +25,7 @@ class CustomVideoCardWidget extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: isSelected
-              ? Colors.blueGrey.withAlpha(200)
+              ? Colors.blueAccent.withAlpha(100)
               : Colors.blueGrey.withAlpha(100),
           boxShadow: [
             BoxShadow(
@@ -82,21 +82,33 @@ class CustomVideoCardWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 10),
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent.withAlpha(100),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      video.type,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                  Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.blueAccent.withAlpha(100),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          video.type,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
-                    ),
+                      const Spacer(),
+                      isSelected
+                          ? Image.asset(
+                              'assets/animations/Sound Equalizer Bars - Music.gif',
+                              width: 60,
+                              height: 60,
+                            )
+                          : Container(),
+                    ],
                   ),
                 ],
               ),
