@@ -91,7 +91,10 @@ class AppRouter {
           builder: (_) => BlocProvider.value(
             value: getIt<MovieVideosCubti>()
               ..getMovieVideos(movieId: args["id"]),
-            child: ShowAndPlayVideosScreen(videos: args["videos"]),
+            child: ShowAndPlayVideosScreen(
+              videos: args["videos"],
+              videoIndex: args["videoIndex"],
+            ),
           ),
         );
       default:

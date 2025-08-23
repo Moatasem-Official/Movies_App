@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CustomVideoScreenAppBar extends StatelessWidget {
-  const CustomVideoScreenAppBar({super.key});
+  const CustomVideoScreenAppBar({super.key, required this.controller});
+
+  final YoutubePlayerController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +14,18 @@ class CustomVideoScreenAppBar extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(12)),
-            image: DecorationImage(
-              image: AssetImage('assets/images/1852.jpg'),
-              fit: BoxFit.cover,
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            child: YoutubePlayer(
+              controller: controller,
+              showVideoProgressIndicator: true,
+              progressIndicatorColor: Colors.white,
+              progressColors: const ProgressBarColors(
+                playedColor: Colors.white,
+                handleColor: Colors.white,
+              ),
+              aspectRatio: 16 / 9,
             ),
           ),
         ),

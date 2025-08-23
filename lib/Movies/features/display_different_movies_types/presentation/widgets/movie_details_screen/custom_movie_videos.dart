@@ -29,7 +29,11 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
               onTap: () => Navigator.pushNamed(
                 context,
                 AppRouter.showAndPlayVideosScreen,
-                arguments: {"videos": videos, "id": movie.id},
+                arguments: {
+                  "videos": videos,
+                  "id": movie.id,
+                  "videoIndex": index,
+                },
               ),
               child: Container(
                 width: double.infinity,
@@ -164,64 +168,66 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
                       ],
                     ),
 
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.withAlpha(180),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              timeago.format(
-                                AppHelpers.parseDate(
-                                  videos[index].publishedAt,
-                                )!,
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
                               ),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
+                              decoration: BoxDecoration(
+                                color: Colors.blue.withAlpha(180),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                timeago.format(
+                                  AppHelpers.parseDate(
+                                    videos[index].publishedAt,
+                                  )!,
+                                ),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.blue.withAlpha(180),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  MdiIcons.youtube,
-                                  color: Colors.red,
-                                  size: 20,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  videos[index].site,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.blue.withAlpha(180),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    MdiIcons.youtube,
+                                    color: Colors.red,
+                                    size: 20,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    videos[index].site,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
