@@ -4,10 +4,10 @@ import 'package:movies_app/Movies/features/home/domain/repository/different_movi
 import 'package:movies_app/core/error/failure.dart';
 
 class GetSimilarMoviesUseCase {
-  final DifferentMoviesTypesDomainRepo differentMoviesTypesDomainRepo;
-  GetSimilarMoviesUseCase(this.differentMoviesTypesDomainRepo);
+  final HomeFeatureDomainRepo homeFeatureDomainRepo;
+  GetSimilarMoviesUseCase(this.homeFeatureDomainRepo);
 
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call({
     required int movieId,
-  }) => differentMoviesTypesDomainRepo.getSimilarMovies(movieId: movieId);
+  }) => homeFeatureDomainRepo.getSimilarMovies(movieId: movieId);
 }

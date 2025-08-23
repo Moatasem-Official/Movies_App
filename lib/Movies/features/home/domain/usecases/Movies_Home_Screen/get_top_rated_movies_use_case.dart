@@ -4,8 +4,8 @@ import 'package:movies_app/Movies/features/home/domain/repository/different_movi
 import 'package:movies_app/core/error/failure.dart';
 
 class GetTopRatedMoviesUseCase {
-  final DifferentMoviesTypesDomainRepo differentMoviesTypesDomainRepo;
-  GetTopRatedMoviesUseCase(this.differentMoviesTypesDomainRepo);
+  final HomeFeatureDomainRepo homeFeatureDomainRepo;
+  GetTopRatedMoviesUseCase(this.homeFeatureDomainRepo);
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call() =>
-      differentMoviesTypesDomainRepo.getTopRatedMovies();
+      homeFeatureDomainRepo.getTopRatedMovies();
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/app/app_router.dart';
+import 'package:movies_app/core/utils/app_constants.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({super.key, required this.resultEntity});
@@ -9,7 +10,6 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String baseUrl = "https://image.tmdb.org/t/p/w500";
     return GestureDetector(
       onTap: () => Navigator.pushNamed(
         context,
@@ -37,7 +37,9 @@ class CustomCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: NetworkImage('$baseUrl${resultEntity.posterPath}'),
+                  image: NetworkImage(
+                    '${AppConstants.imagePathUrl}${resultEntity.posterPath}',
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),

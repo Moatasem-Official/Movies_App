@@ -4,6 +4,7 @@ import 'package:movies_app/core/entities/display_different_movies_types_entity.d
 import 'package:movies_app/core/cubit/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/app/app_router.dart';
 import 'package:movies_app/core/error/failure.dart';
+import 'package:movies_app/core/utils/app_constants.dart';
 
 class CustomHorizontalListView<
   C extends Cubit<MoviesModuleStates<List<ResultEntity>>>
@@ -33,9 +34,8 @@ class CustomHorizontalListView<
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 7,
+                itemCount: movies.length,
                 itemBuilder: (context, index) {
-                  final String baseUrl = "https://image.tmdb.org/t/p/w500";
                   return GestureDetector(
                     onTap: () => Navigator.pushNamed(
                       context,
@@ -55,7 +55,7 @@ class CustomHorizontalListView<
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                             image: NetworkImage(
-                              '$baseUrl${movies[index].posterPath}',
+                              '${AppConstants.imagePathUrl}${movies[index].posterPath}',
                             ),
                             fit: BoxFit.cover,
                           ),

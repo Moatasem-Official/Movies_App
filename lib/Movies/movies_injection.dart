@@ -29,35 +29,33 @@ void setupMoviesInjection() {
   getIt.registerSingleton(HomeRemoteDataSource(getDioInfo()));
   getIt.registerSingleton(SeeAllRemoteDataSource(getDioInfo()));
 
-  getIt.registerSingleton<DifferentMoviesTypesDataRepo>(
-    DifferentMoviesTypesDataRepo(getIt<HomeRemoteDataSource>()),
+  getIt.registerSingleton<HomeFeatureDataRepo>(
+    HomeFeatureDataRepo(getIt<HomeRemoteDataSource>()),
   );
 
   getIt.registerSingleton<SeeAllFeatureDataRepo>(
     SeeAllFeatureDataRepo(getIt<SeeAllRemoteDataSource>()),
   );
 
-  getIt.registerSingleton<DifferentMoviesTypesDomainRepo>(
-    getIt<DifferentMoviesTypesDataRepo>(),
-  );
+  getIt.registerSingleton<HomeFeatureDomainRepo>(getIt<HomeFeatureDataRepo>());
 
   getIt.registerSingleton<SeeAllFeatureDomainRepo>(
     getIt<SeeAllFeatureDataRepo>(),
   );
 
   getIt.registerSingleton<GetNowPlayingMoviesUseCase>(
-    GetNowPlayingMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+    GetNowPlayingMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
   );
   getIt.registerSingleton<GetTopRatedMoviesUseCase>(
-    GetTopRatedMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+    GetTopRatedMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
   );
 
   getIt.registerSingleton<GetPopularMoviesUseCase>(
-    GetPopularMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+    GetPopularMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
   );
 
   getIt.registerSingleton<GetUpcommingMoviesUseCase>(
-    GetUpcommingMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+    GetUpcommingMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
   );
 
   getIt.registerSingleton<GetSeeAllMoviesUseCase>(
@@ -67,15 +65,15 @@ void setupMoviesInjection() {
   );
 
   getIt.registerSingleton<GetMovieDetailsUseCase>(
-    GetMovieDetailsUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+    GetMovieDetailsUseCase(getIt<HomeFeatureDomainRepo>()),
   );
 
   getIt.registerSingleton<GetSimilarMoviesUseCase>(
-    GetSimilarMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+    GetSimilarMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
   );
 
   getIt.registerSingleton<GetMovieVideosUseCase>(
-    GetMovieVideosUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+    GetMovieVideosUseCase(getIt<HomeFeatureDomainRepo>()),
   );
 
   getIt.registerFactory<NowPlayingMoviesCubit>(

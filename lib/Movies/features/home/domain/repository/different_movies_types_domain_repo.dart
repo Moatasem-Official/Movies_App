@@ -4,7 +4,7 @@ import 'package:movies_app/Movies/features/home/domain/entities/movie_details_en
 import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
 import 'package:movies_app/core/error/failure.dart';
 
-abstract class DifferentMoviesTypesDomainRepo {
+abstract class HomeFeatureDomainRepo {
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
   getNowPlayingMovies();
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getPopularMovies();

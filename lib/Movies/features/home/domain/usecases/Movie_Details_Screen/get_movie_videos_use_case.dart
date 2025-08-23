@@ -4,9 +4,9 @@ import 'package:movies_app/Movies/features/home/domain/repository/different_movi
 import 'package:movies_app/core/error/failure.dart';
 
 class GetMovieVideosUseCase {
-  GetMovieVideosUseCase(this.differentMoviesTypesDomainRepo);
-  final DifferentMoviesTypesDomainRepo differentMoviesTypesDomainRepo;
+  GetMovieVideosUseCase(this.homeFeatureDomainRepo);
+  final HomeFeatureDomainRepo homeFeatureDomainRepo;
 
   Future<Either<Failure, MovieVideosEntity>> call({required int movieId}) =>
-      differentMoviesTypesDomainRepo.getMovieVideos(movieId: movieId);
+      homeFeatureDomainRepo.getMovieVideos(movieId: movieId);
 }

@@ -8,9 +8,9 @@ import 'package:movies_app/core/error/exceptions/failure_mapper.dart';
 import 'package:movies_app/core/error/exceptions/network_exception.dart';
 import 'package:movies_app/core/error/failure.dart';
 
-class DifferentMoviesTypesDataRepo implements DifferentMoviesTypesDomainRepo {
+class HomeFeatureDataRepo implements HomeFeatureDomainRepo {
   final HomeRemoteDataSource homeRemoteDataSource;
-  DifferentMoviesTypesDataRepo(this.homeRemoteDataSource);
+  HomeFeatureDataRepo(this.homeRemoteDataSource);
 
   @override
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
