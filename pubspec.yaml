@@ -30,6 +30,7 @@ dependencies:
   responsive_navigation_bar: ^5.0.2
   retrofit: ^4.7.1
   retrofit_generator: ^10.0.2
+  skeletonizer: ^2.1.0+1
   timeago: ^3.7.1
   url_launcher: ^6.3.2
   youtube_player_flutter: ^9.1.2

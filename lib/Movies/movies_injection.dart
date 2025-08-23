@@ -1,34 +1,48 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/data/datasource/remote_data_source.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/data/repository/different_movies_types_data_repo.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/repository/different_movies_types_domain_repo.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movie_Details_Screen/get_movie_details_use_case.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movie_Details_Screen/get_movie_videos_use_case.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movie_Details_Screen/get_similar_movies_use_case.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movies_Home_Screen/get_now_playing_movies_use_case.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movies_Home_Screen/get_popular_movies_use_case.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movies_Home_Screen/get_top_rated_movies_use_case.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/domain/usecases/Movies_Home_Screen/get_upcomming_movies_use_case.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/data/datasource/home_remote_data_source.dart';
+import 'package:movies_app/Movies/features/home/data/repository/different_movies_types_data_repo.dart';
+import 'package:movies_app/Movies/features/home/domain/repository/different_movies_types_domain_repo.dart';
+import 'package:movies_app/Movies/features/home/domain/usecases/Movie_Details_Screen/get_movie_details_use_case.dart';
+import 'package:movies_app/Movies/features/home/domain/usecases/Movie_Details_Screen/get_movie_videos_use_case.dart';
+import 'package:movies_app/Movies/features/home/domain/usecases/Movie_Details_Screen/get_similar_movies_use_case.dart';
+import 'package:movies_app/Movies/features/home/domain/usecases/Movies_Home_Screen/get_now_playing_movies_use_case.dart';
+import 'package:movies_app/Movies/features/home/domain/usecases/Movies_Home_Screen/get_popular_movies_use_case.dart';
+import 'package:movies_app/Movies/features/home/domain/usecases/Movies_Home_Screen/get_top_rated_movies_use_case.dart';
+import 'package:movies_app/Movies/features/home/domain/usecases/Movies_Home_Screen/get_upcomming_movies_use_case.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
+import 'package:movies_app/Movies/features/see_all_movies/data/datasource/see_all_remote_data_source.dart';
+import 'package:movies_app/Movies/features/see_all_movies/data/repository/see_all_feature_data_repo.dart';
+import 'package:movies_app/Movies/features/see_all_movies/domain/repository/see_all_feature_domain_repo.dart';
+import 'package:movies_app/Movies/features/see_all_movies/domain/usecase/get_see_all_movies_use_case.dart';
+import 'package:movies_app/Movies/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
 void setupMoviesInjection() {
-  getIt.registerSingleton(RemoteDataSource(getDioInfo()));
+  getIt.registerSingleton(HomeRemoteDataSource(getDioInfo()));
+  getIt.registerSingleton(SeeAllRemoteDataSource(getDioInfo()));
 
   getIt.registerSingleton<DifferentMoviesTypesDataRepo>(
-    DifferentMoviesTypesDataRepo(getIt<RemoteDataSource>()),
+    DifferentMoviesTypesDataRepo(getIt<HomeRemoteDataSource>()),
+  );
+
+  getIt.registerSingleton<SeeAllFeatureDataRepo>(
+    SeeAllFeatureDataRepo(getIt<SeeAllRemoteDataSource>()),
   );
 
   getIt.registerSingleton<DifferentMoviesTypesDomainRepo>(
     getIt<DifferentMoviesTypesDataRepo>(),
+  );
+
+  getIt.registerSingleton<SeeAllFeatureDomainRepo>(
+    getIt<SeeAllFeatureDataRepo>(),
   );
 
   getIt.registerSingleton<GetNowPlayingMoviesUseCase>(
@@ -44,6 +58,12 @@ void setupMoviesInjection() {
 
   getIt.registerSingleton<GetUpcommingMoviesUseCase>(
     GetUpcommingMoviesUseCase(getIt<DifferentMoviesTypesDomainRepo>()),
+  );
+
+  getIt.registerSingleton<GetSeeAllMoviesUseCase>(
+    GetSeeAllMoviesUseCase(
+      seeAllFeatureDomainRepo: getIt<SeeAllFeatureDomainRepo>(),
+    ),
   );
 
   getIt.registerSingleton<GetMovieDetailsUseCase>(
@@ -72,6 +92,10 @@ void setupMoviesInjection() {
 
   getIt.registerFactory<UpcommingMoviesCubit>(
     () => UpcommingMoviesCubit(getIt<GetUpcommingMoviesUseCase>()),
+  );
+
+  getIt.registerFactory<SeeAllMoviesCubit>(
+    () => SeeAllMoviesCubit(getIt<GetSeeAllMoviesUseCase>()),
   );
 
   getIt.registerFactory<MovieDetailsCubit>(

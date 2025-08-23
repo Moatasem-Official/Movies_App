@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/app_home_screen.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movie_details_screen.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/movies_home_screen.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/public_screens/see_all_elements_list_screen.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/show_and_play_videos_screen.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/screens/splash_screen.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
+import 'package:movies_app/Movies/features/home/presentation/screens/app_home_screen.dart';
+import 'package:movies_app/Movies/features/home/presentation/screens/movie_details_screen.dart';
+import 'package:movies_app/Movies/features/home/presentation/screens/movies_home_screen.dart';
+import 'package:movies_app/Movies/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
+import 'package:movies_app/Movies/features/see_all_movies/presentation/screen/see_all_elements_list_screen.dart';
+import 'package:movies_app/Movies/features/home/presentation/screens/show_and_play_videos_screen.dart';
+import 'package:movies_app/Movies/features/home/presentation/screens/splash_screen.dart';
 import 'package:movies_app/Movies/movies_injection.dart';
 
 class AppRouter {
@@ -56,9 +57,11 @@ class AppRouter {
       case seeAllElementsListScreen:
         final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => SeeAllElementsListScreen(
-            title: arguments["title"],
-            cubit: arguments["cubit"],
+          builder: (_) => BlocProvider<SeeAllMoviesCubit>(
+            create: (context) =>
+                getIt<SeeAllMoviesCubit>()
+                  ..getSeeAllMovies(arguments["movie_type"], 1),
+            child: SeeAllElementsListScreen(title: arguments["title"]),
           ),
         );
       case movieDetailsScreen:
