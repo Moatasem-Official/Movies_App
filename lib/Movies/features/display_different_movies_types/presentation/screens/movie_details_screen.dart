@@ -10,7 +10,7 @@ import 'package:movies_app/Movies/features/display_different_movies_types/presen
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/movie_details_screen/custom_bloc_builder_templete.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/movie_details_screen/custom_genres.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/movie_details_screen/custom_movie_more_like_this.dart';
-import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/movie_details_screen/custom_movie_videos.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/movie_videos_slider/custom_movie_videos_slider.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/movie_details_screen/custom_row_details.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 
@@ -130,7 +130,7 @@ class MovieDetailsScreen extends StatelessWidget {
           >(
             cubit: context.read<MovieVideosCubti>(),
             builder: (data) =>
-                CustomMovieVideosGridViewWidget(videos: data, movie: movie),
+                CustomMovieVideosSlider(videos: data, movie: movie),
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 50)),
         ],
