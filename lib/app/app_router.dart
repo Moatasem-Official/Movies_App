@@ -15,7 +15,7 @@ import 'package:movies_app/Movies/features/see_all_movies/presentation/controlle
 import 'package:movies_app/Movies/features/see_all_movies/presentation/screen/see_all_elements_list_screen.dart';
 import 'package:movies_app/Movies/features/home/presentation/screens/show_and_play_videos_screen.dart';
 import 'package:movies_app/Movies/features/home/presentation/screens/splash_screen.dart';
-import 'package:movies_app/Movies/movies_injection.dart';
+import 'package:movies_app/Movies/service_locator.dart';
 
 class AppRouter {
   static const String splashScreen = '/';

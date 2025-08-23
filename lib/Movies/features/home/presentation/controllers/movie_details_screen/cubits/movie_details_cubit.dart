@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/features/home/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/Movies/features/home/domain/usecases/Movie_Details_Screen/get_movie_details_use_case.dart';
 import 'package:movies_app/core/cubit/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/Movies/movies_injection.dart';
+import 'package:movies_app/Movies/service_locator.dart';
 
 class MovieDetailsCubit extends Cubit<MoviesModuleStates<MovieDetailsEntity>> {
   MovieDetailsCubit(GetMovieDetailsUseCase getMovieDetailsUseCase)
