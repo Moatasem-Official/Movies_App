@@ -15,7 +15,9 @@ import 'package:movies_app/Movies/features/display_different_movies_types/presen
 import 'package:movies_app/core/utils/app_constants.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
-  const MovieDetailsScreen({super.key});
+  const MovieDetailsScreen({super.key, required this.movie});
+
+  final ResultEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +129,8 @@ class MovieDetailsScreen extends StatelessWidget {
             List<ResultVideoEntity>
           >(
             cubit: context.read<MovieVideosCubti>(),
-            builder: (data) => CustomMovieVideosGridViewWidget(videos: data),
+            builder: (data) =>
+                CustomMovieVideosGridViewWidget(videos: data, movie: movie),
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 50)),
         ],

@@ -15,4 +15,12 @@ class AppHelpers {
       return "${minutes}m";
     }
   }
+
+  static DateTime? parseDate(String? date) {
+    try {
+      return DateTime.parse(date!);
+    } catch (e) {
+      return null;
+    }
+  }
 }

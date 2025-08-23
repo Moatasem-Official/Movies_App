@@ -1,14 +1,21 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_videos_entity.dart';
 import 'package:movies_app/app/app_router.dart';
+import 'package:movies_app/core/utils/app_helpers.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CustomMovieVideosGridViewWidget extends StatelessWidget {
-  const CustomMovieVideosGridViewWidget({super.key, required this.videos});
+  const CustomMovieVideosGridViewWidget({
+    super.key,
+    required this.videos,
+    required this.movie,
+  });
 
   final List<ResultVideoEntity> videos;
+  final ResultEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +29,7 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
               onTap: () => Navigator.pushNamed(
                 context,
                 AppRouter.showAndPlayVideosScreen,
+                arguments: {"videos": videos, "id": movie.id},
               ),
               child: Container(
                 width: double.infinity,
@@ -171,7 +179,9 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
                             ),
                             child: Text(
                               timeago.format(
-                                parseDate(videos[index].publishedAt)!,
+                                AppHelpers.parseDate(
+                                  videos[index].publishedAt,
+                                )!,
                               ),
                               style: const TextStyle(
                                 color: Colors.white,
@@ -227,13 +237,5 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  DateTime? parseDate(String? date) {
-    try {
-      return DateTime.parse(date!);
-    } catch (e) {
-      return null;
-    }
   }
 }

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_videos_entity.dart';
+import 'package:movies_app/core/utils/app_helpers.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CustomVideoCardWidget extends StatelessWidget {
   const CustomVideoCardWidget({
     super.key,
     required this.isSelected,
     required this.onTap,
+    required this.video,
   });
 
   final bool isSelected;
   final VoidCallback onTap;
+  final ResultVideoEntity video;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +43,10 @@ class CustomVideoCardWidget extends StatelessWidget {
               height: 160,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/1852.jpg'),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'https://img.youtube.com/vi/${video.key}/0.jpg',
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -49,8 +56,8 @@ class CustomVideoCardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Movie Name Here",
+                  Text(
+                    video.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -67,7 +74,7 @@ class CustomVideoCardWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Text(
-                      '2 days ago',
+                      timeago.format(AppHelpers.parseDate(video.publishedAt)!),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -83,7 +90,7 @@ class CustomVideoCardWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Text(
-                      'Trailer',
+                      video.type,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

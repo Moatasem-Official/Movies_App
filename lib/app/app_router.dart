@@ -62,28 +62,38 @@ class AppRouter {
           ),
         );
       case movieDetailsScreen:
-        final arg = settings.arguments as int;
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider<MovieDetailsCubit>(
                 create: (_) =>
-                    getIt<MovieDetailsCubit>()..getMovieDetails(movieId: arg),
+                    getIt<MovieDetailsCubit>()
+                      ..getMovieDetails(movieId: args["id"]),
               ),
               BlocProvider<SimilarMoviesCubit>(
                 create: (_) =>
-                    getIt<SimilarMoviesCubit>()..getSimilarMovies(movieId: arg),
+                    getIt<SimilarMoviesCubit>()
+                      ..getSimilarMovies(movieId: args["id"]),
               ),
               BlocProvider<MovieVideosCubti>(
                 create: (_) =>
-                    getIt<MovieVideosCubti>()..getMovieVideos(movieId: arg),
+                    getIt<MovieVideosCubti>()
+                      ..getMovieVideos(movieId: args["id"]),
               ),
             ],
-            child: MovieDetailsScreen(),
+            child: MovieDetailsScreen(movie: args["resultEntity"]),
           ),
         );
       case showAndPlayVideosScreen:
-        return MaterialPageRoute(builder: (_) => ShowAndPlayVideosScreen());
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<MovieVideosCubti>()
+              ..getMovieVideos(movieId: args["id"]),
+            child: ShowAndPlayVideosScreen(videos: args["videos"]),
+          ),
+        );
       default:
         return null;
     }
