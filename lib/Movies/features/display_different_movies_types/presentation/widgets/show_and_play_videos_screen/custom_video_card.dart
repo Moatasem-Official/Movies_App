@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/Movies/features/display_different_movies_types/domain/entities/movie_videos_entity.dart';
 import 'package:movies_app/core/utils/app_helpers.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'dart:ui';
+
+import 'package:timeago/timeago.dart' as timeago; // For ImageFilter.blur
 
 class CustomVideoCardWidget extends StatelessWidget {
   const CustomVideoCardWidget({
@@ -18,104 +20,144 @@ class CustomVideoCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(),
-      child: Container(
-        height: 160,
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: isSelected
-              ? Colors.blueAccent.withAlpha(100)
-              : Colors.blueGrey.withAlpha(100),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 6,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(10),
-              width: 120,
-              height: 160,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    'https://img.youtube.com/vi/${video.key}/0.jpg',
-                  ),
-                  fit: BoxFit.cover,
+      onTap: onTap,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: 140,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? Colors.deepPurple.withOpacity(0.3)
+                  : Colors.black.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(15.0),
+              border: Border.all(
+                color: isSelected
+                    ? Colors.deepPurple.withOpacity(0.6)
+                    : Colors.white.withOpacity(0.2),
+                width: 1.5,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
                 ),
+              ],
+            ),
+            child: Row(
+              children: [
+                // Video Thumbnail
+                buildThumbnail(),
+                // Video Details
+                buildVideoDetails(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildThumbnail() {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      width: 120,
+      height: 120,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Image.network(
+              'https://img.youtube.com/vi/${video.key}/0.jpg',
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
+          // Gradient Overlay
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              gradient: LinearGradient(
+                colors: [Colors.black.withOpacity(0.5), Colors.transparent],
+                begin: Alignment.center,
+                end: Alignment.topCenter,
               ),
             ),
+          ),
+          // Play Icon
+          Icon(
+            Icons.play_circle_fill,
+            color: Colors.white.withOpacity(0.8),
+            size: 40,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildVideoDetails() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 5.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              video.name,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                shadows: [Shadow(blurRadius: 2.0, color: Colors.black54)],
+              ),
+            ),
+            const Spacer(),
+            buildInfoRow(Icons.movie_creation_outlined, video.type),
+            const SizedBox(height: 8),
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    video.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  buildInfoRow(
+                    Icons.calendar_today_outlined,
+                    timeago.format(AppHelpers.parseDate(video.publishedAt)!),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 10),
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent.withAlpha(100),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      timeago.format(AppHelpers.parseDate(video.publishedAt)!),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(right: 10),
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Colors.blueAccent.withAlpha(100),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text(
-                          video.type,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      isSelected
-                          ? Image.asset(
-                              'assets/animations/Sound Equalizer Bars - Music.gif',
-                              width: 60,
-                              height: 60,
-                            )
-                          : Container(),
-                    ],
-                  ),
+                  if (isSelected) buildPlayingIndicator(),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildInfoRow(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.white70, size: 16),
+        const SizedBox(width: 8),
+        Text(text, style: const TextStyle(color: Colors.white70, fontSize: 13)),
+      ],
+    );
+  }
+
+  Widget buildPlayingIndicator() {
+    return Image.asset(
+      'assets/animations/Sound Equalizer Bars - Music.gif',
+      width: 60,
+      height: 60,
+      fit: BoxFit.cover,
     );
   }
 }
