@@ -232,8 +232,8 @@ class CustomMovieVideosGridViewWidget extends StatelessWidget {
         options: CarouselOptions(
           height: 350,
           viewportFraction: 1,
-          autoPlay: true,
-          enableInfiniteScroll: true,
+          autoPlay: videos.length > 1 ? true : false,
+          enableInfiniteScroll: videos.length > 1 ? true : false,
         ),
       ),
     );
