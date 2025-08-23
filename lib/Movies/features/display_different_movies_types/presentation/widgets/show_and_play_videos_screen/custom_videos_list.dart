@@ -7,17 +7,18 @@ import 'package:movies_app/Movies/features/display_different_movies_types/presen
 import 'package:movies_app/Movies/features/display_different_movies_types/presentation/widgets/show_and_play_videos_screen/custom_video_card.dart';
 import 'package:movies_app/core/error/failure.dart';
 
-class CustomVideosListWidget extends StatefulWidget {
-  const CustomVideosListWidget({super.key, required this.videos});
+class CustomVideosListWidget extends StatelessWidget {
+  const CustomVideosListWidget({
+    super.key,
+    required this.videos,
+    required this.selectedIndex,
+    required this.onTap,
+  });
 
   final List<ResultVideoEntity> videos;
+  final int selectedIndex;
+  final ValueChanged<int> onTap;
 
-  @override
-  State<CustomVideosListWidget> createState() => _CustomVideosListWidgetState();
-}
-
-class _CustomVideosListWidgetState extends State<CustomVideosListWidget> {
-  int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<
@@ -33,11 +34,7 @@ class _CustomVideosListWidgetState extends State<CustomVideosListWidget> {
               delegate: SliverChildBuilderDelegate((context, index) {
                 return CustomVideoCardWidget(
                   isSelected: index == selectedIndex,
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
+                  onTap: () => onTap(index),
                   video: videos[index],
                 );
               }, childCount: videos.length),

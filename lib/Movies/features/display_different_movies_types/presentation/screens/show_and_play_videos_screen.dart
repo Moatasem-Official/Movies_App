@@ -58,7 +58,14 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
               ),
             ),
             SliverToBoxAdapter(child: const SizedBox(height: 10)),
-            CustomVideosListWidget(videos: widget.videos),
+            CustomVideosListWidget(
+              videos: widget.videos,
+              selectedIndex: widget.videoIndex,
+              onTap: (index) {
+                setState(() {});
+                _controller.load(widget.videos[index].key);
+              },
+            ),
             SliverToBoxAdapter(child: const SizedBox(height: 25)),
           ],
         ),
