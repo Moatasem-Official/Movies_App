@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
-import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
@@ -79,9 +79,9 @@ class AppRouter {
                     getIt<SimilarMoviesCubit>()
                       ..getSimilarMovies(movieId: args["id"]),
               ),
-              BlocProvider<MovieVideosCubti>(
+              BlocProvider<MovieVideosCubit>(
                 create: (_) =>
-                    getIt<MovieVideosCubti>()
+                    getIt<MovieVideosCubit>()
                       ..getMovieVideos(movieId: args["id"]),
               ),
             ],
@@ -91,9 +91,9 @@ class AppRouter {
       case showAndPlayVideosScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: getIt<MovieVideosCubti>()
-              ..getMovieVideos(movieId: args["id"]),
+          builder: (_) => BlocProvider<MovieVideosCubit>(
+            create: (_) =>
+                getIt<MovieVideosCubit>()..getMovieVideos(movieId: args["id"]),
             child: ShowAndPlayVideosScreen(
               videos: args["videos"],
               videoIndex: args["videoIndex"],

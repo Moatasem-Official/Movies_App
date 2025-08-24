@@ -4,7 +4,7 @@ import 'package:movies_app/core/entities/display_different_movies_types_entity.d
 import 'package:movies_app/Movies/features/home/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
-import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
 import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_app_bar.dart';
 import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_bloc_builder_templete.dart';
@@ -125,10 +125,10 @@ class MovieDetailsScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 10)),
           CustomMovieDetailsBlocBuilderTemplete<
-            MovieVideosCubti,
+            MovieVideosCubit,
             List<ResultVideoEntity>
           >(
-            cubit: context.read<MovieVideosCubti>(),
+            cubit: context.read<MovieVideosCubit>(),
             builder: (data) =>
                 CustomMovieVideosSlider(videos: data, movie: movie),
           ),

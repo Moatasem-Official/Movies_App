@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
 import 'package:movies_app/Movies/features/home/presentation/widgets/show_and_play_videos_screen/custom_video_card.dart';
 import 'package:movies_app/core/errors/failure.dart';
@@ -22,7 +22,7 @@ class CustomVideosListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<
-      MovieVideosCubti,
+      MovieVideosCubit,
       MoviesModuleStates<List<ResultVideoEntity>>
     >(
       builder: (context, state) {

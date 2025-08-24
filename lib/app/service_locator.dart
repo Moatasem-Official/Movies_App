@@ -11,7 +11,7 @@ import 'package:movies_app/Movies/features/home/domain/usecases/Movies_Home_Scre
 import 'package:movies_app/Movies/features/home/domain/usecases/Movies_Home_Screen/get_top_rated_movies_use_case.dart';
 import 'package:movies_app/Movies/features/home/domain/usecases/Movies_Home_Screen/get_upcomming_movies_use_case.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
-import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
+import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
@@ -26,8 +26,10 @@ import 'package:movies_app/Movies/features/see_all_movies/presentation/controlle
 final GetIt getIt = GetIt.instance;
 
 void setupMoviesInjection() {
-  getIt.registerSingleton(HomeRemoteDataSource(getDioInfo()));
-  getIt.registerSingleton(SeeAllRemoteDataSource(getDioInfo()));
+  getIt.registerLazySingleton<Dio>(() => getDioInfo());
+
+  getIt.registerSingleton(HomeRemoteDataSource(getIt<Dio>()));
+  getIt.registerSingleton(SeeAllRemoteDataSource(getIt<Dio>()));
 
   getIt.registerSingleton<HomeFeatureDataRepo>(
     HomeFeatureDataRepo(getIt<HomeRemoteDataSource>()),
@@ -104,8 +106,8 @@ void setupMoviesInjection() {
     () => SimilarMoviesCubit(getIt<GetSimilarMoviesUseCase>()),
   );
 
-  getIt.registerFactory<MovieVideosCubti>(
-    () => MovieVideosCubti(getIt<GetMovieVideosUseCase>()),
+  getIt.registerFactory<MovieVideosCubit>(
+    () => MovieVideosCubit(getIt<GetMovieVideosUseCase>()),
   );
 }
 
