@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/cubit/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/Movies/features/see_all_movies/presentation/widgets/See_All_Elements_List_Screen/custom_card.dart';
-import 'package:movies_app/core/error/failure.dart';
+import 'package:movies_app/core/errors/failure.dart';
 
 class SeeAllElementsListScreen extends StatelessWidget {
   const SeeAllElementsListScreen({super.key, required this.title});

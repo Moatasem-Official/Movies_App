@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/core/error/failure.dart';
+import 'package:movies_app/core/errors/failure.dart';
 
 part 'movies_module_states.freezed.dart';
 

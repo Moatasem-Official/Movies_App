@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
-import 'package:movies_app/core/cubit/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubti.dart';
 import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
 import 'package:movies_app/Movies/features/home/presentation/widgets/show_and_play_videos_screen/custom_video_card.dart';
-import 'package:movies_app/core/error/failure.dart';
+import 'package:movies_app/core/errors/failure.dart';
 
 class CustomVideosListWidget extends StatelessWidget {
   const CustomVideosListWidget({

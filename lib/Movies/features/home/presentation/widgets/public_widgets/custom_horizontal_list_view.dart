@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/cubit/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/app/app_router.dart';
-import 'package:movies_app/core/error/failure.dart';
+import 'package:movies_app/core/errors/failure.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 
 class CustomHorizontalListView<

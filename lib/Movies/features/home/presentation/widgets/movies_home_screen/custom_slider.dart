@@ -2,10 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/cubit/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/Movies/features/home/presentation/widgets/movies_home_screen/custom_slider_stack_content.dart';
 import 'package:movies_app/app/app_router.dart';
-import 'package:movies_app/core/error/failure.dart';
+import 'package:movies_app/core/errors/failure.dart';
 
 class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
     extends StatelessWidget {

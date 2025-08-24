@@ -4,9 +4,9 @@ import 'package:movies_app/core/entities/display_different_movies_types_entity.d
 import 'package:movies_app/Movies/features/home/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
 import 'package:movies_app/Movies/features/home/domain/repository/different_movies_types_domain_repo.dart';
-import 'package:movies_app/core/error/exceptions/failure_mapper.dart';
-import 'package:movies_app/core/error/exceptions/network_exception.dart';
-import 'package:movies_app/core/error/failure.dart';
+import 'package:movies_app/core/errors/exceptions/failure_mapper.dart';
+import 'package:movies_app/core/errors/exceptions/network_exception.dart';
+import 'package:movies_app/core/errors/failure.dart';
 
 class HomeFeatureDataRepo implements HomeFeatureDomainRepo {
   final HomeRemoteDataSource homeRemoteDataSource;

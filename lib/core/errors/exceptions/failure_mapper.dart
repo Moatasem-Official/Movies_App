@@ -1,5 +1,5 @@
-import 'package:movies_app/core/error/exceptions/network_exception.dart';
-import 'package:movies_app/core/error/failure.dart';
+import 'package:movies_app/core/errors/exceptions/network_exception.dart';
+import 'package:movies_app/core/errors/failure.dart';
 
 class FailureMapper {
   static Failure mapExceptionToFailure(NetworkException exception) {
