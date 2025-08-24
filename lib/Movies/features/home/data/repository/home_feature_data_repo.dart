@@ -1,9 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies_app/Movies/features/home/data/datasource/home_remote_data_source.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/Movies/features/movie_details/domain/entities/movie_details_entity.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/Movies/features/home/domain/repository/different_movies_types_domain_repo.dart';
+import 'package:movies_app/Movies/features/home/domain/repository/home_feature_domain_repo.dart';
 import 'package:movies_app/core/errors/exceptions/failure_mapper.dart';
 import 'package:movies_app/core/errors/exceptions/network_exception.dart';
 import 'package:movies_app/core/errors/failure.dart';

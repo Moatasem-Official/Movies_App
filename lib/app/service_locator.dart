@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movies_app/Movies/features/home/data/datasource/home_remote_data_source.dart';
-import 'package:movies_app/Movies/features/home/data/repository/different_movies_types_data_repo.dart';
-import 'package:movies_app/Movies/features/home/domain/repository/different_movies_types_domain_repo.dart';
+import 'package:movies_app/Movies/features/home/data/repository/home_feature_data_repo.dart';
+import 'package:movies_app/Movies/features/home/domain/repository/home_feature_domain_repo.dart';
 import 'package:movies_app/Movies/features/movie_details/data/datasource/movie_details_remote_data_source.dart';
 import 'package:movies_app/Movies/features/movie_details/data/repository/movie_details_feature_data_repo.dart';
 import 'package:movies_app/Movies/features/movie_details/domain/repository/movie_details_feature_domain_repo.dart';
