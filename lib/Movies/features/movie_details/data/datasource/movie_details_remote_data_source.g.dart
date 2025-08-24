@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_remote_data_source.dart';
+part of 'movie_details_remote_data_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'home_remote_data_source.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
-class _HomeRemoteDataSource implements HomeRemoteDataSource {
-  _HomeRemoteDataSource(this._dio, {this.baseUrl, this.errorLogger}) {
+class _MovieDetailsRemoteDataSource implements MovieDetailsRemoteDataSource {
+  _MovieDetailsRemoteDataSource(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://api.themoviedb.org/3/';
   }
 
@@ -20,7 +20,34 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getNowPlayingMovies() async {
+  Future<MovieDetailsModel> getMovieDetails(int movieId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<MovieDetailsModel>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'movie/${movieId}?api_key=0c0c7744db435d591d976e6422a9ef8e',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late MovieDetailsModel _value;
+    try {
+      _value = MovieDetailsModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<DisplayDifferentMoviesTypesModel> getSimilarMovies(int movieId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -29,7 +56,7 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'movie/now_playing?api_key=0c0c7744db435d591d976e6422a9ef8e',
+            'movie/${movieId}/similar?api_key=0c0c7744db435d591d976e6422a9ef8e',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -47,79 +74,25 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
   }
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getPopularMovies() async {
+  Future<MovieVideosModel> getMovieVideos(int movieId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(
+    final _options = _setStreamType<MovieVideosModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'movie/popular?api_key=0c0c7744db435d591d976e6422a9ef8e',
+            'movie/${movieId}/videos?api_key=0c0c7744db435d591d976e6422a9ef8e',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late DisplayDifferentMoviesTypesModel _value;
+    late MovieVideosModel _value;
     try {
-      _value = DisplayDifferentMoviesTypesModel.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<DisplayDifferentMoviesTypesModel> getTopRatedMovies() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'movie/top_rated?api_key=0c0c7744db435d591d976e6422a9ef8e',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late DisplayDifferentMoviesTypesModel _value;
-    try {
-      _value = DisplayDifferentMoviesTypesModel.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<DisplayDifferentMoviesTypesModel> getUpcomingMovies() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'movie/upcoming?api_key=0c0c7744db435d591d976e6422a9ef8e',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late DisplayDifferentMoviesTypesModel _value;
-    try {
-      _value = DisplayDifferentMoviesTypesModel.fromJson(_result.data!);
+      _value = MovieVideosModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

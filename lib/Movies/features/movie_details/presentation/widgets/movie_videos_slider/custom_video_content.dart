@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_videos_slider/custom_video_info.dart';
+import 'package:movies_app/core/entities/movie_videos_entity.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_videos_slider/custom_video_info.dart';
 import 'package:movies_app/core/utils/app_helpers.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

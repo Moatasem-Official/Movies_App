@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
 import 'package:movies_app/core/errors/failure.dart';
 
 class CustomMovieDetailsBlocBuilderTemplete<

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/Movies/features/home/domain/entities/movie_details_entity.dart';
+import 'package:movies_app/Movies/features/movie_details/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/core/utils/app_helpers.dart';
 
 class CustomMovieRowDetailsWidget extends StatelessWidget {

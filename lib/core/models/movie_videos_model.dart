@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/Movies/features/home/data/models/result_video_model.dart';
-import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
+import 'package:movies_app/core/models/result_video_model.dart';
+import 'package:movies_app/core/entities/movie_videos_entity.dart';
 part 'movie_videos_model.g.dart';
 
 @JsonSerializable()

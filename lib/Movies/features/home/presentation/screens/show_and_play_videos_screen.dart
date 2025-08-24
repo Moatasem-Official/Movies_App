@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
+import 'package:movies_app/core/entities/movie_videos_entity.dart';
 import 'package:movies_app/Movies/features/home/presentation/widgets/show_and_play_videos_screen/custom_app_bar.dart';
 import 'package:movies_app/Movies/features/home/presentation/widgets/show_and_play_videos_screen/custom_videos_list.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';

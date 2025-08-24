@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_videos_slider/custom_card_content.dart';
+import 'package:movies_app/core/entities/movie_videos_entity.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_videos_slider/custom_card_content.dart';
 import 'package:movies_app/app/app_router.dart';
 import 'dart:ui';
 

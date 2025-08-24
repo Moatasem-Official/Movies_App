@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/Movies/features/home/domain/entities/movie_details_entity.dart';
-import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
-import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
-import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
-import 'package:movies_app/Movies/features/home/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_app_bar.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_bloc_builder_templete.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_genres.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_movie_more_like_this.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_videos_slider/custom_movie_videos_slider.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_row_details.dart';
+import 'package:movies_app/Movies/features/movie_details/domain/entities/movie_details_entity.dart';
+import 'package:movies_app/core/entities/movie_videos_entity.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_details_screen/custom_app_bar.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_details_screen/custom_bloc_builder_templete.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_details_screen/custom_genres.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_more_like_this.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_videos_slider/custom_movie_videos_slider.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_details_screen/custom_row_details.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 
 class MovieDetailsScreen extends StatelessWidget {

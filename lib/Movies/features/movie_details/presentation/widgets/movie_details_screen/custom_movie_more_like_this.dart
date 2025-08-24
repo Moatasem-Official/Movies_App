@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/Movies/features/home/presentation/widgets/movie_details_screen/custom_empty_elements_widget.dart';
+import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_details_screen/custom_empty_elements_widget.dart';
 
 class CustomMovieMoreLikeThisWidget extends StatelessWidget {
   const CustomMovieMoreLikeThisWidget({

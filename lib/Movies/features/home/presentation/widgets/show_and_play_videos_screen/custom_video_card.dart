@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/Movies/features/home/domain/entities/movie_videos_entity.dart';
+import 'package:movies_app/core/entities/movie_videos_entity.dart';
 import 'package:movies_app/core/utils/app_helpers.dart';
 import 'dart:ui';
 

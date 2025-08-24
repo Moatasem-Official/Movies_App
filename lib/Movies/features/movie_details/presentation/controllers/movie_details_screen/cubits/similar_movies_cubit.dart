@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/Movies/features/home/domain/usecases/Movie_Details_Screen/get_similar_movies_use_case.dart';
+import 'package:movies_app/Movies/features/movie_details/domain/usecases/Movie_Details_Screen/get_similar_movies_use_case.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/app/service_locator.dart';
 
 class SimilarMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetSimilarMoviesUseCase getSimilarMoviesUseCase;
@@ -11,14 +10,12 @@ class SimilarMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
 
   Future<void> getSimilarMovies({required int movieId}) async {
     emit(const Loading());
-    final failureOrSimilarMovies = await getIt<GetSimilarMoviesUseCase>().call(
+    final failureOrSimilarMovies = await getSimilarMoviesUseCase(
       movieId: movieId,
     );
-    emit(
-      failureOrSimilarMovies.fold(
-        (failure) => Error(failure),
-        (movies) => Loaded(movies.results),
-      ),
+    failureOrSimilarMovies.fold(
+      (failure) => emit(Error(failure)),
+      (movies) => emit(Loaded(movies.results)),
     );
   }
 }
