@@ -11,9 +11,10 @@ import 'package:movies_app/Movies/features/home/presentation/controllers/movies_
 import 'package:movies_app/Movies/features/home/presentation/screens/app_home_screen.dart';
 import 'package:movies_app/Movies/features/movie_details/presentation/screens/movie_details_screen.dart';
 import 'package:movies_app/Movies/features/home/presentation/screens/movies_home_screen.dart';
+import 'package:movies_app/Movies/features/movie_videos/presentation/controllers/cubit/all_movie_videos_cubit.dart';
 import 'package:movies_app/Movies/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
 import 'package:movies_app/Movies/features/see_all_movies/presentation/screen/see_all_elements_list_screen.dart';
-import 'package:movies_app/Movies/features/home/presentation/screens/show_and_play_videos_screen.dart';
+import 'package:movies_app/Movies/features/movie_videos/presentation/screens/show_and_play_videos_screen.dart';
 import 'package:movies_app/Movies/features/home/presentation/screens/splash_screen.dart';
 import 'package:movies_app/app/service_locator.dart';
 
@@ -91,13 +92,11 @@ class AppRouter {
       case showAndPlayVideosScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<MovieVideosCubit>(
+          builder: (_) => BlocProvider<AllMovieVideosCubit>(
             create: (_) =>
-                getIt<MovieVideosCubit>()..getMovieVideos(movieId: args["id"]),
-            child: ShowAndPlayVideosScreen(
-              videos: args["videos"],
-              videoIndex: args["videoIndex"],
-            ),
+                getIt<AllMovieVideosCubit>()
+                  ..getMovieVideos(movieId: args["id"], page: 1),
+            child: ShowAndPlayVideosScreen(videoIndex: args["videoIndex"]),
           ),
         );
       default:

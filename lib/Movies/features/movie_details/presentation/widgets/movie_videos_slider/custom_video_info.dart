@@ -8,7 +8,7 @@ class CustomVideoInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
         Icon(icon, color: Colors.white70, size: 16),
         const SizedBox(width: 5),

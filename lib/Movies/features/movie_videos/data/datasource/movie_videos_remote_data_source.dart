@@ -1,0 +1,21 @@
+import 'package:dio/dio.dart';
+import 'package:movies_app/core/models/movie_videos_model.dart';
+import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:retrofit/error_logger.dart';
+import 'package:retrofit/http.dart';
+
+part 'movie_videos_remote_data_source.g.dart';
+
+@RestApi(baseUrl: AppConstants.kApiBaseUrl)
+abstract class MovieVideosRemoteDataSource {
+  factory MovieVideosRemoteDataSource(Dio dio, {String baseUrl}) =
+      _MovieVideosRemoteDataSource;
+
+  @GET(
+    '/movie/{movie_id}/videos?api_key=${AppConstants.kApiKey}&language=en-US&page={page}',
+  )
+  Future<MovieVideosModel> getMovieVideos(
+    @Path('movie_id') int movieId,
+    @Path('page') int page,
+  );
+}

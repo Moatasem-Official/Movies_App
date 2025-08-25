@@ -24,7 +24,8 @@ class CustomMovieDetailsBlocBuilderTemplete<
       builder: (context, state) {
         return state.when(
           idle: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
-          loading: () => const CustomLoadingStateWidget(),
+          loading: () =>
+              SliverToBoxAdapter(child: const CustomLoadingStateWidget()),
           loaded: (T data) {
             return builder(data);
           },

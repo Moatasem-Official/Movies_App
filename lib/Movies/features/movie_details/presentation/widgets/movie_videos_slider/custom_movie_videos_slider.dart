@@ -27,58 +27,57 @@ class CustomMovieVideosSlider extends StatelessWidget {
             onTap: () => Navigator.pushNamed(
               context,
               AppRouter.showAndPlayVideosScreen,
-              arguments: {
-                "videos": videos,
-                "id": movie.id,
-                "videoIndex": index,
-              },
+              arguments: {"id": movie.id, "videoIndex": index},
             ),
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.blueGrey.withOpacity(0.3),
-                              Colors.black.withOpacity(0.5),
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.1),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.blueGrey.withOpacity(0.3),
+                                Colors.black.withOpacity(0.5),
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.1),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                CustomCardContent(video: video, index: index),
-              ],
+                  CustomCardContent(video: video, index: index),
+                ],
+              ),
             ),
           );
         },
         options: CarouselOptions(
-          height: 360,
+          height: 340,
           viewportFraction: 0.9,
-          enlargeCenterPage: true,
+          enlargeStrategy: CenterPageEnlargeStrategy.height,
           autoPlay: videos.length > 1,
           autoPlayInterval: const Duration(seconds: 5),
           enableInfiniteScroll: videos.length > 1,

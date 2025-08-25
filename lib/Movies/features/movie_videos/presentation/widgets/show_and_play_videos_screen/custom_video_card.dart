@@ -3,7 +3,7 @@ import 'package:movies_app/core/entities/movie_videos_entity.dart';
 import 'package:movies_app/core/utils/app_helpers.dart';
 import 'dart:ui';
 
-import 'package:timeago/timeago.dart' as timeago; // For ImageFilter.blur
+import 'package:timeago/timeago.dart' as timeago;
 
 class CustomVideoCardWidget extends StatelessWidget {
   const CustomVideoCardWidget({
@@ -49,14 +49,7 @@ class CustomVideoCardWidget extends StatelessWidget {
                 ),
               ],
             ),
-            child: Row(
-              children: [
-                // Video Thumbnail
-                buildThumbnail(),
-                // Video Details
-                buildVideoDetails(),
-              ],
-            ),
+            child: Row(children: [buildThumbnail(), buildVideoDetails()]),
           ),
         ),
       ),
@@ -80,7 +73,6 @@ class CustomVideoCardWidget extends StatelessWidget {
               height: double.infinity,
             ),
           ),
-          // Gradient Overlay
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
@@ -91,7 +83,6 @@ class CustomVideoCardWidget extends StatelessWidget {
               ),
             ),
           ),
-          // Play Icon
           Icon(
             Icons.play_circle_fill,
             color: Colors.white.withOpacity(0.8),
