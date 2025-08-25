@@ -46,8 +46,8 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
         backgroundColor: Colors.black.withOpacity(0.85),
         navigationBarButtons: <NavigationBarButton>[
           NavigationBarButton(
-            text: 'Movies',
-            icon: MdiIcons.movie,
+            text: 'Home',
+            icon: MdiIcons.home,
             backgroundGradient: const LinearGradient(
               colors: [Color(0xFF0f2027), Color(0xFF203a43), Color(0xFF2c5364)],
               begin: Alignment.topLeft,
@@ -55,12 +55,30 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
             ),
           ),
           NavigationBarButton(
-            text: 'TVs',
-            icon: Icons.tv,
+            text: 'Search',
+            icon: MdiIcons.magnify,
             backgroundGradient: const LinearGradient(
               colors: [Color(0xFF232526), Color(0xFF414345)],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
+            ),
+          ),
+          NavigationBarButton(
+            text: 'Watch List',
+            icon: Icons.bookmark,
+            backgroundGradient: const LinearGradient(
+              colors: [Color(0xFF232526), Color(0xFF414345)],
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+            ),
+          ),
+          NavigationBarButton(
+            text: 'Profile',
+            icon: MdiIcons.account,
+            backgroundGradient: const LinearGradient(
+              colors: [Color(0xFF0f2027), Color(0xFF203a43), Color(0xFF2c5364)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
           ),
         ],

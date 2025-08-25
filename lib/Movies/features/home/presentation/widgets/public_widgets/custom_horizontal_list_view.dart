@@ -43,7 +43,6 @@ class CustomHorizontalListView<
                       arguments: {
                         "resultEntity": movies[index],
                         "id": movies[index].id,
-                        "index": index,
                       },
                     ),
                     child: Padding(

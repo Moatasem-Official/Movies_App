@@ -11,11 +11,6 @@ abstract class MovieVideosRemoteDataSource {
   factory MovieVideosRemoteDataSource(Dio dio, {String baseUrl}) =
       _MovieVideosRemoteDataSource;
 
-  @GET(
-    '/movie/{movie_id}/videos?api_key=${AppConstants.kApiKey}&language=en-US&page={page}',
-  )
-  Future<MovieVideosModel> getMovieVideos(
-    @Path('movie_id') int movieId,
-    @Path('page') int page,
-  );
+  @GET('/movie/{movie_id}/videos?api_key=${AppConstants.kApiKey}')
+  Future<MovieVideosModel> getMovieVideos(@Path('movie_id') int movieId);
 }

@@ -9,9 +9,6 @@ class GetAllMovieVideosUseCase {
 
   Future<Either<Failure, MovieVideosEntity>> call({
     required int movieId,
-    required int page,
-  }) async => await movieVideosFeatureDomainRepo.getMovieVideos(
-    movieId: movieId,
-    page: page,
-  );
+  }) async =>
+      await movieVideosFeatureDomainRepo.getMovieVideos(movieId: movieId);
 }

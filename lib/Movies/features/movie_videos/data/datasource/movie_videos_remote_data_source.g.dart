@@ -20,7 +20,7 @@ class _MovieVideosRemoteDataSource implements MovieVideosRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<MovieVideosModel> getMovieVideos(int movieId, int page) async {
+  Future<MovieVideosModel> getMovieVideos(int movieId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -29,7 +29,7 @@ class _MovieVideosRemoteDataSource implements MovieVideosRemoteDataSource {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/movie/${movieId}/videos?api_key=0c0c7744db435d591d976e6422a9ef8e&language=en-US&page=${page}',
+            '/movie/${movieId}/videos?api_key=0c0c7744db435d591d976e6422a9ef8e',
             queryParameters: queryParameters,
             data: _data,
           )

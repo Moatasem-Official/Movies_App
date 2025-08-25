@@ -95,7 +95,7 @@ class AppRouter {
           builder: (_) => BlocProvider<AllMovieVideosCubit>(
             create: (_) =>
                 getIt<AllMovieVideosCubit>()
-                  ..getMovieVideos(movieId: args["id"], page: 1),
+                  ..getMovieVideos(movieId: args["id"]),
             child: ShowAndPlayVideosScreen(videoIndex: args["videoIndex"]),
           ),
         );

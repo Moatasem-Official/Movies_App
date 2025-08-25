@@ -5,6 +5,5 @@ import 'package:movies_app/core/errors/failure.dart';
 abstract class MovieVideosFeatureDomainRepo {
   Future<Either<Failure, MovieVideosEntity>> getMovieVideos({
     required int movieId,
-    required int page,
   });
 }

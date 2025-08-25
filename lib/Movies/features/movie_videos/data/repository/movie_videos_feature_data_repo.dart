@@ -14,12 +14,9 @@ class MovieVideosFeatureDataRepo extends MovieVideosFeatureDomainRepo {
   @override
   Future<Either<Failure, MovieVideosEntity>> getMovieVideos({
     required int movieId,
-    required int page,
   }) async {
     try {
-      return Right(
-        await movieVideosRemoteDataSource.getMovieVideos(movieId, page),
-      );
+      return Right(await movieVideosRemoteDataSource.getMovieVideos(movieId));
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);
       return Left(FailureMapper.mapExceptionToFailure(exception));

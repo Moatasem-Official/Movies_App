@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:movies_app/app/app_router.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/Movies/features/movie_details/presentation/widgets/movie_details_screen/custom_empty_elements_widget.dart';
 
@@ -21,22 +22,32 @@ class CustomMovieMoreLikeThisWidget extends StatelessWidget {
           : CarouselSlider.builder(
               itemCount: similarMovies.length,
               itemBuilder: (context, index, realIndex) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image: (similarMovies[index].posterPath != null)
-                          ? NetworkImage(
-                              '$baseUrl${similarMovies[index].posterPath}',
-                            )
-                          : (similarMovies[index].backdropPath != null)
-                          ? NetworkImage(
-                              '$baseUrl${similarMovies[index].backdropPath}',
-                            )
-                          : const AssetImage('assets/images/1852.jpg')
-                                as ImageProvider,
-                      fit: BoxFit.cover,
+                return GestureDetector(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    AppRouter.movieDetailsScreen,
+                    arguments: {
+                      "resultEntity": similarMovies[index],
+                      "id": similarMovies[index].id,
+                    },
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: (similarMovies[index].posterPath != null)
+                            ? NetworkImage(
+                                '$baseUrl${similarMovies[index].posterPath}',
+                              )
+                            : (similarMovies[index].backdropPath != null)
+                            ? NetworkImage(
+                                '$baseUrl${similarMovies[index].backdropPath}',
+                              )
+                            : const AssetImage('assets/images/1852.jpg')
+                                  as ImageProvider,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 );

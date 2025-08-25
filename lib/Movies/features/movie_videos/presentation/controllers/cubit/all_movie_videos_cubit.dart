@@ -10,11 +10,10 @@ class AllMovieVideosCubit
 
   List<ResultVideoEntity> videos = [];
 
-  Future<void> getMovieVideos({required int movieId, required int page}) async {
+  Future<void> getMovieVideos({required int movieId}) async {
     emit(const Loading());
     final failureOrMovieVideos = await getAllMovieVideosUseCase(
       movieId: movieId,
-      page: page,
     );
     failureOrMovieVideos.fold((failure) => emit(Error(failure)), (movieVideos) {
       emit(Loaded(movieVideos.results));
