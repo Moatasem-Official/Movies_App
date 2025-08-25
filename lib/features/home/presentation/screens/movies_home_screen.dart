@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
+import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
+import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
+import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
+import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_elements_row_title.dart';
+import 'package:movies_app/features/home/presentation/widgets/public_widgets/custom_horizontal_list_view.dart';
+import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
+import 'package:movies_app/app/app_router.dart';
+
+class MoviesHomeScreen extends StatelessWidget {
+  const MoviesHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: CustomSlider(
+              title: "NOW PLAYING",
+              cubit: context.read<NowPlayingMoviesCubit>(),
+            ),
+          ),
+          SliverToBoxAdapter(child: const SizedBox(height: 50)),
+          SliverToBoxAdapter(
+            child: CustomTitleOfListOfElements(
+              title: "Popular Movies",
+              onTap: () => Navigator.pushNamed(
+                context,
+                AppRouter.seeAllElementsListScreen,
+                arguments: {"title": "Popular Movies", "movie_type": "popular"},
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(child: const SizedBox(height: 10)),
+          SliverToBoxAdapter(
+            child: CustomHorizontalListView(
+              cubit: context.read<PopularMoviesCubit>(),
+            ),
+          ),
+          SliverToBoxAdapter(child: const SizedBox(height: 30)),
+          SliverToBoxAdapter(
+            child: CustomTitleOfListOfElements(
+              title: "Top Rated Movies",
+              onTap: () => Navigator.pushNamed(
+                context,
+                AppRouter.seeAllElementsListScreen,
+                arguments: {
+                  "title": "Top Rated Movies",
+                  "movie_type": "top_rated",
+                },
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(child: const SizedBox(height: 10)),
+          SliverToBoxAdapter(
+            child: CustomHorizontalListView(
+              cubit: context.read<TopRatedMoviesCubit>(),
+            ),
+          ),
+          SliverToBoxAdapter(child: const SizedBox(height: 30)),
+          SliverToBoxAdapter(
+            child: CustomTitleOfListOfElements(
+              title: "Upcomming Movies",
+              onTap: () => Navigator.pushNamed(
+                context,
+                AppRouter.seeAllElementsListScreen,
+                arguments: {
+                  "title": "Upcomming Movies",
+                  "movie_type": "upcoming",
+                },
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(child: const SizedBox(height: 10)),
+          SliverToBoxAdapter(
+            child: CustomHorizontalListView(
+              cubit: context.read<UpcommingMoviesCubit>(),
+            ),
+          ),
+          SliverToBoxAdapter(child: const SizedBox(height: 50)),
+        ],
+      ),
+    );
+  }
+}
