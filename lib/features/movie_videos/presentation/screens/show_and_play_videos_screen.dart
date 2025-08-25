@@ -30,8 +30,7 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
   }
 
   void _initController(String videoId) {
-    _controller?.dispose();
-    _controller = YoutubePlayerController(
+    _controller ??= YoutubePlayerController(
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(autoPlay: true, mute: false, loop: true),
     );
