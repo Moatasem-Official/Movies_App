@@ -31,24 +31,45 @@ class CustomMovieMoreLikeThisWidget extends StatelessWidget {
                       "id": similarMovies[index].id,
                     },
                   ),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: (similarMovies[index].posterPath != null)
-                            ? NetworkImage(
-                                '$baseUrl${similarMovies[index].posterPath}',
-                              )
-                            : (similarMovies[index].backdropPath != null)
-                            ? NetworkImage(
-                                '$baseUrl${similarMovies[index].backdropPath}',
-                              )
-                            : const AssetImage('assets/images/1852.jpg')
-                                  as ImageProvider,
-                        fit: BoxFit.cover,
+                  child: Stack(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: (similarMovies[index].posterPath != null)
+                                ? NetworkImage(
+                                    '$baseUrl${similarMovies[index].posterPath}',
+                                  )
+                                : (similarMovies[index].backdropPath != null)
+                                ? NetworkImage(
+                                    '$baseUrl${similarMovies[index].backdropPath}',
+                                  )
+                                : const AssetImage('assets/images/1852.jpg')
+                                      as ImageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
+                      Positioned(
+                        top: 5,
+                        left: 15,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black54.withAlpha(150),
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.bookmark_border_rounded,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },

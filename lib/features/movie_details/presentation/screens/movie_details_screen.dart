@@ -11,7 +11,7 @@ import 'package:movies_app/features/movie_details/presentation/widgets/movie_det
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_genres.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_more_like_this.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_movie_videos_slider.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_row_details.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_sub_title_details.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
@@ -60,9 +60,8 @@ class MovieDetailsScreen extends StatelessWidget {
             MovieDetailsEntity
           >(
             cubit: context.read<MovieDetailsCubit>(),
-            builder: (movieDetailsEntity) => CustomMovieRowDetailsWidget(
-              movieDetailsEntity: movieDetailsEntity,
-            ),
+            builder: (movieDetailsEntity) =>
+                CustomSubTitleDetails(movieDetailsEntity: movieDetailsEntity),
           ),
           SliverToBoxAdapter(child: const SizedBox(height: 30)),
           CustomMovieDetailsBlocBuilderTemplete<

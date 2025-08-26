@@ -56,7 +56,7 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
           searchController: _searchController,
         ),
       ),
-      backgroundColor: const Color(0xFF020617),
+      backgroundColor: const Color(0xFF141218),
       body: CustomSearchMoviesGridResult(
         animationController: _animationController,
       ),
