@@ -35,17 +35,22 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
             return CarouselSlider.builder(
               itemCount: movies.length,
               itemBuilder:
-                  (BuildContext context, int itemIndex, int pageViewIndex) =>
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          AppRouter.seeAllElementsListScreen,
-                          arguments: {
-                            "title": "Now Playing Movies",
-                            "movie_type": "now_playing",
-                          },
-                        ),
-                        child: SizedBox(
+                  (
+                    BuildContext context,
+                    int itemIndex,
+                    int pageViewIndex,
+                  ) => GestureDetector(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      AppRouter.seeAllElementsListScreen,
+                      arguments: {
+                        "title": "Now Playing Movies",
+                        "movie_type": "now_playing",
+                      },
+                    ),
+                    child: Stack(
+                      children: [
+                        SizedBox(
                           width: double.infinity,
                           height: 400,
                           child: Stack(
@@ -73,7 +78,26 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
                             ],
                           ),
                         ),
-                      ),
+                        Positioned(
+                          top: 30,
+                          left: 20,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.black54.withAlpha(150),
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.bookmark_border_rounded,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
               options: CarouselOptions(
                 height: 400,
                 aspectRatio: 16 / 9,

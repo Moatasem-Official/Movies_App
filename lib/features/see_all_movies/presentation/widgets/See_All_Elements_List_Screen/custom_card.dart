@@ -31,18 +31,39 @@ class CustomCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(
-              width: 150,
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    '${AppConstants.imagePathUrl}${resultEntity.posterPath}',
+            Stack(
+              children: [
+                Container(
+                  width: 150,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        '${AppConstants.imagePathUrl}${resultEntity.posterPath}',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  fit: BoxFit.cover,
                 ),
-              ),
+                Positioned(
+                  top: 5,
+                  left: 5,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black54.withAlpha(150),
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.bookmark_border_rounded,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Expanded(
               child: Padding(
