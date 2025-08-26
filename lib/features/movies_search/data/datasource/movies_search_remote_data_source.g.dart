@@ -23,16 +23,21 @@ class _MoviesSearchRemoteDataSource implements MoviesSearchRemoteDataSource {
   Future<DisplayDifferentMoviesTypesModel> searchMovies(
     String query,
     int page,
+    String apiKey,
   ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'query': query, r'page': page};
+    final queryParameters = <String, dynamic>{
+      r'query': query,
+      r'page': page,
+      r'api_key': apiKey,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'search/movie?query={query}&page={page}',
+            'search/movie',
             queryParameters: queryParameters,
             data: _data,
           )

@@ -7,6 +7,7 @@ class CustomSearchAppBar extends StatelessWidget {
     required Animation<double> fadeAnimation,
     required bool isSearching,
     required TextEditingController searchController,
+    required this.onSearchChanged,
   }) : _fadeAnimation = fadeAnimation,
        _isSearching = isSearching,
        _searchController = searchController;
@@ -14,6 +15,7 @@ class CustomSearchAppBar extends StatelessWidget {
   final Animation<double> _fadeAnimation;
   final bool _isSearching;
   final TextEditingController _searchController;
+  final ValueChanged<String> onSearchChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class CustomSearchAppBar extends StatelessWidget {
           CustomSearchBar(
             isSearching: _isSearching,
             searchController: _searchController,
+            onChanged: onSearchChanged,
           ),
 
           const SizedBox(height: 30),

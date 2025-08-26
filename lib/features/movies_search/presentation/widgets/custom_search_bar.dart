@@ -7,10 +7,12 @@ class CustomSearchBar extends StatelessWidget {
     super.key,
     required this.searchController,
     required this.isSearching,
+    required this.onChanged,
   });
 
   final TextEditingController searchController;
   final bool isSearching;
+  final ValueChanged<String> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class CustomSearchBar extends StatelessWidget {
                 controller: searchController,
                 style: const TextStyle(color: Colors.white, fontSize: 16),
                 decoration: InputDecoration(
-                  hintText: 'Search By Title, Genre, Actor...',
+                  hintText: 'Search For A Movie...',
                   hintStyle: TextStyle(color: Colors.white.withOpacity(0.4)),
                   border: InputBorder.none,
                   prefixIcon: Icon(
@@ -50,6 +52,7 @@ class CustomSearchBar extends StatelessWidget {
                         )
                       : null,
                 ),
+                onChanged: onChanged,
               ),
             ),
           ),

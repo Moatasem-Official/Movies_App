@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movie_card.dart';
 
 class CustomSearchMoviesGridResult extends StatelessWidget {
   const CustomSearchMoviesGridResult({
     super.key,
     required this.animationController,
+    required this.movies,
   });
 
   final Animation<double> animationController;
+
+  final List<ResultEntity> movies;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class CustomSearchMoviesGridResult extends StatelessWidget {
           crossAxisSpacing: 18,
           mainAxisSpacing: 18,
         ),
-        itemCount: 10,
+        itemCount: movies.length,
         itemBuilder: (context, index) {
           return FadeTransition(
             opacity: Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -32,7 +37,7 @@ class CustomSearchMoviesGridResult extends StatelessWidget {
                 ),
               ),
             ),
-            // child: _MovieCard(movie: movies[index]),
+            child: MovieCard(movie: movies[index]),
           );
         },
       ),

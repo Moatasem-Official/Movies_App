@@ -11,9 +11,10 @@ abstract class MoviesSearchRemoteDataSource {
   factory MoviesSearchRemoteDataSource(Dio dio, {String baseUrl}) =
       _MoviesSearchRemoteDataSource;
 
-  @GET('search/movie?query={query}&page={page}')
+  @GET('search/movie')
   Future<DisplayDifferentMoviesTypesModel> searchMovies(
     @Query('query') String query,
     @Query('page') int page,
+    @Query('api_key') String apiKey,
   );
 }

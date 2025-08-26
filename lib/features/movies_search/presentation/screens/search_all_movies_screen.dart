@@ -1,5 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
+import 'package:movies_app/features/movies_search/presentation/controllers/cubit/movies_search_cubit.dart';
+import 'package:movies_app/features/movies_search/presentation/widgets/custom_initial_search_widget.dart';
+import 'package:movies_app/features/movies_search/presentation/widgets/custom_no_movies_widget.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_app_bar.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movies_grid_result.dart';
 
@@ -49,17 +57,49 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(190),
+        preferredSize: const Size.fromHeight(200),
         child: CustomSearchAppBar(
+          onSearchChanged: (value) {
+            if (value.isEmpty) {
+              context.read<MoviesSearchCubit>().emitIdle();
+            } else {
+              context.read<MoviesSearchCubit>().searchMovies(
+                query: value,
+                page: 1,
+                apiKey: AppConstants.kApiKey,
+              );
+            }
+          },
           fadeAnimation: _fadeAnimation,
           isSearching: _isSearching,
           searchController: _searchController,
         ),
       ),
       backgroundColor: const Color(0xFF141218),
-      body: CustomSearchMoviesGridResult(
-        animationController: _animationController,
-      ),
+      body:
+          BlocBuilder<
+            MoviesSearchCubit,
+            MoviesModuleStates<List<ResultEntity>>
+          >(
+            builder: (context, state) {
+              return state.when(
+                idle: () => const CustomInitialSearchWidget(),
+                loading: () => const CustomLoadingStateWidget(),
+                loaded: (List<ResultEntity> movies) {
+                  if (movies.isEmpty) {
+                    return CustomNoMoviesWidget();
+                  }
+                  return _isSearching
+                      ? CustomSearchMoviesGridResult(
+                          movies: movies,
+                          animationController: _animationController,
+                        )
+                      : CustomInitialSearchWidget();
+                },
+                error: (failure) => Center(child: Text(failure.message)),
+              );
+            },
+          ),
     );
   }
 }

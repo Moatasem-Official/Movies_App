@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider_stack_content.dart';
 import 'package:movies_app/app/app_router.dart';
 import 'package:movies_app/core/errors/failure.dart';
@@ -31,7 +32,6 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
             );
           },
           loaded: (List<ResultEntity> movies) {
-            final String baseUrl = "https://image.tmdb.org/t/p/w500";
             return CarouselSlider.builder(
               itemCount: movies.length,
               itemBuilder:
@@ -65,7 +65,7 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
                                 },
                                 blendMode: BlendMode.dstIn,
                                 child: Image.network(
-                                  '$baseUrl${movies[itemIndex].backdropPath}',
+                                  '${AppConstants.imagePathUrl}${movies[itemIndex].backdropPath}',
                                   fit: BoxFit.cover,
                                   width: double.infinity,
                                   height: 400,

@@ -12,6 +12,8 @@ import 'package:movies_app/features/home/presentation/screens/app_home_screen.da
 import 'package:movies_app/features/movie_details/presentation/screens/movie_details_screen.dart';
 import 'package:movies_app/features/home/presentation/screens/movies_home_screen.dart';
 import 'package:movies_app/features/movie_videos/presentation/controllers/cubit/all_movie_videos_cubit.dart';
+import 'package:movies_app/features/movies_search/presentation/controllers/cubit/movies_search_cubit.dart';
+import 'package:movies_app/features/movies_search/presentation/screens/search_all_movies_screen.dart';
 import 'package:movies_app/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
 import 'package:movies_app/features/see_all_movies/presentation/screen/see_all_elements_list_screen.dart';
 import 'package:movies_app/features/movie_videos/presentation/screens/show_and_play_videos_screen.dart';
@@ -25,6 +27,7 @@ class AppRouter {
   static const String seeAllElementsListScreen = '/seeAllElementsListScreen';
   static const String movieDetailsScreen = '/movieDetailsScreen';
   static const String showAndPlayVideosScreen = '/showAndPlayVideosScreen';
+  static const String searchAllMoviesScreen = '/searchAllMoviesScreen';
 
   static Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -48,6 +51,9 @@ class AppRouter {
               BlocProvider<UpcommingMoviesCubit>(
                 create: (_) =>
                     getIt<UpcommingMoviesCubit>()..getUpcommingMovies(),
+              ),
+              BlocProvider<MoviesSearchCubit>(
+                create: (_) => getIt<MoviesSearchCubit>(),
               ),
             ],
             child: AppHomeScreen(),
@@ -99,6 +105,8 @@ class AppRouter {
             child: ShowAndPlayVideosScreen(videoIndex: args["videoIndex"]),
           ),
         );
+      case searchAllMoviesScreen:
+        return MaterialPageRoute(builder: (_) => SearchAllMoviesScreen());
       default:
         return null;
     }

@@ -6,5 +6,6 @@ abstract class MoviesSearchFeatureDomainRepo {
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> searchMovies({
     required String query,
     required int page,
+    required String apiKey,
   });
 }

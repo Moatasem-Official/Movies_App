@@ -7,12 +7,25 @@ class MoviesSearchCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetSearchedMoviesUseCase getSearchedMoviesUseCase;
   MoviesSearchCubit(this.getSearchedMoviesUseCase) : super(const Idle());
 
-  Future<void> searchMovies({required String query, required int page}) async {
+  Future<void> searchMovies({
+    required String query,
+    required int page,
+    required String apiKey,
+  }) async {
+    if (query.isEmpty) return emitIdle();
     emit(const Loading());
-    final result = await getSearchedMoviesUseCase(query: query, page: page);
+    final result = await getSearchedMoviesUseCase(
+      query: query,
+      page: page,
+      apiKey: apiKey,
+    );
     result.fold(
       (failure) => emit(Error(failure)),
       (searchedMovies) => emit(Loaded(searchedMovies.results)),
     );
+  }
+
+  void emitIdle() {
+    emit(const MoviesModuleStates.idle());
   }
 }
