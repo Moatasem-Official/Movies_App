@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:movies_app/features/home/presentation/screens/movies_home_screen.dart';
 import 'package:movies_app/features/movies_search/presentation/screens/search_all_movies_screen.dart';
+import 'package:movies_app/features/watch_list/presentation/screens/movies_watch_list_screen.dart';
 import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
 
 class AppHomeScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
   List<Widget> screens = [
     const MoviesHomeScreen(),
     SearchAllMoviesScreen(),
-    const Center(child: Text('Watch List Screen')),
+    MoviesWatchListScreen(),
     const Center(child: Text('Settings Screen')),
   ];
   int _selectedIndex = 0;
