@@ -14,9 +14,9 @@ SpokenLanguageModel _$SpokenLanguageModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$SpokenLanguageModelToJson(
-  SpokenLanguageModel instance,
-) => <String, dynamic>{
-  'name': instance.name,
-  'english_name': instance.englishName,
-  'iso_639_1': instance.iso_639_1,
-};
+        SpokenLanguageModel instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'english_name': instance.englishName,
+      'iso_639_1': instance.iso_639_1,
+    };

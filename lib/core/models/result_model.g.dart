@@ -7,21 +7,21 @@ part of 'result_model.dart';
 // **************************************************************************
 
 ResultModel _$ResultModelFromJson(Map<String, dynamic> json) => ResultModel(
-  backdropPath: json['backdrop_path'] as String?,
-  genreIds: (json['genre_ids'] as List<dynamic>)
-      .map((e) => (e as num).toInt())
-      .toList(),
-  id: (json['id'] as num).toInt(),
-  originalLanguage: json['original_language'] as String,
-  originalTitle: json['original_title'] as String,
-  overview: json['overview'] as String,
-  popularity: (json['popularity'] as num).toDouble(),
-  posterPath: json['poster_path'] as String?,
-  releaseDate: json['release_date'] as String,
-  title: json['title'] as String,
-  voteAverage: (json['vote_average'] as num).toDouble(),
-  voteCount: (json['vote_count'] as num).toInt(),
-);
+      backdropPath: json['backdrop_path'] as String?,
+      genreIds: (json['genre_ids'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
+      id: (json['id'] as num).toInt(),
+      originalLanguage: json['original_language'] as String,
+      originalTitle: json['original_title'] as String,
+      overview: json['overview'] as String,
+      popularity: (json['popularity'] as num).toDouble(),
+      posterPath: json['poster_path'] as String?,
+      releaseDate: json['release_date'] as String,
+      title: json['title'] as String,
+      voteAverage: (json['vote_average'] as num).toDouble(),
+      voteCount: (json['vote_count'] as num).toInt(),
+    );
 
 Map<String, dynamic> _$ResultModelToJson(ResultModel instance) =>
     <String, dynamic>{

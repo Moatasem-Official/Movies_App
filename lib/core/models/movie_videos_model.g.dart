@@ -15,4 +15,7 @@ MovieVideosModel _$MovieVideosModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$MovieVideosModelToJson(MovieVideosModel instance) =>
-    <String, dynamic>{'id': instance.id, 'results': instance.results};
+    <String, dynamic>{
+      'id': instance.id,
+      'results': instance.results,
+    };

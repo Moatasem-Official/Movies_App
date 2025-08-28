@@ -7,9 +7,12 @@ part of 'dates_model.dart';
 // **************************************************************************
 
 DatesModel _$DatesModelFromJson(Map<String, dynamic> json) => DatesModel(
-  maximum: json['maximum'] as String,
-  minimum: json['minimum'] as String,
-);
+      maximum: json['maximum'] as String,
+      minimum: json['minimum'] as String,
+    );
 
 Map<String, dynamic> _$DatesModelToJson(DatesModel instance) =>
-    <String, dynamic>{'maximum': instance.maximum, 'minimum': instance.minimum};
+    <String, dynamic>{
+      'maximum': instance.maximum,
+      'minimum': instance.minimum,
+    };
