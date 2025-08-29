@@ -5,10 +5,10 @@ import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states
 import 'package:movies_app/app/app_router.dart';
 import 'package:movies_app/core/errors/failure.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 
 class CustomHorizontalListView<
-  C extends Cubit<MoviesModuleStates<List<ResultEntity>>>
->
+        C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
     extends StatelessWidget {
   final C cubit;
   const CustomHorizontalListView({super.key, required this.cubit});
@@ -33,9 +33,13 @@ class CustomHorizontalListView<
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemCount: movies.length,
                 itemBuilder: (context, index) {
+                  final watchlistCubit =
+                      context.watch<AddMovieToWatchListAsLocalDataCubit>();
+                  final isMovieInWatchList =
+                      watchlistCubit.isMovieInWatchList(movies[index].id);
                   return GestureDetector(
                     onTap: () => Navigator.pushNamed(
                       context,
@@ -72,9 +76,15 @@ class CustomHorizontalListView<
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.bookmark_border_rounded,
+                              onPressed: () {
+                                context
+                                    .read<AddMovieToWatchListAsLocalDataCubit>()
+                                    .addMovieToWatchList(movie: movies[index]);
+                              },
+                              icon: Icon(
+                                (isMovieInWatchList == true)
+                                    ? Icons.bookmark_rounded
+                                    : Icons.bookmark_border_rounded,
                                 color: Colors.white,
                               ),
                             ),

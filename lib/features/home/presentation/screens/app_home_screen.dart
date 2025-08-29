@@ -16,8 +16,8 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
   PageController pageController = PageController();
   List<Widget> screens = [
     const MoviesHomeScreen(),
-    SearchAllMoviesScreen(),
-    MoviesWatchListScreen(),
+    const SearchAllMoviesScreen(),
+    const MoviesWatchListScreen(),
     const Center(child: Text('Settings Screen')),
   ];
   int _selectedIndex = 0;
@@ -67,19 +67,19 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
               end: Alignment.bottomLeft,
             ),
           ),
-          NavigationBarButton(
+          const NavigationBarButton(
             text: 'Watch List',
             icon: Icons.bookmark,
-            backgroundGradient: const LinearGradient(
+            backgroundGradient: LinearGradient(
               colors: [Color(0xFF141E30), Color(0xFF243B55)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          NavigationBarButton(
+          const NavigationBarButton(
             text: 'Settings',
             icon: Icons.settings,
-            backgroundGradient: const LinearGradient(
+            backgroundGradient: LinearGradient(
               colors: [Color(0xFF42275a), Color(0xFF734b6d)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,

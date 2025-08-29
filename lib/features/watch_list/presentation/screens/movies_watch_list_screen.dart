@@ -29,17 +29,41 @@ class MoviesWatchListScreen extends StatelessWidget {
                   pinned: true,
                   expandedHeight: 120,
                   flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    title: Text(
-                      'My Watchlist',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white.withOpacity(0.9),
-                      ),
-                    ),
-                  ),
+                      centerTitle: true,
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.clear_all_rounded,
+                                size: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              'My Watchlist',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white.withOpacity(0.9),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.search,
+                                size: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
                 ),
-                // CustomWatchListGrid(),
+                const CustomWatchListGrid(),
               ],
             ),
           ),

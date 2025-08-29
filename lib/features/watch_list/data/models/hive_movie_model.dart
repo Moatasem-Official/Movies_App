@@ -57,22 +57,56 @@ class HiveMovieModel extends ResultEntity {
     required this.voteAverage,
     required this.voteCount,
   }) : super(
-         backdropPath: backdropPath,
-         genreIds: genreIds,
-         id: id,
-         originalLanguage: originalLanguage,
-         originalTitle: originalTitle,
-         overview: overview,
-         popularity: popularity,
-         posterPath: posterPath,
-         releaseDate: releaseDate,
-         title: title,
-         voteAverage: voteAverage,
-         voteCount: voteCount,
-       );
+          backdropPath: backdropPath,
+          genreIds: genreIds,
+          id: id,
+          originalLanguage: originalLanguage,
+          originalTitle: originalTitle,
+          overview: overview,
+          popularity: popularity,
+          posterPath: posterPath,
+          releaseDate: releaseDate,
+          title: title,
+          voteAverage: voteAverage,
+          voteCount: voteCount,
+        );
 
   factory HiveMovieModel.fromJson(Map<String, dynamic> json) =>
       _$HiveMovieModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$HiveMovieModelToJson(this);
+
+  factory HiveMovieModel.fromEntity(ResultEntity entity) {
+    return HiveMovieModel(
+      backdropPath: entity.backdropPath,
+      genreIds: entity.genreIds,
+      id: entity.id,
+      originalLanguage: entity.originalLanguage,
+      originalTitle: entity.originalTitle,
+      overview: entity.overview,
+      popularity: entity.popularity,
+      posterPath: entity.posterPath,
+      releaseDate: entity.releaseDate,
+      title: entity.title,
+      voteAverage: entity.voteAverage,
+      voteCount: entity.voteCount,
+    );
+  }
+
+  ResultEntity toEntity() {
+    return ResultEntity(
+      backdropPath: backdropPath,
+      genreIds: genreIds,
+      id: id,
+      originalLanguage: originalLanguage,
+      originalTitle: originalTitle,
+      overview: overview,
+      popularity: popularity,
+      posterPath: posterPath,
+      releaseDate: releaseDate,
+      title: title,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
+    );
+  }
 }

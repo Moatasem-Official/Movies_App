@@ -35,6 +35,14 @@ import 'package:movies_app/features/see_all_movies/data/repository/see_all_featu
 import 'package:movies_app/features/see_all_movies/domain/repository/see_all_feature_domain_repo.dart';
 import 'package:movies_app/features/see_all_movies/domain/usecase/get_see_all_movies_use_case.dart';
 import 'package:movies_app/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
+import 'package:movies_app/features/watch_list/data/datasource/movies_watch_list_local_data_source.dart';
+import 'package:movies_app/features/watch_list/data/repository/movies_watch_list_feature_data_repo.dart';
+import 'package:movies_app/features/watch_list/domain/repository/movies_watch_list_feature_domain_repo.dart';
+import 'package:movies_app/features/watch_list/domain/usecases/add_movie_to_watch_list_use_case.dart';
+import 'package:movies_app/features/watch_list/domain/usecases/clear_watch_list_use_case.dart';
+import 'package:movies_app/features/watch_list/domain/usecases/get_all_watch_list_movies_use_case.dart';
+import 'package:movies_app/features/watch_list/domain/usecases/remove_movie_from_watch_list_use_case.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -46,6 +54,7 @@ void setupMoviesInjection() {
   getIt.registerSingleton(MovieDetailsRemoteDataSource(getIt<Dio>()));
   getIt.registerSingleton(MovieVideosRemoteDataSource(getIt<Dio>()));
   getIt.registerSingleton(MoviesSearchRemoteDataSource(getIt<Dio>()));
+  getIt.registerSingleton(MoviesWatchListLocalDataSource());
 
   getIt.registerSingleton<HomeFeatureDataRepo>(
     HomeFeatureDataRepo(getIt<HomeRemoteDataSource>()),
@@ -64,6 +73,11 @@ void setupMoviesInjection() {
   getIt.registerSingleton<MoviesSearchFeatureDataRepo>(
     MoviesSearchFeatureDataRepo(getIt<MoviesSearchRemoteDataSource>()),
   );
+  getIt.registerSingleton<MoviesWatchListFeatureDataRepo>(
+    MoviesWatchListFeatureDataRepo(
+        moviesWatchListLocalDataSource:
+            getIt<MoviesWatchListLocalDataSource>()),
+  );
 
   getIt.registerSingleton<HomeFeatureDomainRepo>(getIt<HomeFeatureDataRepo>());
 
@@ -80,6 +94,9 @@ void setupMoviesInjection() {
   );
   getIt.registerSingleton<MoviesSearchFeatureDomainRepo>(
     getIt<MoviesSearchFeatureDataRepo>(),
+  );
+  getIt.registerSingleton<MoviesWatchListFeatureDomainRepo>(
+    getIt<MoviesWatchListFeatureDataRepo>(),
   );
 
   getIt.registerSingleton<GetNowPlayingMoviesUseCase>(
@@ -121,6 +138,26 @@ void setupMoviesInjection() {
   getIt.registerSingleton<GetSearchedMoviesUseCase>(
     GetSearchedMoviesUseCase(getIt<MoviesSearchFeatureDomainRepo>()),
   );
+  getIt.registerSingleton<GetAllWatchListMoviesUseCase>(
+    GetAllWatchListMoviesUseCase(
+        moviesWatchListFeatureDomainRepo:
+            getIt<MoviesWatchListFeatureDomainRepo>()),
+  );
+  getIt.registerSingleton<AddMovieToWatchListUseCase>(
+    AddMovieToWatchListUseCase(
+        moviesWatchListFeatureDomainRepo:
+            getIt<MoviesWatchListFeatureDomainRepo>()),
+  );
+  getIt.registerSingleton<RemoveMovieFromWatchListUseCase>(
+    RemoveMovieFromWatchListUseCase(
+        moviesWatchListFeatureDomainRepo:
+            getIt<MoviesWatchListFeatureDomainRepo>()),
+  );
+  getIt.registerSingleton<ClearWatchListUseCase>(
+    ClearWatchListUseCase(
+        moviesWatchListFeatureDomainRepo:
+            getIt<MoviesWatchListFeatureDomainRepo>()),
+  );
 
   getIt.registerFactory<NowPlayingMoviesCubit>(
     () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
@@ -160,6 +197,14 @@ void setupMoviesInjection() {
 
   getIt.registerFactory<MoviesSearchCubit>(
     () => MoviesSearchCubit(getIt<GetSearchedMoviesUseCase>()),
+  );
+
+  getIt.registerFactory<AddMovieToWatchListAsLocalDataCubit>(
+    () => AddMovieToWatchListAsLocalDataCubit(
+        getIt<AddMovieToWatchListUseCase>(),
+        getIt<ClearWatchListUseCase>(),
+        getIt<GetAllWatchListMoviesUseCase>(),
+        getIt<RemoveMovieFromWatchListUseCase>()),
   );
 }
 

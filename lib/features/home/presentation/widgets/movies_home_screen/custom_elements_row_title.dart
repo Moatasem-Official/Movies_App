@@ -18,7 +18,7 @@ class CustomTitleOfListOfElements extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -27,7 +27,7 @@ class CustomTitleOfListOfElements extends StatelessWidget {
           const Spacer(),
           GestureDetector(
             onTap: onTap,
-            child: Row(
+            child: const Row(
               children: [
                 Text(
                   "See All",
@@ -37,8 +37,8 @@ class CustomTitleOfListOfElements extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(width: 5),
-                const Icon(
+                SizedBox(width: 5),
+                Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.white,
                   size: 16,

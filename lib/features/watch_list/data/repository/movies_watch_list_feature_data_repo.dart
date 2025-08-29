@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/errors/failure.dart';
-import 'package:movies_app/core/models/result_model.dart';
 import 'package:movies_app/features/watch_list/data/datasource/movies_watch_list_local_data_source.dart';
 import 'package:movies_app/features/watch_list/domain/repository/movies_watch_list_feature_domain_repo.dart';
 
@@ -10,7 +10,7 @@ class MoviesWatchListFeatureDataRepo extends MoviesWatchListFeatureDomainRepo {
   MoviesWatchListFeatureDataRepo(
       {required this.moviesWatchListLocalDataSource});
   @override
-  Future<void> addMovieToWatchList({required ResultModel movie}) async {
+  Future<void> addMovieToWatchList({required ResultEntity movie}) async {
     try {
       await moviesWatchListLocalDataSource.addMovie(movie);
     } catch (e) {
@@ -32,20 +32,9 @@ class MoviesWatchListFeatureDataRepo extends MoviesWatchListFeatureDomainRepo {
   }
 
   @override
-  Future<Either<Failure, List<ResultModel>>> getAllWatchListMovies() async {
+  Future<Either<Failure, List<ResultEntity>>> getAllWatchListMovies() async {
     try {
       return Right(await moviesWatchListLocalDataSource.getWatchList());
-    } catch (e) {
-      return Left(CacheFailure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, bool>> isMovieInWatchList(
-      {required int movieId}) async {
-    try {
-      return Right(
-          await moviesWatchListLocalDataSource.isMovieInWatchList(movieId));
     } catch (e) {
       return Left(CacheFailure(e.toString()));
     }

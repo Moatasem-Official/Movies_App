@@ -26,7 +26,7 @@ class CustomEmptyWatchListWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            'Add movies you want to watch later.',
+            'Add Movies You Want To Watch Later.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

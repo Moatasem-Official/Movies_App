@@ -75,6 +75,8 @@ class CustomSubTitleDetails extends StatelessWidget {
         SizedBox(
           height: 80, // ارتفاع محدد للقائمة الأفقية
           child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: companies.length,
             itemBuilder: (context, index) {

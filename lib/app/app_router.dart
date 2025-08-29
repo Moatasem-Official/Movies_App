@@ -19,6 +19,8 @@ import 'package:movies_app/features/see_all_movies/presentation/screen/see_all_e
 import 'package:movies_app/features/movie_videos/presentation/screens/show_and_play_videos_screen.dart';
 import 'package:movies_app/features/home/presentation/screens/splash_screen.dart';
 import 'package:movies_app/app/service_locator.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:movies_app/features/watch_list/presentation/screens/movies_watch_list_screen.dart';
 
 class AppRouter {
   static const String splashScreen = '/';
@@ -28,11 +30,12 @@ class AppRouter {
   static const String movieDetailsScreen = '/movieDetailsScreen';
   static const String showAndPlayVideosScreen = '/showAndPlayVideosScreen';
   static const String searchAllMoviesScreen = '/searchAllMoviesScreen';
+  static const String moviesWatchListScreen = '/moviesWatchListScreen';
 
   static Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splashScreen:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       case appHomeScreen:
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
@@ -55,19 +58,22 @@ class AppRouter {
               BlocProvider<MoviesSearchCubit>(
                 create: (_) => getIt<MoviesSearchCubit>(),
               ),
+              BlocProvider<AddMovieToWatchListAsLocalDataCubit>(
+                create: (_) => getIt<AddMovieToWatchListAsLocalDataCubit>()
+                  ..getAllWatchListMovies(),
+              ),
             ],
-            child: AppHomeScreen(),
+            child: const AppHomeScreen(),
           ),
         );
       case moviesHomeScreen:
-        return MaterialPageRoute(builder: (_) => MoviesHomeScreen());
+        return MaterialPageRoute(builder: (_) => const MoviesHomeScreen());
       case seeAllElementsListScreen:
         final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => BlocProvider<SeeAllMoviesCubit>(
-            create: (context) =>
-                getIt<SeeAllMoviesCubit>()
-                  ..getSeeAllMovies(arguments["movie_type"], 1),
+            create: (context) => getIt<SeeAllMoviesCubit>()
+              ..getSeeAllMovies(arguments["movie_type"], 1),
             child: SeeAllElementsListScreen(title: arguments["title"]),
           ),
         );
@@ -77,19 +83,16 @@ class AppRouter {
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider<MovieDetailsCubit>(
-                create: (_) =>
-                    getIt<MovieDetailsCubit>()
-                      ..getMovieDetails(movieId: args["id"]),
+                create: (_) => getIt<MovieDetailsCubit>()
+                  ..getMovieDetails(movieId: args["id"]),
               ),
               BlocProvider<SimilarMoviesCubit>(
-                create: (_) =>
-                    getIt<SimilarMoviesCubit>()
-                      ..getSimilarMovies(movieId: args["id"]),
+                create: (_) => getIt<SimilarMoviesCubit>()
+                  ..getSimilarMovies(movieId: args["id"]),
               ),
               BlocProvider<MovieVideosCubit>(
-                create: (_) =>
-                    getIt<MovieVideosCubit>()
-                      ..getMovieVideos(movieId: args["id"]),
+                create: (_) => getIt<MovieVideosCubit>()
+                  ..getMovieVideos(movieId: args["id"]),
               ),
             ],
             child: MovieDetailsScreen(movie: args["resultEntity"]),
@@ -99,14 +102,15 @@ class AppRouter {
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => BlocProvider<AllMovieVideosCubit>(
-            create: (_) =>
-                getIt<AllMovieVideosCubit>()
-                  ..getMovieVideos(movieId: args["id"]),
+            create: (_) => getIt<AllMovieVideosCubit>()
+              ..getMovieVideos(movieId: args["id"]),
             child: ShowAndPlayVideosScreen(videoIndex: args["videoIndex"]),
           ),
         );
       case searchAllMoviesScreen:
-        return MaterialPageRoute(builder: (_) => SearchAllMoviesScreen());
+        return MaterialPageRoute(builder: (_) => const SearchAllMoviesScreen());
+      case moviesWatchListScreen:
+        return MaterialPageRoute(builder: (_) => const MoviesWatchListScreen());
       default:
         return null;
     }

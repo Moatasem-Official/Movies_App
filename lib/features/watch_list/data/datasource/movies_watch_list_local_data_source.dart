@@ -1,16 +1,18 @@
 import 'package:hive/hive.dart';
-import 'package:movies_app/core/models/result_model.dart';
+import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import 'package:movies_app/features/watch_list/data/models/hive_movie_model.dart';
 
 class MoviesWatchListLocalDataSource {
   static const String watchListBoxName = "movies_watchlist";
 
-  Future<Box<ResultModel>> _openBox() async {
-    return await Hive.openBox<ResultModel>(watchListBoxName);
+  Future<Box<HiveMovieModel>> _openBox() async {
+    return await Hive.openBox<HiveMovieModel>(watchListBoxName);
   }
 
-  Future<void> addMovie(ResultModel movie) async {
+  Future<void> addMovie(ResultEntity movie) async {
     final box = await _openBox();
-    await box.put(movie.id, movie);
+    final hiveMovie = HiveMovieModel.fromEntity(movie);
+    await box.put(movie.id, hiveMovie);
   }
 
   Future<void> removeMovie(int movieId) async {
@@ -23,13 +25,8 @@ class MoviesWatchListLocalDataSource {
     await box.clear();
   }
 
-  Future<List<ResultModel>> getWatchList() async {
+  Future<List<ResultEntity>> getWatchList() async {
     final box = await _openBox();
-    return box.values.toList();
-  }
-
-  Future<bool> isMovieInWatchList(int movieId) async {
-    final box = await _openBox();
-    return box.containsKey(movieId);
+    return box.values.map((hiveMovie) => hiveMovie.toEntity()).toList();
   }
 }
