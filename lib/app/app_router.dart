@@ -19,7 +19,6 @@ import 'package:movies_app/features/see_all_movies/presentation/screen/see_all_e
 import 'package:movies_app/features/movie_videos/presentation/screens/show_and_play_videos_screen.dart';
 import 'package:movies_app/features/home/presentation/screens/splash_screen.dart';
 import 'package:movies_app/app/service_locator.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/screens/movies_watch_list_screen.dart';
 
 class AppRouter {
@@ -58,10 +57,6 @@ class AppRouter {
               BlocProvider<MoviesSearchCubit>(
                 create: (_) => getIt<MoviesSearchCubit>(),
               ),
-              BlocProvider<AddMovieToWatchListAsLocalDataCubit>(
-                create: (_) => getIt<AddMovieToWatchListAsLocalDataCubit>()
-                  ..getAllWatchListMovies(),
-              ),
             ],
             child: const AppHomeScreen(),
           ),
@@ -71,9 +66,13 @@ class AppRouter {
       case seeAllElementsListScreen:
         final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<SeeAllMoviesCubit>(
-            create: (context) => getIt<SeeAllMoviesCubit>()
-              ..getSeeAllMovies(arguments["movie_type"], 1),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider<SeeAllMoviesCubit>(
+                create: (_) => getIt<SeeAllMoviesCubit>()
+                  ..getSeeAllMovies(arguments["movie_type"], 1),
+              ),
+            ],
             child: SeeAllElementsListScreen(title: arguments["title"]),
           ),
         );

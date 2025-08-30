@@ -8,7 +8,7 @@ class CustomLoadingStateWidget extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 500,
-      child: Center(child: CircularProgressIndicator()),
+      child: const Center(child: CircularProgressIndicator()),
     );
   }
 }

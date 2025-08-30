@@ -10,6 +10,8 @@ import 'package:movies_app/features/movies_search/presentation/widgets/custom_in
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_no_movies_widget.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_app_bar.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movies_grid_result.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
 class SearchAllMoviesScreen extends StatefulWidget {
   const SearchAllMoviesScreen({super.key});
@@ -56,50 +58,99 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(200),
-        child: CustomSearchAppBar(
-          onSearchChanged: (value) {
-            if (value.isEmpty) {
-              context.read<MoviesSearchCubit>().emitIdle();
-            } else {
-              context.read<MoviesSearchCubit>().searchMovies(
-                query: value,
-                page: 1,
-                apiKey: AppConstants.kApiKey,
-              );
-            }
-          },
-          fadeAnimation: _fadeAnimation,
-          isSearching: _isSearching,
-          searchController: _searchController,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(200),
+          child: CustomSearchAppBar(
+            onSearchChanged: (value) {
+              if (value.isEmpty) {
+                context.read<MoviesSearchCubit>().emitIdle();
+              } else {
+                context.read<MoviesSearchCubit>().searchMovies(
+                      query: value,
+                      page: 1,
+                      apiKey: AppConstants.kApiKey,
+                    );
+              }
+            },
+            fadeAnimation: _fadeAnimation,
+            isSearching: _isSearching,
+            searchController: _searchController,
+          ),
         ),
-      ),
-      backgroundColor: const Color(0xFF141218),
-      body:
-          BlocBuilder<
-            MoviesSearchCubit,
-            MoviesModuleStates<List<ResultEntity>>
-          >(
+        backgroundColor: const Color(0xFF141218),
+        body: BlocListener<AddMovieToWatchListAsLocalDataCubit,
+            AddMovieToWatchListAsLocalDataState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              movieAddedToWatchlist: (message) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.teal,
+                    behavior: SnackBarBehavior.floating,
+                    padding: const EdgeInsets.all(10),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    dismissDirection: DismissDirection.down,
+                    elevation: 2,
+                    content: Row(
+                      children: [
+                        const Icon(Icons.check, color: Colors.white),
+                        const SizedBox(width: 10),
+                        Text(message,
+                            style: const TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+              },
+              movieRemovedFromWatchlist: (message) =>
+                  ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.teal,
+                  behavior: SnackBarBehavior.floating,
+                  padding: const EdgeInsets.all(10),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  dismissDirection: DismissDirection.down,
+                  elevation: 2,
+                  content: Row(
+                    children: [
+                      const Icon(Icons.check, color: Colors.white),
+                      const SizedBox(width: 10),
+                      Text(message,
+                          style: const TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                  duration: const Duration(seconds: 1),
+                ),
+              ),
+              orElse: () => null,
+            );
+          },
+          child: BlocBuilder<MoviesSearchCubit,
+              MoviesModuleStates<List<ResultEntity>>>(
             builder: (context, state) {
               return state.when(
                 idle: () => const CustomInitialSearchWidget(),
                 loading: () => const CustomLoadingStateWidget(),
                 loaded: (List<ResultEntity> movies) {
                   if (movies.isEmpty) {
-                    return CustomNoMoviesWidget();
+                    return const CustomNoMoviesWidget();
                   }
                   return _isSearching
                       ? CustomSearchMoviesGridResult(
                           movies: movies,
                           animationController: _animationController,
                         )
-                      : CustomInitialSearchWidget();
+                      : const CustomInitialSearchWidget();
                 },
                 error: (failure) => Center(child: Text(failure.message)),
               );
             },
           ),
-    );
+        ));
   }
 }

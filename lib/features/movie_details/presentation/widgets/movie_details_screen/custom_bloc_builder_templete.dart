@@ -5,10 +5,7 @@ import 'package:movies_app/features/movie_details/presentation/widgets/movie_det
 import 'package:movies_app/core/errors/failure.dart';
 
 class CustomMovieDetailsBlocBuilderTemplete<
-  C extends Cubit<MoviesModuleStates<T>>,
-  T
->
-    extends StatelessWidget {
+    C extends Cubit<MoviesModuleStates<T>>, T> extends StatelessWidget {
   const CustomMovieDetailsBlocBuilderTemplete({
     super.key,
     required this.builder,
@@ -25,7 +22,7 @@ class CustomMovieDetailsBlocBuilderTemplete<
         return state.when(
           idle: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
           loading: () =>
-              SliverToBoxAdapter(child: const CustomLoadingStateWidget()),
+              const SliverToBoxAdapter(child: CustomLoadingStateWidget()),
           loaded: (T data) {
             return builder(data);
           },

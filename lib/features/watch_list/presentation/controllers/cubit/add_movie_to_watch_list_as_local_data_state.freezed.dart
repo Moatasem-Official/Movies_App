@@ -20,36 +20,39 @@ mixin _$AddMovieToWatchListAsLocalDataState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
     required TResult Function(Failure failure) error,
     required TResult Function() getListLoading,
     required TResult Function(List<ResultEntity> result) getListSuccess,
     required TResult Function(Failure failure) getListError,
-    required TResult Function(bool exists) isInWatchList,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
     TResult? Function(Failure failure)? error,
     TResult? Function()? getListLoading,
     TResult? Function(List<ResultEntity> result)? getListSuccess,
     TResult? Function(Failure failure)? getListError,
-    TResult? Function(bool exists)? isInWatchList,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
     TResult Function(Failure failure)? error,
     TResult Function()? getListLoading,
     TResult Function(List<ResultEntity> result)? getListSuccess,
     TResult Function(Failure failure)? getListError,
-    TResult Function(bool exists)? isInWatchList,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -57,36 +60,43 @@ mixin _$AddMovieToWatchListAsLocalDataState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
     required TResult Function(_GetListLoading value) getListLoading,
     required TResult Function(_GetListSuccess value) getListSuccess,
     required TResult Function(_GetListError value) getListError,
-    required TResult Function(_IsInWatchList value) isInWatchList,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
     TResult? Function(_GetListLoading value)? getListLoading,
     TResult? Function(_GetListSuccess value)? getListSuccess,
     TResult? Function(_GetListError value)? getListError,
-    TResult? Function(_IsInWatchList value)? isInWatchList,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
     TResult Function(_GetListLoading value)? getListLoading,
     TResult Function(_GetListSuccess value)? getListSuccess,
     TResult Function(_GetListError value)? getListError,
-    TResult Function(_IsInWatchList value)? isInWatchList,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -137,12 +147,19 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
+class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   const _$InitialImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AddMovieToWatchListAsLocalDataState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty(
+        'type', 'AddMovieToWatchListAsLocalDataState.initial'));
   }
 
   @override
@@ -159,12 +176,13 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
     required TResult Function(Failure failure) error,
     required TResult Function() getListLoading,
     required TResult Function(List<ResultEntity> result) getListSuccess,
     required TResult Function(Failure failure) getListError,
-    required TResult Function(bool exists) isInWatchList,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
   }) {
     return initial();
   }
@@ -174,12 +192,13 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
     TResult? Function(Failure failure)? error,
     TResult? Function()? getListLoading,
     TResult? Function(List<ResultEntity> result)? getListSuccess,
     TResult? Function(Failure failure)? getListError,
-    TResult? Function(bool exists)? isInWatchList,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
   }) {
     return initial?.call();
   }
@@ -189,12 +208,13 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
     TResult Function(Failure failure)? error,
     TResult Function()? getListLoading,
     TResult Function(List<ResultEntity> result)? getListSuccess,
     TResult Function(Failure failure)? getListError,
-    TResult Function(bool exists)? isInWatchList,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -208,12 +228,15 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
     required TResult Function(_GetListLoading value) getListLoading,
     required TResult Function(_GetListSuccess value) getListSuccess,
     required TResult Function(_GetListError value) getListError,
-    required TResult Function(_IsInWatchList value) isInWatchList,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
   }) {
     return initial(this);
   }
@@ -223,12 +246,14 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
     TResult? Function(_GetListLoading value)? getListLoading,
     TResult? Function(_GetListSuccess value)? getListSuccess,
     TResult? Function(_GetListError value)? getListError,
-    TResult? Function(_IsInWatchList value)? isInWatchList,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
   }) {
     return initial?.call(this);
   }
@@ -238,12 +263,14 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
     TResult Function(_GetListLoading value)? getListLoading,
     TResult Function(_GetListSuccess value)? getListSuccess,
     TResult Function(_GetListError value)? getListError,
-    TResult Function(_IsInWatchList value)? isInWatchList,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -278,12 +305,19 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
+class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   const _$LoadingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AddMovieToWatchListAsLocalDataState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty(
+        'type', 'AddMovieToWatchListAsLocalDataState.loading'));
   }
 
   @override
@@ -300,12 +334,13 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
     required TResult Function(Failure failure) error,
     required TResult Function() getListLoading,
     required TResult Function(List<ResultEntity> result) getListSuccess,
     required TResult Function(Failure failure) getListError,
-    required TResult Function(bool exists) isInWatchList,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
   }) {
     return loading();
   }
@@ -315,12 +350,13 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
     TResult? Function(Failure failure)? error,
     TResult? Function()? getListLoading,
     TResult? Function(List<ResultEntity> result)? getListSuccess,
     TResult? Function(Failure failure)? getListError,
-    TResult? Function(bool exists)? isInWatchList,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
   }) {
     return loading?.call();
   }
@@ -330,12 +366,13 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
     TResult Function(Failure failure)? error,
     TResult Function()? getListLoading,
     TResult Function(List<ResultEntity> result)? getListSuccess,
     TResult Function(Failure failure)? getListError,
-    TResult Function(bool exists)? isInWatchList,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -349,12 +386,15 @@ class _$LoadingImpl implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
     required TResult Function(_GetListLoading value) getListLoading,
     required TResult Function(_GetListSuccess value) getListSuccess,
     required TResult Function(_GetListError value) getListError,
-    required TResult Function(_IsInWatchList value) isInWatchList,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
   }) {
     return loading(this);
   }
@@ -364,12 +404,14 @@ class _$LoadingImpl implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
     TResult? Function(_GetListLoading value)? getListLoading,
     TResult? Function(_GetListSuccess value)? getListSuccess,
     TResult? Function(_GetListError value)? getListError,
-    TResult? Function(_IsInWatchList value)? isInWatchList,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
   }) {
     return loading?.call(this);
   }
@@ -379,12 +421,14 @@ class _$LoadingImpl implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
     TResult Function(_GetListLoading value)? getListLoading,
     TResult Function(_GetListSuccess value)? getListSuccess,
     TResult Function(_GetListError value)? getListError,
-    TResult Function(_IsInWatchList value)? isInWatchList,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -396,147 +440,6 @@ class _$LoadingImpl implements _Loading {
 
 abstract class _Loading implements AddMovieToWatchListAsLocalDataState {
   const factory _Loading() = _$LoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$AddMovieToWatchListAsLocalDataStateCopyWithImpl<$Res,
-        _$SuccessImpl> implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AddMovieToWatchListAsLocalDataState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl();
-
-  @override
-  String toString() {
-    return 'AddMovieToWatchListAsLocalDataState.success()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SuccessImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(Failure failure) error,
-    required TResult Function() getListLoading,
-    required TResult Function(List<ResultEntity> result) getListSuccess,
-    required TResult Function(Failure failure) getListError,
-    required TResult Function(bool exists) isInWatchList,
-  }) {
-    return success();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(Failure failure)? error,
-    TResult? Function()? getListLoading,
-    TResult? Function(List<ResultEntity> result)? getListSuccess,
-    TResult? Function(Failure failure)? getListError,
-    TResult? Function(bool exists)? isInWatchList,
-  }) {
-    return success?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(Failure failure)? error,
-    TResult Function()? getListLoading,
-    TResult Function(List<ResultEntity> result)? getListSuccess,
-    TResult Function(Failure failure)? getListError,
-    TResult Function(bool exists)? isInWatchList,
-    required TResult orElse(),
-  }) {
-    if (success != null) {
-      return success();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
-    required TResult Function(_GetListLoading value) getListLoading,
-    required TResult Function(_GetListSuccess value) getListSuccess,
-    required TResult Function(_GetListError value) getListError,
-    required TResult Function(_IsInWatchList value) isInWatchList,
-  }) {
-    return success(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
-    TResult? Function(_GetListLoading value)? getListLoading,
-    TResult? Function(_GetListSuccess value)? getListSuccess,
-    TResult? Function(_GetListError value)? getListError,
-    TResult? Function(_IsInWatchList value)? isInWatchList,
-  }) {
-    return success?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
-    TResult Function(_GetListLoading value)? getListLoading,
-    TResult Function(_GetListSuccess value)? getListSuccess,
-    TResult Function(_GetListError value)? getListError,
-    TResult Function(_IsInWatchList value)? isInWatchList,
-    required TResult orElse(),
-  }) {
-    if (success != null) {
-      return success(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Success implements AddMovieToWatchListAsLocalDataState {
-  const factory _Success() = _$SuccessImpl;
 }
 
 /// @nodoc
@@ -574,15 +477,24 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
+class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   const _$ErrorImpl(this.failure);
 
   @override
   final Failure failure;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AddMovieToWatchListAsLocalDataState.error(failure: $failure)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'AddMovieToWatchListAsLocalDataState.error'))
+      ..add(DiagnosticsProperty('failure', failure));
   }
 
   @override
@@ -609,12 +521,13 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
     required TResult Function(Failure failure) error,
     required TResult Function() getListLoading,
     required TResult Function(List<ResultEntity> result) getListSuccess,
     required TResult Function(Failure failure) getListError,
-    required TResult Function(bool exists) isInWatchList,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
   }) {
     return error(failure);
   }
@@ -624,12 +537,13 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
     TResult? Function(Failure failure)? error,
     TResult? Function()? getListLoading,
     TResult? Function(List<ResultEntity> result)? getListSuccess,
     TResult? Function(Failure failure)? getListError,
-    TResult? Function(bool exists)? isInWatchList,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
   }) {
     return error?.call(failure);
   }
@@ -639,12 +553,13 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
     TResult Function(Failure failure)? error,
     TResult Function()? getListLoading,
     TResult Function(List<ResultEntity> result)? getListSuccess,
     TResult Function(Failure failure)? getListError,
-    TResult Function(bool exists)? isInWatchList,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -658,12 +573,15 @@ class _$ErrorImpl implements _Error {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
     required TResult Function(_GetListLoading value) getListLoading,
     required TResult Function(_GetListSuccess value) getListSuccess,
     required TResult Function(_GetListError value) getListError,
-    required TResult Function(_IsInWatchList value) isInWatchList,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
   }) {
     return error(this);
   }
@@ -673,12 +591,14 @@ class _$ErrorImpl implements _Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
     TResult? Function(_GetListLoading value)? getListLoading,
     TResult? Function(_GetListSuccess value)? getListSuccess,
     TResult? Function(_GetListError value)? getListError,
-    TResult? Function(_IsInWatchList value)? isInWatchList,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
   }) {
     return error?.call(this);
   }
@@ -688,12 +608,14 @@ class _$ErrorImpl implements _Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
     TResult Function(_GetListLoading value)? getListLoading,
     TResult Function(_GetListSuccess value)? getListSuccess,
     TResult Function(_GetListError value)? getListError,
-    TResult Function(_IsInWatchList value)? isInWatchList,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -736,12 +658,21 @@ class __$$GetListLoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GetListLoadingImpl implements _GetListLoading {
+class _$GetListLoadingImpl
+    with DiagnosticableTreeMixin
+    implements _GetListLoading {
   const _$GetListLoadingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AddMovieToWatchListAsLocalDataState.getListLoading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty(
+        'type', 'AddMovieToWatchListAsLocalDataState.getListLoading'));
   }
 
   @override
@@ -758,12 +689,13 @@ class _$GetListLoadingImpl implements _GetListLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
     required TResult Function(Failure failure) error,
     required TResult Function() getListLoading,
     required TResult Function(List<ResultEntity> result) getListSuccess,
     required TResult Function(Failure failure) getListError,
-    required TResult Function(bool exists) isInWatchList,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
   }) {
     return getListLoading();
   }
@@ -773,12 +705,13 @@ class _$GetListLoadingImpl implements _GetListLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
     TResult? Function(Failure failure)? error,
     TResult? Function()? getListLoading,
     TResult? Function(List<ResultEntity> result)? getListSuccess,
     TResult? Function(Failure failure)? getListError,
-    TResult? Function(bool exists)? isInWatchList,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
   }) {
     return getListLoading?.call();
   }
@@ -788,12 +721,13 @@ class _$GetListLoadingImpl implements _GetListLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
     TResult Function(Failure failure)? error,
     TResult Function()? getListLoading,
     TResult Function(List<ResultEntity> result)? getListSuccess,
     TResult Function(Failure failure)? getListError,
-    TResult Function(bool exists)? isInWatchList,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (getListLoading != null) {
@@ -807,12 +741,15 @@ class _$GetListLoadingImpl implements _GetListLoading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
     required TResult Function(_GetListLoading value) getListLoading,
     required TResult Function(_GetListSuccess value) getListSuccess,
     required TResult Function(_GetListError value) getListError,
-    required TResult Function(_IsInWatchList value) isInWatchList,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
   }) {
     return getListLoading(this);
   }
@@ -822,12 +759,14 @@ class _$GetListLoadingImpl implements _GetListLoading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
     TResult? Function(_GetListLoading value)? getListLoading,
     TResult? Function(_GetListSuccess value)? getListSuccess,
     TResult? Function(_GetListError value)? getListError,
-    TResult? Function(_IsInWatchList value)? isInWatchList,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
   }) {
     return getListLoading?.call(this);
   }
@@ -837,12 +776,14 @@ class _$GetListLoadingImpl implements _GetListLoading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
     TResult Function(_GetListLoading value)? getListLoading,
     TResult Function(_GetListSuccess value)? getListSuccess,
     TResult Function(_GetListError value)? getListError,
-    TResult Function(_IsInWatchList value)? isInWatchList,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (getListLoading != null) {
@@ -891,7 +832,9 @@ class __$$GetListSuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GetListSuccessImpl implements _GetListSuccess {
+class _$GetListSuccessImpl
+    with DiagnosticableTreeMixin
+    implements _GetListSuccess {
   const _$GetListSuccessImpl(final List<ResultEntity> result)
       : _result = result;
 
@@ -904,8 +847,17 @@ class _$GetListSuccessImpl implements _GetListSuccess {
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AddMovieToWatchListAsLocalDataState.getListSuccess(result: $result)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'AddMovieToWatchListAsLocalDataState.getListSuccess'))
+      ..add(DiagnosticsProperty('result', result));
   }
 
   @override
@@ -934,12 +886,13 @@ class _$GetListSuccessImpl implements _GetListSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
     required TResult Function(Failure failure) error,
     required TResult Function() getListLoading,
     required TResult Function(List<ResultEntity> result) getListSuccess,
     required TResult Function(Failure failure) getListError,
-    required TResult Function(bool exists) isInWatchList,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
   }) {
     return getListSuccess(result);
   }
@@ -949,12 +902,13 @@ class _$GetListSuccessImpl implements _GetListSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
     TResult? Function(Failure failure)? error,
     TResult? Function()? getListLoading,
     TResult? Function(List<ResultEntity> result)? getListSuccess,
     TResult? Function(Failure failure)? getListError,
-    TResult? Function(bool exists)? isInWatchList,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
   }) {
     return getListSuccess?.call(result);
   }
@@ -964,12 +918,13 @@ class _$GetListSuccessImpl implements _GetListSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
     TResult Function(Failure failure)? error,
     TResult Function()? getListLoading,
     TResult Function(List<ResultEntity> result)? getListSuccess,
     TResult Function(Failure failure)? getListError,
-    TResult Function(bool exists)? isInWatchList,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (getListSuccess != null) {
@@ -983,12 +938,15 @@ class _$GetListSuccessImpl implements _GetListSuccess {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
     required TResult Function(_GetListLoading value) getListLoading,
     required TResult Function(_GetListSuccess value) getListSuccess,
     required TResult Function(_GetListError value) getListError,
-    required TResult Function(_IsInWatchList value) isInWatchList,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
   }) {
     return getListSuccess(this);
   }
@@ -998,12 +956,14 @@ class _$GetListSuccessImpl implements _GetListSuccess {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
     TResult? Function(_GetListLoading value)? getListLoading,
     TResult? Function(_GetListSuccess value)? getListSuccess,
     TResult? Function(_GetListError value)? getListError,
-    TResult? Function(_IsInWatchList value)? isInWatchList,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
   }) {
     return getListSuccess?.call(this);
   }
@@ -1013,12 +973,14 @@ class _$GetListSuccessImpl implements _GetListSuccess {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
     TResult Function(_GetListLoading value)? getListLoading,
     TResult Function(_GetListSuccess value)? getListSuccess,
     TResult Function(_GetListError value)? getListError,
-    TResult Function(_IsInWatchList value)? isInWatchList,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (getListSuccess != null) {
@@ -1076,15 +1038,24 @@ class __$$GetListErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GetListErrorImpl implements _GetListError {
+class _$GetListErrorImpl with DiagnosticableTreeMixin implements _GetListError {
   const _$GetListErrorImpl(this.failure);
 
   @override
   final Failure failure;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'AddMovieToWatchListAsLocalDataState.getListError(failure: $failure)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'AddMovieToWatchListAsLocalDataState.getListError'))
+      ..add(DiagnosticsProperty('failure', failure));
   }
 
   @override
@@ -1111,12 +1082,13 @@ class _$GetListErrorImpl implements _GetListError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
     required TResult Function(Failure failure) error,
     required TResult Function() getListLoading,
     required TResult Function(List<ResultEntity> result) getListSuccess,
     required TResult Function(Failure failure) getListError,
-    required TResult Function(bool exists) isInWatchList,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
   }) {
     return getListError(failure);
   }
@@ -1126,12 +1098,13 @@ class _$GetListErrorImpl implements _GetListError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
     TResult? Function(Failure failure)? error,
     TResult? Function()? getListLoading,
     TResult? Function(List<ResultEntity> result)? getListSuccess,
     TResult? Function(Failure failure)? getListError,
-    TResult? Function(bool exists)? isInWatchList,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
   }) {
     return getListError?.call(failure);
   }
@@ -1141,12 +1114,13 @@ class _$GetListErrorImpl implements _GetListError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
     TResult Function(Failure failure)? error,
     TResult Function()? getListLoading,
     TResult Function(List<ResultEntity> result)? getListSuccess,
     TResult Function(Failure failure)? getListError,
-    TResult Function(bool exists)? isInWatchList,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (getListError != null) {
@@ -1160,12 +1134,15 @@ class _$GetListErrorImpl implements _GetListError {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
     required TResult Function(_GetListLoading value) getListLoading,
     required TResult Function(_GetListSuccess value) getListSuccess,
     required TResult Function(_GetListError value) getListError,
-    required TResult Function(_IsInWatchList value) isInWatchList,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
   }) {
     return getListError(this);
   }
@@ -1175,12 +1152,14 @@ class _$GetListErrorImpl implements _GetListError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
     TResult? Function(_GetListLoading value)? getListLoading,
     TResult? Function(_GetListSuccess value)? getListSuccess,
     TResult? Function(_GetListError value)? getListError,
-    TResult? Function(_IsInWatchList value)? isInWatchList,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
   }) {
     return getListError?.call(this);
   }
@@ -1190,12 +1169,14 @@ class _$GetListErrorImpl implements _GetListError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
     TResult Function(_GetListLoading value)? getListLoading,
     TResult Function(_GetListSuccess value)? getListSuccess,
     TResult Function(_GetListError value)? getListError,
-    TResult Function(_IsInWatchList value)? isInWatchList,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
     required TResult orElse(),
   }) {
     if (getListError != null) {
@@ -1218,20 +1199,22 @@ abstract class _GetListError implements AddMovieToWatchListAsLocalDataState {
 }
 
 /// @nodoc
-abstract class _$$IsInWatchListImplCopyWith<$Res> {
-  factory _$$IsInWatchListImplCopyWith(
-          _$IsInWatchListImpl value, $Res Function(_$IsInWatchListImpl) then) =
-      __$$IsInWatchListImplCopyWithImpl<$Res>;
+abstract class _$$MovieAddedToWatchlistImplCopyWith<$Res> {
+  factory _$$MovieAddedToWatchlistImplCopyWith(
+          _$MovieAddedToWatchlistImpl value,
+          $Res Function(_$MovieAddedToWatchlistImpl) then) =
+      __$$MovieAddedToWatchlistImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool exists});
+  $Res call({String message});
 }
 
 /// @nodoc
-class __$$IsInWatchListImplCopyWithImpl<$Res>
+class __$$MovieAddedToWatchlistImplCopyWithImpl<$Res>
     extends _$AddMovieToWatchListAsLocalDataStateCopyWithImpl<$Res,
-        _$IsInWatchListImpl> implements _$$IsInWatchListImplCopyWith<$Res> {
-  __$$IsInWatchListImplCopyWithImpl(
-      _$IsInWatchListImpl _value, $Res Function(_$IsInWatchListImpl) _then)
+        _$MovieAddedToWatchlistImpl>
+    implements _$$MovieAddedToWatchlistImplCopyWith<$Res> {
+  __$$MovieAddedToWatchlistImplCopyWithImpl(_$MovieAddedToWatchlistImpl _value,
+      $Res Function(_$MovieAddedToWatchlistImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of AddMovieToWatchListAsLocalDataState
@@ -1239,62 +1222,75 @@ class __$$IsInWatchListImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? exists = null,
+    Object? message = null,
   }) {
-    return _then(_$IsInWatchListImpl(
-      null == exists
-          ? _value.exists
-          : exists // ignore: cast_nullable_to_non_nullable
-              as bool,
+    return _then(_$MovieAddedToWatchlistImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$IsInWatchListImpl implements _IsInWatchList {
-  const _$IsInWatchListImpl(this.exists);
+class _$MovieAddedToWatchlistImpl
+    with DiagnosticableTreeMixin
+    implements _MovieAddedToWatchlist {
+  const _$MovieAddedToWatchlistImpl(this.message);
 
   @override
-  final bool exists;
+  final String message;
 
   @override
-  String toString() {
-    return 'AddMovieToWatchListAsLocalDataState.isInWatchList(exists: $exists)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AddMovieToWatchListAsLocalDataState.movieAddedToWatchlist(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'AddMovieToWatchListAsLocalDataState.movieAddedToWatchlist'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$IsInWatchListImpl &&
-            (identical(other.exists, exists) || other.exists == exists));
+            other is _$MovieAddedToWatchlistImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, exists);
+  int get hashCode => Object.hash(runtimeType, message);
 
   /// Create a copy of AddMovieToWatchListAsLocalDataState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$IsInWatchListImplCopyWith<_$IsInWatchListImpl> get copyWith =>
-      __$$IsInWatchListImplCopyWithImpl<_$IsInWatchListImpl>(this, _$identity);
+  _$$MovieAddedToWatchlistImplCopyWith<_$MovieAddedToWatchlistImpl>
+      get copyWith => __$$MovieAddedToWatchlistImplCopyWithImpl<
+          _$MovieAddedToWatchlistImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
     required TResult Function(Failure failure) error,
     required TResult Function() getListLoading,
     required TResult Function(List<ResultEntity> result) getListSuccess,
     required TResult Function(Failure failure) getListError,
-    required TResult Function(bool exists) isInWatchList,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
   }) {
-    return isInWatchList(exists);
+    return movieAddedToWatchlist(message);
   }
 
   @override
@@ -1302,14 +1298,15 @@ class _$IsInWatchListImpl implements _IsInWatchList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
     TResult? Function(Failure failure)? error,
     TResult? Function()? getListLoading,
     TResult? Function(List<ResultEntity> result)? getListSuccess,
     TResult? Function(Failure failure)? getListError,
-    TResult? Function(bool exists)? isInWatchList,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
   }) {
-    return isInWatchList?.call(exists);
+    return movieAddedToWatchlist?.call(message);
   }
 
   @override
@@ -1317,16 +1314,17 @@ class _$IsInWatchListImpl implements _IsInWatchList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
     TResult Function(Failure failure)? error,
     TResult Function()? getListLoading,
     TResult Function(List<ResultEntity> result)? getListSuccess,
     TResult Function(Failure failure)? getListError,
-    TResult Function(bool exists)? isInWatchList,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
     required TResult orElse(),
   }) {
-    if (isInWatchList != null) {
-      return isInWatchList(exists);
+    if (movieAddedToWatchlist != null) {
+      return movieAddedToWatchlist(message);
     }
     return orElse();
   }
@@ -1336,14 +1334,17 @@ class _$IsInWatchListImpl implements _IsInWatchList {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
     required TResult Function(_GetListLoading value) getListLoading,
     required TResult Function(_GetListSuccess value) getListSuccess,
     required TResult Function(_GetListError value) getListError,
-    required TResult Function(_IsInWatchList value) isInWatchList,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
   }) {
-    return isInWatchList(this);
+    return movieAddedToWatchlist(this);
   }
 
   @override
@@ -1351,14 +1352,16 @@ class _$IsInWatchListImpl implements _IsInWatchList {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
     TResult? Function(_GetListLoading value)? getListLoading,
     TResult? Function(_GetListSuccess value)? getListSuccess,
     TResult? Function(_GetListError value)? getListError,
-    TResult? Function(_IsInWatchList value)? isInWatchList,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
   }) {
-    return isInWatchList?.call(this);
+    return movieAddedToWatchlist?.call(this);
   }
 
   @override
@@ -1366,29 +1369,437 @@ class _$IsInWatchListImpl implements _IsInWatchList {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
     TResult Function(_GetListLoading value)? getListLoading,
     TResult Function(_GetListSuccess value)? getListSuccess,
     TResult Function(_GetListError value)? getListError,
-    TResult Function(_IsInWatchList value)? isInWatchList,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
     required TResult orElse(),
   }) {
-    if (isInWatchList != null) {
-      return isInWatchList(this);
+    if (movieAddedToWatchlist != null) {
+      return movieAddedToWatchlist(this);
     }
     return orElse();
   }
 }
 
-abstract class _IsInWatchList implements AddMovieToWatchListAsLocalDataState {
-  const factory _IsInWatchList(final bool exists) = _$IsInWatchListImpl;
+abstract class _MovieAddedToWatchlist
+    implements AddMovieToWatchListAsLocalDataState {
+  const factory _MovieAddedToWatchlist(final String message) =
+      _$MovieAddedToWatchlistImpl;
 
-  bool get exists;
+  String get message;
 
   /// Create a copy of AddMovieToWatchListAsLocalDataState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$IsInWatchListImplCopyWith<_$IsInWatchListImpl> get copyWith =>
+  _$$MovieAddedToWatchlistImplCopyWith<_$MovieAddedToWatchlistImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MovieRemovedFromWatchlistImplCopyWith<$Res> {
+  factory _$$MovieRemovedFromWatchlistImplCopyWith(
+          _$MovieRemovedFromWatchlistImpl value,
+          $Res Function(_$MovieRemovedFromWatchlistImpl) then) =
+      __$$MovieRemovedFromWatchlistImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$MovieRemovedFromWatchlistImplCopyWithImpl<$Res>
+    extends _$AddMovieToWatchListAsLocalDataStateCopyWithImpl<$Res,
+        _$MovieRemovedFromWatchlistImpl>
+    implements _$$MovieRemovedFromWatchlistImplCopyWith<$Res> {
+  __$$MovieRemovedFromWatchlistImplCopyWithImpl(
+      _$MovieRemovedFromWatchlistImpl _value,
+      $Res Function(_$MovieRemovedFromWatchlistImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AddMovieToWatchListAsLocalDataState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$MovieRemovedFromWatchlistImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MovieRemovedFromWatchlistImpl
+    with DiagnosticableTreeMixin
+    implements _MovieRemovedFromWatchlist {
+  const _$MovieRemovedFromWatchlistImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AddMovieToWatchListAsLocalDataState.movieRemovedFromWatchlist(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type',
+          'AddMovieToWatchListAsLocalDataState.movieRemovedFromWatchlist'))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MovieRemovedFromWatchlistImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AddMovieToWatchListAsLocalDataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MovieRemovedFromWatchlistImplCopyWith<_$MovieRemovedFromWatchlistImpl>
+      get copyWith => __$$MovieRemovedFromWatchlistImplCopyWithImpl<
+          _$MovieRemovedFromWatchlistImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(Failure failure) error,
+    required TResult Function() getListLoading,
+    required TResult Function(List<ResultEntity> result) getListSuccess,
+    required TResult Function(Failure failure) getListError,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
+  }) {
+    return movieRemovedFromWatchlist(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(Failure failure)? error,
+    TResult? Function()? getListLoading,
+    TResult? Function(List<ResultEntity> result)? getListSuccess,
+    TResult? Function(Failure failure)? getListError,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
+  }) {
+    return movieRemovedFromWatchlist?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(Failure failure)? error,
+    TResult Function()? getListLoading,
+    TResult Function(List<ResultEntity> result)? getListSuccess,
+    TResult Function(Failure failure)? getListError,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
+    required TResult orElse(),
+  }) {
+    if (movieRemovedFromWatchlist != null) {
+      return movieRemovedFromWatchlist(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_GetListLoading value) getListLoading,
+    required TResult Function(_GetListSuccess value) getListSuccess,
+    required TResult Function(_GetListError value) getListError,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
+  }) {
+    return movieRemovedFromWatchlist(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_GetListLoading value)? getListLoading,
+    TResult? Function(_GetListSuccess value)? getListSuccess,
+    TResult? Function(_GetListError value)? getListError,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
+  }) {
+    return movieRemovedFromWatchlist?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_GetListLoading value)? getListLoading,
+    TResult Function(_GetListSuccess value)? getListSuccess,
+    TResult Function(_GetListError value)? getListError,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
+    required TResult orElse(),
+  }) {
+    if (movieRemovedFromWatchlist != null) {
+      return movieRemovedFromWatchlist(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MovieRemovedFromWatchlist
+    implements AddMovieToWatchListAsLocalDataState {
+  const factory _MovieRemovedFromWatchlist(final String message) =
+      _$MovieRemovedFromWatchlistImpl;
+
+  String get message;
+
+  /// Create a copy of AddMovieToWatchListAsLocalDataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MovieRemovedFromWatchlistImplCopyWith<_$MovieRemovedFromWatchlistImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ClearAllWatchlistImplCopyWith<$Res> {
+  factory _$$ClearAllWatchlistImplCopyWith(_$ClearAllWatchlistImpl value,
+          $Res Function(_$ClearAllWatchlistImpl) then) =
+      __$$ClearAllWatchlistImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$ClearAllWatchlistImplCopyWithImpl<$Res>
+    extends _$AddMovieToWatchListAsLocalDataStateCopyWithImpl<$Res,
+        _$ClearAllWatchlistImpl>
+    implements _$$ClearAllWatchlistImplCopyWith<$Res> {
+  __$$ClearAllWatchlistImplCopyWithImpl(_$ClearAllWatchlistImpl _value,
+      $Res Function(_$ClearAllWatchlistImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AddMovieToWatchListAsLocalDataState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$ClearAllWatchlistImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ClearAllWatchlistImpl
+    with DiagnosticableTreeMixin
+    implements _ClearAllWatchlist {
+  const _$ClearAllWatchlistImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AddMovieToWatchListAsLocalDataState.clearAllWatchlist(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'AddMovieToWatchListAsLocalDataState.clearAllWatchlist'))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClearAllWatchlistImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AddMovieToWatchListAsLocalDataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClearAllWatchlistImplCopyWith<_$ClearAllWatchlistImpl> get copyWith =>
+      __$$ClearAllWatchlistImplCopyWithImpl<_$ClearAllWatchlistImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(Failure failure) error,
+    required TResult Function() getListLoading,
+    required TResult Function(List<ResultEntity> result) getListSuccess,
+    required TResult Function(Failure failure) getListError,
+    required TResult Function(String message) movieAddedToWatchlist,
+    required TResult Function(String message) movieRemovedFromWatchlist,
+    required TResult Function(String message) clearAllWatchlist,
+  }) {
+    return clearAllWatchlist(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(Failure failure)? error,
+    TResult? Function()? getListLoading,
+    TResult? Function(List<ResultEntity> result)? getListSuccess,
+    TResult? Function(Failure failure)? getListError,
+    TResult? Function(String message)? movieAddedToWatchlist,
+    TResult? Function(String message)? movieRemovedFromWatchlist,
+    TResult? Function(String message)? clearAllWatchlist,
+  }) {
+    return clearAllWatchlist?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(Failure failure)? error,
+    TResult Function()? getListLoading,
+    TResult Function(List<ResultEntity> result)? getListSuccess,
+    TResult Function(Failure failure)? getListError,
+    TResult Function(String message)? movieAddedToWatchlist,
+    TResult Function(String message)? movieRemovedFromWatchlist,
+    TResult Function(String message)? clearAllWatchlist,
+    required TResult orElse(),
+  }) {
+    if (clearAllWatchlist != null) {
+      return clearAllWatchlist(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_GetListLoading value) getListLoading,
+    required TResult Function(_GetListSuccess value) getListSuccess,
+    required TResult Function(_GetListError value) getListError,
+    required TResult Function(_MovieAddedToWatchlist value)
+        movieAddedToWatchlist,
+    required TResult Function(_MovieRemovedFromWatchlist value)
+        movieRemovedFromWatchlist,
+    required TResult Function(_ClearAllWatchlist value) clearAllWatchlist,
+  }) {
+    return clearAllWatchlist(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_GetListLoading value)? getListLoading,
+    TResult? Function(_GetListSuccess value)? getListSuccess,
+    TResult? Function(_GetListError value)? getListError,
+    TResult? Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult? Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult? Function(_ClearAllWatchlist value)? clearAllWatchlist,
+  }) {
+    return clearAllWatchlist?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_GetListLoading value)? getListLoading,
+    TResult Function(_GetListSuccess value)? getListSuccess,
+    TResult Function(_GetListError value)? getListError,
+    TResult Function(_MovieAddedToWatchlist value)? movieAddedToWatchlist,
+    TResult Function(_MovieRemovedFromWatchlist value)?
+        movieRemovedFromWatchlist,
+    TResult Function(_ClearAllWatchlist value)? clearAllWatchlist,
+    required TResult orElse(),
+  }) {
+    if (clearAllWatchlist != null) {
+      return clearAllWatchlist(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ClearAllWatchlist
+    implements AddMovieToWatchListAsLocalDataState {
+  const factory _ClearAllWatchlist(final String message) =
+      _$ClearAllWatchlistImpl;
+
+  String get message;
+
+  /// Create a copy of AddMovieToWatchListAsLocalDataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ClearAllWatchlistImplCopyWith<_$ClearAllWatchlistImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

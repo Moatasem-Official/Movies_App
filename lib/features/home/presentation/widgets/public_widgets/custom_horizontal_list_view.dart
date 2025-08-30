@@ -79,10 +79,10 @@ class CustomHorizontalListView<
                               onPressed: () {
                                 context
                                     .read<AddMovieToWatchListAsLocalDataCubit>()
-                                    .addMovieToWatchList(movie: movies[index]);
+                                    .toggleMovieInWatchList(movies[index]);
                               },
                               icon: Icon(
-                                (isMovieInWatchList == true)
+                                isMovieInWatchList
                                     ? Icons.bookmark_rounded
                                     : Icons.bookmark_border_rounded,
                                 color: Colors.white,

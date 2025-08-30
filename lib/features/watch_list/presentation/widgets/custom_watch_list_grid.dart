@@ -10,45 +10,8 @@ class CustomWatchListGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddMovieToWatchListAsLocalDataCubit,
+    return BlocBuilder<AddMovieToWatchListAsLocalDataCubit,
         AddMovieToWatchListAsLocalDataState>(
-      listener: (context, state) {
-        state.whenOrNull(
-          success: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                backgroundColor: Color.fromARGB(255, 45, 119, 48),
-                behavior: SnackBarBehavior.floating,
-                margin: EdgeInsets.all(20),
-                duration: Duration(seconds: 2),
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                content: Text('Movie Removed From Watch List',
-                    style: TextStyle(color: Colors.white, fontSize: 16)),
-              ),
-            );
-            context
-                .read<AddMovieToWatchListAsLocalDataCubit>()
-                .getAllWatchListMovies();
-          },
-          error: (failure) => ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-              margin: const EdgeInsets.all(20),
-              duration: const Duration(seconds: 2),
-              elevation: 2,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              content: Text(failure.message,
-                  style: const TextStyle(color: Colors.white, fontSize: 16)),
-            ),
-          ),
-        );
-      },
       builder: (context, state) {
         final widget = state.whenOrNull(
           initial: () => const SliverToBoxAdapter(
@@ -80,7 +43,7 @@ class CustomWatchListGrid extends StatelessWidget {
                           .removeMovieFromWatchList(movieId: result[index].id),
                       background: Container(
                         decoration: BoxDecoration(
-                          color: Colors.redAccent.withOpacity(0.8),
+                          color: Colors.blueGrey.withOpacity(0.8),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         alignment: Alignment.centerRight,

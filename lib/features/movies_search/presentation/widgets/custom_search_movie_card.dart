@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/app/app_router.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_movie_image_error_widget.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
 class MovieCard extends StatelessWidget {
   final ResultEntity movie;
@@ -33,7 +36,7 @@ class MovieCard extends StatelessWidget {
                   child: CircularProgressIndicator(
                     value: loadingProgress.expectedTotalBytes != null
                         ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
+                            loadingProgress.expectedTotalBytes!
                         : null,
                     strokeWidth: 2,
                     color: Colors.white,
@@ -41,7 +44,7 @@ class MovieCard extends StatelessWidget {
                 );
               },
               errorBuilder: (context, error, stackTrace) {
-                return CustomMovieImageErrorWidget();
+                return const CustomMovieImageErrorWidget();
               },
             ),
             Container(
@@ -95,22 +98,35 @@ class MovieCard extends StatelessWidget {
                 ],
               ),
             ),
-            Positioned(
-              top: 5,
-              left: 15,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.black54.withAlpha(150),
-                  shape: BoxShape.circle,
-                ),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.bookmark_border_rounded,
-                    color: Colors.white,
+            BlocBuilder<AddMovieToWatchListAsLocalDataCubit,
+                AddMovieToWatchListAsLocalDataState>(
+              builder: (context, state) {
+                final watchlistCubit =
+                    context.watch<AddMovieToWatchListAsLocalDataCubit>();
+                final isMovieInWatchList =
+                    watchlistCubit.isMovieInWatchList(movie.id);
+                return Positioned(
+                  top: 5,
+                  left: 15,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black54.withAlpha(150),
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        watchlistCubit.toggleMovieInWatchList(movie);
+                      },
+                      icon: Icon(
+                        isMovieInWatchList
+                            ? Icons.bookmark
+                            : Icons.bookmark_border_rounded,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),

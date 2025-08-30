@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/errors/failure.dart';
@@ -9,7 +10,6 @@ class AddMovieToWatchListAsLocalDataState
     with _$AddMovieToWatchListAsLocalDataState {
   const factory AddMovieToWatchListAsLocalDataState.initial() = _Initial;
   const factory AddMovieToWatchListAsLocalDataState.loading() = _Loading;
-  const factory AddMovieToWatchListAsLocalDataState.success() = _Success;
   const factory AddMovieToWatchListAsLocalDataState.error(Failure failure) =
       _Error;
   const factory AddMovieToWatchListAsLocalDataState.getListLoading() =
@@ -18,4 +18,13 @@ class AddMovieToWatchListAsLocalDataState
       List<ResultEntity> result) = _GetListSuccess;
   const factory AddMovieToWatchListAsLocalDataState.getListError(
       Failure failure) = _GetListError;
+  const factory AddMovieToWatchListAsLocalDataState.movieAddedToWatchlist(
+    String message,
+  ) = _MovieAddedToWatchlist;
+  const factory AddMovieToWatchListAsLocalDataState.movieRemovedFromWatchlist(
+    String message,
+  ) = _MovieRemovedFromWatchlist;
+  const factory AddMovieToWatchListAsLocalDataState.clearAllWatchlist(
+    String message,
+  ) = _ClearAllWatchlist;
 }

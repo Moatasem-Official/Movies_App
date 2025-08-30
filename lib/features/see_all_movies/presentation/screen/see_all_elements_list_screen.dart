@@ -17,7 +17,7 @@ class SeeAllElementsListScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -34,30 +34,27 @@ class SeeAllElementsListScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 15),
-        child:
-            BlocBuilder<
-              SeeAllMoviesCubit,
-              MoviesModuleStates<List<ResultEntity>>
-            >(
-              builder: (context, state) {
-                return state.when(
-                  idle: () => const Center(child: CircularProgressIndicator()),
-                  loading: () => SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - 100,
-                    child: const Center(child: CircularProgressIndicator()),
-                  ),
-                  loaded: (List<ResultEntity> movies) => ListView.builder(
-                    itemCount: movies.length,
-                    itemBuilder: (context, index) =>
-                        CustomCard(resultEntity: movies[index]),
-                  ),
-                  error: (Failure failure) {
-                    return Center(child: Text(failure.message));
-                  },
-                );
+        child: BlocBuilder<SeeAllMoviesCubit,
+            MoviesModuleStates<List<ResultEntity>>>(
+          builder: (context, state) {
+            return state.when(
+              idle: () => const Center(child: CircularProgressIndicator()),
+              loading: () => SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height - 100,
+                child: const Center(child: CircularProgressIndicator()),
+              ),
+              loaded: (List<ResultEntity> movies) => ListView.builder(
+                itemCount: movies.length,
+                itemBuilder: (context, index) =>
+                    CustomCard(resultEntity: movies[index]),
+              ),
+              error: (Failure failure) {
+                return Center(child: Text(failure.message));
               },
-            ),
+            );
+          },
+        ),
       ),
     );
   }

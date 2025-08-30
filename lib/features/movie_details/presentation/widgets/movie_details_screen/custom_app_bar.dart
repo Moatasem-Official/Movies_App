@@ -23,7 +23,7 @@ class CustomMovieDetailsSliverAppBar extends StatelessWidget {
             color: Colors.black.withAlpha(180),
             shape: BoxShape.circle,
           ),
-          child: Icon(Icons.arrow_back_ios, color: Colors.white),
+          child: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
       backgroundColor: Colors.black.withAlpha(180),

@@ -24,28 +24,24 @@ class MovieDetailsScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          CustomMovieDetailsBlocBuilderTemplete<
-            MovieDetailsCubit,
-            MovieDetailsEntity
-          >(
+          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+              MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
             builder: (movieDetailsEntity) => CustomMovieDetailsSliverAppBar(
               baseUrl: AppConstants.imagePathUrl,
               imagePath: movieDetailsEntity.posterPath,
             ),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 10)),
-          CustomMovieDetailsBlocBuilderTemplete<
-            MovieDetailsCubit,
-            MovieDetailsEntity
-          >(
+          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+              MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
             builder: (movieDetailsEntity) => SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   movieDetailsEntity.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -54,36 +50,30 @@ class MovieDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 5)),
-          CustomMovieDetailsBlocBuilderTemplete<
-            MovieDetailsCubit,
-            MovieDetailsEntity
-          >(
+          const SliverToBoxAdapter(child: SizedBox(height: 5)),
+          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+              MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
             builder: (movieDetailsEntity) =>
                 CustomSubTitleDetails(movieDetailsEntity: movieDetailsEntity),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 30)),
-          CustomMovieDetailsBlocBuilderTemplete<
-            MovieDetailsCubit,
-            MovieDetailsEntity
-          >(
+          const SliverToBoxAdapter(child: SizedBox(height: 30)),
+          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+              MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
             builder: (movieDetailsEntity) => SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Text(
                   movieDetailsEntity.overview,
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
             ),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 30)),
-          CustomMovieDetailsBlocBuilderTemplete<
-            MovieDetailsCubit,
-            MovieDetailsEntity
-          >(
+          const SliverToBoxAdapter(child: SizedBox(height: 30)),
+          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+              MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
             builder: (data) {
               return CustomMovieGenresWidget(
@@ -91,47 +81,43 @@ class MovieDetailsScreen extends StatelessWidget {
               );
             },
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 40)),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          const SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: const Text(
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
                 "MORE LIKE THIS",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 10)),
-          CustomMovieDetailsBlocBuilderTemplete<
-            SimilarMoviesCubit,
-            List<ResultEntity>
-          >(
+          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          CustomMovieDetailsBlocBuilderTemplete<SimilarMoviesCubit,
+              List<ResultEntity>>(
             cubit: context.read<SimilarMoviesCubit>(),
             builder: (data) => CustomMovieMoreLikeThisWidget(
               baseUrl: AppConstants.imagePathUrl,
               similarMovies: data,
             ),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 40)),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          const SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: const Text(
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
                 "Movie Videos",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 10)),
-          CustomMovieDetailsBlocBuilderTemplete<
-            MovieVideosCubit,
-            List<ResultVideoEntity>
-          >(
+          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          CustomMovieDetailsBlocBuilderTemplete<MovieVideosCubit,
+              List<ResultVideoEntity>>(
             cubit: context.read<MovieVideosCubit>(),
             builder: (data) =>
                 CustomMovieVideosSlider(videos: data, movie: movie),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 50)),
+          const SliverToBoxAdapter(child: SizedBox(height: 50)),
         ],
       ),
     );

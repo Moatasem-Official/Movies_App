@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/app/app_router.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({super.key, required this.resultEntity});
@@ -46,22 +49,35 @@ class CustomCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  top: 5,
-                  left: 5,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black54.withAlpha(150),
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.bookmark_border_rounded,
-                        color: Colors.white,
+                BlocBuilder<AddMovieToWatchListAsLocalDataCubit,
+                    AddMovieToWatchListAsLocalDataState>(
+                  builder: (context, state) {
+                    final watchlistCubit =
+                        context.watch<AddMovieToWatchListAsLocalDataCubit>();
+                    final isMovieInWatchList =
+                        watchlistCubit.isMovieInWatchList(resultEntity.id);
+                    return Positioned(
+                      top: 5,
+                      left: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black54.withAlpha(150),
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            watchlistCubit.toggleMovieInWatchList(resultEntity);
+                          },
+                          icon: Icon(
+                            isMovieInWatchList
+                                ? Icons.bookmark
+                                : Icons.bookmark_border_rounded,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -76,7 +92,7 @@ class CustomCard extends StatelessWidget {
                       resultEntity.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -86,7 +102,7 @@ class CustomCard extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: Colors.redAccent,
@@ -94,7 +110,7 @@ class CustomCard extends StatelessWidget {
                           ),
                           child: Text(
                             resultEntity.releaseDate.split("-")[0],
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -105,10 +121,11 @@ class CustomCard extends StatelessWidget {
                         Row(
                           spacing: 5,
                           children: [
-                            Icon(Icons.star, size: 18, color: Colors.amber),
+                            const Icon(Icons.star,
+                                size: 18, color: Colors.amber),
                             Text(
                               resultEntity.voteAverage.toStringAsFixed(1),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
@@ -123,7 +140,7 @@ class CustomCard extends StatelessWidget {
                       resultEntity.overview,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,

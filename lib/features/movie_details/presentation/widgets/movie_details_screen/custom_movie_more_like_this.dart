@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/app/app_router.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_empty_elements_widget.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
 class CustomMovieMoreLikeThisWidget extends StatelessWidget {
   const CustomMovieMoreLikeThisWidget({
@@ -18,7 +21,7 @@ class CustomMovieMoreLikeThisWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: similarMovies.isEmpty
-          ? EmptyStateWidget()
+          ? const EmptyStateWidget()
           : CarouselSlider.builder(
               itemCount: similarMovies.length,
               itemBuilder: (context, index, realIndex) {
@@ -43,31 +46,45 @@ class CustomMovieMoreLikeThisWidget extends StatelessWidget {
                                     '$baseUrl${similarMovies[index].posterPath}',
                                   )
                                 : (similarMovies[index].backdropPath != null)
-                                ? NetworkImage(
-                                    '$baseUrl${similarMovies[index].backdropPath}',
-                                  )
-                                : const AssetImage('assets/images/1852.jpg')
-                                      as ImageProvider,
+                                    ? NetworkImage(
+                                        '$baseUrl${similarMovies[index].backdropPath}',
+                                      )
+                                    : const AssetImage('assets/images/1852.jpg')
+                                        as ImageProvider,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: 5,
-                        left: 15,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.black54.withAlpha(150),
-                            shape: BoxShape.circle,
-                          ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.bookmark_border_rounded,
-                              color: Colors.white,
+                      BlocBuilder<AddMovieToWatchListAsLocalDataCubit,
+                          AddMovieToWatchListAsLocalDataState>(
+                        builder: (context, state) {
+                          final watchlistCubit = context
+                              .watch<AddMovieToWatchListAsLocalDataCubit>();
+                          final isMovieInWatchList = watchlistCubit
+                              .isMovieInWatchList(similarMovies[index].id);
+                          return Positioned(
+                            top: 5,
+                            left: 15,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black54.withAlpha(150),
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  watchlistCubit.toggleMovieInWatchList(
+                                      similarMovies[index]);
+                                },
+                                icon: Icon(
+                                  isMovieInWatchList
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_border_rounded,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ],
                   ),

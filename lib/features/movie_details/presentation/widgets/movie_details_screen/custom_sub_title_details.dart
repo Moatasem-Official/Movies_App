@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/core/utils/app_helpers.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
 class CustomSubTitleDetails extends StatelessWidget {
   const CustomSubTitleDetails({super.key, required this.movieDetailsEntity});
@@ -176,7 +180,7 @@ class CustomSubTitleDetails extends StatelessWidget {
   //                       child: ClipOval(
   //                         child: profilePath != null && profilePath.isNotEmpty
   //                             // في حالة وجود صورة
-  //                             ? Image.network(
+  // ? Image.network(
   //                                 '${AppConstants.imagePathUrl}$profilePath',
   //                                 fit: BoxFit.cover,
   //                                 width: 100,
@@ -280,21 +284,33 @@ class CustomSubTitleDetails extends StatelessWidget {
           ),
         ),
         // زر الإضافة للمفضلة
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.1),
-            shape: BoxShape.circle,
-          ),
-          child: IconButton(
-            onPressed: () {
-              // TODO: Implement bookmark functionality
-            },
-            icon: const Icon(
-              Icons.bookmark_border_rounded,
-              color: Colors.white,
-              size: 26,
-            ),
-          ),
+        BlocBuilder<AddMovieToWatchListAsLocalDataCubit,
+            AddMovieToWatchListAsLocalDataState>(
+          builder: (context, state) {
+            final watchlistCubit =
+                context.watch<AddMovieToWatchListAsLocalDataCubit>();
+            final isMovieInWatchList =
+                watchlistCubit.isMovieInWatchList(movieDetailsEntity.id);
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                onPressed: () {
+                  watchlistCubit.toggleMovieInWatchList(
+                      movieDetailsEntity.toResultEntity());
+                },
+                icon: Icon(
+                  isMovieInWatchList
+                      ? Icons.bookmark_rounded
+                      : Icons.bookmark_border_rounded,
+                  color: Colors.white,
+                  size: 26,
+                ),
+              ),
+            );
+          },
         ),
       ],
     );
@@ -433,6 +449,25 @@ class CustomSubTitleDetails extends StatelessWidget {
               .toList(),
         ),
       ],
+    );
+  }
+}
+
+extension MovieDetailsMapper on MovieDetailsEntity {
+  ResultEntity toResultEntity() {
+    return ResultEntity(
+      id: id,
+      title: title,
+      posterPath: posterPath,
+      overview: overview,
+      releaseDate: releaseDate,
+      voteAverage: double.parse(voteAverage.toString()),
+      backdropPath: backdropPath,
+      genreIds: genres.map((e) => e.id).toList(),
+      originalLanguage: originalLanguage,
+      originalTitle: originalTitle,
+      popularity: double.parse(popularity.toString()),
+      voteCount: int.parse(voteCount.toString()),
     );
   }
 }

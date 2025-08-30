@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/app/app_router.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 
 class CustomWatchListCard extends StatelessWidget {
@@ -11,35 +13,43 @@ class CustomWatchListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.network(
-              movie.posterPath ?? '',
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => const Center(
-                child: Icon(Icons.movie, color: Colors.white24, size: 50),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.8)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(
+        context,
+        AppRouter.movieDetailsScreen,
+        arguments: {"id": movie.id, "resultEntity": movie},
+      ),
+      child: Stack(children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.network(
+                '${AppConstants.imagePathUrl}${movie.posterPath}' ?? '',
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => const Center(
+                  child: Icon(Icons.movie, color: Colors.white24, size: 50),
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: ClipRRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.transparent, Colors.black.withOpacity(0.8)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     color: Colors.white.withOpacity(0.1),
@@ -95,31 +105,31 @@ class CustomWatchListCard extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-      Positioned(
-        top: 5,
-        left: 15,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black54.withAlpha(150),
-            shape: BoxShape.circle,
-          ),
-          child: IconButton(
-            onPressed: () {
-              context
-                  .read<AddMovieToWatchListAsLocalDataCubit>()
-                  .removeMovieFromWatchList(movieId: movie.id);
-            },
-            icon: const Icon(
-              Icons.bookmark,
-              color: Colors.white,
-            ),
+            ],
           ),
         ),
-      ),
-    ]);
+        Positioned(
+          top: 5,
+          left: 15,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black54.withAlpha(150),
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              onPressed: () {
+                context
+                    .read<AddMovieToWatchListAsLocalDataCubit>()
+                    .removeMovieFromWatchList(movieId: movie.id);
+              },
+              icon: const Icon(
+                Icons.bookmark,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ]),
+    );
   }
 }

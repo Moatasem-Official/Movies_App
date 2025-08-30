@@ -20,7 +20,7 @@ class CustomMovieGenresWidget extends StatelessWidget {
             const SizedBox(height: 5),
             Text(
               genres,
-              style: TextStyle(color: Colors.blueGrey, fontSize: 16),
+              style: const TextStyle(color: Colors.blueGrey, fontSize: 16),
             ),
           ],
         ),
