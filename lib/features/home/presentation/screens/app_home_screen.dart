@@ -18,6 +18,7 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
   List<Widget> screens = [
     const MoviesHomeScreen(),
     const SearchAllMoviesScreen(),
+    const Center(child: Text('Discover Screen')),
     const MoviesWatchListScreen(),
     const SettingsScreen(),
   ];
@@ -66,6 +67,15 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
               colors: [Color(0xFF232526), Color(0xFF414345)],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
+            ),
+          ),
+          const NavigationBarButton(
+            text: 'Discover',
+            icon: Icons.explore_outlined,
+            backgroundGradient: LinearGradient(
+              colors: [Color(0xFF141E30), Color(0xFF243B55)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
           ),
           const NavigationBarButton(
