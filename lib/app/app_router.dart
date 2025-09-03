@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/features/discover_movies/presentation/screens/discover_movies_screen.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
@@ -29,6 +30,7 @@ class AppRouter {
   static const String movieDetailsScreen = '/movieDetailsScreen';
   static const String showAndPlayVideosScreen = '/showAndPlayVideosScreen';
   static const String searchAllMoviesScreen = '/searchAllMoviesScreen';
+  static const String discoverMoviesScreen = '/discoverMoviesScreen';
   static const String moviesWatchListScreen = '/moviesWatchListScreen';
 
   static Route? onGenerateRoute(RouteSettings settings) {
@@ -108,6 +110,8 @@ class AppRouter {
         );
       case searchAllMoviesScreen:
         return MaterialPageRoute(builder: (_) => const SearchAllMoviesScreen());
+      case discoverMoviesScreen:
+        return MaterialPageRoute(builder: (_) => const DiscoverMoviesScreen());
       case moviesWatchListScreen:
         return MaterialPageRoute(builder: (_) => const MoviesWatchListScreen());
       default:
