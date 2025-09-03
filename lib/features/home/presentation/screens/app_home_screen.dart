@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:movies_app/features/discover_movies/presentation/screens/discover_movies_screen.dart';
 import 'package:movies_app/features/home/presentation/screens/movies_home_screen.dart';
 import 'package:movies_app/features/movies_search/presentation/screens/search_all_movies_screen.dart';
 import 'package:movies_app/features/settings/presentation/screens/settings_screen.dart';
@@ -18,7 +19,7 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
   List<Widget> screens = [
     const MoviesHomeScreen(),
     const SearchAllMoviesScreen(),
-    const Center(child: Text('Discover Screen')),
+    const DiscoverMoviesScreen(),
     const MoviesWatchListScreen(),
     const SettingsScreen(),
   ];
