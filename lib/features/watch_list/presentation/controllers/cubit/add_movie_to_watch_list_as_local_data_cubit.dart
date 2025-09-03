@@ -14,7 +14,7 @@ class AddMovieToWatchListAsLocalDataCubit
   final GetAllWatchListMoviesUseCase getAllWatchListMoviesUseCase;
   final RemoveMovieFromWatchListUseCase removeMovieFromWatchListUseCase;
 
-  final Set<int> _watchlistIds = {};
+  final Set<int> watchlistIds = {};
 
   AddMovieToWatchListAsLocalDataCubit(
     this.addMovieToWatchListUseCase,
@@ -24,7 +24,7 @@ class AddMovieToWatchListAsLocalDataCubit
   ) : super(const AddMovieToWatchListAsLocalDataState.initial());
 
   bool isMovieInWatchList(int movieId) {
-    return _watchlistIds.contains(movieId);
+    return watchlistIds.contains(movieId);
   }
 
   void returnToIdle() =>
@@ -34,7 +34,7 @@ class AddMovieToWatchListAsLocalDataCubit
     emit(const AddMovieToWatchListAsLocalDataState.loading());
     try {
       await addMovieToWatchListUseCase(movie: movie);
-      _watchlistIds.add(movie.id);
+      watchlistIds.add(movie.id);
       emit(const AddMovieToWatchListAsLocalDataState.movieAddedToWatchlist(
         'Movie Added To WatchList',
       ));
@@ -48,7 +48,7 @@ class AddMovieToWatchListAsLocalDataCubit
     emit(const AddMovieToWatchListAsLocalDataState.loading());
     try {
       await removeMovieFromWatchListUseCase(movieId: movieId);
-      _watchlistIds.remove(movieId);
+      watchlistIds.remove(movieId);
       emit(const AddMovieToWatchListAsLocalDataState.movieRemovedFromWatchlist(
         'Movie Removed From WatchList',
       ));
@@ -62,7 +62,7 @@ class AddMovieToWatchListAsLocalDataCubit
     emit(const AddMovieToWatchListAsLocalDataState.loading());
     try {
       await clearWatchListUseCase();
-      _watchlistIds.clear();
+      watchlistIds.clear();
       emit(const AddMovieToWatchListAsLocalDataState.clearAllWatchlist(
         'All Movies Removed From WatchList',
       ));
@@ -78,7 +78,7 @@ class AddMovieToWatchListAsLocalDataCubit
     movies.fold(
       (failure) => emit(AddMovieToWatchListAsLocalDataState.error(failure)),
       (movies) {
-        _watchlistIds
+        watchlistIds
           ..clear()
           ..addAll(movies.map((m) => m.id));
         emit(AddMovieToWatchListAsLocalDataState.getListSuccess(movies));

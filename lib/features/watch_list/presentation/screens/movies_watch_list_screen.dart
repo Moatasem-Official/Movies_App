@@ -101,41 +101,54 @@ class MoviesWatchListScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              IconButton(
-                                onPressed: () async {
-                                  final shouldClear = await showDialog<bool>(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: const Text('Clear Watchlist'),
-                                      content: const Text(
-                                          'Are you sure you want to clear the watchlist ?'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context, false),
-                                          child: const Text('Cancel'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context, true),
-                                          child: const Text('Clear'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                              BlocBuilder<AddMovieToWatchListAsLocalDataCubit,
+                                  AddMovieToWatchListAsLocalDataState>(
+                                builder: (context, state) {
+                                  final cubit = context.watch<
+                                      AddMovieToWatchListAsLocalDataCubit>();
+                                  return cubit.watchlistIds.isNotEmpty
+                                      ? IconButton(
+                                          onPressed: () async {
+                                            final shouldClear =
+                                                await showDialog<bool>(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: const Text(
+                                                    'Clear Watchlist'),
+                                                content: const Text(
+                                                    'Are you sure you want to clear the watchlist ?'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            context, false),
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            context, true),
+                                                    child: const Text('Clear'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
 
-                                  if (shouldClear == true) {
-                                    context
-                                        .read<
-                                            AddMovieToWatchListAsLocalDataCubit>()
-                                        .clearAllMoviesFromWatchList();
-                                  }
+                                            if (shouldClear == true) {
+                                              context
+                                                  .read<
+                                                      AddMovieToWatchListAsLocalDataCubit>()
+                                                  .clearAllMoviesFromWatchList();
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            Icons.clear_all_rounded,
+                                            size: 20,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : Container();
                                 },
-                                icon: const Icon(
-                                  Icons.clear_all_rounded,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
                               ),
                               Text(
                                 'My Watchlist',
@@ -145,13 +158,22 @@ class MoviesWatchListScreen extends StatelessWidget {
                                   color: Colors.white.withOpacity(0.9),
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.search,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
+                              BlocBuilder<AddMovieToWatchListAsLocalDataCubit,
+                                  AddMovieToWatchListAsLocalDataState>(
+                                builder: (context, state) {
+                                  final cubit = context.watch<
+                                      AddMovieToWatchListAsLocalDataCubit>();
+                                  return cubit.watchlistIds.isNotEmpty
+                                      ? IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                            Icons.search,
+                                            size: 20,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : Container();
+                                },
                               ),
                             ],
                           ),
