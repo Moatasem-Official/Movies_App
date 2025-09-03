@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/features/discover_movies/presentation/screens/show_and_search_movies_of_category_screen.dart';
 
 class DiscoverMoviesScreen extends StatelessWidget {
   const DiscoverMoviesScreen({super.key});
@@ -87,7 +88,9 @@ class GenreCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(20),
-      onTap: () {},
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const ShowAndSearchMoviesOfCategoryScreen(),
+      )),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
