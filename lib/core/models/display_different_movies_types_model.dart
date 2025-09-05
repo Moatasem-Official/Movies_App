@@ -21,7 +21,8 @@ class DisplayDifferentMoviesTypesModel
 
   factory DisplayDifferentMoviesTypesModel.fromJson(
     Map<String, dynamic> json,
-  ) => _$DisplayDifferentMoviesTypesModelFromJson(json);
+  ) =>
+      _$DisplayDifferentMoviesTypesModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$DisplayDifferentMoviesTypesModelToJson(this);

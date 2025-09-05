@@ -20,7 +20,7 @@ import 'package:movies_app/features/see_all_movies/presentation/controllers/cubi
 import 'package:movies_app/features/see_all_movies/presentation/screen/see_all_elements_list_screen.dart';
 import 'package:movies_app/features/movie_videos/presentation/screens/show_and_play_videos_screen.dart';
 import 'package:movies_app/features/home/presentation/screens/splash_screen.dart';
-import 'package:movies_app/app/service_locator.dart';
+import 'package:movies_app/core/utils/service_locator.dart';
 import 'package:movies_app/features/watch_list/presentation/screens/movies_watch_list_screen.dart';
 
 class AppRouter {

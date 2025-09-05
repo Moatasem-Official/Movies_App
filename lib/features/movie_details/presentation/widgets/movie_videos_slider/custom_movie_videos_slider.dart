@@ -4,7 +4,7 @@ import 'package:movies_app/core/entities/display_different_movies_types_entity.d
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_empty_elements_widget.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_card_content.dart';
-import 'package:movies_app/app/app_router.dart';
+import 'package:movies_app/core/utils/app_router.dart';
 import 'dart:ui';
 
 class CustomMovieVideosSlider extends StatelessWidget {

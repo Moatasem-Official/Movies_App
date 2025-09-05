@@ -7,7 +7,7 @@ import 'package:movies_app/features/home/presentation/controllers/movies_home_sc
 import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_elements_row_title.dart';
 import 'package:movies_app/features/home/presentation/widgets/public_widgets/custom_horizontal_list_view.dart';
 import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
-import 'package:movies_app/app/app_router.dart';
+import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
