@@ -5,7 +5,7 @@ class MovieCastEntity {
   final String name;
   final String originalName;
   final double popularity;
-  final String profilePath;
+  final String? profilePath;
   final String character;
 
   const MovieCastEntity({

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/features/discover_movies/presentation/screens/discover_movies_screen.dart';
 import 'package:movies_app/features/discover_movies/presentation/screens/show_and_search_movies_of_category_screen.dart';
+import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_credits_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
@@ -89,6 +90,10 @@ class AppRouter {
               BlocProvider<MovieDetailsCubit>(
                 create: (_) => getIt<MovieDetailsCubit>()
                   ..getMovieDetails(movieId: args["id"]),
+              ),
+              BlocProvider<MovieCreditsCubit>(
+                create: (_) => getIt<MovieCreditsCubit>()
+                  ..getMovieCredits(movieId: args["id"]),
               ),
               BlocProvider<SimilarMoviesCubit>(
                 create: (_) => getIt<SimilarMoviesCubit>()

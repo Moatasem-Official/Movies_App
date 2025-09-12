@@ -4,21 +4,21 @@ part 'movie_crew_model.g.dart';
 
 @JsonSerializable()
 class Crew {
-  final bool adult;
-  final int gender;
+  final bool? adult;
+  final int? gender;
   final int id;
   @JsonKey(name: 'known_for_department')
-  final String knownForDepartment;
-  final String name;
+  final String? knownForDepartment;
+  final String? name;
   @JsonKey(name: 'original_name')
-  final String originalName;
-  final double popularity;
+  final String? originalName;
+  final double? popularity;
   @JsonKey(name: 'profile_path')
-  final String profilePath;
+  final String? profilePath;
   @JsonKey(name: 'credit_id')
-  final String creditId;
-  final String department;
-  final String job;
+  final String? creditId;
+  final String? department;
+  final String? job;
 
   const Crew({
     required this.adult,

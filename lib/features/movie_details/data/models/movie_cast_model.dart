@@ -22,7 +22,7 @@ class Cast extends MovieCastEntity {
   final double popularity;
   @override
   @JsonKey(name: 'profile_path')
-  final String profilePath;
+  final String? profilePath;
   @JsonKey(name: 'cast_id')
   final int castId;
   @override
