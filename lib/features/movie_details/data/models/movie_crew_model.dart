@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'movies_crew_model.g.dart';
+part 'movie_crew_model.g.dart';
 
 @JsonSerializable()
 class Crew {

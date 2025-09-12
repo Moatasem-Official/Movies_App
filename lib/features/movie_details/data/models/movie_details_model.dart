@@ -76,21 +76,21 @@ class MovieDetailsModel extends MovieDetailsEntity {
     required this.voteAverage,
     required this.voteCount,
   }) : super(
-         genres: genres,
-         spokenLanguages: spokenLanguages,
-         backdropPath: backdropPath,
-         belongsToCollection: belongsToCollection,
-         imdbId: imdbId,
-         originCountry: originCountry,
-         originalLanguage: originalLanguage,
-         originalTitle: originalTitle,
-         posterPath: posterPath,
-         productionCompanies: productionCompanies,
-         productionCountries: productionCountries,
-         releaseDate: releaseDate,
-         voteAverage: voteAverage,
-         voteCount: voteCount,
-       );
+          genres: genres,
+          spokenLanguages: spokenLanguages,
+          backdropPath: backdropPath,
+          belongsToCollection: belongsToCollection,
+          imdbId: imdbId,
+          originCountry: originCountry,
+          originalLanguage: originalLanguage,
+          originalTitle: originalTitle,
+          posterPath: posterPath,
+          productionCompanies: productionCompanies,
+          productionCountries: productionCountries,
+          releaseDate: releaseDate,
+          voteAverage: voteAverage,
+          voteCount: voteCount,
+        );
 
   factory MovieDetailsModel.fromJson(Map<String, dynamic> json) =>
       _$MovieDetailsModelFromJson(json);

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movies_credits_model.dart';
+part of 'movie_credits_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

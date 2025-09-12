@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movies_cast_model.dart';
+part of 'movie_crew_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Cast _$CastFromJson(Map<String, dynamic> json) => Cast(
+Crew _$CrewFromJson(Map<String, dynamic> json) => Crew(
       adult: json['adult'] as bool,
       gender: (json['gender'] as num).toInt(),
       id: (json['id'] as num).toInt(),
@@ -15,13 +15,12 @@ Cast _$CastFromJson(Map<String, dynamic> json) => Cast(
       originalName: json['original_name'] as String,
       popularity: (json['popularity'] as num).toDouble(),
       profilePath: json['profile_path'] as String,
-      castId: (json['cast_id'] as num).toInt(),
-      character: json['character'] as String,
       creditId: json['credit_id'] as String,
-      order: (json['order'] as num).toInt(),
+      department: json['department'] as String,
+      job: json['job'] as String,
     );
 
-Map<String, dynamic> _$CastToJson(Cast instance) => <String, dynamic>{
+Map<String, dynamic> _$CrewToJson(Crew instance) => <String, dynamic>{
       'adult': instance.adult,
       'gender': instance.gender,
       'id': instance.id,
@@ -30,8 +29,7 @@ Map<String, dynamic> _$CastToJson(Cast instance) => <String, dynamic>{
       'original_name': instance.originalName,
       'popularity': instance.popularity,
       'profile_path': instance.profilePath,
-      'cast_id': instance.castId,
-      'character': instance.character,
       'credit_id': instance.creditId,
-      'order': instance.order,
+      'department': instance.department,
+      'job': instance.job,
     };
