@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies_app/features/movie_details/data/datasource/movie_details_remote_data_source.dart';
+import 'package:movies_app/features/movie_details/domain/entities/movie_credits_entity.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
 import 'package:movies_app/features/movie_details/domain/repository/movie_details_feature_domain_repo.dart';
@@ -44,6 +45,17 @@ class MovieDetailsFeatureDataRepo extends MovieDetailsFeatureDomainRepo {
   }) async {
     try {
       return Right(await movieDetailsRemoteDataSource.getMovieVideos(movieId));
+    } on NetworkException catch (e) {
+      final exception = NetworkException.getDioException(e);
+      return Left(FailureMapper.mapExceptionToFailure(exception));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MovieCreditsEntity>> getMovieCredits(
+      {required int movieId}) async {
+    try {
+      return Right(await movieDetailsRemoteDataSource.getMovieCredits(movieId));
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);
       return Left(FailureMapper.mapExceptionToFailure(exception));
