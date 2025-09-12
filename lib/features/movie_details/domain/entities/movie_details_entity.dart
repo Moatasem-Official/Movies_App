@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:movies_app/features/movie_details/domain/entities/genres_entity.dart';
+import 'package:movies_app/features/movie_details/domain/entities/spoken_language_entity.dart';
 
 class MovieDetailsEntity extends Equatable {
   final bool adult;
@@ -59,56 +61,31 @@ class MovieDetailsEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    adult,
-    backdropPath,
-    belongsToCollection,
-    budget,
-    genres,
-    homepage,
-    id,
-    imdbId,
-    originCountry,
-    originalLanguage,
-    originalTitle,
-    overview,
-    popularity,
-    posterPath,
-    productionCompanies,
-    productionCountries,
-    releaseDate,
-    revenue,
-    runtime,
-    spokenLanguages,
-    status,
-    tagline,
-    title,
-    video,
-    voteAverage,
-    voteCount,
-  ];
-}
-
-class GenresEntity extends Equatable {
-  final int id;
-  final String name;
-
-  const GenresEntity({required this.id, required this.name});
-
-  @override
-  List<Object?> get props => [id, name];
-}
-
-class SpokenLanguageEntity extends Equatable {
-  final String englishName;
-  final String iso_639_1;
-  final String name;
-
-  const SpokenLanguageEntity({
-    required this.englishName,
-    required this.iso_639_1,
-    required this.name,
-  });
-
-  @override
-  List<Object?> get props => [englishName, iso_639_1, name];
+        adult,
+        backdropPath,
+        belongsToCollection,
+        budget,
+        genres,
+        homepage,
+        id,
+        imdbId,
+        originCountry,
+        originalLanguage,
+        originalTitle,
+        overview,
+        popularity,
+        posterPath,
+        productionCompanies,
+        productionCountries,
+        releaseDate,
+        revenue,
+        runtime,
+        spokenLanguages,
+        status,
+        tagline,
+        title,
+        video,
+        voteAverage,
+        voteCount,
+      ];
 }
