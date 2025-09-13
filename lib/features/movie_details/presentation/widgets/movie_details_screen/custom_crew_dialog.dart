@@ -1,6 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_crew_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_actor_dialog_row_item.dart';
@@ -51,20 +51,35 @@ class CustomCrewDialog extends StatelessWidget {
                     fontSize: 22,
                     fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 4),
+              Text(
+                member.job ?? 'Unknown',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.grey.shade400,
+                  fontSize: 16,
+                ),
+              ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(color: Colors.white24),
               ),
               CustomActorDialogRowItem(
-                icon: Icons.business_center_outlined,
-                label: 'Department',
-                value: member.department ?? 'N/A',
+                icon: _getGenderIcon(member.gender),
+                label: 'Gender',
+                value: _getGenderString(member.gender),
               ),
               const SizedBox(height: 10),
               CustomActorDialogRowItem(
-                icon: Icons.star_outline_rounded,
-                label: 'Job',
-                value: member.job ?? 'N/A',
+                icon: Icons.work_outline,
+                label: 'Known For',
+                value: member.knownForDepartment ?? 'N/A',
+              ),
+              const SizedBox(height: 10),
+              CustomActorDialogRowItem(
+                icon: Icons.trending_up_rounded,
+                label: 'Popularity',
+                value: member.popularity.toStringAsFixed(2) ?? 'N/A',
               ),
               const SizedBox(height: 24),
               SizedBox(
@@ -88,6 +103,28 @@ class CustomCrewDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _getGenderString(int? gender) {
+    switch (gender) {
+      case 1:
+        return 'Female';
+      case 2:
+        return 'Male';
+      default:
+        return 'Not Specified';
+    }
+  }
+
+  IconData _getGenderIcon(int? gender) {
+    switch (gender) {
+      case 1:
+        return Icons.female_rounded;
+      case 2:
+        return Icons.male_rounded;
+      default:
+        return Icons.transgender_rounded;
+    }
   }
 
   Widget _buildPlaceholder() {
