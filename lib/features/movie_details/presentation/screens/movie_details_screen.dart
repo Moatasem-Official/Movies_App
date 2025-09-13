@@ -12,6 +12,7 @@ import 'package:movies_app/features/movie_details/presentation/widgets/movie_det
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_bloc_builder_templete.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_genres.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_credits.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_crew.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_more_like_this.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_movie_videos_slider.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_sub_title_details.dart';
@@ -107,6 +108,22 @@ class MovieDetailsScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(left: 8),
               child: Text(
+                "KEY CREW",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          CustomMovieDetailsBlocBuilderTemplete<MovieCreditsCubit,
+              MovieCreditsEntity>(
+            cubit: context.read<MovieCreditsCubit>(),
+            builder: (data) => CustomMovieCrew(crew: data.crew),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
                 "MORE LIKE THIS",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
@@ -126,7 +143,7 @@ class MovieDetailsScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(left: 8),
               child: Text(
-                "Movie Videos",
+                "VIDEOS",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),

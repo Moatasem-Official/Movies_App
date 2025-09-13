@@ -7,17 +7,17 @@ part of 'movie_crew_model.dart';
 // **************************************************************************
 
 Crew _$CrewFromJson(Map<String, dynamic> json) => Crew(
-      adult: json['adult'] as bool?,
-      gender: (json['gender'] as num?)?.toInt(),
+      adult: json['adult'] as bool,
+      gender: (json['gender'] as num).toInt(),
       id: (json['id'] as num).toInt(),
-      knownForDepartment: json['known_for_department'] as String?,
-      name: json['name'] as String?,
-      originalName: json['original_name'] as String?,
-      popularity: (json['popularity'] as num?)?.toDouble(),
+      knownForDepartment: json['known_for_department'] as String,
+      name: json['name'] as String,
+      originalName: json['original_name'] as String,
+      popularity: (json['popularity'] as num).toDouble(),
       profilePath: json['profile_path'] as String?,
-      creditId: json['credit_id'] as String?,
-      department: json['department'] as String?,
-      job: json['job'] as String?,
+      creditId: json['credit_id'] as String,
+      department: json['department'] as String,
+      job: json['job'] as String,
     );
 
 Map<String, dynamic> _$CrewToJson(Crew instance) => <String, dynamic>{

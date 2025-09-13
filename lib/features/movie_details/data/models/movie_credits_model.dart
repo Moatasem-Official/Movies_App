@@ -10,13 +10,17 @@ class MovieCreditsModel extends MovieCreditsEntity {
   final int id;
   @override
   final List<Cast> cast;
+  @override
   final List<Crew> crew;
 
   const MovieCreditsModel({
     required this.id,
     required this.cast,
     required this.crew,
-  }) : super(cast: cast);
+  }) : super(
+          cast: cast,
+          crew: crew,
+        );
 
   factory MovieCreditsModel.fromJson(Map<String, dynamic> json) =>
       _$MovieCreditsModelFromJson(json);
