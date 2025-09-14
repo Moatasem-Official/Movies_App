@@ -1,35 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/screens/show_and_search_movies_of_category_screen.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
 
 class DiscoverMoviesScreen extends StatelessWidget {
   const DiscoverMoviesScreen({super.key});
-
-  final List<Map<String, dynamic>> genres = const [
-    {
-      'name': 'Action',
-      'color': Color(0xFF1A2A44),
-      'icon': Icons.local_fire_department
-    },
-    {
-      'name': 'Comedy',
-      'color': Color(0xFF2C3E50),
-      'icon': Icons.sentiment_satisfied_alt
-    },
-    {'name': 'Drama', 'color': Color(0xFF0F2038), 'icon': Icons.theater_comedy},
-    {
-      'name': 'Science Fiction',
-      'color': Color(0xFF1E3A5F),
-      'icon': Icons.rocket
-    },
-    {'name': 'Horror', 'color': Color(0xFF0C162A), 'icon': Icons.castle},
-    {'name': 'Romance', 'color': Color(0xFF3D3256), 'icon': Icons.favorite},
-    {'name': 'Adventure', 'color': Color(0xFF1F3047), 'icon': Icons.map},
-    {
-      'name': 'Animation',
-      'color': Color(0xFF2A426B),
-      'icon': Icons.auto_awesome
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +29,43 @@ class DiscoverMoviesScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16.0,
-            mainAxisSpacing: 16.0,
-          ),
-          itemCount: genres.length,
-          itemBuilder: (context, index) {
-            final genre = genres[index];
-            return GenreCard(
-              genreName: genre['name'],
-              genreColor: genre['color'],
-              genreIcon: genre['icon'],
+        child: BlocBuilder<DiscoverMoviesCubit, MoviesModuleStates>(
+          builder: (context, state) {
+            return state.when(
+              idle: () => const SizedBox.shrink(),
+              loading: () => const CustomLoadingStateWidget(),
+              error: (failure) => Center(
+                child: Text(
+                  failure.message,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+              loaded: (moviesCategories) {
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16.0,
+                    mainAxisSpacing: 16.0,
+                  ),
+                  itemCount: moviesCategories.genres.length,
+                  itemBuilder: (context, index) {
+                    final genreFromApi = moviesCategories.genres[index];
+
+                    final style = AppConstants.genreDetails[genreFromApi.id];
+
+                    final color =
+                        style?['color'] as Color? ?? Colors.grey.shade800;
+                    final icon =
+                        style?['icon'] as IconData? ?? Icons.movie_rounded;
+
+                    return GenreCard(
+                      genreName: genreFromApi.name,
+                      genreColor: color,
+                      genreIcon: icon,
+                    );
+                  },
+                );
+              },
             );
           },
         ),

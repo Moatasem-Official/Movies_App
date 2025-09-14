@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/screens/discover_movies_screen.dart';
 import 'package:movies_app/features/discover_movies/presentation/screens/show_and_search_movies_of_category_screen.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_credits_cubit.dart';
@@ -63,6 +64,10 @@ class AppRouter {
               ),
               BlocProvider<MoviesSearchCubit>(
                 create: (_) => getIt<MoviesSearchCubit>(),
+              ),
+              BlocProvider<DiscoverMoviesCubit>(
+                create: (context) =>
+                    getIt<DiscoverMoviesCubit>()..fetchDiscoverMovies(),
               ),
             ],
             child: const AppHomeScreen(),
