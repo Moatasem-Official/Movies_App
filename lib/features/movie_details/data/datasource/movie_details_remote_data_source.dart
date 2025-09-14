@@ -4,6 +4,7 @@ import 'package:movies_app/core/models/movie_videos_model.dart';
 import 'package:movies_app/core/models/display_different_movies_types_model.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/data/models/movie_credits_model.dart';
+import 'package:movies_app/features/movie_details/data/models/movie_images_model.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
@@ -28,6 +29,6 @@ abstract class MovieDetailsRemoteDataSource {
   @GET("movie/{movie_id}/credits?api_key=${AppConstants.kApiKey}")
   Future<MovieCreditsModel> getMovieCredits(@Path("movie_id") int movieId);
 
-  // @GET("movie/{movie_id}/images?api_key=${AppConstants.kApiKey}")
-  // Future<MovieImagesModel> getMovieImages(@Path("movie_id") int movieId);
+  @GET("movie/{movie_id}/images?api_key=${AppConstants.kApiKey}")
+  Future<MovieImagesModel> getMovieImages(@Path("movie_id") int movieId);
 }

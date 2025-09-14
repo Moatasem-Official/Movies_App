@@ -4,6 +4,7 @@ import 'package:movies_app/features/movie_details/domain/entities/movie_details_
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/errors/failure.dart';
+import 'package:movies_app/features/movie_details/domain/entities/movie_images_entity.dart';
 
 abstract class MovieDetailsFeatureDomainRepo {
   Future<Either<Failure, MovieDetailsEntity>> getMovieDetails({
@@ -16,6 +17,9 @@ abstract class MovieDetailsFeatureDomainRepo {
     required int movieId,
   });
   Future<Either<Failure, MovieCreditsEntity>> getMovieCredits({
+    required int movieId,
+  });
+  Future<Either<Failure, MovieImagesEntity>> getMovieImages({
     required int movieId,
   });
 }
