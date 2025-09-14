@@ -4,8 +4,10 @@ import 'package:movies_app/core/entities/display_different_movies_types_entity.d
 import 'package:movies_app/features/movie_details/domain/entities/movie_credits_entity.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
+import 'package:movies_app/features/movie_details/domain/entities/movie_images_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_credits_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
+import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_images_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_app_bar.dart';
@@ -13,6 +15,7 @@ import 'package:movies_app/features/movie_details/presentation/widgets/movie_det
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_genres.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_credits.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_crew.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_images_gallery.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_more_like_this.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_movie_videos_slider.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_sub_title_details.dart';
@@ -118,6 +121,24 @@ class MovieDetailsScreen extends StatelessWidget {
               MovieCreditsEntity>(
             cubit: context.read<MovieCreditsCubit>(),
             builder: (data) => CustomMovieCrew(crew: data.crew),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
+                "MOVIE GALLERY",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          CustomMovieDetailsBlocBuilderTemplete<MovieImagesCubit,
+              MovieImagesEntity>(
+            cubit: context.read<MovieImagesCubit>(),
+            builder: (data) => MovieImageGallery(
+              images: data,
+            ),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
           const SliverToBoxAdapter(

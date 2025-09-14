@@ -5,16 +5,21 @@ part 'movie_poster_model.g.dart';
 @JsonSerializable()
 class MoviePosterModel extends MoviePosterEntity {
   @override
+  @JsonKey(name: 'aspect_ratio')
   final double aspectRatio;
   @override
   final int height;
   @override
-  final String iso_639_1;
+  @JsonKey(name: 'iso_639_1')
+  final String? iso_639_1;
   @override
+  @JsonKey(name: 'file_path')
   final String? filePath;
   @override
+  @JsonKey(name: 'vote_average')
   final double voteAverage;
   @override
+  @JsonKey(name: 'vote_count')
   final int voteCount;
   @override
   final int width;

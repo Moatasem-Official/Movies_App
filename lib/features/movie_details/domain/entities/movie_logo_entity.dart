@@ -1,7 +1,10 @@
-class MovieLogoEntity {
+import 'package:movies_app/features/movie_details/domain/entities/base_movie_images_entity.dart';
+
+class MovieLogoEntity extends BaseImageEntity {
   final double aspectRatio;
   final int height;
-  final String iso_639_1;
+  final String? iso_639_1;
+  @override
   final String? filePath;
   final int voteAverage;
   final int voteCount;
@@ -15,5 +18,5 @@ class MovieLogoEntity {
     required this.voteAverage,
     required this.voteCount,
     required this.width,
-  });
+  }) : super(filePath: filePath);
 }

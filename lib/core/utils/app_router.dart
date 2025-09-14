@@ -5,6 +5,7 @@ import 'package:movies_app/features/discover_movies/presentation/screens/discove
 import 'package:movies_app/features/discover_movies/presentation/screens/show_and_search_movies_of_category_screen.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_credits_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
+import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_images_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
@@ -102,6 +103,10 @@ class AppRouter {
               BlocProvider<MovieVideosCubit>(
                 create: (_) => getIt<MovieVideosCubit>()
                   ..getMovieVideos(movieId: args["id"]),
+              ),
+              BlocProvider<MovieImagesCubit>(
+                create: (_) => getIt<MovieImagesCubit>()
+                  ..getMovieImages(movieId: args["id"]),
               ),
             ],
             child: MovieDetailsScreen(movie: args["resultEntity"]),
