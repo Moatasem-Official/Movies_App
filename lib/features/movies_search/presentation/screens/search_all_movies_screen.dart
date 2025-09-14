@@ -85,7 +85,7 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
               movieAddedToWatchlist: (message) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    backgroundColor: Colors.teal,
+                    backgroundColor: const Color(0xFF2c5364),
                     behavior: SnackBarBehavior.floating,
                     padding: const EdgeInsets.all(10),
                     shape: const RoundedRectangleBorder(
@@ -108,7 +108,7 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
               movieRemovedFromWatchlist: (message) =>
                   ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  backgroundColor: Colors.teal,
+                  backgroundColor: const Color(0xFF2c5364),
                   behavior: SnackBarBehavior.floating,
                   padding: const EdgeInsets.all(10),
                   shape: const RoundedRectangleBorder(
