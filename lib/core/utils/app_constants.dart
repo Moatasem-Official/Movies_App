@@ -8,81 +8,81 @@ class AppConstants {
   static const String imagePathUrl = "https://image.tmdb.org/t/p/w500";
 
   static const Map<int, Map<String, dynamic>> genreDetails = {
-    28: {
-      'icon': Icons.local_fire_department_rounded,
-      'color': Color(0xFFD32F2F),
-    },
-    12: {
-      'icon': Icons.explore_rounded,
-      'color': Color(0xFF388E3C),
-    },
-    16: {
-      'icon': Icons.auto_awesome_rounded,
-      'color': Color(0xFF7B1FA2),
-    },
-    35: {
-      'icon': Icons.sentiment_very_satisfied_rounded,
-      'color': Color(0xFFFBC02D),
+    27: {
+      'icon': Icons.nightlight_round,
+      'color': Color(0xFF0F2038),
     },
     80: {
       'icon': Icons.fingerprint_rounded,
-      'color': Color(0xFF455A64),
-    },
-    99: {
-      'icon': Icons.camera_roll_rounded,
-      'color': Color(0xFF616161),
-    },
-    18: {
-      'icon': Icons.theater_comedy_rounded,
-      'color': Color(0xFF0288D1),
-    },
-    10751: {
-      'icon': Icons.family_restroom_rounded,
-      'color': Color(0xFFF57C00),
-    },
-    14: {
-      'icon': Icons.castle_rounded,
-      'color': Color(0xFF512DA8),
-    },
-    36: {
-      'icon': Icons.account_balance_rounded,
-      'color': Color(0xFF6D4C41),
-    },
-    27: {
-      'icon': Icons.nightlight_round,
-      'color': Color(0xFF151515),
-    },
-    10402: {
-      'icon': Icons.music_note_rounded,
-      'color': Color(0xFFC2185B),
-    },
-    9648: {
-      'icon': Icons.help_outline_rounded,
-      'color': Color(0xFF00796B),
-    },
-    10749: {
-      'icon': Icons.favorite_rounded,
-      'color': Color(0xFFE91E63),
-    },
-    878: {
-      'icon': Icons.rocket_launch_rounded,
-      'color': Color(0xFF00BCD4),
-    },
-    10770: {
-      'icon': Icons.tv_rounded,
-      'color': Color(0xFF1976D2),
+      'color': Color(0xFF152A4A),
     },
     53: {
       'icon': Icons.bolt_rounded,
-      'color': Color(0xFF546E7A),
+      'color': Color(0xFF1A355A),
     },
     10752: {
       'icon': Icons.shield_rounded,
-      'color': Color(0xFF795548),
+      'color': Color(0xFF1B2E4B),
+    },
+    36: {
+      'icon': Icons.account_balance_rounded,
+      'color': Color(0xFF233B5E),
+    },
+    99: {
+      'icon': Icons.camera_roll_rounded,
+      'color': Color(0xFF35588F),
+    },
+    18: {
+      'icon': Icons.theater_comedy_rounded,
+      'color': Color(0xFF2A4C7A),
+    },
+    9648: {
+      'icon': Icons.help_outline_rounded,
+      'color': Color(0xFF1E3A5F),
+    },
+    28: {
+      'icon': Icons.local_fire_department_rounded,
+      'color': Color(0xFF3C619A),
+    },
+    12: {
+      'icon': Icons.explore_rounded,
+      'color': Color(0xFF4871B2),
+    },
+    878: {
+      'icon': Icons.rocket_launch_rounded,
+      'color': Color(0xFF4269A6),
     },
     37: {
       'icon': Icons.wb_sunny_outlined,
-      'color': Color(0xFFA1887F),
+      'color': Color(0xFF305182),
+    },
+    14: {
+      'icon': Icons.castle_rounded,
+      'color': Color(0xFF25416B),
+    },
+    10751: {
+      'icon': Icons.family_restroom_rounded,
+      'color': Color(0xFF5581CA),
+    },
+    16: {
+      'icon': Icons.auto_awesome_rounded,
+      'color': Color(0xFF6291E2),
+    },
+    35: {
+      'icon': Icons.sentiment_very_satisfied_rounded,
+      'color': Color(0xFF70A1FA),
+    },
+    10402: {
+      'icon': Icons.music_note_rounded,
+      'color': Color(0xFF5B89D6),
+    },
+    10749: {
+      'icon': Icons.favorite_rounded,
+      'color': Color(0xFF6899EE),
+    },
+    10770: {
+      'icon': Icons.tv_rounded,
+      'color': Color(0xFF4E79BE),
     },
   };
 }
