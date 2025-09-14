@@ -8,6 +8,7 @@ import 'package:movies_app/features/movie_details/data/repository/movie_details_
 import 'package:movies_app/features/movie_details/domain/repository/movie_details_feature_domain_repo.dart';
 import 'package:movies_app/features/movie_details/domain/usecases/Movie_Details_Screen/get_movie_credits_use_case.dart';
 import 'package:movies_app/features/movie_details/domain/usecases/Movie_Details_Screen/get_movie_details_use_case.dart';
+import 'package:movies_app/features/movie_details/domain/usecases/Movie_Details_Screen/get_movie_images_use_case.dart';
 import 'package:movies_app/features/movie_details/domain/usecases/Movie_Details_Screen/get_movie_videos_use_case.dart';
 import 'package:movies_app/features/movie_details/domain/usecases/Movie_Details_Screen/get_similar_movies_use_case.dart';
 import 'package:movies_app/features/home/domain/usecases/Movies_Home_Screen/get_now_playing_movies_use_case.dart';
@@ -16,6 +17,7 @@ import 'package:movies_app/features/home/domain/usecases/Movies_Home_Screen/get_
 import 'package:movies_app/features/home/domain/usecases/Movies_Home_Screen/get_upcomming_movies_use_case.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_credits_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_details_cubit.dart';
+import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_images_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
@@ -166,6 +168,12 @@ void setupMoviesInjection() {
     ),
   );
 
+  getIt.registerFactory<GetMovieImagesUseCase>(
+    () => GetMovieImagesUseCase(
+      movieDetailsFeatureDomainRepo: getIt<MovieDetailsFeatureDomainRepo>(),
+    ),
+  );
+
   getIt.registerFactory<NowPlayingMoviesCubit>(
     () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
   );
@@ -216,6 +224,10 @@ void setupMoviesInjection() {
 
   getIt.registerFactory<MovieCreditsCubit>(
     () => MovieCreditsCubit(getIt<GetMovieCreditsUseCase>()),
+  );
+
+  getIt.registerFactory<MovieImagesCubit>(
+    () => MovieImagesCubit(getIt<GetMovieImagesUseCase>()),
   );
 }
 
