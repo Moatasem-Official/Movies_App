@@ -1,5 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_remote_data_source.dart';
+import 'package:movies_app/features/discover_movies/data/repository/discover_movies_feature_data_repo.dart';
+import 'package:movies_app/features/discover_movies/domain/repository/discover_movies_feature_domain_repo.dart';
+import 'package:movies_app/features/discover_movies/domain/usecases/get_discover_movies_use_case.dart';
+import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
 import 'package:movies_app/features/home/data/datasource/home_remote_data_source.dart';
 import 'package:movies_app/features/home/data/repository/home_feature_data_repo.dart';
 import 'package:movies_app/features/home/domain/repository/home_feature_domain_repo.dart';
@@ -58,6 +63,7 @@ void setupMoviesInjection() {
   getIt.registerSingleton(MovieDetailsRemoteDataSource(getIt<Dio>()));
   getIt.registerSingleton(MovieVideosRemoteDataSource(getIt<Dio>()));
   getIt.registerSingleton(MoviesSearchRemoteDataSource(getIt<Dio>()));
+  getIt.registerSingleton(DiscoverMoviesRemoteDataSource(getIt<Dio>()));
   getIt.registerSingleton(MoviesWatchListLocalDataSource());
 
   getIt.registerSingleton<HomeFeatureDataRepo>(
@@ -83,6 +89,12 @@ void setupMoviesInjection() {
             getIt<MoviesWatchListLocalDataSource>()),
   );
 
+  getIt.registerSingleton<DiscoverMoviesFeatureDataRepo>(
+    DiscoverMoviesFeatureDataRepo(
+        discoverMoviesRemoteDataSource:
+            getIt<DiscoverMoviesRemoteDataSource>()),
+  );
+
   getIt.registerSingleton<HomeFeatureDomainRepo>(getIt<HomeFeatureDataRepo>());
 
   getIt.registerSingleton<SeeAllFeatureDomainRepo>(
@@ -101,6 +113,9 @@ void setupMoviesInjection() {
   );
   getIt.registerSingleton<MoviesWatchListFeatureDomainRepo>(
     getIt<MoviesWatchListFeatureDataRepo>(),
+  );
+  getIt.registerSingleton<DiscoverMoviesFeatureDomainRepo>(
+    getIt<DiscoverMoviesFeatureDataRepo>(),
   );
 
   getIt.registerSingleton<GetNowPlayingMoviesUseCase>(
@@ -174,6 +189,12 @@ void setupMoviesInjection() {
     ),
   );
 
+  getIt.registerFactory<GetDiscoverMoviesUseCase>(
+    () => GetDiscoverMoviesUseCase(
+      getIt<DiscoverMoviesFeatureDomainRepo>(),
+    ),
+  );
+
   getIt.registerFactory<NowPlayingMoviesCubit>(
     () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
   );
@@ -228,6 +249,10 @@ void setupMoviesInjection() {
 
   getIt.registerFactory<MovieImagesCubit>(
     () => MovieImagesCubit(getIt<GetMovieImagesUseCase>()),
+  );
+
+  getIt.registerFactory<DiscoverMoviesCubit>(
+    () => DiscoverMoviesCubit(getIt<GetDiscoverMoviesUseCase>()),
   );
 }
 

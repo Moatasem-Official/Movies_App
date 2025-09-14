@@ -9,6 +9,7 @@ class DiscoverMoviesCubit
   DiscoverMoviesCubit(this.getDiscoverMoviesUseCase) : super(const Idle());
 
   Future<void> fetchDiscoverMovies() async {
+    emit(const Loading());
     final result = await getDiscoverMoviesUseCase();
     result.fold(
       (failure) => emit(Error(failure)),
