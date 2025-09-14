@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/screens/show_and_search_movies_of_category_screen.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
@@ -90,9 +91,10 @@ class GenreCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(20),
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ShowAndSearchMoviesOfCategoryScreen(),
-      )),
+      onTap: () => Navigator.of(context).pushNamed( 
+        AppRouter.showAndSearchMoviesOfCategoryScreen,
+        arguments: {'moviesCategoryName': genreName},
+      ),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),

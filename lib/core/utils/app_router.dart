@@ -131,8 +131,11 @@ class AppRouter {
       case discoverMoviesScreen:
         return MaterialPageRoute(builder: (_) => const DiscoverMoviesScreen());
       case showAndSearchMoviesOfCategoryScreen:
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-            builder: (_) => const ShowAndSearchMoviesOfCategoryScreen());
+            builder: (_) => ShowAndSearchMoviesOfCategoryScreen(
+                  moviesCategoryName: args["moviesCategoryName"],
+                ));
       case moviesWatchListScreen:
         return MaterialPageRoute(builder: (_) => const MoviesWatchListScreen());
       default:

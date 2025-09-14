@@ -5,7 +5,10 @@ import 'package:movies_app/features/movies_search/presentation/widgets/custom_in
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movies_grid_result.dart';
 
 class ShowAndSearchMoviesOfCategoryScreen extends StatefulWidget {
-  const ShowAndSearchMoviesOfCategoryScreen({super.key});
+  const ShowAndSearchMoviesOfCategoryScreen(
+      {super.key, required this.moviesCategoryName});
+
+  final String moviesCategoryName;
 
   @override
   State<ShowAndSearchMoviesOfCategoryScreen> createState() =>
@@ -54,7 +57,7 @@ class _ShowAndSearchMoviesOfCategoryScreenState
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(200),
           child: CustomCategoryAppBar(
-            moviesCategoryName: 'Action Movies',
+            moviesCategoryName: widget.moviesCategoryName,
             onSearchChanged: (value) {},
             fadeAnimation: _fadeAnimation,
             isSearching: _isSearching,
