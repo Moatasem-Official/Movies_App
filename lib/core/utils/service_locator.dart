@@ -264,7 +264,8 @@ void setupMoviesInjection() {
   );
 
   getIt.registerFactory<CategoryMoviesCubit>(
-    () => CategoryMoviesCubit(getIt<GetCategoryMoviesUseCase>()),
+    () => CategoryMoviesCubit(
+        getIt<GetCategoryMoviesUseCase>(), getIt<GetSearchedMoviesUseCase>()),
   );
 }
 

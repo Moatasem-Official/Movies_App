@@ -27,10 +27,10 @@ class DiscoverMoviesFeatureDataRepo extends DiscoverMoviesFeatureDomainRepo {
 
   @override
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getcategoryMovies(
-      int movieId, int page) async {
+      int genreId, int page) async {
     try {
       final result =
-          await discoverMoviesRemoteDataSource.getcategoryMovies(movieId, page);
+          await discoverMoviesRemoteDataSource.getcategoryMovies(genreId, page);
       return Right(result);
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);

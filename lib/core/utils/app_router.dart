@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/category_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/screens/discover_movies_screen.dart';
 import 'package:movies_app/features/discover_movies/presentation/screens/show_and_search_movies_of_category_screen.dart';
@@ -133,8 +134,13 @@ class AppRouter {
       case showAndSearchMoviesOfCategoryScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-            builder: (_) => ShowAndSearchMoviesOfCategoryScreen(
-                  moviesCategoryName: args["moviesCategoryName"],
+            builder: (_) => BlocProvider<CategoryMoviesCubit>(
+                  create: (context) => getIt<CategoryMoviesCubit>()
+                    ..fetchCategoryMovies(args["genreId"], 1),
+                  child: ShowAndSearchMoviesOfCategoryScreen(
+                    moviesCategoryName: args["moviesCategoryName"],
+                    genreId: args["genreId"],
+                  ),
                 ));
       case moviesWatchListScreen:
         return MaterialPageRoute(builder: (_) => const MoviesWatchListScreen());
