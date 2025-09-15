@@ -3,7 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_remote_data_source.dart';
 import 'package:movies_app/features/discover_movies/data/repository/discover_movies_feature_data_repo.dart';
 import 'package:movies_app/features/discover_movies/domain/repository/discover_movies_feature_domain_repo.dart';
+import 'package:movies_app/features/discover_movies/domain/usecases/get_category_movies_use_case.dart';
 import 'package:movies_app/features/discover_movies/domain/usecases/get_discover_movies_use_case.dart';
+import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/category_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
 import 'package:movies_app/features/home/data/datasource/home_remote_data_source.dart';
 import 'package:movies_app/features/home/data/repository/home_feature_data_repo.dart';
@@ -195,6 +197,12 @@ void setupMoviesInjection() {
     ),
   );
 
+  getIt.registerFactory<GetCategoryMoviesUseCase>(
+    () => GetCategoryMoviesUseCase(
+      getIt<DiscoverMoviesFeatureDomainRepo>(),
+    ),
+  );
+
   getIt.registerFactory<NowPlayingMoviesCubit>(
     () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
   );
@@ -253,6 +261,10 @@ void setupMoviesInjection() {
 
   getIt.registerFactory<DiscoverMoviesCubit>(
     () => DiscoverMoviesCubit(getIt<GetDiscoverMoviesUseCase>()),
+  );
+
+  getIt.registerFactory<CategoryMoviesCubit>(
+    () => CategoryMoviesCubit(getIt<GetCategoryMoviesUseCase>()),
   );
 }
 
