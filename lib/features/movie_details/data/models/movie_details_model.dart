@@ -13,7 +13,7 @@ class MovieDetailsModel extends MovieDetailsEntity {
   final List<SpokenLanguageModel> spokenLanguages;
   @override
   @JsonKey(name: 'backdrop_path')
-  final dynamic backdropPath;
+  final String? backdropPath;
   @override
   @JsonKey(name: 'belongs_to_collection')
   final dynamic belongsToCollection;
@@ -31,7 +31,7 @@ class MovieDetailsModel extends MovieDetailsEntity {
   final String originalTitle;
   @override
   @JsonKey(name: 'poster_path')
-  final String posterPath;
+  final String? posterPath;
   @override
   @JsonKey(name: 'production_companies')
   final List<dynamic> productionCompanies;

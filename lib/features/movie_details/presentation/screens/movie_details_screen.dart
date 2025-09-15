@@ -71,10 +71,20 @@ class MovieDetailsScreen extends StatelessWidget {
             builder: (movieDetailsEntity) => SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(left: 8),
-                child: Text(
-                  movieDetailsEntity.overview,
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
-                ),
+                child: movieDetailsEntity.overview.isEmpty
+                    ? const Center(
+                        child: Text('No Overview Available',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 233, 233, 233),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      )
+                    : Text(
+                        movieDetailsEntity.overview,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 16),
+                      ),
               ),
             ),
           ),
@@ -83,9 +93,18 @@ class MovieDetailsScreen extends StatelessWidget {
               MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
             builder: (data) {
-              return CustomMovieGenresWidget(
-                genres: data.genres.map((e) => e.name).join(", "),
-              );
+              return data.genres.isEmpty
+                  ? const Center(
+                      child: Text('No Genres Available',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 233, 233, 233),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    )
+                  : CustomMovieGenresWidget(
+                      genres: data.genres.map((e) => e.name).join(", "),
+                    );
             },
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),

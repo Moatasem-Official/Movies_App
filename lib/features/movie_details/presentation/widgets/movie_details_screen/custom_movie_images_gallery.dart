@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/base_movie_images_entity.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_images_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_images_grid.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MovieImageGallery extends StatelessWidget {
   const MovieImageGallery({super.key, required this.images});
@@ -22,7 +16,18 @@ class MovieImageGallery extends StatelessWidget {
     if (images.logos.isNotEmpty) tabs['Logos'] = images.logos;
 
     if (tabs.isEmpty) {
-      return const SliverToBoxAdapter(child: SizedBox.shrink());
+      return const SliverToBoxAdapter(
+        child: Center(
+          child: Text(
+            'No Movie Images Found',
+            style: TextStyle(
+              color: Color.fromARGB(255, 233, 233, 233),
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
     }
 
     return SliverToBoxAdapter(
@@ -57,7 +62,7 @@ class MovieImageGallery extends StatelessWidget {
                     colors: [
                       Color(0xFF0f2027),
                       Color(0xFF203a43),
-                      Color(0xFF2c5364)
+                      Color(0xFF2c5364),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -71,12 +76,25 @@ class MovieImageGallery extends StatelessWidget {
             SizedBox(
               height: 250,
               child: TabBarView(
-                children: tabs.values.map((imageList) {
+                children: tabs.entries.map((entry) {
+                  final tabTitle = entry.key;
+                  final imageList = entry.value;
+
+                  if (imageList.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No $tabTitle Found',
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                      ),
+                    );
+                  }
+
                   return CustomMovieImagesGrid(
                     images: imageList,
-                    heroTagPrefix: tabs.keys
-                        .firstWhere((k) => tabs[k] == imageList)
-                        .substring(0, 3),
+                    heroTagPrefix: tabTitle.substring(0, 3),
                   );
                 }).toList(),
               ),

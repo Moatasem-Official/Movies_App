@@ -9,7 +9,7 @@ part of 'spoken_language_model.dart';
 SpokenLanguageModel _$SpokenLanguageModelFromJson(Map<String, dynamic> json) =>
     SpokenLanguageModel(
       englishName: json['english_name'] as String,
-      iso_639_1: json['iso_639_1'] as String,
+      iso_639_1: json['iso_639_1'] as String?,
       name: json['name'] as String,
     );
 

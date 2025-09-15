@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class SpokenLanguageEntity extends Equatable {
   final String englishName;
-  final String iso_639_1;
+  final String? iso_639_1;
   final String name;
 
   const SpokenLanguageEntity({

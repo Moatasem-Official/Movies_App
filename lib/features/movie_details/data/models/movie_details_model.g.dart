@@ -9,7 +9,7 @@ part of 'movie_details_model.dart';
 MovieDetailsModel _$MovieDetailsModelFromJson(Map<String, dynamic> json) =>
     MovieDetailsModel(
       adult: json['adult'] as bool,
-      backdropPath: json['backdrop_path'],
+      backdropPath: json['backdrop_path'] as String?,
       belongsToCollection: json['belongs_to_collection'],
       budget: (json['budget'] as num).toInt(),
       genres: (json['genres'] as List<dynamic>)
@@ -25,7 +25,7 @@ MovieDetailsModel _$MovieDetailsModelFromJson(Map<String, dynamic> json) =>
       originalTitle: json['original_title'] as String,
       overview: json['overview'] as String,
       popularity: (json['popularity'] as num).toDouble(),
-      posterPath: json['poster_path'] as String,
+      posterPath: json['poster_path'] as String?,
       productionCompanies: json['production_companies'] as List<dynamic>,
       productionCountries: json['production_countries'] as List<dynamic>,
       releaseDate: json['release_date'] as String,

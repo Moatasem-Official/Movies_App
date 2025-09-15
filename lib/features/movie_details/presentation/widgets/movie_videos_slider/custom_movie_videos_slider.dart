@@ -21,7 +21,9 @@ class CustomMovieVideosSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: videos.isEmpty
-          ? const EmptyStateWidget()
+          ? const EmptyStateWidget(
+              message: "No Videos Found",
+            )
           : CarouselSlider.builder(
               itemCount: videos.length,
               itemBuilder: (context, index, realIndex) {

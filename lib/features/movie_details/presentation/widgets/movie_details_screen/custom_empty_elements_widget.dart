@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class EmptyStateWidget extends StatelessWidget {
-  const EmptyStateWidget({super.key});
+  const EmptyStateWidget({super.key, required this.message});
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,9 @@ class EmptyStateWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
-            "No Similar Movies Found",
-            style: TextStyle(
+          Text(
+            message,
+            style: const TextStyle(
               color: Colors.white70,
               fontSize: 18,
               fontWeight: FontWeight.w500,

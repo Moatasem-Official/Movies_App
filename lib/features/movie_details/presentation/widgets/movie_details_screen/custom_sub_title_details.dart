@@ -62,7 +62,6 @@ class CustomSubTitleDetails extends StatelessWidget {
   Widget _buildProductionCompanies() {
     // فلترة الشركات التي ليس لها اسم أو شعار قد تكون فكرة جيدة
     final companies = movieDetailsEntity.productionCompanies;
-    if (companies.isEmpty) return const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,66 +75,76 @@ class CustomSubTitleDetails extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        SizedBox(
-          height: 80, // ارتفاع محدد للقائمة الأفقية
-          child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: companies.length,
-            itemBuilder: (context, index) {
-              final company = companies[index];
-              final logoPath = company['logo_path'];
+        companies.isEmpty
+            ? const Center(
+                child: Text('No Production Companies Found',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 233, 233, 233),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    )),
+              )
+            : SizedBox(
+                height: 80, // ارتفاع محدد للقائمة الأفقية
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: companies.length,
+                  itemBuilder: (context, index) {
+                    final company = companies[index];
+                    final logoPath = company['logo_path'];
 
-              return Container(
-                margin: const EdgeInsets.only(right: 12),
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9), // خلفية بيضاء للشعارات
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(
-                  child: logoPath != null && logoPath.isNotEmpty
-                      // في حالة وجود شعار
-                      ? Image.network(
-                          '${AppConstants.imagePathUrl}$logoPath',
-                          width: 100, // عرض محدد للصورة
-                          fit: BoxFit.contain,
-                          // لإظهار اسم الشركة كحل بديل في حال فشل تحميل الصورة
-                          errorBuilder: (context, error, stackTrace) {
-                            return Center(
-                              child: Text(
-                                company['name'],
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
+                    return Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white
+                            .withOpacity(0.9), // خلفية بيضاء للشعارات
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: logoPath != null && logoPath.isNotEmpty
+                            // في حالة وجود شعار
+                            ? Image.network(
+                                '${AppConstants.imagePathUrl}$logoPath',
+                                width: 100, // عرض محدد للصورة
+                                fit: BoxFit.contain,
+                                // لإظهار اسم الشركة كحل بديل في حال فشل تحميل الصورة
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Center(
+                                    child: Text(
+                                      company['name'],
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )
+                            // في حالة عدم وجود شعار، نعرض الاسم
+                            : SizedBox(
+                                width: 100,
+                                child: Center(
+                                  child: Text(
+                                    company['name'],
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            );
-                          },
-                        )
-                      // في حالة عدم وجود شعار، نعرض الاسم
-                      : SizedBox(
-                          width: 100,
-                          child: Center(
-                            child: Text(
-                              company['name'],
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ),
+              ),
       ],
     );
   }
@@ -323,8 +332,6 @@ class CustomSubTitleDetails extends StatelessWidget {
 
   /// ويدجت مساعد لإنشاء قائمة من الـ Chips
   Widget _buildChipList({required String title, required List<String> items}) {
-    if (items.isEmpty) return const SizedBox.shrink();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -337,27 +344,36 @@ class CustomSubTitleDetails extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: items
-              .map(
-                (item) => Chip(
-                  label: Text(item),
-                  backgroundColor: Colors.white.withOpacity(0.1),
-                  labelStyle: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  side: BorderSide(color: Colors.white.withOpacity(0.2)),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                ),
+        items.isEmpty
+            ? Center(
+                child: Text('No $title Found',
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 233, 233, 233),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    )),
               )
-              .toList(),
-        ),
+            : Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: items
+                    .map(
+                      (item) => Chip(
+                        label: Text(item),
+                        backgroundColor: Colors.white.withOpacity(0.1),
+                        labelStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        side: BorderSide(color: Colors.white.withOpacity(0.2)),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
       ],
     );
   }

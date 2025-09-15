@@ -21,7 +21,9 @@ class CustomMovieMoreLikeThisWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: similarMovies.isEmpty
-          ? const EmptyStateWidget()
+          ? const EmptyStateWidget(
+              message: 'No Similar Movies Found',
+            )
           : CarouselSlider.builder(
               itemCount: similarMovies.length,
               itemBuilder: (context, index, realIndex) {

@@ -10,7 +10,7 @@ class SpokenLanguageModel extends SpokenLanguageEntity {
 
   @override
   @JsonKey(name: 'iso_639_1')
-  final String iso_639_1;
+  final String? iso_639_1;
   const SpokenLanguageModel({
     required this.englishName,
     required this.iso_639_1,

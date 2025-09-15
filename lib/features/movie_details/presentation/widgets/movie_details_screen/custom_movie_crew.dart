@@ -10,24 +10,33 @@ class CustomMovieCrew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 190,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              itemCount: crew.length,
-              itemBuilder: (context, index) {
-                final member = crew[index];
-                return CustomCrewCard(member: member);
-              },
+      child: crew.isEmpty
+          ? const Center(
+              child: Text('No Movie Crew Found',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 233, 233, 233),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  )),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 190,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    itemCount: crew.length,
+                    itemBuilder: (context, index) {
+                      final member = crew[index];
+                      return CustomCrewCard(member: member);
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }
