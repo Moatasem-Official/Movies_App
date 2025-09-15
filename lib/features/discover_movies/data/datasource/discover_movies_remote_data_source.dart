@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movies_app/core/models/display_different_movies_types_model.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/discover_movies/data/models/movies_categories_model.dart';
 import 'package:retrofit/error_logger.dart';
@@ -12,4 +13,9 @@ abstract class DiscoverMoviesRemoteDataSource {
 
   @GET('genre/movie/list?api_key=${AppConstants.kApiKey}')
   Future<MoviesCategoriesModel> getDiscoverMovies();
+
+  @GET(
+      'discover/movie?api_key=${AppConstants.kApiKey}&with_genres={movie_id}&language=en-US&page={page}')
+  Future<DisplayDifferentMoviesTypesModel> getcategoryMovies(
+      @Path('movie_id') int movieId, @Path('page') int page);
 }

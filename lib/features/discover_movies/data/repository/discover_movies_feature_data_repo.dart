@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
+import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 
 import 'package:movies_app/core/errors/exceptions/failure_mapper.dart';
 import 'package:movies_app/core/errors/exceptions/network_exception.dart';
@@ -17,6 +18,19 @@ class DiscoverMoviesFeatureDataRepo extends DiscoverMoviesFeatureDomainRepo {
   Future<Either<Failure, MoviesCategoriesEntity>> getDiscoverMovies() async {
     try {
       final result = await discoverMoviesRemoteDataSource.getDiscoverMovies();
+      return Right(result);
+    } on NetworkException catch (e) {
+      final exception = NetworkException.getDioException(e);
+      return Left(FailureMapper.mapExceptionToFailure(exception));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getcategoryMovies(
+      int movieId, int page) async {
+    try {
+      final result =
+          await discoverMoviesRemoteDataSource.getcategoryMovies(movieId, page);
       return Right(result);
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);
