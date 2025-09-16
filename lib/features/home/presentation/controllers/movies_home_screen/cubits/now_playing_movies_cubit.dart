@@ -8,9 +8,11 @@ class NowPlayingMoviesCubit
   final GetNowPlayingMoviesUseCase getNowPlayingMoviesUseCase;
   NowPlayingMoviesCubit(this.getNowPlayingMoviesUseCase) : super(const Idle());
 
-  Future<void> getNowPlayingMovies() async {
+  Future<void> getNowPlayingMovies({
+    int page = 1,
+  }) async {
     emit(const Loading());
-    final result = await getNowPlayingMoviesUseCase();
+    final result = await getNowPlayingMoviesUseCase(page: page);
 
     result.fold(
       (failure) {

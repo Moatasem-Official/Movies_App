@@ -24,9 +24,10 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getNowPlayingMovies() async {
+  Future<DisplayDifferentMoviesTypesModel> getNowPlayingMovies(
+      {int page = 1}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(Options(
@@ -36,7 +37,7 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
     )
         .compose(
           _dio.options,
-          'movie/now_playing?api_key=0c0c7744db435d591d976e6422a9ef8e',
+          'movie/now_playing?api_key=0c0c7744db435d591d976e6422a9ef8e&page={page}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -57,9 +58,10 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
   }
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getPopularMovies() async {
+  Future<DisplayDifferentMoviesTypesModel> getPopularMovies(
+      {int page = 1}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(Options(
@@ -69,7 +71,7 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
     )
         .compose(
           _dio.options,
-          'movie/popular?api_key=0c0c7744db435d591d976e6422a9ef8e',
+          'movie/popular?api_key=0c0c7744db435d591d976e6422a9ef8e&page={page}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -90,9 +92,10 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
   }
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getTopRatedMovies() async {
+  Future<DisplayDifferentMoviesTypesModel> getTopRatedMovies(
+      {int page = 1}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(Options(
@@ -102,7 +105,7 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
     )
         .compose(
           _dio.options,
-          'movie/top_rated?api_key=0c0c7744db435d591d976e6422a9ef8e',
+          'movie/top_rated?api_key=0c0c7744db435d591d976e6422a9ef8e&page={page}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -123,9 +126,10 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
   }
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getUpcomingMovies() async {
+  Future<DisplayDifferentMoviesTypesModel> getUpcomingMovies(
+      {int page = 1}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(Options(
@@ -135,7 +139,7 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
     )
         .compose(
           _dio.options,
-          'movie/upcoming?api_key=0c0c7744db435d591d976e6422a9ef8e',
+          'movie/upcoming?api_key=0c0c7744db435d591d976e6422a9ef8e&page={page}',
           queryParameters: queryParameters,
           data: _data,
         )

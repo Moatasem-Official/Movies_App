@@ -7,9 +7,11 @@ class PopularMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetPopularMoviesUseCase getPopularMoviesUseCase;
   PopularMoviesCubit(this.getPopularMoviesUseCase) : super(const Idle());
 
-  Future<void> getPopularMovies() async {
+  Future<void> getPopularMovies({
+    int page = 1,
+  }) async {
     emit(const Loading());
-    final result = await getPopularMoviesUseCase();
+    final result = await getPopularMoviesUseCase(page: page);
     result.fold(
       (failure) {
         emit(Error(failure));

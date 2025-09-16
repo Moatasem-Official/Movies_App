@@ -12,9 +12,11 @@ class HomeFeatureDataRepo implements HomeFeatureDomainRepo {
 
   @override
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
-  getNowPlayingMovies() async {
+      getNowPlayingMovies({
+    int page = 1,
+  }) async {
     try {
-      return Right(await homeRemoteDataSource.getNowPlayingMovies());
+      return Right(await homeRemoteDataSource.getNowPlayingMovies(page: page));
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);
       return Left(FailureMapper.mapExceptionToFailure(exception));
@@ -22,10 +24,11 @@ class HomeFeatureDataRepo implements HomeFeatureDomainRepo {
   }
 
   @override
-  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
-  getPopularMovies() async {
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getPopularMovies({
+    int page = 1,
+  }) async {
     try {
-      return Right(await homeRemoteDataSource.getPopularMovies());
+      return Right(await homeRemoteDataSource.getPopularMovies(page: page));
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);
       return Left(FailureMapper.mapExceptionToFailure(exception));
@@ -33,10 +36,11 @@ class HomeFeatureDataRepo implements HomeFeatureDomainRepo {
   }
 
   @override
-  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
-  getTopRatedMovies() async {
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getTopRatedMovies({
+    int page = 1,
+  }) async {
     try {
-      return Right(await homeRemoteDataSource.getTopRatedMovies());
+      return Right(await homeRemoteDataSource.getTopRatedMovies(page: page));
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);
       return Left(FailureMapper.mapExceptionToFailure(exception));
@@ -44,10 +48,11 @@ class HomeFeatureDataRepo implements HomeFeatureDomainRepo {
   }
 
   @override
-  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
-  getUpcomingMovies() async {
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getUpcomingMovies({
+    int page = 1,
+  }) async {
     try {
-      return Right(await homeRemoteDataSource.getUpcomingMovies());
+      return Right(await homeRemoteDataSource.getUpcomingMovies(page: page));
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);
       return Left(FailureMapper.mapExceptionToFailure(exception));

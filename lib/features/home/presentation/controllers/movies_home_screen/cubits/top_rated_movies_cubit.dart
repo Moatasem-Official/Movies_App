@@ -8,9 +8,11 @@ class TopRatedMoviesCubit
   final GetTopRatedMoviesUseCase getTopRatedMoviesUseCase;
   TopRatedMoviesCubit(this.getTopRatedMoviesUseCase) : super(const Idle());
 
-  Future<void> getTopRatedMovies() async {
+  Future<void> getTopRatedMovies({
+    int page = 1,
+  }) async {
     emit(const Loading());
-    final result = await getTopRatedMoviesUseCase();
+    final result = await getTopRatedMoviesUseCase(page: page);
     result.fold(
       (failure) {
         emit(Error(failure));

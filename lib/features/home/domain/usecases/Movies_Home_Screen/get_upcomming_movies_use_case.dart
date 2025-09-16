@@ -6,6 +6,8 @@ import 'package:movies_app/core/errors/failure.dart';
 class GetUpcommingMoviesUseCase {
   final HomeFeatureDomainRepo homeFeatureDomainRepo;
   GetUpcommingMoviesUseCase(this.homeFeatureDomainRepo);
-  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call() =>
-      homeFeatureDomainRepo.getUpcomingMovies();
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call({
+    int page = 1,
+  }) =>
+      homeFeatureDomainRepo.getUpcomingMovies(page: page);
 }

@@ -7,6 +7,8 @@ class GetNowPlayingMoviesUseCase {
   final HomeFeatureDomainRepo homeFeatureDomainRepo;
   GetNowPlayingMoviesUseCase(this.homeFeatureDomainRepo);
 
-  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call() =>
-      homeFeatureDomainRepo.getNowPlayingMovies();
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call({
+    int page = 1,
+  }) =>
+      homeFeatureDomainRepo.getNowPlayingMovies(page: page);
 }
