@@ -5,6 +5,6 @@ import 'package:movies_app/core/errors/failure.dart';
 abstract class SeeAllFeatureDomainRepo {
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getSeeAllMovies({
     required String movieType,
-    required int page,
+    int page = 1,
   });
 }

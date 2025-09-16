@@ -20,6 +20,7 @@ mixin _$MoviesModuleStates<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
+    required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
     required TResult Function(Failure failure) error,
   }) =>
@@ -28,6 +29,7 @@ mixin _$MoviesModuleStates<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
+    TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
     TResult? Function(Failure failure)? error,
   }) =>
@@ -36,6 +38,7 @@ mixin _$MoviesModuleStates<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
+    TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
@@ -45,6 +48,7 @@ mixin _$MoviesModuleStates<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(Idle<T> value) idle,
     required TResult Function(Loading<T> value) loading,
+    required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
     required TResult Function(Error<T> value) error,
   }) =>
@@ -53,6 +57,7 @@ mixin _$MoviesModuleStates<T> {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Idle<T> value)? idle,
     TResult? Function(Loading<T> value)? loading,
+    TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
     TResult? Function(Error<T> value)? error,
   }) =>
@@ -61,6 +66,7 @@ mixin _$MoviesModuleStates<T> {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Idle<T> value)? idle,
     TResult Function(Loading<T> value)? loading,
+    TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
@@ -139,6 +145,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
+    required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
     required TResult Function(Failure failure) error,
   }) {
@@ -150,6 +157,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
+    TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
     TResult? Function(Failure failure)? error,
   }) {
@@ -161,6 +169,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
+    TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
@@ -176,6 +185,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(Idle<T> value) idle,
     required TResult Function(Loading<T> value) loading,
+    required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
     required TResult Function(Error<T> value) error,
   }) {
@@ -187,6 +197,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Idle<T> value)? idle,
     TResult? Function(Loading<T> value)? loading,
+    TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
     TResult? Function(Error<T> value)? error,
   }) {
@@ -198,6 +209,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Idle<T> value)? idle,
     TResult Function(Loading<T> value)? loading,
+    TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
@@ -263,6 +275,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
+    required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
     required TResult Function(Failure failure) error,
   }) {
@@ -274,6 +287,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
+    TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
     TResult? Function(Failure failure)? error,
   }) {
@@ -285,6 +299,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
+    TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
@@ -300,6 +315,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(Idle<T> value) idle,
     required TResult Function(Loading<T> value) loading,
+    required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
     required TResult Function(Error<T> value) error,
   }) {
@@ -311,6 +327,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Idle<T> value)? idle,
     TResult? Function(Loading<T> value)? loading,
+    TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
     TResult? Function(Error<T> value)? error,
   }) {
@@ -322,6 +339,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Idle<T> value)? idle,
     TResult Function(Loading<T> value)? loading,
+    TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
@@ -335,6 +353,173 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
 
 abstract class Loading<T> implements MoviesModuleStates<T> {
   const factory Loading() = _$LoadingImpl<T>;
+}
+
+/// @nodoc
+abstract class _$$PaginatedImplCopyWith<T, $Res> {
+  factory _$$PaginatedImplCopyWith(
+          _$PaginatedImpl<T> value, $Res Function(_$PaginatedImpl<T>) then) =
+      __$$PaginatedImplCopyWithImpl<T, $Res>;
+  @useResult
+  $Res call({T movies});
+}
+
+/// @nodoc
+class __$$PaginatedImplCopyWithImpl<T, $Res>
+    extends _$MoviesModuleStatesCopyWithImpl<T, $Res, _$PaginatedImpl<T>>
+    implements _$$PaginatedImplCopyWith<T, $Res> {
+  __$$PaginatedImplCopyWithImpl(
+      _$PaginatedImpl<T> _value, $Res Function(_$PaginatedImpl<T>) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MoviesModuleStates
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? movies = freezed,
+  }) {
+    return _then(_$PaginatedImpl<T>(
+      freezed == movies
+          ? _value.movies
+          : movies // ignore: cast_nullable_to_non_nullable
+              as T,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PaginatedImpl<T> with DiagnosticableTreeMixin implements Paginated<T> {
+  const _$PaginatedImpl(this.movies);
+
+  @override
+  final T movies;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'MoviesModuleStates<$T>.paginated(movies: $movies)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MoviesModuleStates<$T>.paginated'))
+      ..add(DiagnosticsProperty('movies', movies));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PaginatedImpl<T> &&
+            const DeepCollectionEquality().equals(other.movies, movies));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(movies));
+
+  /// Create a copy of MoviesModuleStates
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaginatedImplCopyWith<T, _$PaginatedImpl<T>> get copyWith =>
+      __$$PaginatedImplCopyWithImpl<T, _$PaginatedImpl<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() loading,
+    required TResult Function(T movies) paginated,
+    required TResult Function(T movies) loaded,
+    required TResult Function(Failure failure) error,
+  }) {
+    return paginated(movies);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? idle,
+    TResult? Function()? loading,
+    TResult? Function(T movies)? paginated,
+    TResult? Function(T movies)? loaded,
+    TResult? Function(Failure failure)? error,
+  }) {
+    return paginated?.call(movies);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loading,
+    TResult Function(T movies)? paginated,
+    TResult Function(T movies)? loaded,
+    TResult Function(Failure failure)? error,
+    required TResult orElse(),
+  }) {
+    if (paginated != null) {
+      return paginated(movies);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Idle<T> value) idle,
+    required TResult Function(Loading<T> value) loading,
+    required TResult Function(Paginated<T> value) paginated,
+    required TResult Function(Loaded<T> value) loaded,
+    required TResult Function(Error<T> value) error,
+  }) {
+    return paginated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Idle<T> value)? idle,
+    TResult? Function(Loading<T> value)? loading,
+    TResult? Function(Paginated<T> value)? paginated,
+    TResult? Function(Loaded<T> value)? loaded,
+    TResult? Function(Error<T> value)? error,
+  }) {
+    return paginated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Idle<T> value)? idle,
+    TResult Function(Loading<T> value)? loading,
+    TResult Function(Paginated<T> value)? paginated,
+    TResult Function(Loaded<T> value)? loaded,
+    TResult Function(Error<T> value)? error,
+    required TResult orElse(),
+  }) {
+    if (paginated != null) {
+      return paginated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Paginated<T> implements MoviesModuleStates<T> {
+  const factory Paginated(final T movies) = _$PaginatedImpl<T>;
+
+  T get movies;
+
+  /// Create a copy of MoviesModuleStates
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PaginatedImplCopyWith<T, _$PaginatedImpl<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -416,6 +601,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
+    required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
     required TResult Function(Failure failure) error,
   }) {
@@ -427,6 +613,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
+    TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
     TResult? Function(Failure failure)? error,
   }) {
@@ -438,6 +625,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
+    TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
@@ -453,6 +641,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(Idle<T> value) idle,
     required TResult Function(Loading<T> value) loading,
+    required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
     required TResult Function(Error<T> value) error,
   }) {
@@ -464,6 +653,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Idle<T> value)? idle,
     TResult? Function(Loading<T> value)? loading,
+    TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
     TResult? Function(Error<T> value)? error,
   }) {
@@ -475,6 +665,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Idle<T> value)? idle,
     TResult Function(Loading<T> value)? loading,
+    TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
@@ -576,6 +767,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loading,
+    required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
     required TResult Function(Failure failure) error,
   }) {
@@ -587,6 +779,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
     TResult? Function()? loading,
+    TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
     TResult? Function(Failure failure)? error,
   }) {
@@ -598,6 +791,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loading,
+    TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
@@ -613,6 +807,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(Idle<T> value) idle,
     required TResult Function(Loading<T> value) loading,
+    required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
     required TResult Function(Error<T> value) error,
   }) {
@@ -624,6 +819,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Idle<T> value)? idle,
     TResult? Function(Loading<T> value)? loading,
+    TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
     TResult? Function(Error<T> value)? error,
   }) {
@@ -635,6 +831,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Idle<T> value)? idle,
     TResult Function(Loading<T> value)? loading,
+    TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),

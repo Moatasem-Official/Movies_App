@@ -19,19 +19,20 @@ class CustomMovieDetailsBlocBuilderTemplete<
   Widget build(BuildContext context) {
     return BlocBuilder<C, MoviesModuleStates<T>>(
       builder: (context, state) {
-        return state.when(
-          idle: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
-          loading: () =>
-              const SliverToBoxAdapter(child: CustomLoadingStateWidget()),
-          loaded: (T data) {
-            return builder(data);
-          },
-          error: (Failure failure) {
-            return SliverToBoxAdapter(
-              child: Center(child: Text(failure.message)),
-            );
-          },
-        );
+        return state.whenOrNull(
+              idle: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
+              loading: () =>
+                  const SliverToBoxAdapter(child: CustomLoadingStateWidget()),
+              loaded: (T data) {
+                return builder(data);
+              },
+              error: (Failure failure) {
+                return SliverToBoxAdapter(
+                  child: Center(child: Text(failure.message)),
+                );
+              },
+            ) ??
+            const SliverToBoxAdapter(child: SizedBox.shrink());
       },
     );
   }

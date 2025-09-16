@@ -21,114 +21,121 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
     return BlocBuilder<C, MoviesModuleStates<List<ResultEntity>>>(
       bloc: cubit,
       builder: (context, state) {
-        return state.when(
-          idle: () {
-            return const Center(child: CircularProgressIndicator());
-          },
-          loading: () {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 400,
-              child: const Center(child: CircularProgressIndicator()),
-            );
-          },
-          loaded: (List<ResultEntity> movies) {
-            return CarouselSlider.builder(
-              itemCount: movies.length,
-              itemBuilder: (
-                BuildContext context,
-                int itemIndex,
-                int pageViewIndex,
-              ) {
-                final isMovieInWatchList = context
-                    .watch<AddMovieToWatchListAsLocalDataCubit>()
-                    .isMovieInWatchList(movies[itemIndex].id);
-                return GestureDetector(
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    AppRouter.seeAllElementsListScreen,
-                    arguments: {
-                      "title": "Now Playing Movies",
-                      "movie_type": "now_playing",
-                    },
-                  ),
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 400,
-                        child: Stack(
-                          children: [
-                            ShaderMask(
-                              shaderCallback: (rect) {
-                                return const LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [Colors.black, Colors.transparent],
-                                ).createShader(rect);
-                              },
-                              blendMode: BlendMode.dstIn,
-                              child: Image.network(
-                                '${AppConstants.imagePathUrl}${movies[itemIndex].backdropPath}',
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: 400,
+        return state.whenOrNull(
+              idle: () {
+                return const Center(child: CircularProgressIndicator());
+              },
+              loading: () {
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 400,
+                  child: const Center(child: CircularProgressIndicator()),
+                );
+              },
+              loaded: (List<ResultEntity> movies) {
+                return CarouselSlider.builder(
+                  itemCount: movies.length,
+                  itemBuilder: (
+                    BuildContext context,
+                    int itemIndex,
+                    int pageViewIndex,
+                  ) {
+                    final isMovieInWatchList = context
+                        .watch<AddMovieToWatchListAsLocalDataCubit>()
+                        .isMovieInWatchList(movies[itemIndex].id);
+                    return GestureDetector(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        AppRouter.seeAllElementsListScreen,
+                        arguments: {
+                          "title": "Now Playing Movies",
+                          "movie_type": "now_playing",
+                        },
+                      ),
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            height: 400,
+                            child: Stack(
+                              children: [
+                                ShaderMask(
+                                  shaderCallback: (rect) {
+                                    return const LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.black,
+                                        Colors.transparent
+                                      ],
+                                    ).createShader(rect);
+                                  },
+                                  blendMode: BlendMode.dstIn,
+                                  child: Image.network(
+                                    '${AppConstants.imagePathUrl}${movies[itemIndex].backdropPath}',
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: 400,
+                                  ),
+                                ),
+                                CustomSliderStackContent(
+                                  title: title,
+                                  subtitle: movies[itemIndex].title,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 30,
+                            left: 20,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black54.withAlpha(150),
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<
+                                          AddMovieToWatchListAsLocalDataCubit>()
+                                      .toggleMovieInWatchList(
+                                          movies[itemIndex]);
+                                },
+                                icon: Icon(
+                                  isMovieInWatchList
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_border_rounded,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                            CustomSliderStackContent(
-                              title: title,
-                              subtitle: movies[itemIndex].title,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        top: 30,
-                        left: 20,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.black54.withAlpha(150),
-                            shape: BoxShape.circle,
                           ),
-                          child: IconButton(
-                            onPressed: () {
-                              context
-                                  .read<AddMovieToWatchListAsLocalDataCubit>()
-                                  .toggleMovieInWatchList(movies[itemIndex]);
-                            },
-                            icon: Icon(
-                              isMovieInWatchList
-                                  ? Icons.bookmark
-                                  : Icons.bookmark_border_rounded,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                        ],
                       ),
-                    ],
+                    );
+                  },
+                  options: CarouselOptions(
+                    height: 400,
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 1,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: false,
+                    scrollDirection: Axis.horizontal,
                   ),
                 );
               },
-              options: CarouselOptions(
-                height: 400,
-                aspectRatio: 16 / 9,
-                viewportFraction: 1,
-                initialPage: 0,
-                enableInfiniteScroll: true,
-                reverse: false,
-                autoPlay: true,
-                autoPlayInterval: const Duration(seconds: 3),
-                autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: false,
-                scrollDirection: Axis.horizontal,
-              ),
-            );
-          },
-          error: (Failure failure) {
-            return Center(child: Text(failure.message));
-          },
-        );
+              error: (Failure failure) {
+                return Center(child: Text(failure.message));
+              },
+            ) ??
+            const SizedBox.shrink();
       },
     );
   }

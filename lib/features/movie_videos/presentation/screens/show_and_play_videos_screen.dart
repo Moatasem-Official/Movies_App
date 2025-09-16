@@ -49,13 +49,10 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(400),
-          child:
-              BlocBuilder<
-                AllMovieVideosCubit,
-                MoviesModuleStates<List<ResultVideoEntity>>
-              >(
-                builder: (context, state) {
-                  return state.when(
+          child: BlocBuilder<AllMovieVideosCubit,
+              MoviesModuleStates<List<ResultVideoEntity>>>(
+            builder: (context, state) {
+              return state.whenOrNull(
                     idle: () => Container(),
                     loading: () => const CustomLoadingStateWidget(),
                     loaded: (videos) {
@@ -67,21 +64,19 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
                     error: (Failure failure) => Center(
                       child: Text("Error occured : ${failure.message}"),
                     ),
-                  );
-                },
-              ),
+                  ) ??
+                  const SizedBox.shrink();
+            },
+          ),
         ),
         body: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(child: const SizedBox(height: 20)),
+            const SliverToBoxAdapter(child: SizedBox(height: 20)),
             SliverToBoxAdapter(
-              child:
-                  BlocBuilder<
-                    AllMovieVideosCubit,
-                    MoviesModuleStates<List<ResultVideoEntity>>
-                  >(
-                    builder: (context, state) {
-                      return state.when(
+              child: BlocBuilder<AllMovieVideosCubit,
+                  MoviesModuleStates<List<ResultVideoEntity>>>(
+                builder: (context, state) {
+                  return state.whenOrNull(
                         idle: () => Container(),
                         loading: () => const CustomLoadingStateWidget(),
                         loaded: (videos) {
@@ -97,11 +92,12 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
                         error: (Failure failure) => Center(
                           child: Text("Error occured : ${failure.message}"),
                         ),
-                      );
-                    },
-                  ),
+                      ) ??
+                      const SizedBox.shrink();
+                },
+              ),
             ),
-            SliverToBoxAdapter(child: const SizedBox(height: 10)),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
             CustomVideosListWidget(
               videos: videos,
               selectedIndex: _selectedIndex,
@@ -112,7 +108,7 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
                 _controller?.load(videos[index].key);
               },
             ),
-            SliverToBoxAdapter(child: const SizedBox(height: 25)),
+            const SliverToBoxAdapter(child: SizedBox(height: 25)),
           ],
         ),
       ),

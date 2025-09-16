@@ -13,8 +13,8 @@ abstract class SeeAllRemoteDataSource {
   @GET(
     '/movie/{movie_type}?api_key=${AppConstants.kApiKey}&language=en-US&page={page}',
   )
-  Future<DisplayDifferentMoviesTypesModel> getSeeAllMovies(
-    @Path("movie_type") String movieType,
-    @Path("page") int page,
-  );
+  Future<DisplayDifferentMoviesTypesModel> getSeeAllMovies({
+    @Path("movie_type") required String movieType,
+    @Path("page") int page = 1,
+  });
 }

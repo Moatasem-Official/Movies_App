@@ -24,10 +24,10 @@ class _SeeAllRemoteDataSource implements SeeAllRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getSeeAllMovies(
-    String movieType,
-    int page,
-  ) async {
+  Future<DisplayDifferentMoviesTypesModel> getSeeAllMovies({
+    required String movieType,
+    int page = 1,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

@@ -140,25 +140,26 @@ class _ShowAndSearchMoviesOfCategoryScreenState
         body: BlocBuilder<CategoryMoviesCubit,
             MoviesModuleStates<DisplayDifferentMoviesTypesEntity>>(
           builder: (context, state) {
-            return state.when(
-              idle: () => const CustomInitialSearchWidget(),
-              loading: () => const CustomLoadingStateWidget(),
-              error: (failure) => Center(
-                child: Text(
-                  failure.message,
-                  style: const TextStyle(color: Colors.red),
-                ),
-              ),
-              loaded: (moviesEntity) {
-                if (moviesEntity.results.isEmpty) {
-                  return const CustomNoMoviesWidget();
-                }
-                return CustomSearchMoviesGridResult(
-                  movies: moviesEntity.results,
-                  animationController: _animationController,
-                );
-              },
-            );
+            return state.whenOrNull(
+                  idle: () => const CustomInitialSearchWidget(),
+                  loading: () => const CustomLoadingStateWidget(),
+                  error: (failure) => Center(
+                    child: Text(
+                      failure.message,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                  loaded: (moviesEntity) {
+                    if (moviesEntity.results.isEmpty) {
+                      return const CustomNoMoviesWidget();
+                    }
+                    return CustomSearchMoviesGridResult(
+                      movies: moviesEntity.results,
+                      animationController: _animationController,
+                    );
+                  },
+                ) ??
+                const SizedBox.shrink();
           },
         ),
       ),

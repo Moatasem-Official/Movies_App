@@ -83,10 +83,12 @@ class AppRouter {
             providers: [
               BlocProvider<SeeAllMoviesCubit>(
                 create: (_) => getIt<SeeAllMoviesCubit>()
-                  ..getSeeAllMovies(arguments["movie_type"], 1),
+                  ..getSeeAllMovies(
+                      movieType: arguments["movie_type"], reset: true),
               ),
             ],
-            child: SeeAllElementsListScreen(title: arguments["title"]),
+            child: SeeAllElementsListScreen(
+                title: arguments["title"], movieType: arguments["movie_type"]),
           ),
         );
       case movieDetailsScreen:

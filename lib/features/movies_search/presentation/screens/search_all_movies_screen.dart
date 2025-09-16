@@ -133,22 +133,23 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
           child: BlocBuilder<MoviesSearchCubit,
               MoviesModuleStates<List<ResultEntity>>>(
             builder: (context, state) {
-              return state.when(
-                idle: () => const CustomInitialSearchWidget(),
-                loading: () => const CustomLoadingStateWidget(),
-                loaded: (List<ResultEntity> movies) {
-                  if (movies.isEmpty) {
-                    return const CustomNoMoviesWidget();
-                  }
-                  return _isSearching
-                      ? CustomSearchMoviesGridResult(
-                          movies: movies,
-                          animationController: _animationController,
-                        )
-                      : const CustomInitialSearchWidget();
-                },
-                error: (failure) => Center(child: Text(failure.message)),
-              );
+              return state.whenOrNull(
+                    idle: () => const CustomInitialSearchWidget(),
+                    loading: () => const CustomLoadingStateWidget(),
+                    loaded: (List<ResultEntity> movies) {
+                      if (movies.isEmpty) {
+                        return const CustomNoMoviesWidget();
+                      }
+                      return _isSearching
+                          ? CustomSearchMoviesGridResult(
+                              movies: movies,
+                              animationController: _animationController,
+                            )
+                          : const CustomInitialSearchWidget();
+                    },
+                    error: (failure) => Center(child: Text(failure.message)),
+                  ) ??
+                  const SizedBox.shrink();
             },
           ),
         ));

@@ -13,11 +13,12 @@ class SeeAllFeatureDataRepo extends SeeAllFeatureDomainRepo {
   @override
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getSeeAllMovies({
     required String movieType,
-    required int page,
+    int page = 1,
   }) async {
     try {
       return Right(
-        await seeAllRemoteDataSource.getSeeAllMovies(movieType, page),
+        await seeAllRemoteDataSource.getSeeAllMovies(
+            movieType: movieType, page: page),
       );
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);

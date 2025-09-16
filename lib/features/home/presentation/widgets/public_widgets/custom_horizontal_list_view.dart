@@ -18,89 +18,92 @@ class CustomHorizontalListView<
     return BlocBuilder<C, MoviesModuleStates<List<ResultEntity>>>(
       bloc: cubit,
       builder: (context, state) {
-        return state.when(
-          idle: () => const Center(child: CircularProgressIndicator()),
-          loading: () {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 200,
-              child: const Center(child: CircularProgressIndicator()),
-            );
-          },
-          loaded: (List<ResultEntity> movies) {
-            return SizedBox(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemCount: movies.length,
-                itemBuilder: (context, index) {
-                  final watchlistCubit =
-                      context.watch<AddMovieToWatchListAsLocalDataCubit>();
-                  final isMovieInWatchList =
-                      watchlistCubit.isMovieInWatchList(movies[index].id);
-                  return GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      AppRouter.movieDetailsScreen,
-                      arguments: {
-                        "resultEntity": movies[index],
-                        "id": movies[index].id,
-                      },
-                    ),
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Container(
-                            width: 150,
-                            height: 200,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  '${AppConstants.imagePathUrl}${movies[index].posterPath}',
+        return state.whenOrNull(
+              idle: () => const Center(child: CircularProgressIndicator()),
+              loading: () {
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 200,
+                  child: const Center(child: CircularProgressIndicator()),
+                );
+              },
+              loaded: (List<ResultEntity> movies) {
+                return SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: movies.length,
+                    itemBuilder: (context, index) {
+                      final watchlistCubit =
+                          context.watch<AddMovieToWatchListAsLocalDataCubit>();
+                      final isMovieInWatchList =
+                          watchlistCubit.isMovieInWatchList(movies[index].id);
+                      return GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          AppRouter.movieDetailsScreen,
+                          arguments: {
+                            "resultEntity": movies[index],
+                            "id": movies[index].id,
+                          },
+                        ),
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Container(
+                                width: 150,
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      '${AppConstants.imagePathUrl}${movies[index].posterPath}',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                fit: BoxFit.cover,
                               ),
                             ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 5,
-                          left: 15,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black54.withAlpha(150),
-                              shape: BoxShape.circle,
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                context
-                                    .read<AddMovieToWatchListAsLocalDataCubit>()
-                                    .toggleMovieInWatchList(movies[index]);
-                              },
-                              icon: Icon(
-                                isMovieInWatchList
-                                    ? Icons.bookmark_rounded
-                                    : Icons.bookmark_border_rounded,
-                                color: Colors.white,
+                            Positioned(
+                              top: 5,
+                              left: 15,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black54.withAlpha(150),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<
+                                            AddMovieToWatchListAsLocalDataCubit>()
+                                        .toggleMovieInWatchList(movies[index]);
+                                  },
+                                  icon: Icon(
+                                    isMovieInWatchList
+                                        ? Icons.bookmark_rounded
+                                        : Icons.bookmark_border_rounded,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            );
-          },
-          error: (Failure failure) {
-            return Center(child: Text(failure.message));
-          },
-        );
+                      );
+                    },
+                  ),
+                );
+              },
+              error: (Failure failure) {
+                return Center(child: Text(failure.message));
+              },
+            ) ??
+            const SizedBox.shrink();
       },
     );
   }

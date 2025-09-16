@@ -7,12 +7,28 @@ class SeeAllMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetSeeAllMoviesUseCase seeAllMoviesTypes;
   SeeAllMoviesCubit(this.seeAllMoviesTypes) : super(const Idle());
 
-  void getSeeAllMovies(String movieType, int page) async {
-    emit(const Loading());
-    final result = await seeAllMoviesTypes(movieType: movieType, page: page);
+  final List<ResultEntity> _allMovies = [];
+  int _currentPage = 1;
+
+  void getSeeAllMovies({required String movieType, bool reset = false}) async {
+    if (reset) {
+      _allMovies.clear();
+      _currentPage = 1;
+      emit(const Loading());
+    } else {
+      emit(Paginated(List.unmodifiable(_allMovies)));
+    }
+
+    final result =
+        await seeAllMoviesTypes(movieType: movieType, page: _currentPage);
+
     result.fold(
       (failure) => emit(Error(failure)),
-      (movies) => emit(Loaded(movies.results)),
+      (movies) {
+        _allMovies.addAll(movies.results);
+        _currentPage++;
+        emit(Loaded(List.unmodifiable(_allMovies)));
+      },
     );
   }
 }

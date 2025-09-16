@@ -8,6 +8,7 @@ part 'movies_module_states.freezed.dart';
 abstract class MoviesModuleStates<T> with _$MoviesModuleStates<T> {
   const factory MoviesModuleStates.idle() = Idle<T>;
   const factory MoviesModuleStates.loading() = Loading<T>;
+  const factory MoviesModuleStates.paginated(T movies) = Paginated<T>;
   const factory MoviesModuleStates.loaded(T movies) = Loaded<T>;
   const factory MoviesModuleStates.error(Failure failure) = Error<T>;
 }

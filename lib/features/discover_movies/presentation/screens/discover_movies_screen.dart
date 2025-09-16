@@ -31,43 +31,46 @@ class DiscoverMoviesScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: BlocBuilder<DiscoverMoviesCubit, MoviesModuleStates>(
           builder: (context, state) {
-            return state.when(
-              idle: () => const SizedBox.shrink(),
-              loading: () => const CustomLoadingStateWidget(),
-              error: (failure) => Center(
-                child: Text(
-                  failure.message,
-                  style: const TextStyle(color: Colors.red),
-                ),
-              ),
-              loaded: (moviesCategories) {
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16.0,
-                    mainAxisSpacing: 16.0,
+            return state.whenOrNull(
+                  idle: () => const SizedBox.shrink(),
+                  loading: () => const CustomLoadingStateWidget(),
+                  error: (failure) => Center(
+                    child: Text(
+                      failure.message,
+                      style: const TextStyle(color: Colors.red),
+                    ),
                   ),
-                  itemCount: moviesCategories.genres.length,
-                  itemBuilder: (context, index) {
-                    final genreFromApi = moviesCategories.genres[index];
+                  loaded: (moviesCategories) {
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16.0,
+                        mainAxisSpacing: 16.0,
+                      ),
+                      itemCount: moviesCategories.genres.length,
+                      itemBuilder: (context, index) {
+                        final genreFromApi = moviesCategories.genres[index];
 
-                    final style = AppConstants.genreDetails[genreFromApi.id];
+                        final style =
+                            AppConstants.genreDetails[genreFromApi.id];
 
-                    final color =
-                        style?['color'] as Color? ?? Colors.grey.shade800;
-                    final icon =
-                        style?['icon'] as IconData? ?? Icons.movie_rounded;
+                        final color =
+                            style?['color'] as Color? ?? Colors.grey.shade800;
+                        final icon =
+                            style?['icon'] as IconData? ?? Icons.movie_rounded;
 
-                    return GenreCard(
-                      genreName: genreFromApi.name,
-                      genreId: genreFromApi.id,
-                      genreColor: color,
-                      genreIcon: icon,
+                        return GenreCard(
+                          genreName: genreFromApi.name,
+                          genreId: genreFromApi.id,
+                          genreColor: color,
+                          genreIcon: icon,
+                        );
+                      },
                     );
                   },
-                );
-              },
-            );
+                ) ??
+                const SizedBox.shrink();
           },
         ),
       ),

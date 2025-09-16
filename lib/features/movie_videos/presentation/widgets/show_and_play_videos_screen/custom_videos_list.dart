@@ -21,32 +21,31 @@ class CustomVideosListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<
-      AllMovieVideosCubit,
-      MoviesModuleStates<List<ResultVideoEntity>>
-    >(
+    return BlocBuilder<AllMovieVideosCubit,
+        MoviesModuleStates<List<ResultVideoEntity>>>(
       builder: (context, state) {
-        return state.when(
-          idle: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
-          loading: () =>
-              SliverToBoxAdapter(child: const CustomLoadingStateWidget()),
-          loaded: (videos) {
-            return SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return CustomVideoCardWidget(
-                  isSelected: index == selectedIndex,
-                  onTap: () => onTap(index),
-                  video: videos[index],
+        return state.whenOrNull(
+              idle: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
+              loading: () =>
+                  const SliverToBoxAdapter(child: CustomLoadingStateWidget()),
+              loaded: (videos) {
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    return CustomVideoCardWidget(
+                      isSelected: index == selectedIndex,
+                      onTap: () => onTap(index),
+                      video: videos[index],
+                    );
+                  }, childCount: videos.length),
                 );
-              }, childCount: videos.length),
-            );
-          },
-          error: (Failure failure) {
-            return SliverToBoxAdapter(
-              child: Center(child: Text(failure.message)),
-            );
-          },
-        );
+              },
+              error: (Failure failure) {
+                return SliverToBoxAdapter(
+                  child: Center(child: Text(failure.message)),
+                );
+              },
+            ) ??
+            const SliverToBoxAdapter(child: SizedBox.shrink());
       },
     );
   }

@@ -9,7 +9,7 @@ class GetSeeAllMoviesUseCase {
 
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call({
     required String movieType,
-    required int page,
+    int page = 1,
   }) =>
       seeAllFeatureDomainRepo.getSeeAllMovies(movieType: movieType, page: page);
 }
