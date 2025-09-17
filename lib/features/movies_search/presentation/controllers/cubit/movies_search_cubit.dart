@@ -7,25 +7,54 @@ class MoviesSearchCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetSearchedMoviesUseCase getSearchedMoviesUseCase;
   MoviesSearchCubit(this.getSearchedMoviesUseCase) : super(const Idle());
 
+  final List<ResultEntity> _searchedMovies = [];
+  int _currentPage = 1;
+  String _lastQuery = "";
+  bool hasMore = true;
+
   Future<void> searchMovies({
     required String query,
-    required int page,
+    bool reset = false,
     required String apiKey,
   }) async {
     if (query.isEmpty) return emitIdle();
-    emit(const Loading());
+
+    if (reset || _lastQuery != query) {
+      _searchedMovies.clear();
+      _currentPage = 1;
+      _lastQuery = query;
+      hasMore = true;
+      emit(const Loading());
+    } else {
+      if (!hasMore) return;
+      emit(Paginated(List.unmodifiable(_searchedMovies)));
+    }
+
     final result = await getSearchedMoviesUseCase(
       query: query,
-      page: page,
+      page: _currentPage,
       apiKey: apiKey,
     );
+
     result.fold(
       (failure) => emit(Error(failure)),
-      (searchedMovies) => emit(Loaded(searchedMovies.results)),
+      (searchedMovies) {
+        if (searchedMovies.results.isEmpty) {
+          hasMore = false;
+        } else {
+          _searchedMovies.addAll(searchedMovies.results);
+          _currentPage++;
+        }
+        emit(Loaded(List.unmodifiable(_searchedMovies)));
+      },
     );
   }
 
   void emitIdle() {
+    _searchedMovies.clear();
+    _currentPage = 1;
+    _lastQuery = "";
+    hasMore = true;
     emit(const MoviesModuleStates.idle());
   }
 }

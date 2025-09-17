@@ -25,7 +25,10 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   final TextEditingController _searchController = TextEditingController();
+  late final ScrollController _scrollController;
+
   bool _isSearching = false;
+  bool _isLoadingMore = false;
 
   @override
   void initState() {
@@ -42,16 +45,44 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
     _animationController.forward();
 
     _searchController.addListener(() {
+      final text = _searchController.text.trim();
+      if (text.isEmpty) {
+        context.read<MoviesSearchCubit>().emitIdle();
+      }
       setState(() {
-        _isSearching = _searchController.text.isNotEmpty;
+        _isSearching = text.isNotEmpty;
       });
     });
+
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    final cubit = context.read<MoviesSearchCubit>();
+    if (!_isSearching) return;
+
+    // لو مفيش صفحات تانية ما نعملش call
+    if (!cubit.hasMore) return;
+
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      if (!_isLoadingMore && _isSearching) {
+        _isLoadingMore = true;
+        cubit.searchMovies(
+          query: _searchController.text,
+          reset: false,
+          apiKey: AppConstants.kApiKey,
+        );
+      }
+    }
   }
 
   @override
   void dispose() {
     _animationController.dispose();
     _searchController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -67,7 +98,7 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
               } else {
                 context.read<MoviesSearchCubit>().searchMovies(
                       query: value,
-                      page: 1,
+                      reset: true,
                       apiKey: AppConstants.kApiKey,
                     );
               }
@@ -79,34 +110,10 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
         ),
         backgroundColor: const Color(0xFF141218),
         body: BlocListener<AddMovieToWatchListAsLocalDataCubit,
-            AddMovieToWatchListAsLocalDataState>(
-          listener: (context, state) {
-            state.maybeWhen(
-              movieAddedToWatchlist: (message) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: const Color(0xFF2c5364),
-                    behavior: SnackBarBehavior.floating,
-                    padding: const EdgeInsets.all(10),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    dismissDirection: DismissDirection.down,
-                    elevation: 2,
-                    content: Row(
-                      children: [
-                        const Icon(Icons.check, color: Colors.white),
-                        const SizedBox(width: 10),
-                        Text(message,
-                            style: const TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                    duration: const Duration(seconds: 1),
-                  ),
-                );
-              },
-              movieRemovedFromWatchlist: (message) =>
-                  ScaffoldMessenger.of(context).showSnackBar(
+            AddMovieToWatchListAsLocalDataState>(listener: (context, state) {
+          state.maybeWhen(
+            movieAddedToWatchlist: (message) {
+              ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: const Color(0xFF2c5364),
                   behavior: SnackBarBehavior.floating,
@@ -126,32 +133,65 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
                   ),
                   duration: const Duration(seconds: 1),
                 ),
-              ),
-              orElse: () => null,
-            );
-          },
-          child: BlocBuilder<MoviesSearchCubit,
-              MoviesModuleStates<List<ResultEntity>>>(
-            builder: (context, state) {
-              return state.whenOrNull(
-                    idle: () => const CustomInitialSearchWidget(),
-                    loading: () => const CustomLoadingStateWidget(),
-                    loaded: (List<ResultEntity> movies) {
-                      if (movies.isEmpty) {
-                        return const CustomNoMoviesWidget();
-                      }
-                      return _isSearching
-                          ? CustomSearchMoviesGridResult(
-                              movies: movies,
-                              animationController: _animationController,
-                            )
-                          : const CustomInitialSearchWidget();
-                    },
-                    error: (failure) => Center(child: Text(failure.message)),
-                  ) ??
-                  const SizedBox.shrink();
+              );
             },
-          ),
-        ));
+            movieRemovedFromWatchlist: (message) =>
+                ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: const Color(0xFF2c5364),
+                behavior: SnackBarBehavior.floating,
+                padding: const EdgeInsets.all(10),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                dismissDirection: DismissDirection.down,
+                elevation: 2,
+                content: Row(
+                  children: [
+                    const Icon(Icons.check, color: Colors.white),
+                    const SizedBox(width: 10),
+                    Text(message, style: const TextStyle(color: Colors.white)),
+                  ],
+                ),
+                duration: const Duration(seconds: 1),
+              ),
+            ),
+            orElse: () => null,
+          );
+        }, child: BlocBuilder<MoviesSearchCubit,
+            MoviesModuleStates<List<ResultEntity>>>(
+          builder: (context, state) {
+            return state.when(
+                idle: () => const CustomInitialSearchWidget(),
+                loading: () => const CustomLoadingStateWidget(),
+                paginated: (movies) {
+                  final hasMore = context.read<MoviesSearchCubit>().hasMore;
+                  return CustomSearchMoviesGridResult(
+                    movies: movies,
+                    fadeAnimation: _animationController,
+                    scrollController: _scrollController,
+                    showLoading: hasMore,
+                  );
+                },
+                loaded: (movies) {
+                  _isLoadingMore = false;
+
+                  if (movies.isEmpty) {
+                    return const CustomNoMoviesWidget();
+                  }
+
+                  return CustomSearchMoviesGridResult(
+                    movies: movies,
+                    fadeAnimation: _animationController,
+                    scrollController: _scrollController,
+                    showLoading: false,
+                  );
+                },
+                error: (failure) {
+                  _isLoadingMore = false;
+                  return Center(child: Text(failure.message));
+                });
+          },
+        )));
   }
 }

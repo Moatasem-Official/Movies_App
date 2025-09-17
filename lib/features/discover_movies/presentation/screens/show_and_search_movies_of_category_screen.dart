@@ -155,7 +155,9 @@ class _ShowAndSearchMoviesOfCategoryScreenState
                     }
                     return CustomSearchMoviesGridResult(
                       movies: moviesEntity.results,
-                      animationController: _animationController,
+                      fadeAnimation: _animationController,
+                      scrollController: ScrollController(),
+                      showLoading: false,
                     );
                   },
                 ) ??

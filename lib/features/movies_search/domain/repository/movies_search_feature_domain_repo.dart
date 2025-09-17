@@ -5,7 +5,7 @@ import 'package:movies_app/core/errors/failure.dart';
 abstract class MoviesSearchFeatureDomainRepo {
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> searchMovies({
     required String query,
-    required int page,
+    int page = 1,
     required String apiKey,
   });
 }

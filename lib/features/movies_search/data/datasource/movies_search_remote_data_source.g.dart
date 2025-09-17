@@ -24,11 +24,11 @@ class _MoviesSearchRemoteDataSource implements MoviesSearchRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> searchMovies(
-    String query,
-    int page,
-    String apiKey,
-  ) async {
+  Future<DisplayDifferentMoviesTypesModel> searchMovies({
+    required String query,
+    int page = 1,
+    required String apiKey,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'query': query,

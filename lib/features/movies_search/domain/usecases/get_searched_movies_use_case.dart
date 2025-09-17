@@ -9,11 +9,12 @@ class GetSearchedMoviesUseCase {
 
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call({
     required String query,
-    required int page,
+    int page = 1,
     required String apiKey,
-  }) async => await moviesSearchFeatureDomainRepo.searchMovies(
-    query: query,
-    page: page,
-    apiKey: apiKey,
-  );
+  }) async =>
+      await moviesSearchFeatureDomainRepo.searchMovies(
+        query: query,
+        page: page,
+        apiKey: apiKey,
+      );
 }

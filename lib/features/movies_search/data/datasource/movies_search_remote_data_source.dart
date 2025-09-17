@@ -12,9 +12,9 @@ abstract class MoviesSearchRemoteDataSource {
       _MoviesSearchRemoteDataSource;
 
   @GET('search/movie')
-  Future<DisplayDifferentMoviesTypesModel> searchMovies(
-    @Query('query') String query,
-    @Query('page') int page,
-    @Query('api_key') String apiKey,
-  );
+  Future<DisplayDifferentMoviesTypesModel> searchMovies({
+    @Query('query') required String query,
+    @Query('page') int page = 1,
+    @Query('api_key') required String apiKey,
+  });
 }

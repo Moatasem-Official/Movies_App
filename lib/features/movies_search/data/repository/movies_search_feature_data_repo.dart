@@ -12,12 +12,13 @@ class MoviesSearchFeatureDataRepo extends MoviesSearchFeatureDomainRepo {
   @override
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> searchMovies({
     required String query,
-    required int page,
+    int page = 1,
     required String apiKey,
   }) async {
     try {
       return Right(
-        await moviesSearchRemoteDataSource.searchMovies(query, page, apiKey),
+        await moviesSearchRemoteDataSource.searchMovies(
+            query: query, page: page, apiKey: apiKey),
       );
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);
