@@ -58,10 +58,10 @@ class _DiscoverMoviesRemoteDataSource
   }
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getcategoryMovies(
-    int movieId,
-    int page,
-  ) async {
+  Future<DisplayDifferentMoviesTypesModel> getcategoryMovies({
+    required int genreId,
+    int page = 1,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -73,7 +73,7 @@ class _DiscoverMoviesRemoteDataSource
     )
         .compose(
           _dio.options,
-          'discover/movie?api_key=0c0c7744db435d591d976e6422a9ef8e&with_genres=${movieId}&language=en-US&page=${page}',
+          'discover/movie?api_key=0c0c7744db435d591d976e6422a9ef8e&with_genres=${genreId}&language=en-US&page=${page}',
           queryParameters: queryParameters,
           data: _data,
         )

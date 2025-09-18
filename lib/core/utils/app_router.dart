@@ -138,7 +138,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => BlocProvider<CategoryMoviesCubit>(
                   create: (context) => getIt<CategoryMoviesCubit>()
-                    ..fetchCategoryMovies(args["genreId"], 1),
+                    ..fetchCategoryMovies(genreId: args["genreId"]),
                   child: ShowAndSearchMoviesOfCategoryScreen(
                     moviesCategoryName: args["moviesCategoryName"],
                     genreId: args["genreId"],

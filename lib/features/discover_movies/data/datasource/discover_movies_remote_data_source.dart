@@ -17,5 +17,5 @@ abstract class DiscoverMoviesRemoteDataSource {
   @GET(
       'discover/movie?api_key=${AppConstants.kApiKey}&with_genres={genre_id}&language=en-US&page={page}')
   Future<DisplayDifferentMoviesTypesModel> getcategoryMovies(
-      @Path('genre_id') int movieId, @Path('page') int page);
+      {@Path('genre_id') required int genreId, @Path('page') int page = 1});
 }

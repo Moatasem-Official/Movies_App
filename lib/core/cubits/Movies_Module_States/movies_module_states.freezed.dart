@@ -22,6 +22,7 @@ mixin _$MoviesModuleStates<T> {
     required TResult Function() loading,
     required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
+    required TResult Function() empty,
     required TResult Function(Failure failure) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -31,6 +32,7 @@ mixin _$MoviesModuleStates<T> {
     TResult? Function()? loading,
     TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
+    TResult? Function()? empty,
     TResult? Function(Failure failure)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -40,6 +42,7 @@ mixin _$MoviesModuleStates<T> {
     TResult Function()? loading,
     TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
+    TResult Function()? empty,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) =>
@@ -50,6 +53,7 @@ mixin _$MoviesModuleStates<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
+    required TResult Function(Empty<T> value) empty,
     required TResult Function(Error<T> value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -59,6 +63,7 @@ mixin _$MoviesModuleStates<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
+    TResult? Function(Empty<T> value)? empty,
     TResult? Function(Error<T> value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -68,6 +73,7 @@ mixin _$MoviesModuleStates<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
+    TResult Function(Empty<T> value)? empty,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
   }) =>
@@ -147,6 +153,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
     required TResult Function() loading,
     required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
+    required TResult Function() empty,
     required TResult Function(Failure failure) error,
   }) {
     return idle();
@@ -159,6 +166,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
     TResult? Function()? loading,
     TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
+    TResult? Function()? empty,
     TResult? Function(Failure failure)? error,
   }) {
     return idle?.call();
@@ -171,6 +179,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
     TResult Function()? loading,
     TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
+    TResult Function()? empty,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) {
@@ -187,6 +196,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
+    required TResult Function(Empty<T> value) empty,
     required TResult Function(Error<T> value) error,
   }) {
     return idle(this);
@@ -199,6 +209,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
+    TResult? Function(Empty<T> value)? empty,
     TResult? Function(Error<T> value)? error,
   }) {
     return idle?.call(this);
@@ -211,6 +222,7 @@ class _$IdleImpl<T> with DiagnosticableTreeMixin implements Idle<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
+    TResult Function(Empty<T> value)? empty,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
   }) {
@@ -277,6 +289,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
     required TResult Function() loading,
     required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
+    required TResult Function() empty,
     required TResult Function(Failure failure) error,
   }) {
     return loading();
@@ -289,6 +302,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
     TResult? Function()? loading,
     TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
+    TResult? Function()? empty,
     TResult? Function(Failure failure)? error,
   }) {
     return loading?.call();
@@ -301,6 +315,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
     TResult Function()? loading,
     TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
+    TResult Function()? empty,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) {
@@ -317,6 +332,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
+    required TResult Function(Empty<T> value) empty,
     required TResult Function(Error<T> value) error,
   }) {
     return loading(this);
@@ -329,6 +345,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
+    TResult? Function(Empty<T> value)? empty,
     TResult? Function(Error<T> value)? error,
   }) {
     return loading?.call(this);
@@ -341,6 +358,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
+    TResult Function(Empty<T> value)? empty,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
   }) {
@@ -436,6 +454,7 @@ class _$PaginatedImpl<T> with DiagnosticableTreeMixin implements Paginated<T> {
     required TResult Function() loading,
     required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
+    required TResult Function() empty,
     required TResult Function(Failure failure) error,
   }) {
     return paginated(movies);
@@ -448,6 +467,7 @@ class _$PaginatedImpl<T> with DiagnosticableTreeMixin implements Paginated<T> {
     TResult? Function()? loading,
     TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
+    TResult? Function()? empty,
     TResult? Function(Failure failure)? error,
   }) {
     return paginated?.call(movies);
@@ -460,6 +480,7 @@ class _$PaginatedImpl<T> with DiagnosticableTreeMixin implements Paginated<T> {
     TResult Function()? loading,
     TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
+    TResult Function()? empty,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) {
@@ -476,6 +497,7 @@ class _$PaginatedImpl<T> with DiagnosticableTreeMixin implements Paginated<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
+    required TResult Function(Empty<T> value) empty,
     required TResult Function(Error<T> value) error,
   }) {
     return paginated(this);
@@ -488,6 +510,7 @@ class _$PaginatedImpl<T> with DiagnosticableTreeMixin implements Paginated<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
+    TResult? Function(Empty<T> value)? empty,
     TResult? Function(Error<T> value)? error,
   }) {
     return paginated?.call(this);
@@ -500,6 +523,7 @@ class _$PaginatedImpl<T> with DiagnosticableTreeMixin implements Paginated<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
+    TResult Function(Empty<T> value)? empty,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
   }) {
@@ -603,6 +627,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
     required TResult Function() loading,
     required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
+    required TResult Function() empty,
     required TResult Function(Failure failure) error,
   }) {
     return loaded(movies);
@@ -615,6 +640,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
     TResult? Function()? loading,
     TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
+    TResult? Function()? empty,
     TResult? Function(Failure failure)? error,
   }) {
     return loaded?.call(movies);
@@ -627,6 +653,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
     TResult Function()? loading,
     TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
+    TResult Function()? empty,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) {
@@ -643,6 +670,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
+    required TResult Function(Empty<T> value) empty,
     required TResult Function(Error<T> value) error,
   }) {
     return loaded(this);
@@ -655,6 +683,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
+    TResult? Function(Empty<T> value)? empty,
     TResult? Function(Error<T> value)? error,
   }) {
     return loaded?.call(this);
@@ -667,6 +696,7 @@ class _$LoadedImpl<T> with DiagnosticableTreeMixin implements Loaded<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
+    TResult Function(Empty<T> value)? empty,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
   }) {
@@ -687,6 +717,141 @@ abstract class Loaded<T> implements MoviesModuleStates<T> {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadedImplCopyWith<T, _$LoadedImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EmptyImplCopyWith<T, $Res> {
+  factory _$$EmptyImplCopyWith(
+          _$EmptyImpl<T> value, $Res Function(_$EmptyImpl<T>) then) =
+      __$$EmptyImplCopyWithImpl<T, $Res>;
+}
+
+/// @nodoc
+class __$$EmptyImplCopyWithImpl<T, $Res>
+    extends _$MoviesModuleStatesCopyWithImpl<T, $Res, _$EmptyImpl<T>>
+    implements _$$EmptyImplCopyWith<T, $Res> {
+  __$$EmptyImplCopyWithImpl(
+      _$EmptyImpl<T> _value, $Res Function(_$EmptyImpl<T>) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MoviesModuleStates
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$EmptyImpl<T> with DiagnosticableTreeMixin implements Empty<T> {
+  const _$EmptyImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'MoviesModuleStates<$T>.empty()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'MoviesModuleStates<$T>.empty'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EmptyImpl<T>);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() loading,
+    required TResult Function(T movies) paginated,
+    required TResult Function(T movies) loaded,
+    required TResult Function() empty,
+    required TResult Function(Failure failure) error,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? idle,
+    TResult? Function()? loading,
+    TResult? Function(T movies)? paginated,
+    TResult? Function(T movies)? loaded,
+    TResult? Function()? empty,
+    TResult? Function(Failure failure)? error,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loading,
+    TResult Function(T movies)? paginated,
+    TResult Function(T movies)? loaded,
+    TResult Function()? empty,
+    TResult Function(Failure failure)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Idle<T> value) idle,
+    required TResult Function(Loading<T> value) loading,
+    required TResult Function(Paginated<T> value) paginated,
+    required TResult Function(Loaded<T> value) loaded,
+    required TResult Function(Empty<T> value) empty,
+    required TResult Function(Error<T> value) error,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Idle<T> value)? idle,
+    TResult? Function(Loading<T> value)? loading,
+    TResult? Function(Paginated<T> value)? paginated,
+    TResult? Function(Loaded<T> value)? loaded,
+    TResult? Function(Empty<T> value)? empty,
+    TResult? Function(Error<T> value)? error,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Idle<T> value)? idle,
+    TResult Function(Loading<T> value)? loading,
+    TResult Function(Paginated<T> value)? paginated,
+    TResult Function(Loaded<T> value)? loaded,
+    TResult Function(Empty<T> value)? empty,
+    TResult Function(Error<T> value)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Empty<T> implements MoviesModuleStates<T> {
+  const factory Empty() = _$EmptyImpl<T>;
 }
 
 /// @nodoc
@@ -769,6 +934,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
     required TResult Function() loading,
     required TResult Function(T movies) paginated,
     required TResult Function(T movies) loaded,
+    required TResult Function() empty,
     required TResult Function(Failure failure) error,
   }) {
     return error(failure);
@@ -781,6 +947,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
     TResult? Function()? loading,
     TResult? Function(T movies)? paginated,
     TResult? Function(T movies)? loaded,
+    TResult? Function()? empty,
     TResult? Function(Failure failure)? error,
   }) {
     return error?.call(failure);
@@ -793,6 +960,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
     TResult Function()? loading,
     TResult Function(T movies)? paginated,
     TResult Function(T movies)? loaded,
+    TResult Function()? empty,
     TResult Function(Failure failure)? error,
     required TResult orElse(),
   }) {
@@ -809,6 +977,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Paginated<T> value) paginated,
     required TResult Function(Loaded<T> value) loaded,
+    required TResult Function(Empty<T> value) empty,
     required TResult Function(Error<T> value) error,
   }) {
     return error(this);
@@ -821,6 +990,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Paginated<T> value)? paginated,
     TResult? Function(Loaded<T> value)? loaded,
+    TResult? Function(Empty<T> value)? empty,
     TResult? Function(Error<T> value)? error,
   }) {
     return error?.call(this);
@@ -833,6 +1003,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Paginated<T> value)? paginated,
     TResult Function(Loaded<T> value)? loaded,
+    TResult Function(Empty<T> value)? empty,
     TResult Function(Error<T> value)? error,
     required TResult orElse(),
   }) {

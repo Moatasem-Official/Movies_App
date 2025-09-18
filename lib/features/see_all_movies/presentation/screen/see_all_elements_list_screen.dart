@@ -85,18 +85,20 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
             );
           },
           builder: (context, state) {
-            return state.when(
-              idle: () => const Center(child: CircularProgressIndicator()),
-              loading: () => SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height - 100,
-                child: const Center(child: CircularProgressIndicator()),
-              ),
-              paginated: (movies) =>
-                  _buildMoviesList(movies, showLoading: true),
-              loaded: (movies) => _buildMoviesList(movies, showLoading: false),
-              error: (failure) => Center(child: Text(failure.message)),
-            );
+            return state.whenOrNull(
+                  idle: () => const Center(child: CircularProgressIndicator()),
+                  loading: () => SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height - 100,
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+                  paginated: (movies) =>
+                      _buildMoviesList(movies, showLoading: true),
+                  loaded: (movies) =>
+                      _buildMoviesList(movies, showLoading: false),
+                  error: (failure) => Center(child: Text(failure.message)),
+                ) ??
+                const SizedBox.shrink();
           },
         ),
       ),

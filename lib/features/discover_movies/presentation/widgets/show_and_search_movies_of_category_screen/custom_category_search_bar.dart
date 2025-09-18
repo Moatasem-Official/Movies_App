@@ -50,6 +50,7 @@ class CustomCategorySearchBar extends StatelessWidget {
                           ),
                           onPressed: () {
                             searchController.clear();
+                            onChanged('');
                           },
                         )
                       : null,

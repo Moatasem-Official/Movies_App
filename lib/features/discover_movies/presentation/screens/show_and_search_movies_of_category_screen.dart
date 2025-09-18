@@ -33,7 +33,9 @@ class _ShowAndSearchMoviesOfCategoryScreenState
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   final TextEditingController _searchController = TextEditingController();
+  late final ScrollController _scrollController;
   bool _isSearching = false;
+  bool _isLoadingMore = false;
 
   @override
   void initState() {
@@ -54,12 +56,49 @@ class _ShowAndSearchMoviesOfCategoryScreenState
         _isSearching = _searchController.text.isNotEmpty;
       });
     });
+
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onScroll);
+
+    context.read<CategoryMoviesCubit>().fetchCategoryMovies(
+          genreId: widget.genreId,
+          reset: true,
+        );
+  }
+
+  void _onScroll() {
+    final cubit = context.read<CategoryMoviesCubit>();
+
+    if (!cubit.hasMore) {
+      _isLoadingMore = false;
+      return;
+    }
+
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      if (!_isLoadingMore) {
+        _isLoadingMore = true;
+        if (_isSearching) {
+          cubit.searchInCategory(
+            genreId: widget.genreId,
+            query: _searchController.text,
+            reset: false,
+          );
+        } else {
+          cubit.fetchCategoryMovies(
+            genreId: widget.genreId,
+            reset: false,
+          );
+        }
+      }
+    }
   }
 
   @override
   void dispose() {
     _animationController.dispose();
     _searchController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -122,13 +161,16 @@ class _ShowAndSearchMoviesOfCategoryScreenState
             moviesCategoryName: widget.moviesCategoryName,
             onSearchChanged: (value) {
               if (value.isNotEmpty) {
-                context
-                    .read<CategoryMoviesCubit>()
-                    .searchInCategory(widget.genreId, value, 1);
+                context.read<CategoryMoviesCubit>().searchInCategory(
+                      genreId: widget.genreId,
+                      query: value,
+                      reset: true,
+                    );
               } else {
-                context
-                    .read<CategoryMoviesCubit>()
-                    .fetchCategoryMovies(widget.genreId, 1);
+                context.read<CategoryMoviesCubit>().fetchCategoryMovies(
+                      genreId: widget.genreId,
+                      reset: true,
+                    );
               }
             },
             fadeAnimation: _fadeAnimation,
@@ -138,30 +180,41 @@ class _ShowAndSearchMoviesOfCategoryScreenState
         ),
         backgroundColor: const Color(0xFF141218),
         body: BlocBuilder<CategoryMoviesCubit,
-            MoviesModuleStates<DisplayDifferentMoviesTypesEntity>>(
+            MoviesModuleStates<List<ResultEntity>>>(
           builder: (context, state) {
-            return state.whenOrNull(
-                  idle: () => const CustomInitialSearchWidget(),
-                  loading: () => const CustomLoadingStateWidget(),
-                  error: (failure) => Center(
-                    child: Text(
-                      failure.message,
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  ),
-                  loaded: (moviesEntity) {
-                    if (moviesEntity.results.isEmpty) {
-                      return const CustomNoMoviesWidget();
-                    }
-                    return CustomSearchMoviesGridResult(
-                      movies: moviesEntity.results,
-                      fadeAnimation: _animationController,
-                      scrollController: ScrollController(),
-                      showLoading: false,
-                    );
-                  },
-                ) ??
-                const SizedBox.shrink();
+            return state.when(
+              idle: () => const CustomInitialSearchWidget(),
+              loading: () => const CustomLoadingStateWidget(),
+              error: (failure) => Center(
+                child: Text(
+                  failure.message,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+              loaded: (movies) {
+                _isLoadingMore = false;
+                if (movies.isEmpty) {
+                  return const CustomNoMoviesWidget();
+                }
+                return CustomSearchMoviesGridResult(
+                  movies: movies,
+                  fadeAnimation: _animationController,
+                  scrollController: _scrollController,
+                  showLoading: false,
+                );
+              },
+              empty: () => const CustomNoMoviesWidget(),
+              paginated: (movies) {
+                _isLoadingMore = false;
+                final cubit = context.read<CategoryMoviesCubit>();
+                return CustomSearchMoviesGridResult(
+                  movies: movies,
+                  fadeAnimation: _animationController,
+                  scrollController: _scrollController,
+                  showLoading: cubit.hasMore,
+                );
+              },
+            );
           },
         ),
       ),

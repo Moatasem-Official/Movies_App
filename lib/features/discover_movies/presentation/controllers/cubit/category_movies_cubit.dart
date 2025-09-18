@@ -6,7 +6,7 @@ import 'package:movies_app/features/discover_movies/domain/usecases/get_category
 import 'package:movies_app/features/movies_search/domain/usecases/get_searched_movies_use_case.dart';
 
 class CategoryMoviesCubit
-    extends Cubit<MoviesModuleStates<DisplayDifferentMoviesTypesEntity>> {
+    extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetCategoryMoviesUseCase getCategoryMoviesUseCase;
   final GetSearchedMoviesUseCase getSearchedMoviesUseCase;
 
@@ -15,21 +15,69 @@ class CategoryMoviesCubit
     this.getSearchedMoviesUseCase,
   ) : super(const Idle());
 
-  Future<void> fetchCategoryMovies(int genreId, int page) async {
-    emit(const Loading());
-    final result = await getCategoryMoviesUseCase(genreId, page);
+  final List<ResultEntity> _movies = [];
+  int _currentPage = 1;
+  bool _hasMore = true;
+  String _lastQuery = "";
+  int _lastGenreId = -1;
+
+  final int _pageSize = 20;
+
+  bool get hasMore => _hasMore;
+
+  Future<void> fetchCategoryMovies({
+    required int genreId,
+    bool reset = false,
+  }) async {
+    if (reset || _lastGenreId != genreId) {
+      _resetState(genreId: genreId, isSearching: false);
+    } else {
+      if (!_hasMore) return;
+      emit(Paginated(List.unmodifiable(_movies)));
+    }
+
+    final result =
+        await getCategoryMoviesUseCase(genreId: genreId, page: _currentPage);
+
     result.fold(
       (failure) => emit(Error(failure)),
-      (moviesCategories) => emit(Loaded(moviesCategories)),
+      (moviesCategories) {
+        final newResults = moviesCategories.results;
+        if (newResults.isEmpty) {
+          _hasMore = false;
+        } else {
+          _movies.addAll(newResults);
+          _hasMore = newResults.length >= _pageSize;
+          _currentPage++;
+        }
+
+        if (_currentPage == 2) {
+          emit(Loaded(List.unmodifiable(_movies)));
+        } else {
+          emit(Paginated(List.unmodifiable(_movies)));
+        }
+      },
     );
   }
 
+  Future<void> searchInCategory({
+    required int genreId,
+    required String query,
+    bool reset = false,
+  }) async {
+    if (reset || _lastQuery != query) {
+      _resetState(genreId: genreId, query: query, isSearching: true);
+    } else {
+      if (!_hasMore) return;
+      emit(Paginated(List.unmodifiable(_movies)));
+    }
 
-
-  Future<void> searchInCategory(int genreId, String query, int page) async {
-    emit(const Loading());
     final result = await getSearchedMoviesUseCase(
-        page: page, query: query, apiKey: AppConstants.kApiKey);
+      page: _currentPage,
+      query: query,
+      apiKey: AppConstants.kApiKey,
+    );
+
     result.fold(
       (failure) => emit(Error(failure)),
       (searchResults) {
@@ -37,14 +85,46 @@ class CategoryMoviesCubit
             .where((movie) => movie.genreIds.contains(genreId))
             .toList();
 
-        final entity = DisplayDifferentMoviesTypesEntity(
-          page: searchResults.page,
-          results: filtered,
-          dates: searchResults.dates,
-        );
+        if (filtered.isEmpty) {
+          _hasMore = false;
+          if (_currentPage == 1) {
+            emit(const Empty());
+            return;
+          }
+        } else {
+          _movies.addAll(filtered);
+          _hasMore = filtered.length >= _pageSize;
+          _currentPage++;
+        }
 
-        emit(Loaded(entity));
+        if (_currentPage == 2) {
+          emit(Loaded(List.unmodifiable(_movies)));
+        } else {
+          emit(Paginated(List.unmodifiable(_movies)));
+        }
       },
     );
+  }
+
+  void emitIdle() {
+    _movies.clear();
+    _currentPage = 1;
+    _lastQuery = "";
+    _lastGenreId = -1;
+    _hasMore = true;
+    emit(const Idle());
+  }
+
+  void _resetState({
+    required int genreId,
+    String query = "",
+    bool isSearching = false,
+  }) {
+    _movies.clear();
+    _currentPage = 1;
+    _hasMore = true;
+    _lastGenreId = genreId;
+    _lastQuery = query;
+    emit(const Loading());
   }
 }

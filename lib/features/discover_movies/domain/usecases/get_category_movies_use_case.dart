@@ -8,6 +8,7 @@ class GetCategoryMoviesUseCase {
   GetCategoryMoviesUseCase(this.discoverMoviesFeatureDomainRepo);
 
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call(
-          int genreId, int page) async =>
-      await discoverMoviesFeatureDomainRepo.getcategoryMovies(genreId, page);
+          {required int genreId, int page = 1}) async =>
+      await discoverMoviesFeatureDomainRepo.getcategoryMovies(
+          genreId: genreId, page: page);
 }

@@ -62,7 +62,6 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
     final cubit = context.read<MoviesSearchCubit>();
     if (!_isSearching) return;
 
-    // لو مفيش صفحات تانية ما نعملش call
     if (!cubit.hasMore) return;
 
     if (_scrollController.position.pixels >=
@@ -161,36 +160,37 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
         }, child: BlocBuilder<MoviesSearchCubit,
             MoviesModuleStates<List<ResultEntity>>>(
           builder: (context, state) {
-            return state.when(
-                idle: () => const CustomInitialSearchWidget(),
-                loading: () => const CustomLoadingStateWidget(),
-                paginated: (movies) {
-                  final hasMore = context.read<MoviesSearchCubit>().hasMore;
-                  return CustomSearchMoviesGridResult(
-                    movies: movies,
-                    fadeAnimation: _animationController,
-                    scrollController: _scrollController,
-                    showLoading: hasMore,
-                  );
-                },
-                loaded: (movies) {
-                  _isLoadingMore = false;
+            return state.whenOrNull(
+                    idle: () => const CustomInitialSearchWidget(),
+                    loading: () => const CustomLoadingStateWidget(),
+                    paginated: (movies) {
+                      final hasMore = context.read<MoviesSearchCubit>().hasMore;
+                      return CustomSearchMoviesGridResult(
+                        movies: movies,
+                        fadeAnimation: _animationController,
+                        scrollController: _scrollController,
+                        showLoading: hasMore,
+                      );
+                    },
+                    loaded: (movies) {
+                      _isLoadingMore = false;
 
-                  if (movies.isEmpty) {
-                    return const CustomNoMoviesWidget();
-                  }
+                      if (movies.isEmpty) {
+                        return const CustomNoMoviesWidget();
+                      }
 
-                  return CustomSearchMoviesGridResult(
-                    movies: movies,
-                    fadeAnimation: _animationController,
-                    scrollController: _scrollController,
-                    showLoading: false,
-                  );
-                },
-                error: (failure) {
-                  _isLoadingMore = false;
-                  return Center(child: Text(failure.message));
-                });
+                      return CustomSearchMoviesGridResult(
+                        movies: movies,
+                        fadeAnimation: _animationController,
+                        scrollController: _scrollController,
+                        showLoading: false,
+                      );
+                    },
+                    error: (failure) {
+                      _isLoadingMore = false;
+                      return Center(child: Text(failure.message));
+                    }) ??
+                const SizedBox.shrink();
           },
         )));
   }
