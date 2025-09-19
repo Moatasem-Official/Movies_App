@@ -6,13 +6,12 @@ import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states
 class SimilarMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetSimilarMoviesUseCase getSimilarMoviesUseCase;
   SimilarMoviesCubit(this.getSimilarMoviesUseCase)
-    : super(MoviesModuleStates.idle());
+      : super(const MoviesModuleStates.idle());
 
-  Future<void> getSimilarMovies({required int movieId}) async {
+  Future<void> getSimilarMovies({required int movieId, int page = 1}) async {
     emit(const Loading());
-    final failureOrSimilarMovies = await getSimilarMoviesUseCase(
-      movieId: movieId,
-    );
+    final failureOrSimilarMovies =
+        await getSimilarMoviesUseCase(movieId: movieId, page: page);
     failureOrSimilarMovies.fold(
       (failure) => emit(Error(failure)),
       (movies) => emit(Loaded(movies.results)),

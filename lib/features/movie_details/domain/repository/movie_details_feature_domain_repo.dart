@@ -12,6 +12,7 @@ abstract class MovieDetailsFeatureDomainRepo {
   });
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getSimilarMovies({
     required int movieId,
+    int page = 1,
   });
   Future<Either<Failure, MovieVideosEntity>> getMovieVideos({
     required int movieId,

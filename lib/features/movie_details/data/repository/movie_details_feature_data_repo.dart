@@ -29,10 +29,12 @@ class MovieDetailsFeatureDataRepo extends MovieDetailsFeatureDomainRepo {
   @override
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getSimilarMovies({
     required int movieId,
+    int page = 1,
   }) async {
     try {
       return Right(
-        await movieDetailsRemoteDataSource.getSimilarMovies(movieId),
+        await movieDetailsRemoteDataSource.getSimilarMovies(
+            movieId: movieId, page: page),
       );
     } on NetworkException catch (e) {
       final exception = NetworkException.getDioException(e);

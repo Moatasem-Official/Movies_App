@@ -18,10 +18,12 @@ abstract class MovieDetailsRemoteDataSource {
   @GET("movie/{movie_id}?api_key=${AppConstants.kApiKey}")
   Future<MovieDetailsModel> getMovieDetails(@Path("movie_id") int movieId);
 
-  @GET("movie/{movie_id}/similar?api_key=${AppConstants.kApiKey}")
-  Future<DisplayDifferentMoviesTypesModel> getSimilarMovies(
-    @Path("movie_id") int movieId,
-  );
+  @GET(
+      "movie/{movie_id}/similar?api_key=${AppConstants.kApiKey}&language=en-US&page={page}")
+  Future<DisplayDifferentMoviesTypesModel> getSimilarMovies({
+    @Path("movie_id") required int movieId,
+    @Query("page") int page = 1,
+  });
 
   @GET("movie/{movie_id}/videos?api_key=${AppConstants.kApiKey}")
   Future<MovieVideosModel> getMovieVideos(@Path("movie_id") int movieId);

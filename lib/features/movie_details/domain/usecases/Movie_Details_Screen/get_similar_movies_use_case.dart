@@ -9,5 +9,8 @@ class GetSimilarMoviesUseCase {
 
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> call({
     required int movieId,
-  }) => movieDetailsFeatureDomainRepo.getSimilarMovies(movieId: movieId);
+    int page = 1,
+  }) =>
+      movieDetailsFeatureDomainRepo.getSimilarMovies(
+          movieId: movieId, page: page);
 }

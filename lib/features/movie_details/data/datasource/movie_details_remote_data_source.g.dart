@@ -57,9 +57,12 @@ class _MovieDetailsRemoteDataSource implements MovieDetailsRemoteDataSource {
   }
 
   @override
-  Future<DisplayDifferentMoviesTypesModel> getSimilarMovies(int movieId) async {
+  Future<DisplayDifferentMoviesTypesModel> getSimilarMovies({
+    required int movieId,
+    int page = 1,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<DisplayDifferentMoviesTypesModel>(Options(
@@ -69,7 +72,7 @@ class _MovieDetailsRemoteDataSource implements MovieDetailsRemoteDataSource {
     )
         .compose(
           _dio.options,
-          'movie/${movieId}/similar?api_key=0c0c7744db435d591d976e6422a9ef8e',
+          'movie/${movieId}/similar?api_key=0c0c7744db435d591d976e6422a9ef8e&language=en-US&page={page}',
           queryParameters: queryParameters,
           data: _data,
         )
