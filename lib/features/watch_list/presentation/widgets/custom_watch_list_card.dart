@@ -117,10 +117,63 @@ class CustomWatchListCard extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: IconButton(
-              onPressed: () {
-                context
-                    .read<AddMovieToWatchListAsLocalDataCubit>()
-                    .removeMovieFromWatchList(movieId: movie.id);
+              onPressed: () async {
+                final shouldClear = await showDialog<bool>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    icon: const Icon(
+                      Icons.delete_sweep_outlined,
+                      color: Color.fromARGB(255, 31, 56, 106),
+                      size: 50,
+                    ),
+                    title: const Text(
+                      'Remove Movie ?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    content: const Text(
+                      'This action will permanently delete the movie from your watchlist. Are you sure you want to proceed ?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    actionsAlignment: MainAxisAlignment.center,
+                    actionsPadding:
+                        const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                    actions: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () => Navigator.pop(context, false),
+                          child: const Text('Cancel'),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 34, 51, 85),
+                            foregroundColor:
+                                Theme.of(context).colorScheme.onError,
+                          ),
+                          onPressed: () => Navigator.pop(context, true),
+                          child: const Text('Clear',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+
+                if (shouldClear == true) {
+                  context
+                      .read<AddMovieToWatchListAsLocalDataCubit>()
+                      .removeMovieFromWatchList(movieId: movie.id);
+                }
               },
               icon: const Icon(
                 Icons.bookmark,
