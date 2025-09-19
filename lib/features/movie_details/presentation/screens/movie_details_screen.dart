@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_credits_entity.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
@@ -160,12 +161,40 @@ class MovieDetailsScreen extends StatelessWidget {
             ),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(left: 8),
-              child: Text(
-                "MORE LIKE THIS",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+              padding: const EdgeInsets.only(left: 8),
+              child: Row(
+                children: [
+                  const Text(
+                    "MORE LIKE THIS",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                          AppRouter.seeAllElementsListScreen,
+                          arguments: {
+                            "title": "Similar To ${movie.title}",
+                            "movieId": movie.id
+                          });
+                    },
+                    child: const Row(
+                      children: [
+                        Text(
+                          "VIEW ALL",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

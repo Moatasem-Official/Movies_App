@@ -82,13 +82,30 @@ class AppRouter {
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider<SeeAllMoviesCubit>(
-                create: (_) => getIt<SeeAllMoviesCubit>()
-                  ..getSeeAllMovies(
-                      movieType: arguments["movie_type"], reset: true),
+                create: (_) {
+                  final cubit = getIt<SeeAllMoviesCubit>();
+
+                  if (arguments["movie_type"] != null) {
+                    cubit.getSeeAllMovies(
+                      movieType: arguments["movie_type"],
+                      reset: true,
+                    );
+                  } else if (arguments["movieId"] != null) {
+                    cubit.getSimilarMovies(
+                      movieId: arguments["movieId"],
+                      reset: true,
+                    );
+                  }
+
+                  return cubit;
+                },
               ),
             ],
             child: SeeAllElementsListScreen(
-                title: arguments["title"], movieType: arguments["movie_type"]),
+              title: arguments["title"],
+              movieType: arguments["movie_type"],
+              movieId: arguments["movieId"],
+            ),
           ),
         );
       case movieDetailsScreen:

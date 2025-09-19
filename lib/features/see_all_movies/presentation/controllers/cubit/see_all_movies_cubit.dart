@@ -1,11 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/features/see_all_movies/domain/usecase/get_movie_similar_movies_use_case.dart';
 import 'package:movies_app/features/see_all_movies/domain/usecase/get_see_all_movies_use_case.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 
 class SeeAllMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetSeeAllMoviesUseCase seeAllMoviesTypes;
-  SeeAllMoviesCubit(this.seeAllMoviesTypes) : super(const Idle());
+  final GetMovieSimilarMoviesUseCase getMovieSimilarMoviesUseCase;
+  SeeAllMoviesCubit(this.seeAllMoviesTypes, this.getMovieSimilarMoviesUseCase)
+      : super(const Idle());
 
   final List<ResultEntity> _allMovies = [];
   int _currentPage = 1;
@@ -30,5 +33,35 @@ class SeeAllMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
         emit(Loaded(List.unmodifiable(_allMovies)));
       },
     );
+  }
+
+  /// 📌 الحالة الثانية: get similar movies by id
+  void getSimilarMovies({
+    required int movieId,
+    bool reset = false,
+  }) async {
+    if (reset) {
+      _reset();
+      emit(const Loading());
+    } else {
+      emit(Paginated(List.unmodifiable(_allMovies)));
+    }
+
+    final result = await getMovieSimilarMoviesUseCase(
+        movieId: movieId, page: _currentPage);
+
+    result.fold(
+      (failure) => emit(Error(failure)),
+      (movies) {
+        _allMovies.addAll(movies.results);
+        _currentPage++;
+        emit(Loaded(List.unmodifiable(_allMovies)));
+      },
+    );
+  }
+
+  void _reset() {
+    _allMovies.clear();
+    _currentPage = 1;
   }
 }

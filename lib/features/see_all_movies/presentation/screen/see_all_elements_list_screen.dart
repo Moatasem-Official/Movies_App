@@ -9,11 +9,13 @@ class SeeAllElementsListScreen extends StatefulWidget {
   const SeeAllElementsListScreen({
     super.key,
     required this.title,
-    required this.movieType,
+    this.movieType,
+    this.movieId,
   });
 
   final String title;
-  final String movieType;
+  final String? movieType;
+  final int? movieId; // عشان similar movies
 
   @override
   State<SeeAllElementsListScreen> createState() =>
@@ -30,6 +32,13 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
+
+    final cubit = context.read<SeeAllMoviesCubit>();
+    if (widget.movieType != null) {
+      cubit.getSeeAllMovies(movieType: widget.movieType!, reset: true);
+    } else if (widget.movieId != null) {
+      cubit.getSimilarMovies(movieId: widget.movieId!, reset: true);
+    }
   }
 
   void _onScroll() {
@@ -37,9 +46,14 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
         _scrollController.position.maxScrollExtent - 200) {
       if (!isLoading) {
         isLoading = true;
-        context
-            .read<SeeAllMoviesCubit>()
-            .getSeeAllMovies(movieType: widget.movieType);
+
+        final cubit = context.read<SeeAllMoviesCubit>();
+
+        if (widget.movieType != null) {
+          cubit.getSeeAllMovies(movieType: widget.movieType!);
+        } else if (widget.movieId != null) {
+          cubit.getSimilarMovies(movieId: widget.movieId!);
+        }
       }
     }
   }

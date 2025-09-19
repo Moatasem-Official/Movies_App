@@ -25,4 +25,18 @@ class SeeAllFeatureDataRepo extends SeeAllFeatureDomainRepo {
       return Left(FailureMapper.mapExceptionToFailure(exception));
     }
   }
+
+  @override
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getSimilarMovies(
+      {required int movieId, int page = 1}) async {
+    try {
+      return Right(
+        await seeAllRemoteDataSource.getSimilarMovies(
+            movieId: movieId, page: page),
+      );
+    } on NetworkException catch (e) {
+      final exception = NetworkException.getDioException(e);
+      return Left(FailureMapper.mapExceptionToFailure(exception));
+    }
+  }
 }

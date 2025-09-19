@@ -44,6 +44,7 @@ import 'package:movies_app/features/movies_search/presentation/controllers/cubit
 import 'package:movies_app/features/see_all_movies/data/datasource/see_all_remote_data_source.dart';
 import 'package:movies_app/features/see_all_movies/data/repository/see_all_feature_data_repo.dart';
 import 'package:movies_app/features/see_all_movies/domain/repository/see_all_feature_domain_repo.dart';
+import 'package:movies_app/features/see_all_movies/domain/usecase/get_movie_similar_movies_use_case.dart';
 import 'package:movies_app/features/see_all_movies/domain/usecase/get_see_all_movies_use_case.dart';
 import 'package:movies_app/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
 import 'package:movies_app/features/watch_list/data/datasource/movies_watch_list_local_data_source.dart';
@@ -203,6 +204,11 @@ void setupMoviesInjection() {
     ),
   );
 
+  getIt.registerFactory<GetMovieSimilarMoviesUseCase>(
+      () => GetMovieSimilarMoviesUseCase(
+            seeAllFeatureDomainRepo: getIt<SeeAllFeatureDomainRepo>(),
+          ));
+
   getIt.registerFactory<NowPlayingMoviesCubit>(
     () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
   );
@@ -220,7 +226,8 @@ void setupMoviesInjection() {
   );
 
   getIt.registerFactory<SeeAllMoviesCubit>(
-    () => SeeAllMoviesCubit(getIt<GetSeeAllMoviesUseCase>()),
+    () => SeeAllMoviesCubit(
+        getIt<GetSeeAllMoviesUseCase>(), getIt<GetMovieSimilarMoviesUseCase>()),
   );
 
   getIt.registerFactory<MovieDetailsCubit>(

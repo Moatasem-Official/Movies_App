@@ -17,4 +17,11 @@ abstract class SeeAllRemoteDataSource {
     @Path("movie_type") required String movieType,
     @Path("page") int page = 1,
   });
+
+  @GET(
+      "movie/{movie_id}/similar?api_key=${AppConstants.kApiKey}&language=en-US&page={page}")
+  Future<DisplayDifferentMoviesTypesModel> getSimilarMovies({
+    @Path("movie_id") required int movieId,
+    @Query("page") int page = 1,
+  });
 }
