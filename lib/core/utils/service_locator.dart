@@ -48,6 +48,7 @@ import 'package:movies_app/features/see_all_movies/domain/usecase/get_movie_simi
 import 'package:movies_app/features/see_all_movies/domain/usecase/get_see_all_movies_use_case.dart';
 import 'package:movies_app/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
 import 'package:movies_app/features/watch_list/data/datasource/movies_watch_list_local_data_source.dart';
+import 'package:movies_app/features/watch_list/data/datasource/movies_watch_list_local_data_source_impl.dart';
 import 'package:movies_app/features/watch_list/data/repository/movies_watch_list_feature_data_repo.dart';
 import 'package:movies_app/features/watch_list/domain/repository/movies_watch_list_feature_domain_repo.dart';
 import 'package:movies_app/features/watch_list/domain/usecases/add_movie_to_watch_list_use_case.dart';
@@ -61,150 +62,135 @@ final GetIt getIt = GetIt.instance;
 void setupMoviesInjection() {
   getIt.registerLazySingleton<Dio>(() => getDioInfo());
 
-  getIt.registerSingleton(HomeRemoteDataSource(getIt<Dio>()));
-  getIt.registerSingleton(SeeAllRemoteDataSource(getIt<Dio>()));
-  getIt.registerSingleton(MovieDetailsRemoteDataSource(getIt<Dio>()));
-  getIt.registerSingleton(MovieVideosRemoteDataSource(getIt<Dio>()));
-  getIt.registerSingleton(MoviesSearchRemoteDataSource(getIt<Dio>()));
-  getIt.registerSingleton(DiscoverMoviesRemoteDataSource(getIt<Dio>()));
-  getIt.registerSingleton(MoviesWatchListLocalDataSource());
+  getIt.registerLazySingleton<HomeRemoteDataSource>(
+    () => HomeRemoteDataSource(getIt<Dio>()),
+  );
+  getIt.registerLazySingleton<SeeAllRemoteDataSource>(
+      () => SeeAllRemoteDataSource(getIt<Dio>()));
+  getIt.registerLazySingleton<MovieDetailsRemoteDataSource>(
+      () => MovieDetailsRemoteDataSource(getIt<Dio>()));
+  getIt.registerLazySingleton<MovieVideosRemoteDataSource>(
+      () => MovieVideosRemoteDataSource(getIt<Dio>()));
+  getIt.registerLazySingleton<MoviesSearchRemoteDataSource>(
+      () => MoviesSearchRemoteDataSource(getIt<Dio>()));
+  getIt.registerLazySingleton<DiscoverMoviesRemoteDataSource>(
+      () => DiscoverMoviesRemoteDataSource(getIt<Dio>()));
+  getIt.registerLazySingleton<MoviesWatchListLocalDataSource>(
+      () => MoviesWatchListLocalDataSourceImpl());
 
-  getIt.registerSingleton<HomeFeatureDataRepo>(
-    HomeFeatureDataRepo(getIt<HomeRemoteDataSource>()),
+  getIt.registerLazySingleton<HomeFeatureDomainRepo>(
+    () => HomeFeatureDataRepo(getIt<HomeRemoteDataSource>()),
   );
 
-  getIt.registerSingleton<SeeAllFeatureDataRepo>(
-    SeeAllFeatureDataRepo(getIt<SeeAllRemoteDataSource>()),
+  getIt.registerLazySingleton<SeeAllFeatureDomainRepo>(
+    () => SeeAllFeatureDataRepo(getIt<SeeAllRemoteDataSource>()),
   );
 
-  getIt.registerSingleton<MovieDetailsFeatureDataRepo>(
-    MovieDetailsFeatureDataRepo(getIt<MovieDetailsRemoteDataSource>()),
+  getIt.registerLazySingleton<MovieDetailsFeatureDomainRepo>(
+    () => MovieDetailsFeatureDataRepo(getIt<MovieDetailsRemoteDataSource>()),
   );
-  getIt.registerSingleton<MovieVideosFeatureDataRepo>(
-    MovieVideosFeatureDataRepo(getIt<MovieVideosRemoteDataSource>()),
+  getIt.registerLazySingleton<MovieVideosFeatureDomainRepo>(
+    () => MovieVideosFeatureDataRepo(getIt<MovieVideosRemoteDataSource>()),
   );
-  getIt.registerSingleton<MoviesSearchFeatureDataRepo>(
-    MoviesSearchFeatureDataRepo(getIt<MoviesSearchRemoteDataSource>()),
+  getIt.registerLazySingleton<MoviesSearchFeatureDomainRepo>(
+    () => MoviesSearchFeatureDataRepo(getIt<MoviesSearchRemoteDataSource>()),
   );
-  getIt.registerSingleton<MoviesWatchListFeatureDataRepo>(
-    MoviesWatchListFeatureDataRepo(
+  getIt.registerLazySingleton<MoviesWatchListFeatureDomainRepo>(
+    () => MoviesWatchListFeatureDataRepo(
         moviesWatchListLocalDataSource:
             getIt<MoviesWatchListLocalDataSource>()),
   );
 
-  getIt.registerSingleton<DiscoverMoviesFeatureDataRepo>(
-    DiscoverMoviesFeatureDataRepo(
+  getIt.registerLazySingleton<DiscoverMoviesFeatureDomainRepo>(
+    () => DiscoverMoviesFeatureDataRepo(
         discoverMoviesRemoteDataSource:
             getIt<DiscoverMoviesRemoteDataSource>()),
   );
 
-  getIt.registerSingleton<HomeFeatureDomainRepo>(getIt<HomeFeatureDataRepo>());
-
-  getIt.registerSingleton<SeeAllFeatureDomainRepo>(
-    getIt<SeeAllFeatureDataRepo>(),
+  getIt.registerLazySingleton<GetNowPlayingMoviesUseCase>(
+    () => GetNowPlayingMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
+  );
+  getIt.registerLazySingleton<GetTopRatedMoviesUseCase>(
+    () => GetTopRatedMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
   );
 
-  getIt.registerSingleton<MovieDetailsFeatureDomainRepo>(
-    getIt<MovieDetailsFeatureDataRepo>(),
+  getIt.registerLazySingleton<GetPopularMoviesUseCase>(
+    () => GetPopularMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
   );
 
-  getIt.registerSingleton<MovieVideosFeatureDomainRepo>(
-    getIt<MovieVideosFeatureDataRepo>(),
-  );
-  getIt.registerSingleton<MoviesSearchFeatureDomainRepo>(
-    getIt<MoviesSearchFeatureDataRepo>(),
-  );
-  getIt.registerSingleton<MoviesWatchListFeatureDomainRepo>(
-    getIt<MoviesWatchListFeatureDataRepo>(),
-  );
-  getIt.registerSingleton<DiscoverMoviesFeatureDomainRepo>(
-    getIt<DiscoverMoviesFeatureDataRepo>(),
+  getIt.registerLazySingleton<GetUpcommingMoviesUseCase>(
+    () => GetUpcommingMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
   );
 
-  getIt.registerSingleton<GetNowPlayingMoviesUseCase>(
-    GetNowPlayingMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
-  );
-  getIt.registerSingleton<GetTopRatedMoviesUseCase>(
-    GetTopRatedMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
-  );
-
-  getIt.registerSingleton<GetPopularMoviesUseCase>(
-    GetPopularMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
-  );
-
-  getIt.registerSingleton<GetUpcommingMoviesUseCase>(
-    GetUpcommingMoviesUseCase(getIt<HomeFeatureDomainRepo>()),
-  );
-
-  getIt.registerSingleton<GetSeeAllMoviesUseCase>(
-    GetSeeAllMoviesUseCase(
+  getIt.registerLazySingleton<GetSeeAllMoviesUseCase>(
+    () => GetSeeAllMoviesUseCase(
       seeAllFeatureDomainRepo: getIt<SeeAllFeatureDomainRepo>(),
     ),
   );
 
-  getIt.registerSingleton<GetMovieDetailsUseCase>(
-    GetMovieDetailsUseCase(getIt<MovieDetailsFeatureDomainRepo>()),
+  getIt.registerLazySingleton<GetMovieDetailsUseCase>(
+    () => GetMovieDetailsUseCase(getIt<MovieDetailsFeatureDomainRepo>()),
   );
 
-  getIt.registerSingleton<GetSimilarMoviesUseCase>(
-    GetSimilarMoviesUseCase(getIt<MovieDetailsFeatureDomainRepo>()),
+  getIt.registerLazySingleton<GetSimilarMoviesUseCase>(
+    () => GetSimilarMoviesUseCase(getIt<MovieDetailsFeatureDomainRepo>()),
   );
 
-  getIt.registerSingleton<GetMovieVideosUseCase>(
-    GetMovieVideosUseCase(getIt<MovieDetailsFeatureDomainRepo>()),
+  getIt.registerLazySingleton<GetMovieVideosUseCase>(
+    () => GetMovieVideosUseCase(getIt<MovieDetailsFeatureDomainRepo>()),
   );
 
-  getIt.registerSingleton<GetAllMovieVideosUseCase>(
-    GetAllMovieVideosUseCase(getIt<MovieVideosFeatureDomainRepo>()),
+  getIt.registerLazySingleton<GetAllMovieVideosUseCase>(
+    () => GetAllMovieVideosUseCase(getIt<MovieVideosFeatureDomainRepo>()),
   );
-  getIt.registerSingleton<GetSearchedMoviesUseCase>(
-    GetSearchedMoviesUseCase(getIt<MoviesSearchFeatureDomainRepo>()),
+  getIt.registerLazySingleton<GetSearchedMoviesUseCase>(
+    () => GetSearchedMoviesUseCase(getIt<MoviesSearchFeatureDomainRepo>()),
   );
-  getIt.registerSingleton<GetAllWatchListMoviesUseCase>(
-    GetAllWatchListMoviesUseCase(
+  getIt.registerLazySingleton<GetAllWatchListMoviesUseCase>(
+    () => GetAllWatchListMoviesUseCase(
         moviesWatchListFeatureDomainRepo:
             getIt<MoviesWatchListFeatureDomainRepo>()),
   );
-  getIt.registerSingleton<AddMovieToWatchListUseCase>(
-    AddMovieToWatchListUseCase(
+  getIt.registerLazySingleton<AddMovieToWatchListUseCase>(
+    () => AddMovieToWatchListUseCase(
         moviesWatchListFeatureDomainRepo:
             getIt<MoviesWatchListFeatureDomainRepo>()),
   );
-  getIt.registerSingleton<RemoveMovieFromWatchListUseCase>(
-    RemoveMovieFromWatchListUseCase(
+  getIt.registerLazySingleton<RemoveMovieFromWatchListUseCase>(
+    () => RemoveMovieFromWatchListUseCase(
         moviesWatchListFeatureDomainRepo:
             getIt<MoviesWatchListFeatureDomainRepo>()),
   );
-  getIt.registerSingleton<ClearWatchListUseCase>(
-    ClearWatchListUseCase(
+  getIt.registerLazySingleton<ClearWatchListUseCase>(
+    () => ClearWatchListUseCase(
         moviesWatchListFeatureDomainRepo:
             getIt<MoviesWatchListFeatureDomainRepo>()),
   );
-  getIt.registerSingleton<GetMovieCreditsUseCase>(
-    GetMovieCreditsUseCase(
+  getIt.registerLazySingleton<GetMovieCreditsUseCase>(
+    () => GetMovieCreditsUseCase(
       movieDetailsFeatureDomainRepo: getIt<MovieDetailsFeatureDomainRepo>(),
     ),
   );
 
-  getIt.registerFactory<GetMovieImagesUseCase>(
+  getIt.registerLazySingleton<GetMovieImagesUseCase>(
     () => GetMovieImagesUseCase(
       movieDetailsFeatureDomainRepo: getIt<MovieDetailsFeatureDomainRepo>(),
     ),
   );
 
-  getIt.registerFactory<GetDiscoverMoviesUseCase>(
+  getIt.registerLazySingleton<GetDiscoverMoviesUseCase>(
     () => GetDiscoverMoviesUseCase(
       getIt<DiscoverMoviesFeatureDomainRepo>(),
     ),
   );
 
-  getIt.registerFactory<GetCategoryMoviesUseCase>(
+  getIt.registerLazySingleton<GetCategoryMoviesUseCase>(
     () => GetCategoryMoviesUseCase(
       getIt<DiscoverMoviesFeatureDomainRepo>(),
     ),
   );
 
-  getIt.registerFactory<GetMovieSimilarMoviesUseCase>(
+  getIt.registerLazySingleton<GetMovieSimilarMoviesUseCase>(
       () => GetMovieSimilarMoviesUseCase(
             seeAllFeatureDomainRepo: getIt<SeeAllFeatureDomainRepo>(),
           ));
