@@ -11,6 +11,7 @@ class AppConstants {
   static const String kPopularMoviesBoxName = "popular_movies";
   static const String kTopRatedMoviesBoxName = "top_rated_movies";
   static const String kUpcomingMoviesBoxName = "upcoming_movies";
+  static const String kDiscoverMoviesCategoriesBoxName = "see_all_movies";
 
   static const Map<int, Map<String, dynamic>> genreDetails = {
     27: {

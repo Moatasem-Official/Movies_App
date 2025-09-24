@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_local_data_source.dart';
+import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_local_data_source_impl.dart';
 import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_remote_data_source.dart';
 import 'package:movies_app/features/discover_movies/data/repository/discover_movies_feature_data_repo.dart';
 import 'package:movies_app/features/discover_movies/domain/repository/discover_movies_feature_domain_repo.dart';
@@ -83,6 +85,8 @@ void setupMoviesInjection() {
       () => MoviesSearchRemoteDataSource(getIt<Dio>()));
   getIt.registerLazySingleton<DiscoverMoviesRemoteDataSource>(
       () => DiscoverMoviesRemoteDataSource(getIt<Dio>()));
+  getIt.registerLazySingleton<DiscoverMoviesLocalDataSource>(
+      () => DiscoverMoviesLocalDataSourceImpl());
   getIt.registerLazySingleton<MoviesWatchListLocalDataSource>(
       () => MoviesWatchListLocalDataSourceImpl());
 
@@ -116,8 +120,8 @@ void setupMoviesInjection() {
 
   getIt.registerLazySingleton<DiscoverMoviesFeatureDomainRepo>(
     () => DiscoverMoviesFeatureDataRepo(
-        discoverMoviesRemoteDataSource:
-            getIt<DiscoverMoviesRemoteDataSource>()),
+        discoverMoviesRemoteDataSource: getIt<DiscoverMoviesRemoteDataSource>(),
+        discoverMoviesLocalDataSource: getIt<DiscoverMoviesLocalDataSource>()),
   );
 
   getIt.registerLazySingleton<GetNowPlayingMoviesUseCase>(
