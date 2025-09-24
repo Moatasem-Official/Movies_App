@@ -70,7 +70,7 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
                           const Positioned(
                             top: 30,
                             left: 20,
-                            child: Bone.circle(size: 48),
+                            child: Bone.circle(size: 40),
                           ),
                         ],
                       );
