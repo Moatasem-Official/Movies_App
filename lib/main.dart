@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:movies_app/core/utils/service_locator.dart';
 import 'package:movies_app/core/utils/app_router.dart';
+import 'package:movies_app/features/home/data/models/cached_movies_model.dart';
 import 'package:movies_app/features/watch_list/data/models/hive_movie_model.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 
@@ -11,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(HiveMovieModelAdapter());
+  Hive.registerAdapter(CachedMoviesModelAdapter());
   setupMoviesInjection();
   runApp(DevicePreview(enabled: true, builder: (context) => const MyApp()));
 }

@@ -7,6 +7,10 @@ class AppConstants {
   static const String kApiBaseUrl = 'https://api.themoviedb.org/3/';
   static const String imagePathUrl = "https://image.tmdb.org/t/p/w500";
   static const String watchListBoxName = "movies_watchlist";
+  static const String kNowPlayingMoviesBoxName = "now_playing_movies";
+  static const String kPopularMoviesBoxName = "popular_movies";
+  static const String kTopRatedMoviesBoxName = "top_rated_movies";
+  static const String kUpcomingMoviesBoxName = "upcoming_movies";
 
   static const Map<int, Map<String, dynamic>> genreDetails = {
     27: {

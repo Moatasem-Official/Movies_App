@@ -7,6 +7,8 @@ import 'package:movies_app/features/discover_movies/domain/usecases/get_category
 import 'package:movies_app/features/discover_movies/domain/usecases/get_discover_movies_use_case.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/category_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
+import 'package:movies_app/features/home/data/datasource/home_local_data_source.dart';
+import 'package:movies_app/features/home/data/datasource/home_local_data_source_impl.dart';
 import 'package:movies_app/features/home/data/datasource/home_remote_data_source.dart';
 import 'package:movies_app/features/home/data/repository/home_feature_data_repo.dart';
 import 'package:movies_app/features/home/domain/repository/home_feature_domain_repo.dart';
@@ -65,6 +67,8 @@ void setupMoviesInjection() {
   getIt.registerLazySingleton<HomeRemoteDataSource>(
     () => HomeRemoteDataSource(getIt<Dio>()),
   );
+  getIt.registerLazySingleton<HomeLocalDataSource>(
+      () => HomeLocalDataSourceImpl());
   getIt.registerLazySingleton<SeeAllRemoteDataSource>(
       () => SeeAllRemoteDataSource(getIt<Dio>()));
   getIt.registerLazySingleton<MovieDetailsRemoteDataSource>(
@@ -79,7 +83,9 @@ void setupMoviesInjection() {
       () => MoviesWatchListLocalDataSourceImpl());
 
   getIt.registerLazySingleton<HomeFeatureDomainRepo>(
-    () => HomeFeatureDataRepo(getIt<HomeRemoteDataSource>()),
+    () => HomeFeatureDataRepo(
+        homeRemoteDataSource: getIt<HomeRemoteDataSource>(),
+        homeLocalDataSource: getIt<HomeLocalDataSource>()),
   );
 
   getIt.registerLazySingleton<SeeAllFeatureDomainRepo>(
