@@ -36,7 +36,7 @@ dependencies:
   responsive_navigation_bar: ^5.0.2
   retrofit: ^4.1.0
   shimmer: ^3.0.0
-  skeletonizer: ^1.0.1
+  skeletonizer: ^2.1.0+1
   timeago: ^3.6.1
   url_launcher: ^6.3.0
   youtube_player_flutter: ^9.0.1

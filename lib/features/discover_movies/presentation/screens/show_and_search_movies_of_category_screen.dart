@@ -59,11 +59,6 @@ class _ShowAndSearchMoviesOfCategoryScreenState
 
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
-
-    context.read<CategoryMoviesCubit>().fetchCategoryMovies(
-          genreId: widget.genreId,
-          reset: true,
-        );
   }
 
   void _onScroll() {

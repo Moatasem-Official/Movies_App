@@ -8,6 +8,7 @@ import 'package:movies_app/features/home/presentation/widgets/movies_home_screen
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/core/errors/failure.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
     extends StatelessWidget {
@@ -26,10 +27,62 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
                 return const Center(child: CircularProgressIndicator());
               },
               loading: () {
-                return SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 400,
-                  child: const Center(child: CircularProgressIndicator()),
+                // 1. نستخدم Skeletonizer مرة واحدة فقط في الأعلى
+                return Skeletonizer(
+                  enabled: true,
+                  child: CarouselSlider.builder(
+                    itemCount: 1,
+                    itemBuilder: (context, index, realIndex) {
+                      // 3. الهيكل الأساسي هو Stack واحد فقط
+                      return Stack(
+                        children: [
+                          // يمثل خلفية الصورة
+                          Container(
+                            width: double.infinity,
+                            height: 400,
+                            color: Colors.black,
+                          ),
+
+                          // يمثل محتوى النصوص (تم وضعه بشكل صحيح كابن للـ Stack)
+                          const Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: 24.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Bone.circle(size: 15),
+                                      SizedBox(width: 7),
+                                      Bone(width: 120, height: 16),
+                                    ],
+                                  ),
+                                  SizedBox(height: 20),
+                                  Bone(width: 250, height: 24),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          // يمثل زر المفضلة (موجود بشكل صحيح كابن للـ Stack)
+                          const Positioned(
+                            top: 30,
+                            left: 20,
+                            child: Bone.circle(size: 48),
+                          ),
+                        ],
+                      );
+                    },
+                    options: CarouselOptions(
+                      height: 400,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 1,
+                      enableInfiniteScroll: false,
+                      autoPlay: false,
+                    ),
+                  ),
                 );
               },
               loaded: (List<ResultEntity> movies) {
@@ -137,6 +190,37 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
             ) ??
             const SizedBox.shrink();
       },
+    );
+  }
+}
+
+class Bone extends StatelessWidget {
+  final double? width;
+  final double? height;
+  final ShapeBorder shape;
+
+  const Bone({
+    super.key,
+    this.width,
+    this.height,
+  }) : shape = const StadiumBorder();
+
+  const Bone.circle({
+    super.key,
+    required double size,
+  })  : width = size,
+        height = size,
+        shape = const CircleBorder();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: ShapeDecoration(
+        color: Colors.grey.shade900,
+        shape: shape,
+      ),
     );
   }
 }
