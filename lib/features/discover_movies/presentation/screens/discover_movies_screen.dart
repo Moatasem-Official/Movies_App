@@ -4,7 +4,8 @@ import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
+import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
+import 'package:skeletonizer/skeletonizer.dart' hide Bone;
 
 class DiscoverMoviesScreen extends StatelessWidget {
   const DiscoverMoviesScreen({super.key});
@@ -12,10 +13,9 @@ class DiscoverMoviesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1B2A),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0D1B2A),
         surfaceTintColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -33,7 +33,23 @@ class DiscoverMoviesScreen extends StatelessWidget {
           builder: (context, state) {
             return state.whenOrNull(
                   idle: () => const SizedBox.shrink(),
-                  loading: () => const CustomLoadingStateWidget(),
+                  loading: () {
+                    // هنا نعرض Skeletonizer placeholders بدل الكارد الحقيقي
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16.0,
+                        mainAxisSpacing: 16.0,
+                      ),
+                      itemCount: 8, // عدد placeholders
+                      itemBuilder: (context, index) {
+                        return SkeletonGenreCard(
+                          genreColor: Colors.grey.shade800,
+                        );
+                      },
+                    );
+                  },
                   error: (failure) => Center(
                     child: Text(
                       failure.message,
@@ -78,6 +94,7 @@ class DiscoverMoviesScreen extends StatelessWidget {
   }
 }
 
+// الكارد الحقيقي
 class GenreCard extends StatelessWidget {
   final String genreName;
   final int genreId;
@@ -147,6 +164,49 @@ class GenreCard extends StatelessWidget {
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Skeletonizer placeholder للكارد
+class SkeletonGenreCard extends StatelessWidget {
+  final Color genreColor;
+
+  const SkeletonGenreCard({super.key, required this.genreColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Skeletonizer(
+      enabled: true,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              genreColor.withOpacity(0.8),
+              genreColor.withOpacity(0.5),
+            ],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: genreColor.withOpacity(0.3),
+              blurRadius: 20,
+              spreadRadius: 2,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Bone.circle(size: 50), // placeholder للآيكون
+            SizedBox(height: 10),
+            Bone(width: 80, height: 20), // placeholder للنص
           ],
         ),
       ),
