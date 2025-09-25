@@ -52,7 +52,6 @@ class SettingsScreen extends StatelessWidget {
         );
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text(
             'Settings',
@@ -61,7 +60,9 @@ class SettingsScreen extends StatelessWidget {
               fontFamily: 'Poppins',
             ),
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+          automaticallyImplyLeading: false,
           elevation: 0,
           centerTitle: true,
         ),
