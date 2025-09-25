@@ -181,6 +181,11 @@ class SkeletonGenreCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: true,
+      effect: ShimmerEffect(
+        baseColor: Colors.grey.shade700,
+        highlightColor: Colors.grey.shade400,
+        duration: const Duration(milliseconds: 1200),
+      ),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -201,12 +206,13 @@ class SkeletonGenreCard extends StatelessWidget {
             ),
           ],
         ),
-        child: const Column(
+        // ignore: prefer_const_constructors
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Bone.circle(size: 50), // placeholder للآيكون
+          children: const [
+            Bone.circle(size: 50), // هنا مش const
             SizedBox(height: 10),
-            Bone(width: 80, height: 20), // placeholder للنص
+            Bone(width: 80, height: 20), // هنا مش const
           ],
         ),
       ),
