@@ -5,12 +5,14 @@ import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/category_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/widgets/show_and_search_movies_of_category_screen/custom_category_app_bar.dart';
+import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_initial_search_widget.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_no_movies_widget.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movies_grid_result.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import 'package:skeletonizer/skeletonizer.dart' hide Bone;
 
 class ShowAndSearchMoviesOfCategoryScreen extends StatefulWidget {
   const ShowAndSearchMoviesOfCategoryScreen({
@@ -179,7 +181,84 @@ class _ShowAndSearchMoviesOfCategoryScreenState
           builder: (context, state) {
             return state.when(
               idle: () => const CustomInitialSearchWidget(),
-              loading: () => const CustomLoadingStateWidget(),
+              loading: () {
+                return Skeletonizer(
+                    enabled: true,
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 0.65,
+                      ),
+                      itemCount: 6,
+                      itemBuilder: (context, index) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(15.0),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              // Placeholder للبوستر
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors
+                                      .grey.shade900, // لون قريب للكارد النهائي
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                              ),
+                              // Gradient افتراضي مثل الكارد النهائي
+                              Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.black.withOpacity(0.9),
+                                      Colors.transparent
+                                    ],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.center,
+                                  ),
+                                ),
+                              ),
+                              // Placeholder للنصوص (title + release + rating)
+                              const Positioned(
+                                bottom: 12,
+                                left: 12,
+                                right: 12,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // title
+                                    Bone(width: 120, height: 16),
+                                    SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        Bone(
+                                            width: 40,
+                                            height: 12), // سنة الإصدار
+                                        Spacer(),
+                                        Bone.circle(size: 16), // نجمة
+                                        SizedBox(width: 4),
+                                        Bone(width: 24, height: 12), // تقييم
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // زر المفضلة placeholder (دايرة فوق)
+                              const Positioned(
+                                top: 5,
+                                left: 15,
+                                child: Bone.circle(size: 48),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ));
+              },
               error: (failure) => Center(
                 child: Text(
                   failure.message,
