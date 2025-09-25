@@ -76,24 +76,16 @@ class MoviesWatchListScreen extends StatelessWidget {
       child: Scaffold(
         body: Stack(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0b0213), Color(0xFF1a0933)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
             SafeArea(
               child: CustomScrollView(
                 slivers: [
                   SliverAppBar(
                     backgroundColor: Colors.transparent,
+                    surfaceTintColor: Colors.transparent,
                     elevation: 0,
                     centerTitle: true,
                     pinned: true,
-                    expandedHeight: 120,
+                    expandedHeight: 100,
                     flexibleSpace: FlexibleSpaceBar(
                         centerTitle: true,
                         title: Padding(
@@ -208,23 +200,7 @@ class MoviesWatchListScreen extends StatelessWidget {
                                   color: Colors.white.withOpacity(0.9),
                                 ),
                               ),
-                              BlocBuilder<AddMovieToWatchListAsLocalDataCubit,
-                                  AddMovieToWatchListAsLocalDataState>(
-                                builder: (context, state) {
-                                  final cubit = context.watch<
-                                      AddMovieToWatchListAsLocalDataCubit>();
-                                  return cubit.watchlistIds.isNotEmpty
-                                      ? IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.search,
-                                            size: 20,
-                                            color: Colors.white,
-                                          ),
-                                        )
-                                      : Container();
-                                },
-                              ),
+                              Container(),
                             ],
                           ),
                         )),
