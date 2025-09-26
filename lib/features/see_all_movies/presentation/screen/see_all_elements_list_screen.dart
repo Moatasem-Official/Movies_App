@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
 import 'package:movies_app/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/features/see_all_movies/presentation/widgets/See_All_Elements_List_Screen/custom_card.dart';
-import 'package:skeletonizer/skeletonizer.dart' hide Bone;
+import 'package:skeletonizer/skeletonizer.dart';
 
 class SeeAllElementsListScreen extends StatefulWidget {
   const SeeAllElementsListScreen({
@@ -162,65 +161,61 @@ class SkeletonCustomCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10, right: 10),
       width: double.infinity,
       height: 220,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.grey.shade800,
-      ),
-      child: Row(
+      child: const Row(
         children: [
           // صورة placeholder + زر المفضلة
-          Stack(
-            children: [
-              Container(
-                width: 150,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color.fromARGB(255, 50, 49, 49),
-                ),
+          Stack(children: [
+            SeeAllBone(
+              width: 150,
+              height: 200,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            Positioned(
+              top: 5,
+              left: 5,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                // ignore: prefer_const_constructors
+                child: SeeAllBone.circle(size: 24),
               ),
-              Positioned(
-                top: 5,
-                left: 5,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black54.withAlpha(150),
-                    shape: BoxShape.circle,
-                  ),
-                  // ignore: prefer_const_constructors
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    // ignore: prefer_const_constructors
-                    child: Bone.circle(size: 24),
-                  ),
-                ),
-              ),
-            ],
-          ),
-
+            ),
+          ]),
           // النصوص placeholders
           // ignore: prefer_const_constructors
           Expanded(
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.only(left: 16, top: 20, bottom: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // title
-                  Bone(width: 100, height: 16),
+                  SeeAllBone(
+                      width: 100,
+                      height: 16,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   SizedBox(height: 15),
 
                   // سنة الإصدار + تقييم
                   Row(
                     children: [
-                      Bone(width: 40, height: 16),
+                      SeeAllBone(
+                          width: 40,
+                          height: 16,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
                       SizedBox(width: 30),
                       Row(
                         children: [
-                          Bone.circle(size: 16),
+                          SeeAllBone.circle(
+                              size: 16,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
                           SizedBox(width: 4),
-                          Bone(width: 24, height: 16),
+                          SeeAllBone(
+                              width: 24,
+                              height: 16,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
                         ],
                       ),
                     ],
@@ -228,17 +223,57 @@ class SkeletonCustomCard extends StatelessWidget {
                   SizedBox(height: 10),
 
                   // overview
-                  Bone(width: double.infinity, height: 12),
+                  SeeAllBone(
+                      width: double.infinity,
+                      height: 12,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   SizedBox(height: 4),
-                  Bone(width: double.infinity, height: 12),
+                  SeeAllBone(
+                      width: double.infinity,
+                      height: 12,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   SizedBox(height: 4),
-                  Bone(width: 200, height: 12),
+                  SeeAllBone(
+                      width: 200,
+                      height: 12,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class SeeAllBone extends StatelessWidget {
+  final double? width;
+  final double? height;
+  final ShapeBorder shape;
+  final BorderRadius? borderRadius;
+
+  const SeeAllBone({
+    super.key,
+    this.width,
+    this.height,
+    this.borderRadius = BorderRadius.zero,
+  }) : shape = const StadiumBorder();
+
+  const SeeAllBone.circle({
+    super.key,
+    required double size,
+    this.borderRadius = BorderRadius.zero,
+  })  : width = size,
+        height = size,
+        shape = const CircleBorder();
+
+  @override
+  Widget build(BuildContext context) {
+    return Bone(
+      width: width,
+      height: height,
+      borderRadius: borderRadius,
     );
   }
 }
