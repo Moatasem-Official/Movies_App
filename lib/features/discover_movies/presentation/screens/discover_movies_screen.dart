@@ -4,8 +4,7 @@ import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
-import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
-import 'package:skeletonizer/skeletonizer.dart' hide Bone;
+import 'package:skeletonizer/skeletonizer.dart';
 
 class DiscoverMoviesScreen extends StatelessWidget {
   const DiscoverMoviesScreen({super.key});
@@ -210,12 +209,50 @@ class SkeletonGenreCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Bone.circle(size: 50), // هنا مش const
+            DiscoverBone.circle(
+                size: 50,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(10))), // هنا مش const
             SizedBox(height: 10),
-            Bone(width: 80, height: 20), // هنا مش const
+            DiscoverBone(
+                width: 80,
+                height: 20,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(10))), // هنا مش const
           ],
         ),
       ),
+    );
+  }
+}
+
+class DiscoverBone extends StatelessWidget {
+  final double? width;
+  final double? height;
+  final ShapeBorder shape;
+  final BorderRadius? borderRadius;
+
+  const DiscoverBone({
+    super.key,
+    this.width,
+    this.height,
+    this.borderRadius = BorderRadius.zero,
+  }) : shape = const StadiumBorder();
+
+  const DiscoverBone.circle({
+    super.key,
+    required double size,
+    this.borderRadius,
+  })  : width = size,
+        height = size,
+        shape = const CircleBorder();
+
+  @override
+  Widget build(BuildContext context) {
+    return Bone(
+      width: width,
+      height: height,
+      borderRadius: borderRadius,
     );
   }
 }
