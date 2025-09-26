@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/utils/app_router.dart';
+import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_credits_entity.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
@@ -21,6 +22,7 @@ import 'package:movies_app/features/movie_details/presentation/widgets/movie_det
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_movie_videos_slider.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_sub_title_details.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:skeletonizer/skeletonizer.dart' hide Bone;
 
 class MovieDetailsScreen extends StatelessWidget {
   const MovieDetailsScreen({super.key, required this.movie});
@@ -35,6 +37,7 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
               MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
+            sectionIndex: 1,
             builder: (movieDetailsEntity) => CustomMovieDetailsSliverAppBar(
               baseUrl: AppConstants.imagePathUrl,
               imagePath: movieDetailsEntity.posterPath,
@@ -44,6 +47,7 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
               MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
+            sectionIndex: 2,
             builder: (movieDetailsEntity) => SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -62,6 +66,7 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
               MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
+            sectionIndex: 3,
             builder: (movieDetailsEntity) =>
                 CustomSubTitleDetails(movieDetailsEntity: movieDetailsEntity),
           ),
@@ -69,6 +74,7 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
               MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
+            sectionIndex: 4,
             builder: (movieDetailsEntity) => SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(left: 8),
@@ -93,6 +99,7 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
               MovieDetailsEntity>(
             cubit: context.read<MovieDetailsCubit>(),
+            sectionIndex: 5,
             builder: (data) {
               return data.genres.isEmpty
                   ? const Center(
@@ -122,6 +129,7 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<MovieCreditsCubit,
               MovieCreditsEntity>(
             cubit: context.read<MovieCreditsCubit>(),
+            sectionIndex: 6,
             builder: (data) => CustomMovieCredits(
               movieCreditsEntity: data,
             ),
@@ -140,6 +148,7 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<MovieCreditsCubit,
               MovieCreditsEntity>(
             cubit: context.read<MovieCreditsCubit>(),
+            sectionIndex: 7,
             builder: (data) => CustomMovieCrew(crew: data.crew),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
@@ -156,6 +165,7 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<MovieImagesCubit,
               MovieImagesEntity>(
             cubit: context.read<MovieImagesCubit>(),
+            sectionIndex: 8,
             builder: (data) => MovieImageGallery(
               images: data,
             ),
@@ -202,6 +212,7 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<SimilarMoviesCubit,
               List<ResultEntity>>(
             cubit: context.read<SimilarMoviesCubit>(),
+            sectionIndex: 9,
             builder: (data) => CustomMovieMoreLikeThisWidget(
               baseUrl: AppConstants.imagePathUrl,
               similarMovies: data,
@@ -221,12 +232,32 @@ class MovieDetailsScreen extends StatelessWidget {
           CustomMovieDetailsBlocBuilderTemplete<MovieVideosCubit,
               List<ResultVideoEntity>>(
             cubit: context.read<MovieVideosCubit>(),
+            sectionIndex: 10,
             builder: (data) =>
                 CustomMovieVideosSlider(videos: data, movie: movie),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 50)),
         ],
       ),
+    );
+  }
+}
+
+class CustomBone extends StatelessWidget {
+  final double width;
+  final double height;
+
+  const CustomBone({
+    super.key,
+    required this.width,
+    required this.height,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Bone(
+      width: width,
+      height: height,
     );
   }
 }

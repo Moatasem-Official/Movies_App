@@ -8,7 +8,7 @@ class CustomMovieDetailsSliverAppBar extends StatelessWidget {
   });
 
   final String baseUrl;
-  final String? imagePath; // خليتها nullable
+  final String? imagePath;
 
   @override
   Widget build(BuildContext context) {

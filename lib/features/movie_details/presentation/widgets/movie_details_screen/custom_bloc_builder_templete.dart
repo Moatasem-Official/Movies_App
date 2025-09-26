@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
 import 'package:movies_app/core/errors/failure.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/general_loading_shapes.dart';
 
 class CustomMovieDetailsBlocBuilderTemplete<
     C extends Cubit<MoviesModuleStates<T>>, T> extends StatelessWidget {
@@ -10,10 +10,12 @@ class CustomMovieDetailsBlocBuilderTemplete<
     super.key,
     required this.builder,
     required this.cubit,
+    required this.sectionIndex,
   });
 
   final C cubit;
   final Widget Function(T data) builder;
+  final int sectionIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class CustomMovieDetailsBlocBuilderTemplete<
         return state.whenOrNull(
               idle: () => const SliverToBoxAdapter(child: SizedBox.shrink()),
               loading: () =>
-                  const SliverToBoxAdapter(child: CustomLoadingStateWidget()),
+                  GeneralLoadingShapes.buildLoadingSection(sectionIndex),
               loaded: (T data) {
                 return builder(data);
               },
