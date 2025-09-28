@@ -11,6 +11,8 @@ import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
+import '../../../../generated/l10n.dart';
+
 class MoviesHomeScreen extends StatelessWidget {
   const MoviesHomeScreen({super.key});
 
@@ -71,7 +73,7 @@ class MoviesHomeScreen extends StatelessWidget {
             slivers: [
               SliverToBoxAdapter(
                 child: CustomSlider(
-                  title: "NOW PLAYING",
+                  title: S.of(context).nowPlaying,
                   cubit: context.read<NowPlayingMoviesCubit>(),
                 ),
               ),

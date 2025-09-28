@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/cubits/lang/cubit/locale_cubit.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/core/utils/app_router.dart';
@@ -113,6 +114,12 @@ class CustomHorizontalListView<
                                         .read<
                                             AddMovieToWatchListAsLocalDataCubit>()
                                         .toggleMovieInWatchList(movies[index]);
+                                    context.read<LocaleCubit>().changeLocale(
+                                          context.read<LocaleCubit>().state ==
+                                                  const Locale('en')
+                                              ? const Locale('ar')
+                                              : const Locale('en'),
+                                        );
                                   },
                                   icon: Icon(
                                     isMovieInWatchList
