@@ -12,6 +12,7 @@ import 'package:movies_app/features/watch_list/data/models/hive_movie_model.dart
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movies_app/generated/l10n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,9 @@ void main() async {
   Hive.registerAdapter(CachedMoviesModelAdapter());
   Hive.registerAdapter(CachedSeeAllMoviesModelAdapter());
   Hive.registerAdapter(CachedCategoryGenreModelAdapter());
-  setupMoviesInjection();
+  await setupMoviesInjection();
+  final locale = getIt<SharedPreferences>().getString('locale');
+  getIt<LocaleCubit>().changeLocale(Locale(locale ?? 'en'));
   runApp(DevicePreview(enabled: true, builder: (context) => const MyApp()));
 }
 
@@ -39,7 +42,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<AddMovieToWatchListAsLocalDataCubit>(
               create: (context) => getIt<AddMovieToWatchListAsLocalDataCubit>()
                 ..getAllWatchListMovies()),
-          BlocProvider<LocaleCubit>(create: (context) => LocaleCubit())
+          BlocProvider<LocaleCubit>(create: (context) => getIt<LocaleCubit>())
         ],
         child: BlocBuilder<LocaleCubit, Locale>(
           builder: (context, locale) {
@@ -51,7 +54,7 @@ class _MyAppState extends State<MyApp> {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              supportedLocales: S.delegate.supportedLocales,
+              supportedLocales: const [Locale('en'), Locale('ar')],
               theme:
                   ThemeData(fontFamily: 'Poppins', brightness: Brightness.dark),
               debugShowCheckedModeBanner: false,

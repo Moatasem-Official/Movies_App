@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movies_app/core/cubits/lang/cubit/locale_cubit.dart';
 import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_local_data_source.dart';
 import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_local_data_source_impl.dart';
 import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_remote_data_source.dart';
@@ -62,11 +63,14 @@ import 'package:movies_app/features/watch_list/domain/usecases/clear_watch_list_
 import 'package:movies_app/features/watch_list/domain/usecases/get_all_watch_list_movies_use_case.dart';
 import 'package:movies_app/features/watch_list/domain/usecases/remove_movie_from_watch_list_use_case.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final GetIt getIt = GetIt.instance;
 
-void setupMoviesInjection() {
+Future<void> setupMoviesInjection() async {
   getIt.registerLazySingleton<Dio>(() => getDioInfo());
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerSingleton<SharedPreferences>(sharedPreferences);
 
   getIt.registerLazySingleton<HomeRemoteDataSource>(
     () => HomeRemoteDataSource(getIt<Dio>()),
@@ -276,6 +280,12 @@ void setupMoviesInjection() {
   getIt.registerFactory<CategoryMoviesCubit>(
     () => CategoryMoviesCubit(
         getIt<GetCategoryMoviesUseCase>(), getIt<GetSearchedMoviesUseCase>()),
+  );
+
+  getIt.registerFactory<LocaleCubit>(
+    () => LocaleCubit(
+      getIt<SharedPreferences>(),
+    ),
   );
 }
 

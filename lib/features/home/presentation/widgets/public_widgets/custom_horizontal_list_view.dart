@@ -114,12 +114,6 @@ class CustomHorizontalListView<
                                         .read<
                                             AddMovieToWatchListAsLocalDataCubit>()
                                         .toggleMovieInWatchList(movies[index]);
-                                    context.read<LocaleCubit>().changeLocale(
-                                          context.read<LocaleCubit>().state ==
-                                                  const Locale('en')
-                                              ? const Locale('ar')
-                                              : const Locale('en'),
-                                        );
                                   },
                                   icon: Icon(
                                     isMovieInWatchList

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/cubits/lang/cubit/locale_cubit.dart';
 import 'package:movies_app/features/settings/presentation/widgets/custom_app_rating.dart';
 import 'package:movies_app/features/settings/presentation/widgets/custom_clear_watch_list_dialog.dart';
 import 'package:movies_app/features/settings/presentation/widgets/custom_report_a_bug_dialog.dart';
@@ -91,6 +92,9 @@ class SettingsScreen extends StatelessWidget {
                   CustomSettingsTitle(
                     icon: CupertinoIcons.globe,
                     title: S.of(context).language,
+                    subtitle: context.read<LocaleCubit>().language == 'en'
+                        ? S.of(context).english
+                        : S.of(context).arabic,
                     onTap: () {
                       showModalBottomSheet(
                           context: context,
@@ -214,8 +218,18 @@ class CustomLanguageDialog extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         ListTile(
-          leading: const Icon(CupertinoIcons.globe, color: Colors.yellow),
-          onTap: () {},
+          trailing: context.watch<LocaleCubit>().state.languageCode == 'en'
+              ? const Icon(CupertinoIcons.checkmark,
+                  color: Color.fromARGB(255, 21, 86, 129))
+              : null,
+          leading: const Icon(CupertinoIcons.globe,
+              color: Color.fromARGB(255, 21, 86, 129)),
+          onTap: () {
+            context.read<LocaleCubit>().changeLocale(const Locale('en'));
+            Future.delayed(const Duration(seconds: 1), () {
+              Navigator.pop(context);
+            });
+          },
           title: Text(
             S.of(context).english,
             style: const TextStyle(
@@ -224,8 +238,18 @@ class CustomLanguageDialog extends StatelessWidget {
           ),
         ),
         ListTile(
-          leading: const Icon(CupertinoIcons.globe, color: Colors.yellow),
-          onTap: () {},
+          trailing: context.watch<LocaleCubit>().state.languageCode == 'ar'
+              ? const Icon(CupertinoIcons.checkmark,
+                  color: Color.fromARGB(255, 21, 86, 129))
+              : null,
+          leading: const Icon(CupertinoIcons.globe,
+              color: Color.fromARGB(255, 21, 86, 129)),
+          onTap: () {
+            context.read<LocaleCubit>().changeLocale(const Locale('ar'));
+            Future.delayed(const Duration(seconds: 1), () {
+              Navigator.pop(context);
+            });
+          },
           title: Text(
             S.of(context).arabic,
             style: const TextStyle(
