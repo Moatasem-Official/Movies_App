@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class SuggestFeatureBottomSheet extends StatefulWidget {
   const SuggestFeatureBottomSheet({super.key});
@@ -35,12 +36,12 @@ class _SuggestFeatureBottomSheetState extends State<SuggestFeatureBottomSheet> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Row(
+          content: Row(
             children: [
-              Icon(Icons.thumb_up, color: Colors.white),
-              SizedBox(width: 12),
-              Text('Brilliant idea! Thanks for your suggestion.',
-                  style: TextStyle(color: Colors.white)),
+              const Icon(Icons.thumb_up, color: Colors.white),
+              const SizedBox(width: 12),
+              Text(S.of(context).suggestAFeatureSuccessMessage,
+                  style: const TextStyle(color: Colors.white)),
             ],
           ),
           backgroundColor: const Color.fromARGB(255, 39, 47, 63),
@@ -81,9 +82,9 @@ class _SuggestFeatureBottomSheetState extends State<SuggestFeatureBottomSheet> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Suggest a Feature',
-                style: TextStyle(
+              Text(
+                S.of(context).suggestAFeature,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -91,7 +92,7 @@ class _SuggestFeatureBottomSheetState extends State<SuggestFeatureBottomSheet> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Have a brilliant idea? We\'d love to hear about it!',
+                S.of(context).brilliantIdea,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14, color: Colors.grey.shade400),
               ),
@@ -101,7 +102,7 @@ class _SuggestFeatureBottomSheetState extends State<SuggestFeatureBottomSheet> {
                 maxLines: 4,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  hintText: 'Describe your amazing idea...',
+                  hintText: S.of(context).describeYourIdea,
                   hintStyle: TextStyle(color: Colors.grey.shade500),
                   filled: true,
                   fillColor: Colors.black.withOpacity(0.2),
@@ -133,7 +134,9 @@ class _SuggestFeatureBottomSheetState extends State<SuggestFeatureBottomSheet> {
                         )
                       : const Icon(Icons.lightbulb_outline_rounded),
                   label: Text(
-                    _isLoading ? 'Sending...' : 'Send Suggestion',
+                    _isLoading
+                        ? S.of(context).loadingButtonMessage
+                        : S.of(context).sendSuggestion,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),

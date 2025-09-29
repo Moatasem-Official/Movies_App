@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 import 'package:movies_app/features/watch_list/presentation/widgets/custom_watch_list_grid.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class MoviesWatchListScreen extends StatelessWidget {
   const MoviesWatchListScreen({super.key});
@@ -29,7 +30,8 @@ class MoviesWatchListScreen extends StatelessWidget {
                   children: [
                     const Icon(Icons.check, color: Colors.white),
                     const SizedBox(width: 10),
-                    Text(message, style: const TextStyle(color: Colors.white)),
+                    Text(S.of(context).clearWatchlistMessageSuccess,
+                        style: const TextStyle(color: Colors.white)),
                   ],
                 ),
                 duration: const Duration(seconds: 1),
@@ -54,7 +56,8 @@ class MoviesWatchListScreen extends StatelessWidget {
                   children: [
                     const Icon(Icons.check, color: Colors.white),
                     const SizedBox(width: 10),
-                    Text(message, style: const TextStyle(color: Colors.white)),
+                    Text(S.of(context).movieRemovedFromWatchlistMessage,
+                        style: const TextStyle(color: Colors.white)),
                   ],
                 ),
                 duration: const Duration(seconds: 1),
@@ -116,18 +119,20 @@ class MoviesWatchListScreen extends StatelessWidget {
                                                       255, 31, 56, 106),
                                                   size: 50,
                                                 ),
-                                                title: const Text(
-                                                  'Clear Watchlist ?',
+                                                title: Text(
+                                                  S.of(context).clearWatchlist,
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
-                                                content: const Text(
-                                                  'This action will permanently delete all items. Are you sure you want to proceed ?',
+                                                content: Text(
+                                                  S
+                                                      .of(context)
+                                                      .clearWatchlistConfirmation,
                                                   textAlign: TextAlign.center,
-                                                  style:
-                                                      TextStyle(fontSize: 14),
+                                                  style: const TextStyle(
+                                                      fontSize: 14),
                                                 ),
                                                 actionsAlignment:
                                                     MainAxisAlignment.center,
@@ -142,8 +147,9 @@ class MoviesWatchListScreen extends StatelessWidget {
                                                       onPressed: () =>
                                                           Navigator.pop(
                                                               context, false),
-                                                      child:
-                                                          const Text('Cancel'),
+                                                      child: Text(
+                                                        S.of(context).cancel,
+                                                      ),
                                                     ),
                                                   ),
                                                   const SizedBox(width: 12),
@@ -163,13 +169,15 @@ class MoviesWatchListScreen extends StatelessWidget {
                                                       onPressed: () =>
                                                           Navigator.pop(
                                                               context, true),
-                                                      child: const Text('Clear',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Colors
-                                                                  .white)),
+                                                      child: Text(
+                                                          S.of(context).clear,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white)),
                                                     ),
                                                   ),
                                                 ],
@@ -193,7 +201,7 @@ class MoviesWatchListScreen extends StatelessWidget {
                                 },
                               ),
                               Text(
-                                'My Watchlist',
+                                S.of(context).watchlist,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,

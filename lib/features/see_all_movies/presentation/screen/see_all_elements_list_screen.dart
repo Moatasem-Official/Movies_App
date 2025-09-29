@@ -157,24 +157,25 @@ class SkeletonCustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-      padding: const EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsetsDirectional.only(start: 10, end: 10, bottom: 10),
+      padding: const EdgeInsetsDirectional.only(start: 10, end: 10),
       width: double.infinity,
       height: 220,
-      child: const Row(
+      child: Row(
         children: [
           // صورة placeholder + زر المفضلة
           Stack(children: [
-            SeeAllBone(
+            const SeeAllBone(
               width: 150,
               height: 200,
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
-            Positioned(
+            Positioned.directional(
               top: 5,
-              left: 5,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
+              start: 5,
+              textDirection: Directionality.of(context),
+              child: const Padding(
+                padding: EdgeInsetsDirectional.all(8.0),
                 // ignore: prefer_const_constructors
                 child: SeeAllBone.circle(size: 24),
               ),
@@ -183,8 +184,9 @@ class SkeletonCustomCard extends StatelessWidget {
           // النصوص placeholders
           // ignore: prefer_const_constructors
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(left: 16, top: 20, bottom: 20),
+            child: const Padding(
+              padding:
+                  EdgeInsetsDirectional.only(start: 16, top: 20, bottom: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

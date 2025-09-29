@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class ReportBugBottomSheet extends StatefulWidget {
   const ReportBugBottomSheet({super.key});
@@ -34,12 +35,12 @@ class _ReportBugBottomSheetState extends State<ReportBugBottomSheet> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Row(
+          content: Row(
             children: [
-              Icon(Icons.check_circle, color: Colors.white),
-              SizedBox(width: 12),
-              Text('Report sent successfully! Thank you.',
-                  style: TextStyle(color: Colors.white)),
+              const Icon(Icons.check_circle, color: Colors.white),
+              const SizedBox(width: 12),
+              Text(S.of(context).reportABugSuccessMessage,
+                  style: const TextStyle(color: Colors.white)),
             ],
           ),
           backgroundColor: const Color.fromARGB(255, 39, 47, 63),
@@ -80,9 +81,9 @@ class _ReportBugBottomSheetState extends State<ReportBugBottomSheet> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Report a Bug',
-                style: TextStyle(
+              Text(
+                S.of(context).reportABug,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -90,7 +91,7 @@ class _ReportBugBottomSheetState extends State<ReportBugBottomSheet> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Help us improve by describing the issue you encountered.',
+                S.of(context).helpUsImprove,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14, color: Colors.grey.shade400),
               ),
@@ -100,7 +101,7 @@ class _ReportBugBottomSheetState extends State<ReportBugBottomSheet> {
                 maxLines: 4,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  hintText: 'Describe the bug here...',
+                  hintText: S.of(context).describeTheBugHere,
                   hintStyle: TextStyle(color: Colors.grey.shade500),
                   filled: true,
                   fillColor: Colors.black.withOpacity(0.2),
@@ -132,7 +133,9 @@ class _ReportBugBottomSheetState extends State<ReportBugBottomSheet> {
                         )
                       : const Icon(Icons.send_rounded),
                   label: Text(
-                    _isLoading ? 'Submitting...' : 'Submit Report',
+                    _isLoading
+                        ? S.of(context).loadingButtonMessage
+                        : S.of(context).submitReport,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),

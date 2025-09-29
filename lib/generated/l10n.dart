@@ -130,6 +130,16 @@ class S {
     );
   }
 
+  /// `Movies`
+  String get movies {
+    return Intl.message(
+      'Movies',
+      name: 'movies',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Watchlist`
   String get watchlist {
     return Intl.message(
@@ -190,21 +200,171 @@ class S {
     );
   }
 
-  /// `Original`
-  String get original {
+  /// `Original Language`
+  String get originalLanguage {
     return Intl.message(
-      'Original',
-      name: 'original',
+      'Original Language',
+      name: 'originalLanguage',
       desc: '',
       args: [],
     );
   }
 
-  /// `Language`
-  String get language {
+  /// `No Production Companies Found`
+  String get noProductionCompaniesFound {
     return Intl.message(
-      'Language',
-      name: 'language',
+      'No Production Companies Found',
+      name: 'noProductionCompaniesFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No {title} Found`
+  String noTitledFound(Object title) {
+    return Intl.message(
+      'No $title Found',
+      name: 'noTitledFound',
+      desc: '',
+      args: [title],
+    );
+  }
+
+  /// `No Similar Movies Found`
+  String get noSimilarMoviesFound {
+    return Intl.message(
+      'No Similar Movies Found',
+      name: 'noSimilarMoviesFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Movie Images Found`
+  String get noMovieImagesFound {
+    return Intl.message(
+      'No Movie Images Found',
+      name: 'noMovieImagesFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Movie Crew Found`
+  String get noMovieCrewFound {
+    return Intl.message(
+      'No Movie Crew Found',
+      name: 'noMovieCrewFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Movie Cast Found`
+  String get NoMovieCastFound {
+    return Intl.message(
+      'No Movie Cast Found',
+      name: 'NoMovieCastFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not Available`
+  String get notAvailable {
+    return Intl.message(
+      'Not Available',
+      name: 'notAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Male`
+  String get male {
+    return Intl.message(
+      'Male',
+      name: 'male',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Female`
+  String get female {
+    return Intl.message(
+      'Female',
+      name: 'female',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not Specified`
+  String get notSpecified {
+    return Intl.message(
+      'Not Specified',
+      name: 'notSpecified',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Videos Found`
+  String get noVideosFound {
+    return Intl.message(
+      'No Videos Found',
+      name: 'noVideosFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Overview Available`
+  String get noOverviewAvailable {
+    return Intl.message(
+      'No Overview Available',
+      name: 'noOverviewAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Genres Available`
+  String get noGenresAvailable {
+    return Intl.message(
+      'No Genres Available',
+      name: 'noGenresAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Official`
+  String get official {
+    return Intl.message(
+      'Official',
+      name: 'official',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `As ${actorCharacter}`
+  String asPlusActorCharacter(Object actorCharacter) {
+    return Intl.message(
+      'As \$$actorCharacter',
+      name: 'asPlusActorCharacter',
+      desc: '',
+      args: [actorCharacter],
+    );
+  }
+
+  /// `Unknown`
+  String get unknown {
+    return Intl.message(
+      'Unknown',
+      name: 'unknown',
       desc: '',
       args: [],
     );
@@ -370,11 +530,201 @@ class S {
     );
   }
 
-  /// `Similar To`
-  String get similarTo {
+  /// `Similar To {movieName}`
+  String similarTo(Object movieName) {
     return Intl.message(
-      'Similar To',
+      'Similar To $movieName',
       name: 'similarTo',
+      desc: '',
+      args: [movieName],
+    );
+  }
+
+  /// `Adventure`
+  String get adventure {
+    return Intl.message(
+      'Adventure',
+      name: 'adventure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Action`
+  String get action {
+    return Intl.message(
+      'Action',
+      name: 'action',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Animation`
+  String get animation {
+    return Intl.message(
+      'Animation',
+      name: 'animation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Comedy`
+  String get comedy {
+    return Intl.message(
+      'Comedy',
+      name: 'comedy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Crime`
+  String get crime {
+    return Intl.message(
+      'Crime',
+      name: 'crime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Documentary`
+  String get documentary {
+    return Intl.message(
+      'Documentary',
+      name: 'documentary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drama`
+  String get drama {
+    return Intl.message(
+      'Drama',
+      name: 'drama',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Family`
+  String get family {
+    return Intl.message(
+      'Family',
+      name: 'family',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fantasy`
+  String get fantasy {
+    return Intl.message(
+      'Fantasy',
+      name: 'fantasy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `History`
+  String get history {
+    return Intl.message(
+      'History',
+      name: 'history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Horror`
+  String get horror {
+    return Intl.message(
+      'Horror',
+      name: 'horror',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Music`
+  String get music {
+    return Intl.message(
+      'Music',
+      name: 'music',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mystery`
+  String get mystery {
+    return Intl.message(
+      'Mystery',
+      name: 'mystery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Romance`
+  String get romance {
+    return Intl.message(
+      'Romance',
+      name: 'romance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Science Fiction`
+  String get scienceFiction {
+    return Intl.message(
+      'Science Fiction',
+      name: 'scienceFiction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TV Movie`
+  String get tvMovie {
+    return Intl.message(
+      'TV Movie',
+      name: 'tvMovie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thriller`
+  String get thriller {
+    return Intl.message(
+      'Thriller',
+      name: 'thriller',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `War`
+  String get war {
+    return Intl.message(
+      'War',
+      name: 'war',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Western`
+  String get western {
+    return Intl.message(
+      'Western',
+      name: 'western',
       desc: '',
       args: [],
     );
@@ -410,23 +760,23 @@ class S {
     );
   }
 
-  /// `History`
-  String get history {
+  /// `No Movies Found`
+  String get noMovieFound {
     return Intl.message(
-      'History',
-      name: 'history',
+      'No Movies Found',
+      name: 'noMovieFound',
       desc: '',
       args: [],
     );
   }
 
-  /// `Search For`
-  String get searchFor {
+  /// `Search For {categoryName} Movies`
+  String searchFor(Object categoryName) {
     return Intl.message(
-      'Search For',
+      'Search For $categoryName Movies',
       name: 'searchFor',
       desc: '',
-      args: [],
+      args: [categoryName],
     );
   }
 
@@ -530,6 +880,16 @@ class S {
     );
   }
 
+  /// `Watchlist has been cleared successfully`
+  String get clearWatchlistMessageSuccess {
+    return Intl.message(
+      'Watchlist has been cleared successfully',
+      name: 'clearWatchlistMessageSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Clear Watchlist`
   String get clearWatchlist {
     return Intl.message(
@@ -560,6 +920,36 @@ class S {
     );
   }
 
+  /// `Remove`
+  String get remove {
+    return Intl.message(
+      'Remove',
+      name: 'remove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Movie ?`
+  String get removeMovie {
+    return Intl.message(
+      'Remove Movie ?',
+      name: 'removeMovie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This action will permanently remove the movie from your watchlist. Are you sure you want to proceed ?`
+  String get removeMovieFromWatchlist {
+    return Intl.message(
+      'This action will permanently remove the movie from your watchlist. Are you sure you want to proceed ?',
+      name: 'removeMovieFromWatchlist',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Are you sure you want to permanently clear the watchlist?`
   String get clearWatchlistConfirmation {
     return Intl.message(
@@ -585,6 +975,26 @@ class S {
     return Intl.message(
       'Report a Bug',
       name: 'reportABug',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submitting...`
+  String get loadingButtonMessage {
+    return Intl.message(
+      'Submitting...',
+      name: 'loadingButtonMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report sent successfully! Thank you.`
+  String get reportABugSuccessMessage {
+    return Intl.message(
+      'Report sent successfully! Thank you.',
+      name: 'reportABugSuccessMessage',
       desc: '',
       args: [],
     );
@@ -625,6 +1035,16 @@ class S {
     return Intl.message(
       'Suggest a Feature',
       name: 'suggestAFeature',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Brilliant idea! Thanks for your suggestion.`
+  String get suggestAFeatureSuccessMessage {
+    return Intl.message(
+      'Brilliant idea! Thanks for your suggestion.',
+      name: 'suggestAFeatureSuccessMessage',
       desc: '',
       args: [],
     );
@@ -680,6 +1100,16 @@ class S {
     );
   }
 
+  /// `Your Rating Is : {rating}`
+  String rateAppSuccessMessage(Object rating) {
+    return Intl.message(
+      'Your Rating Is : $rating',
+      name: 'rateAppSuccessMessage',
+      desc: '',
+      args: [rating],
+    );
+  }
+
   /// `How was your experience?`
   String get howWasYourExperience {
     return Intl.message(
@@ -700,50 +1130,50 @@ class S {
     );
   }
 
-  /// `Hated it`
+  /// `Hated it 😠`
   String get hatedIt {
     return Intl.message(
-      'Hated it',
+      'Hated it 😠',
       name: 'hatedIt',
       desc: '',
       args: [],
     );
   }
 
-  /// `Disliked it`
+  /// `Disliked it 🙁`
   String get dislikedIt {
     return Intl.message(
-      'Disliked it',
+      'Disliked it 🙁',
       name: 'dislikedIt',
       desc: '',
       args: [],
     );
   }
 
-  /// `It's Ok`
+  /// `It's Ok 👌`
   String get itsOk {
     return Intl.message(
-      'It\'s Ok',
+      'It\'s Ok 👌',
       name: 'itsOk',
       desc: '',
       args: [],
     );
   }
 
-  /// `Liked it`
+  /// `Liked it 😊`
   String get likedIt {
     return Intl.message(
-      'Liked it',
+      'Liked it 😊',
       name: 'likedIt',
       desc: '',
       args: [],
     );
   }
 
-  /// `Loved it!`
+  /// `Loved it! 😍`
   String get lovedIt {
     return Intl.message(
-      'Loved it!',
+      'Loved it! 😍',
       name: 'lovedIt',
       desc: '',
       args: [],
@@ -760,41 +1190,41 @@ class S {
     );
   }
 
-  /// `Version`
-  String get version {
+  /// `Version {version}`
+  String version(Object version) {
     return Intl.message(
-      'Version',
+      'Version $version',
       name: 'version',
       desc: '',
-      args: [],
+      args: [version],
     );
   }
 
   /// `Movie Added To Watchlist`
-  String get movieAddedToWatchlist {
+  String get movieAddedToWatchlistMessage {
     return Intl.message(
       'Movie Added To Watchlist',
-      name: 'movieAddedToWatchlist',
+      name: 'movieAddedToWatchlistMessage',
       desc: '',
       args: [],
     );
   }
 
   /// `Movie Removed From Watchlist`
-  String get movieRemovedFromWatchlist {
+  String get movieRemovedFromWatchlistMessage {
     return Intl.message(
       'Movie Removed From Watchlist',
-      name: 'movieRemovedFromWatchlist',
+      name: 'movieRemovedFromWatchlistMessage',
       desc: '',
       args: [],
     );
   }
 
   /// `All Movies Removed From Watchlist`
-  String get allMoviesRemovedFromWatchlist {
+  String get allMoviesRemovedFromWatchlistMessage {
     return Intl.message(
       'All Movies Removed From Watchlist',
-      name: 'allMoviesRemovedFromWatchlist',
+      name: 'allMoviesRemovedFromWatchlistMessage',
       desc: '',
       args: [],
     );

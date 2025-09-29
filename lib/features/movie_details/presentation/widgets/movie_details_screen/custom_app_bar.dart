@@ -19,8 +19,9 @@ class CustomMovieDetailsSliverAppBar extends StatelessWidget {
       leading: GestureDetector(
         onTap: () => Navigator.pop(context),
         child: Container(
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.only(left: 8),
+          alignment: Alignment.center,
+          margin: const EdgeInsetsDirectional.all(10),
+          padding: const EdgeInsetsDirectional.only(start: 8),
           decoration: BoxDecoration(
             color: Colors.black.withAlpha(180),
             shape: BoxShape.circle,

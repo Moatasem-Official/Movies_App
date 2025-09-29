@@ -12,6 +12,7 @@ import 'package:movies_app/features/movies_search/presentation/widgets/custom_se
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import 'package:movies_app/generated/l10n.dart';
 import 'package:skeletonizer/skeletonizer.dart' hide Bone;
 
 class ShowAndSearchMoviesOfCategoryScreen extends StatefulWidget {
@@ -120,7 +121,7 @@ class _ShowAndSearchMoviesOfCategoryScreenState
                     children: [
                       const Icon(Icons.check, color: Colors.white),
                       const SizedBox(width: 10),
-                      Text(message,
+                      Text(S.of(context).movieAddedToWatchlistMessage,
                           style: const TextStyle(color: Colors.white)),
                     ],
                   ),
@@ -143,7 +144,7 @@ class _ShowAndSearchMoviesOfCategoryScreenState
                       children: [
                         const Icon(Icons.check, color: Colors.white),
                         const SizedBox(width: 10),
-                        Text(message,
+                        Text(S.of(context).movieRemovedFromWatchlistMessage,
                             style: const TextStyle(color: Colors.white)),
                       ],
                     ),

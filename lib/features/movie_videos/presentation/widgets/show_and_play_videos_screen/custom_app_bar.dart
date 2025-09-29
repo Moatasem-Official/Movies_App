@@ -29,21 +29,22 @@ class CustomVideoScreenAppBar extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
+        Positioned.directional(
           top: 10,
-          left: 5,
+          textDirection: Directionality.of(context),
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Container(
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.only(left: 8),
+              alignment: Alignment.center,
+              margin: const EdgeInsetsDirectional.all(10),
+              padding: const EdgeInsetsDirectional.only(start: 8),
               decoration: BoxDecoration(
                 color: Colors.black.withAlpha(100),
                 shape: BoxShape.circle,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: const Icon(Icons.arrow_back_ios, color: Colors.white),
+              child: const Padding(
+                padding: EdgeInsetsDirectional.all(6.0),
+                child: Icon(Icons.arrow_back_ios, color: Colors.white),
               ),
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class RatingBottomSheet extends StatefulWidget {
   const RatingBottomSheet({super.key});
@@ -43,9 +44,9 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
             ),
           ),
           const SizedBox(height: 24),
-          const Text(
-            'How was your experience?',
-            style: TextStyle(
+          Text(
+            S.of(context).howWasYourExperience,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -53,7 +54,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Your feedback helps us improve',
+            S.of(context).yourFeedbackHelpsUsImprove,
             style: TextStyle(fontSize: 14, color: Colors.grey.shade400),
           ),
           const SizedBox(height: 24),
@@ -108,7 +109,10 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
                   ? null
                   : () {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Your Rating Is : $_selectedRating',
+                        content: Text(
+                            S
+                                .of(context)
+                                .rateAppSuccessMessage(_selectedRating),
                             style: const TextStyle(color: Colors.white)),
                         duration: const Duration(seconds: 1),
                         backgroundColor: const Color.fromARGB(255, 51, 60, 82),
@@ -123,9 +127,10 @@ class _RatingBottomSheetState extends State<RatingBottomSheet> {
                       ));
                       Navigator.pop(context);
                     },
-              child: const Text(
-                'Submit Rating',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: Text(
+                S.of(context).submitRating,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           ),

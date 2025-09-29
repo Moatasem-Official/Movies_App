@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_cast_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_actor_details_dialog.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomCastCard extends StatelessWidget {
   const CustomCastCard({super.key, required this.actor});
@@ -63,7 +64,7 @@ class CustomCastCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              actor.name ?? 'N/A',
+              actor.name ?? S.of(context).unknown,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -75,7 +76,7 @@ class CustomCastCard extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              actor.character ?? 'N/A',
+              actor.character ?? S.of(context).unknown,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

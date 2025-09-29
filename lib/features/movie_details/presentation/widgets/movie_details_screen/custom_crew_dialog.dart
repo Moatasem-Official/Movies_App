@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_crew_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_actor_dialog_row_item.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomCrewDialog extends StatelessWidget {
   const CustomCrewDialog({super.key, required this.member});
@@ -44,7 +45,7 @@ class CustomCrewDialog extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                member.name ?? 'Not Available',
+                member.name ?? S.of(context).unknown,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     color: Colors.white,
@@ -53,7 +54,7 @@ class CustomCrewDialog extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                member.job ?? 'Unknown',
+                member.job ?? S.of(context).unknown,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.grey.shade400,
@@ -66,20 +67,21 @@ class CustomCrewDialog extends StatelessWidget {
               ),
               CustomActorDialogRowItem(
                 icon: _getGenderIcon(member.gender),
-                label: 'Gender',
-                value: _getGenderString(member.gender),
+                label: S.of(context).gender,
+                value: _getGenderString(member.gender, context),
               ),
               const SizedBox(height: 10),
               CustomActorDialogRowItem(
                 icon: Icons.work_outline,
-                label: 'Known For',
-                value: member.knownForDepartment ?? 'N/A',
+                label: S.of(context).knownFor,
+                value: member.knownForDepartment ?? S.of(context).unknown,
               ),
               const SizedBox(height: 10),
               CustomActorDialogRowItem(
                 icon: Icons.trending_up_rounded,
-                label: 'Popularity',
-                value: member.popularity.toStringAsFixed(2) ?? 'N/A',
+                label: S.of(context).popularity,
+                value: member.popularity.toStringAsFixed(2) ??
+                    S.of(context).unknown,
               ),
               const SizedBox(height: 24),
               SizedBox(
@@ -93,9 +95,9 @@ class CustomCrewDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)),
                   ),
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Close',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: Text(S.of(context).close,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
                 ),
               ),
             ],
@@ -105,14 +107,14 @@ class CustomCrewDialog extends StatelessWidget {
     );
   }
 
-  String _getGenderString(int? gender) {
+  String _getGenderString(int? gender, BuildContext context) {
     switch (gender) {
       case 1:
-        return 'Female';
+        return S.of(context).female;
       case 2:
-        return 'Male';
+        return S.of(context).male;
       default:
-        return 'Not Specified';
+        return S.of(context).notSpecified;
     }
   }
 

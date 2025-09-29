@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomMovieGenresWidget extends StatelessWidget {
   const CustomMovieGenresWidget({super.key, required this.genres});
@@ -9,13 +10,13 @@ class CustomMovieGenresWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(left: 8),
+        padding: const EdgeInsetsDirectional.only(start: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "GENRES",
-              style: TextStyle(color: Colors.white, fontSize: 20),
+            Text(
+              S.of(context).genres,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
             ),
             const SizedBox(height: 5),
             Text(

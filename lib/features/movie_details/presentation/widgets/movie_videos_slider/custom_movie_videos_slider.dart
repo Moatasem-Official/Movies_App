@@ -7,6 +7,8 @@ import 'package:movies_app/features/movie_details/presentation/widgets/movie_vid
 import 'package:movies_app/core/utils/app_router.dart';
 import 'dart:ui';
 
+import 'package:movies_app/generated/l10n.dart';
+
 class CustomMovieVideosSlider extends StatelessWidget {
   const CustomMovieVideosSlider({
     super.key,
@@ -21,8 +23,8 @@ class CustomMovieVideosSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: videos.isEmpty
-          ? const EmptyStateWidget(
-              message: "No Videos Found",
+          ? EmptyStateWidget(
+              message: S.of(context).noVideosFound,
             )
           : CarouselSlider.builder(
               itemCount: videos.length,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_bar.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomSearchAppBar extends StatelessWidget {
   const CustomSearchAppBar({
@@ -8,9 +9,9 @@ class CustomSearchAppBar extends StatelessWidget {
     required bool isSearching,
     required TextEditingController searchController,
     required this.onSearchChanged,
-  }) : _fadeAnimation = fadeAnimation,
-       _isSearching = isSearching,
-       _searchController = searchController;
+  })  : _fadeAnimation = fadeAnimation,
+        _isSearching = isSearching,
+        _searchController = searchController;
 
   final Animation<double> _fadeAnimation;
   final bool _isSearching;
@@ -27,9 +28,9 @@ class CustomSearchAppBar extends StatelessWidget {
           const SizedBox(height: 70),
           FadeTransition(
             opacity: _fadeAnimation,
-            child: const Text(
-              'Find Your Movie',
-              style: TextStyle(
+            child: Text(
+              S.of(context).searchForAMovie,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -38,23 +39,20 @@ class CustomSearchAppBar extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-
           CustomSearchBar(
             isSearching: _isSearching,
             searchController: _searchController,
             onChanged: onSearchChanged,
           ),
-
           const SizedBox(height: 30),
-
           AnimatedOpacity(
             duration: const Duration(milliseconds: 300),
             opacity: _isSearching ? 1.0 : 0.0,
             child: FadeTransition(
               opacity: _fadeAnimation,
-              child: const Text(
-                'Search Results',
-                style: TextStyle(
+              child: Text(
+                S.of(context).searchResult,
+                style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 22,
                   fontWeight: FontWeight.w600,

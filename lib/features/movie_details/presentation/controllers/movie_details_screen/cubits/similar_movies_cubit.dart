@@ -8,13 +8,15 @@ class SimilarMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   SimilarMoviesCubit(this.getSimilarMoviesUseCase)
       : super(const MoviesModuleStates.idle());
 
+  List<ResultEntity> similarMovies = [];
+
   Future<void> getSimilarMovies({required int movieId, int page = 1}) async {
     emit(const Loading());
     final failureOrSimilarMovies =
         await getSimilarMoviesUseCase(movieId: movieId, page: page);
-    failureOrSimilarMovies.fold(
-      (failure) => emit(Error(failure)),
-      (movies) => emit(Loaded(movies.results)),
-    );
+    failureOrSimilarMovies.fold((failure) => emit(Error(failure)), (movies) {
+      emit(Loaded(movies.results));
+      similarMovies.addAll(movies.results);
+    });
   }
 }

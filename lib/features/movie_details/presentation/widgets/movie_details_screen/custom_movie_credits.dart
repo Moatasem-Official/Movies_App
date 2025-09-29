@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_credits_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_cast_card.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomMovieCredits extends StatelessWidget {
   const CustomMovieCredits({super.key, required this.movieCreditsEntity});
@@ -11,9 +12,9 @@ class CustomMovieCredits extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: movieCreditsEntity.cast.isEmpty
-          ? const Center(
-              child: Text('No Movie Cast Found',
-                  style: TextStyle(
+          ? Center(
+              child: Text(S.of(context).NoMovieCastFound,
+                  style: const TextStyle(
                     color: Color.fromARGB(255, 233, 233, 233),
                     fontSize: 14,
                     fontWeight: FontWeight.bold,

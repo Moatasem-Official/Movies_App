@@ -4,6 +4,7 @@ import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
+import 'package:movies_app/generated/l10n.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class DiscoverMoviesScreen extends StatelessWidget {
@@ -17,9 +18,9 @@ class DiscoverMoviesScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          'Discover',
-          style: TextStyle(
+        title: Text(
+          S.of(context).discover,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -76,7 +77,7 @@ class DiscoverMoviesScreen extends StatelessWidget {
                             style?['icon'] as IconData? ?? Icons.movie_rounded;
 
                         return GenreCard(
-                          genreName: genreFromApi.name,
+                          genreName: getGenreName(context, genreFromApi.name),
                           genreId: genreFromApi.id,
                           genreColor: color,
                           genreIcon: icon,
@@ -90,6 +91,51 @@ class DiscoverMoviesScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getGenreName(BuildContext context, String genre) {
+    switch (genre) {
+      case 'Adventure':
+        return S.of(context).adventure;
+      case 'Action':
+        return S.of(context).action;
+      case 'Animation':
+        return S.of(context).animation;
+      case 'Comedy':
+        return S.of(context).comedy;
+      case 'Crime':
+        return S.of(context).crime;
+      case 'Documentary':
+        return S.of(context).documentary;
+      case 'Drama':
+        return S.of(context).drama;
+      case 'Family':
+        return S.of(context).family;
+      case 'Fantasy':
+        return S.of(context).fantasy;
+      case 'History':
+        return S.of(context).history;
+      case 'Horror':
+        return S.of(context).horror;
+      case 'Music':
+        return S.of(context).music;
+      case 'Mystery':
+        return S.of(context).mystery;
+      case 'Romance':
+        return S.of(context).romance;
+      case 'Science Fiction':
+        return S.of(context).scienceFiction;
+      case 'TV Movie':
+        return S.of(context).tvMovie;
+      case 'Thriller':
+        return S.of(context).thriller;
+      case 'War':
+        return S.of(context).war;
+      case 'Western':
+        return S.of(context).western;
+      default:
+        return genre; // fallback لو مش لاقي
+    }
   }
 }
 

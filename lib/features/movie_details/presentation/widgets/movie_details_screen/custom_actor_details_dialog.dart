@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_cast_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_actor_dialog_row_item.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomActorDetailsDialog extends StatelessWidget {
   const CustomActorDetailsDialog({super.key, required this.actor});
@@ -45,7 +46,7 @@ class CustomActorDetailsDialog extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                actor.name ?? 'Not Available',
+                actor.name ?? S.of(context).notAvailable,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     color: Colors.white,
@@ -54,7 +55,8 @@ class CustomActorDetailsDialog extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'As ${actor.character ?? 'Unknown'}',
+                S.of(context).asPlusActorCharacter(
+                    actor.character ?? S.of(context).unknown),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.grey.shade400,
@@ -67,20 +69,21 @@ class CustomActorDetailsDialog extends StatelessWidget {
               ),
               CustomActorDialogRowItem(
                 icon: _getGenderIcon(actor.gender),
-                label: 'Gender',
-                value: _getGenderString(actor.gender),
+                label: S.of(context).gender,
+                value: _getGenderString(actor.gender, context),
               ),
               const SizedBox(height: 10),
               CustomActorDialogRowItem(
                 icon: Icons.work_outline,
-                label: 'Known For',
-                value: actor.knownForDepartment ?? 'N/A',
+                label: S.of(context).knownFor,
+                value: actor.knownForDepartment ?? S.of(context).unknown,
               ),
               const SizedBox(height: 10),
               CustomActorDialogRowItem(
                 icon: Icons.trending_up_rounded,
-                label: 'Popularity',
-                value: actor.popularity.toStringAsFixed(2) ?? 'N/A',
+                label: S.of(context).popularity,
+                value: actor.popularity.toStringAsFixed(2) ??
+                    S.of(context).unknown,
               ),
               const SizedBox(height: 24),
               SizedBox(
@@ -94,9 +97,9 @@ class CustomActorDetailsDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)),
                   ),
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Close',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: Text(S.of(context).close,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
                 ),
               ),
             ],
@@ -106,14 +109,14 @@ class CustomActorDetailsDialog extends StatelessWidget {
     );
   }
 
-  String _getGenderString(int? gender) {
+  String _getGenderString(int? gender, BuildContext context) {
     switch (gender) {
       case 1:
-        return 'Female';
+        return S.of(context).female;
       case 2:
-        return 'Male';
+        return S.of(context).male;
       default:
-        return 'Not Specified';
+        return S.of(context).notSpecified;
     }
   }
 

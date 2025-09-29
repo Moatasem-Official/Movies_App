@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomCategorySearchBar extends StatelessWidget {
   const CustomCategorySearchBar({
@@ -35,7 +36,7 @@ class CustomCategorySearchBar extends StatelessWidget {
                 controller: searchController,
                 style: const TextStyle(color: Colors.white, fontSize: 16),
                 decoration: InputDecoration(
-                  hintText: 'Search For $moviesCategoryName Movies...',
+                  hintText: '${S.of(context).searchFor(moviesCategoryName)}...',
                   hintStyle: TextStyle(color: Colors.white.withOpacity(0.4)),
                   border: InputBorder.none,
                   prefixIcon: Icon(

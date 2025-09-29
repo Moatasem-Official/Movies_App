@@ -6,6 +6,7 @@ import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomWatchListCard extends StatelessWidget {
   final ResultEntity movie;
@@ -129,15 +130,15 @@ class CustomWatchListCard extends StatelessWidget {
                       color: Color.fromARGB(255, 31, 56, 106),
                       size: 50,
                     ),
-                    title: const Text(
-                      'Remove Movie ?',
+                    title: Text(
+                      S.of(context).removeMovie,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    content: const Text(
-                      'This action will permanently delete the movie from your watchlist. Are you sure you want to proceed ?',
+                    content: Text(
+                      S.of(context).removeMovieFromWatchlist,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 14),
+                      style: const TextStyle(fontSize: 14),
                     ),
                     actionsAlignment: MainAxisAlignment.center,
                     actionsPadding:
@@ -146,7 +147,9 @@ class CustomWatchListCard extends StatelessWidget {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () => Navigator.pop(context, false),
-                          child: const Text('Cancel'),
+                          child: Text(
+                            S.of(context).cancel,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -159,8 +162,8 @@ class CustomWatchListCard extends StatelessWidget {
                                 Theme.of(context).colorScheme.onError,
                           ),
                           onPressed: () => Navigator.pop(context, true),
-                          child: const Text('Clear',
-                              style: TextStyle(
+                          child: Text(S.of(context).remove,
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white)),
                         ),

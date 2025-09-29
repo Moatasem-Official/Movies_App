@@ -6,6 +6,7 @@ import 'package:movies_app/features/movie_details/domain/entities/movie_details_
 import 'package:movies_app/core/utils/app_helpers.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomSubTitleDetails extends StatelessWidget {
   const CustomSubTitleDetails({super.key, required this.movieDetailsEntity});
@@ -33,22 +34,24 @@ class CustomSubTitleDetails extends StatelessWidget {
             const SizedBox(height: 20),
 
             // الجزء الثالث: جدول الإحصائيات (ميزانية، إيرادات، إلخ)
-            _buildStatsTable(),
+            _buildStatsTable(context),
             const SizedBox(height: 20),
 
-            _buildProductionCompanies(),
+            _buildProductionCompanies(context),
             const SizedBox(height: 20),
 
             // الجزء الرابع: قائمة بالـ Chips (الدول واللغات)
             _buildChipList(
-              title: "Production Countries",
+              context: context,
+              title: S.of(context).productionCountries,
               items: movieDetailsEntity.productionCountries
                   .map((e) => e['name'].toString())
                   .toList(),
             ),
             const SizedBox(height: 16),
             _buildChipList(
-              title: "Spoken Languages",
+              context: context,
+              title: S.of(context).spokenLanguages,
               items: movieDetailsEntity.spokenLanguages
                   .map((e) => e.name.toString())
                   .toList(),
@@ -59,16 +62,16 @@ class CustomSubTitleDetails extends StatelessWidget {
     );
   }
 
-  Widget _buildProductionCompanies() {
+  Widget _buildProductionCompanies(BuildContext context) {
     // فلترة الشركات التي ليس لها اسم أو شعار قد تكون فكرة جيدة
     final companies = movieDetailsEntity.productionCompanies;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Production Companies",
-          style: TextStyle(
+        Text(
+          S.of(context).productionCompanies,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -76,9 +79,9 @@ class CustomSubTitleDetails extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         companies.isEmpty
-            ? const Center(
-                child: Text('No Production Companies Found',
-                    style: TextStyle(
+            ? Center(
+                child: Text(S.of(context).noProductionCompaniesFound,
+                    style: const TextStyle(
                       color: Color.fromARGB(255, 233, 233, 233),
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -236,7 +239,7 @@ class CustomSubTitleDetails extends StatelessWidget {
   }
 
   /// ويدجت لعرض الإحصائيات في جدول منظم
-  Widget _buildStatsTable() {
+  Widget _buildStatsTable(BuildContext context) {
     const labelStyle = TextStyle(
       color: Colors.white70,
       fontSize: 15,
@@ -256,31 +259,31 @@ class CustomSubTitleDetails extends StatelessWidget {
       },
       children: [
         _buildTableRow(
-          'Budget',
+          S.of(context).budget,
           AppHelpers.formatCurrency(movieDetailsEntity.budget),
           labelStyle,
           valueStyle,
         ),
         _buildTableRow(
-          'Revenue',
+          S.of(context).revenue,
           AppHelpers.formatCurrency(movieDetailsEntity.revenue),
           labelStyle,
           valueStyle,
         ),
         _buildTableRow(
-          'Popularity',
+          S.of(context).popularity,
           movieDetailsEntity.popularity.toStringAsFixed(0),
           labelStyle,
           valueStyle,
         ),
         _buildTableRow(
-          'Vote Count',
+          S.of(context).voteCount,
           movieDetailsEntity.voteCount.toString(),
           labelStyle,
           valueStyle,
         ),
         _buildTableRow(
-          'Original Language',
+          S.of(context).originalLanguage,
           movieDetailsEntity.originalLanguage.toUpperCase(),
           labelStyle,
           valueStyle,
@@ -331,7 +334,10 @@ class CustomSubTitleDetails extends StatelessWidget {
   }
 
   /// ويدجت مساعد لإنشاء قائمة من الـ Chips
-  Widget _buildChipList({required String title, required List<String> items}) {
+  Widget _buildChipList(
+      {required String title,
+      required List<String> items,
+      required BuildContext context}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -346,7 +352,7 @@ class CustomSubTitleDetails extends StatelessWidget {
         const SizedBox(height: 10),
         items.isEmpty
             ? Center(
-                child: Text('No $title Found',
+                child: Text(S.of(context).noTitledFound(title),
                     style: const TextStyle(
                       color: Color.fromARGB(255, 233, 233, 233),
                       fontSize: 14,

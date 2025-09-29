@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/features/discover_movies/presentation/widgets/show_and_search_movies_of_category_screen/custom_category_search_bar.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomCategoryAppBar extends StatelessWidget {
   const CustomCategoryAppBar({
@@ -64,9 +65,9 @@ class CustomCategoryAppBar extends StatelessWidget {
             opacity: _isSearching ? 1.0 : 0.0,
             child: FadeTransition(
               opacity: _fadeAnimation,
-              child: const Text(
-                'Search Results',
-                style: TextStyle(
+              child: Text(
+                S.of(context).searchResult,
+                style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 22,
                   fontWeight: FontWeight.w600,

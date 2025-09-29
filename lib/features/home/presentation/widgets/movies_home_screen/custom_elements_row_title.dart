@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomTitleOfListOfElements extends StatelessWidget {
   const CustomTitleOfListOfElements({
@@ -27,18 +28,18 @@ class CustomTitleOfListOfElements extends StatelessWidget {
           const Spacer(),
           GestureDetector(
             onTap: onTap,
-            child: const Row(
+            child: Row(
               children: [
                 Text(
-                  "See All",
-                  style: TextStyle(
+                  S.of(context).seeAll,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 5),
-                Icon(
+                const SizedBox(width: 5),
+                const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.white,
                   size: 16,

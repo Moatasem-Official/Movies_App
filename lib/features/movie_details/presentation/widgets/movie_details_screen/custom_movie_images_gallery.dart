@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/features/movie_details/domain/entities/base_movie_images_entity.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_images_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_images_grid.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class MovieImageGallery extends StatelessWidget {
   const MovieImageGallery({super.key, required this.images});
@@ -11,16 +12,18 @@ class MovieImageGallery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tabs = <String, List<BaseImageEntity>>{};
-    if (images.backdrops.isNotEmpty) tabs['Backdrops'] = images.backdrops;
-    if (images.posters.isNotEmpty) tabs['Posters'] = images.posters;
-    if (images.logos.isNotEmpty) tabs['Logos'] = images.logos;
+    if (images.backdrops.isNotEmpty) {
+      tabs[S.of(context).backdrops] = images.backdrops;
+    }
+    if (images.posters.isNotEmpty) tabs[S.of(context).posters] = images.posters;
+    if (images.logos.isNotEmpty) tabs[S.of(context).logos] = images.logos;
 
     if (tabs.isEmpty) {
-      return const SliverToBoxAdapter(
+      return SliverToBoxAdapter(
         child: Center(
           child: Text(
-            'No Movie Images Found',
-            style: TextStyle(
+            S.of(context).noMovieImagesFound,
+            style: const TextStyle(
               color: Color.fromARGB(255, 233, 233, 233),
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -83,7 +86,7 @@ class MovieImageGallery extends StatelessWidget {
                   if (imageList.isEmpty) {
                     return Center(
                       child: Text(
-                        'No $tabTitle Found',
+                        S.of(context).noTitledFound(tabTitle),
                         style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 14,

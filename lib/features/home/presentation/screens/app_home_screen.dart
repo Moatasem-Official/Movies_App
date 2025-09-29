@@ -5,6 +5,7 @@ import 'package:movies_app/features/home/presentation/screens/movies_home_screen
 import 'package:movies_app/features/movies_search/presentation/screens/search_all_movies_screen.dart';
 import 'package:movies_app/features/settings/presentation/screens/settings_screen.dart';
 import 'package:movies_app/features/watch_list/presentation/screens/movies_watch_list_screen.dart';
+import 'package:movies_app/generated/l10n.dart';
 import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
 
 class AppHomeScreen extends StatefulWidget {
@@ -53,7 +54,7 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
         backgroundColor: Colors.black.withOpacity(0.85),
         navigationBarButtons: <NavigationBarButton>[
           NavigationBarButton(
-            text: 'Home',
+            text: S.of(context).home,
             icon: MdiIcons.home,
             backgroundGradient: const LinearGradient(
               colors: [Color(0xFF0f2027), Color(0xFF203a43), Color(0xFF2c5364)],
@@ -62,7 +63,7 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
             ),
           ),
           NavigationBarButton(
-            text: 'Search',
+            text: S.of(context).search,
             icon: MdiIcons.magnify,
             backgroundGradient: const LinearGradient(
               colors: [Color(0xFF232526), Color(0xFF414345)],
@@ -70,28 +71,28 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
               end: Alignment.bottomLeft,
             ),
           ),
-          const NavigationBarButton(
-            text: 'Discover',
+          NavigationBarButton(
+            text: S.of(context).discover,
             icon: Icons.explore_outlined,
-            backgroundGradient: LinearGradient(
+            backgroundGradient: const LinearGradient(
               colors: [Color(0xFF141E30), Color(0xFF243B55)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          const NavigationBarButton(
-            text: 'Watch List',
+          NavigationBarButton(
+            text: S.of(context).watchlist,
             icon: Icons.bookmark,
-            backgroundGradient: LinearGradient(
+            backgroundGradient: const LinearGradient(
               colors: [Color(0xFF141E30), Color(0xFF243B55)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          const NavigationBarButton(
-            text: 'Settings',
+          NavigationBarButton(
+            text: S.of(context).settings,
             icon: Icons.settings,
-            backgroundGradient: LinearGradient(
+            backgroundGradient: const LinearGradient(
               colors: [Color(0xFF42275a), Color(0xFF734b6d)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,

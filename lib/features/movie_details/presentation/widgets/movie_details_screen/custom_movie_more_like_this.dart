@@ -6,6 +6,7 @@ import 'package:movies_app/core/entities/display_different_movies_types_entity.d
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_empty_elements_widget.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomMovieMoreLikeThisWidget extends StatelessWidget {
   const CustomMovieMoreLikeThisWidget({
@@ -21,8 +22,8 @@ class CustomMovieMoreLikeThisWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: similarMovies.isEmpty
-          ? const EmptyStateWidget(
-              message: 'No Similar Movies Found',
+          ? EmptyStateWidget(
+              message: S.of(context).noSimilarMoviesFound,
             )
           : CarouselSlider.builder(
               itemCount: similarMovies.length,

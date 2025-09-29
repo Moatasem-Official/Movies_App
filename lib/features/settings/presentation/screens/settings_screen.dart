@@ -11,6 +11,7 @@ import 'package:movies_app/features/settings/presentation/widgets/custom_suggest
 import 'package:movies_app/features/settings/presentation/widgets/custom_theme_dialog.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 const Color kGradientColorStart = Color(0xFF6A11CB);
 const Color kGradientColorEnd = Color(0xFF2575FC);
@@ -39,7 +40,8 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     const Icon(Icons.check, color: Colors.white),
                     const SizedBox(width: 10),
-                    Text(message, style: const TextStyle(color: Colors.white)),
+                    Text(S.of(context).clearWatchlistMessageSuccess,
+                        style: const TextStyle(color: Colors.white)),
                   ],
                 ),
                 duration: const Duration(seconds: 1),
@@ -53,9 +55,9 @@ class SettingsScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Settings',
-            style: TextStyle(
+          title: Text(
+            S.of(context).settings,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: 'Poppins',
             ),
@@ -71,12 +73,12 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             children: [
               CustomSettingsSection(
-                title: 'Appearance',
+                title: S.of(context).appearance,
                 children: [
                   CustomSettingsTitle(
                     icon: CupertinoIcons.paintbrush_fill,
-                    title: 'Theme',
-                    subtitle: 'Dark',
+                    title: S.of(context).theme,
+                    subtitle: S.of(context).dark,
                     onTap: () {
                       showModalBottomSheet(
                           context: context,
@@ -89,19 +91,18 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               CustomSettingsSection(
-                title: 'Content & Privacy',
+                title: S.of(context).contentAndPrivacy,
                 children: [
                   CustomSettingsTitle(
                     icon: CupertinoIcons.trash_fill,
-                    title: 'Clear Watchlist',
+                    title: S.of(context).clearWatchlist,
                     onTap: () async {
                       final shouldClear = await showDialog<bool>(
                         context: context,
-                        builder: (context) => const CustomConfirmationDialog(
-                          title: 'Clear Watchlist',
-                          content:
-                              'Are you sure you want to permanently clear the watchlist?',
-                          confirmText: 'Clear',
+                        builder: (context) => CustomConfirmationDialog(
+                          title: S.of(context).clearWatchlist,
+                          content: S.of(context).clearWatchlistConfirmation,
+                          confirmText: S.of(context).clear,
                         ),
                       );
 
@@ -118,11 +119,11 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               CustomSettingsSection(
-                title: 'Feedback & Support',
+                title: S.of(context).feedbackAndSupport,
                 children: [
                   CustomSettingsTitle(
                     icon: CupertinoIcons.ant_fill,
-                    title: 'Report a Bug',
+                    title: S.of(context).reportABug,
                     onTap: () {
                       showModalBottomSheet(
                         context: context,
@@ -135,7 +136,7 @@ class SettingsScreen extends StatelessWidget {
                   const CustomSettingsDivider(),
                   CustomSettingsTitle(
                     icon: CupertinoIcons.lightbulb_fill,
-                    title: 'Suggest a Feature',
+                    title: S.of(context).suggestAFeature,
                     onTap: () {
                       showModalBottomSheet(
                         context: context,
@@ -149,11 +150,11 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               CustomSettingsSection(
-                title: 'About',
+                title: S.of(context).about,
                 children: [
                   CustomSettingsTitle(
                     icon: CupertinoIcons.star_fill,
-                    title: 'Rate App',
+                    title: S.of(context).rateApp,
                     onTap: () {
                       showModalBottomSheet(
                           context: context,
@@ -165,11 +166,11 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 40.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: Text(
-                  'Version 1.0.0',
-                  style: TextStyle(
+                  S.of(context).version('1.0.0'),
+                  style: const TextStyle(
                     color: Colors.white38,
                     fontSize: 12,
                   ),

@@ -22,6 +22,7 @@ import 'package:movies_app/features/movie_details/presentation/widgets/movie_det
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_movie_videos_slider.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_sub_title_details.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/generated/l10n.dart';
 import 'package:skeletonizer/skeletonizer.dart' hide Bone;
 
 class MovieDetailsScreen extends StatelessWidget {
@@ -50,7 +51,7 @@ class MovieDetailsScreen extends StatelessWidget {
             sectionIndex: 2,
             builder: (movieDetailsEntity) => SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsetsDirectional.all(8.0),
                 child: Text(
                   movieDetailsEntity.title,
                   style: const TextStyle(
@@ -77,11 +78,11 @@ class MovieDetailsScreen extends StatelessWidget {
             sectionIndex: 4,
             builder: (movieDetailsEntity) => SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.only(left: 8),
+                padding: const EdgeInsetsDirectional.only(start: 8),
                 child: movieDetailsEntity.overview.isEmpty
-                    ? const Center(
-                        child: Text('No Overview Available',
-                            style: TextStyle(
+                    ? Center(
+                        child: Text(S.of(context).noOverviewAvailable,
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 233, 233, 233),
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -102,9 +103,9 @@ class MovieDetailsScreen extends StatelessWidget {
             sectionIndex: 5,
             builder: (data) {
               return data.genres.isEmpty
-                  ? const Center(
-                      child: Text('No Genres Available',
-                          style: TextStyle(
+                  ? Center(
+                      child: Text(S.of(context).noGenresAvailable,
+                          style: const TextStyle(
                             color: Color.fromARGB(255, 233, 233, 233),
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -116,12 +117,12 @@ class MovieDetailsScreen extends StatelessWidget {
             },
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(left: 8),
+              padding: const EdgeInsetsDirectional.only(start: 8),
               child: Text(
-                "CAST",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                S.of(context).cast,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
           ),
@@ -135,12 +136,12 @@ class MovieDetailsScreen extends StatelessWidget {
             ),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(left: 8),
+              padding: const EdgeInsetsDirectional.only(start: 8),
               child: Text(
-                "KEY CREW",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                S.of(context).keyCrew,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
           ),
@@ -152,12 +153,12 @@ class MovieDetailsScreen extends StatelessWidget {
             builder: (data) => CustomMovieCrew(crew: data.crew),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(left: 8),
+              padding: const EdgeInsetsDirectional.only(start: 8),
               child: Text(
-                "MOVIE GALLERY",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                S.of(context).movieGallery,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
           ),
@@ -173,37 +174,40 @@ class MovieDetailsScreen extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.only(left: 8),
+              padding: const EdgeInsetsDirectional.only(start: 8, end: 8),
               child: Row(
                 children: [
-                  const Text(
-                    "MORE LIKE THIS",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  Text(
+                    S.of(context).moreLikeThis,
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(
-                          AppRouter.seeAllElementsListScreen,
-                          arguments: {
-                            "title": "Similar To ${movie.title}",
-                            "movieId": movie.id
-                          });
-                    },
-                    child: const Row(
-                      children: [
-                        Text(
-                          "VIEW ALL",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
+                  context.watch<SimilarMoviesCubit>().similarMovies.isEmpty
+                      ? Container()
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                                AppRouter.seeAllElementsListScreen,
+                                arguments: {
+                                  "title": S.of(context).similarTo(movie.title),
+                                  "movieId": movie.id
+                                });
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                S.of(context).viewAll,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                              const Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                            ],
+                          ),
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.white,
-                          size: 16,
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -219,12 +223,12 @@ class MovieDetailsScreen extends StatelessWidget {
             ),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(left: 8),
+              padding: const EdgeInsetsDirectional.only(start: 8),
               child: Text(
-                "VIDEOS",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                S.of(context).videos,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
           ),

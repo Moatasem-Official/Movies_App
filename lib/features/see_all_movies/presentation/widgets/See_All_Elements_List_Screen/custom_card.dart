@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 import 'package:skeletonizer/skeletonizer.dart' hide Bone;
@@ -23,7 +22,7 @@ class CustomCard extends StatelessWidget {
       ),
       child: Container(
         margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-        padding: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsetsDirectional.only(start: 10, end: 10),
         width: double.infinity,
         height: 220,
         decoration: BoxDecoration(
@@ -58,9 +57,10 @@ class CustomCard extends StatelessWidget {
                         context.watch<AddMovieToWatchListAsLocalDataCubit>();
                     final isMovieInWatchList =
                         watchlistCubit.isMovieInWatchList(resultEntity.id);
-                    return Positioned(
+                    return Positioned.directional(
                       top: 5,
-                      left: 5,
+                      start: 5,
+                      textDirection: Directionality.of(context),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.black54.withAlpha(150),
@@ -85,7 +85,8 @@ class CustomCard extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 16, top: 20, bottom: 20),
+                padding: const EdgeInsetsDirectional.only(
+                    start: 16, top: 20, bottom: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,

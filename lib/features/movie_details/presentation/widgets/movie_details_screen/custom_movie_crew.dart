@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_crew_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_crew_card.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomMovieCrew extends StatelessWidget {
   const CustomMovieCrew({super.key, required this.crew});
@@ -11,9 +12,9 @@ class CustomMovieCrew extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: crew.isEmpty
-          ? const Center(
-              child: Text('No Movie Crew Found',
-                  style: TextStyle(
+          ? Center(
+              child: Text(S.of(context).noMovieCrewFound,
+                  style: const TextStyle(
                     color: Color.fromARGB(255, 233, 233, 233),
                     fontSize: 14,
                     fontWeight: FontWeight.bold,

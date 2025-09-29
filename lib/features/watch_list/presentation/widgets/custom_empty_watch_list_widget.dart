@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomEmptyWatchListWidget extends StatelessWidget {
   const CustomEmptyWatchListWidget({super.key});
@@ -17,7 +18,7 @@ class CustomEmptyWatchListWidget extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            'Your Watchlist is Empty',
+            S.of(context).yourWatchlistIsEmpty,
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -26,7 +27,7 @@ class CustomEmptyWatchListWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            'Add Movies You Want To Watch Later.',
+            S.of(context).addMoviesYouWantToWatchLater,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

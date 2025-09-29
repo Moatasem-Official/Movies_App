@@ -36,7 +36,7 @@ class AddMovieToWatchListAsLocalDataCubit
       await addMovieToWatchListUseCase(movie: movie);
       watchlistIds.add(movie.id);
       emit(const AddMovieToWatchListAsLocalDataState.movieAddedToWatchlist(
-        'Movie Added To WatchList',
+        '',
       ));
       await getAllWatchListMovies();
     } on Failure catch (e) {
@@ -50,7 +50,7 @@ class AddMovieToWatchListAsLocalDataCubit
       await removeMovieFromWatchListUseCase(movieId: movieId);
       watchlistIds.remove(movieId);
       emit(const AddMovieToWatchListAsLocalDataState.movieRemovedFromWatchlist(
-        'Movie Removed From WatchList',
+        '',
       ));
       await getAllWatchListMovies();
     } on Failure catch (e) {
@@ -64,7 +64,7 @@ class AddMovieToWatchListAsLocalDataCubit
       await clearWatchListUseCase();
       watchlistIds.clear();
       emit(const AddMovieToWatchListAsLocalDataState.clearAllWatchlist(
-        'All Movies Removed From WatchList',
+        '',
       ));
       emit(const AddMovieToWatchListAsLocalDataState.getListSuccess([]));
     } on Failure catch (e) {

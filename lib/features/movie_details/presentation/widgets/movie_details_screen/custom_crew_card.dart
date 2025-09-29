@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_crew_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_crew_dialog.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomCrewCard extends StatelessWidget {
   const CustomCrewCard({super.key, required this.member});
@@ -62,7 +63,7 @@ class CustomCrewCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              member.name ?? 'N/A',
+              member.name ?? S.of(context).unknown,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -74,7 +75,7 @@ class CustomCrewCard extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              member.job ?? 'N/A',
+              member.job ?? S.of(context).unknown,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

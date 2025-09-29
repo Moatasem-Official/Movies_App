@@ -37,7 +37,7 @@ class MoviesHomeScreen extends StatelessWidget {
                       children: [
                         const Icon(Icons.check, color: Colors.white),
                         const SizedBox(width: 10),
-                        Text(message,
+                        Text(S.of(context).movieAddedToWatchlistMessage,
                             style: const TextStyle(color: Colors.white)),
                       ],
                     ),
@@ -60,7 +60,7 @@ class MoviesHomeScreen extends StatelessWidget {
                         children: [
                           const Icon(Icons.check, color: Colors.white),
                           const SizedBox(width: 10),
-                          Text(message,
+                          Text(S.of(context).movieRemovedFromWatchlistMessage,
                               style: const TextStyle(color: Colors.white)),
                         ],
                       ),
@@ -80,12 +80,12 @@ class MoviesHomeScreen extends StatelessWidget {
               const SliverToBoxAdapter(child: SizedBox(height: 50)),
               SliverToBoxAdapter(
                 child: CustomTitleOfListOfElements(
-                  title: "Popular Movies",
+                  title: S.of(context).popularMovies,
                   onTap: () => Navigator.pushNamed(
                     context,
                     AppRouter.seeAllElementsListScreen,
                     arguments: {
-                      "title": "Popular Movies",
+                      "title": S.of(context).popularMovies,
                       "movie_type": "popular"
                     },
                   ),
@@ -100,12 +100,12 @@ class MoviesHomeScreen extends StatelessWidget {
               const SliverToBoxAdapter(child: SizedBox(height: 30)),
               SliverToBoxAdapter(
                 child: CustomTitleOfListOfElements(
-                  title: "Top Rated Movies",
+                  title: S.of(context).topRatedMovies,
                   onTap: () => Navigator.pushNamed(
                     context,
                     AppRouter.seeAllElementsListScreen,
                     arguments: {
-                      "title": "Top Rated Movies",
+                      "title": S.of(context).topRatedMovies,
                       "movie_type": "top_rated",
                     },
                   ),
@@ -120,12 +120,12 @@ class MoviesHomeScreen extends StatelessWidget {
               const SliverToBoxAdapter(child: SizedBox(height: 30)),
               SliverToBoxAdapter(
                 child: CustomTitleOfListOfElements(
-                  title: "Upcomming Movies",
+                  title: S.of(context).upcomingMovies,
                   onTap: () => Navigator.pushNamed(
                     context,
                     AppRouter.seeAllElementsListScreen,
                     arguments: {
-                      "title": "Upcomming Movies",
+                      "title": S.of(context).upcomingMovies,
                       "movie_type": "upcoming",
                     },
                   ),

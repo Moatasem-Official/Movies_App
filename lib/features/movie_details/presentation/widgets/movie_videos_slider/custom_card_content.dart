@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_video_content.dart';
+import 'package:movies_app/generated/l10n.dart';
 
 class CustomCardContent extends StatelessWidget {
   const CustomCardContent({
@@ -71,9 +72,9 @@ class CustomCardContent extends StatelessWidget {
                     color: Colors.green.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text(
-                    'Official',
-                    style: TextStyle(
+                  child: Text(
+                    S.of(context).official,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
