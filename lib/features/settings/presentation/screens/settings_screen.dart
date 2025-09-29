@@ -90,7 +90,7 @@ class SettingsScreen extends StatelessWidget {
                   const CustomSettingsDivider(),
                   CustomSettingsTitle(
                     icon: CupertinoIcons.globe,
-                    title: "Language",
+                    title: S.of(context).language,
                     onTap: () {
                       showModalBottomSheet(
                           context: context,
@@ -204,9 +204,9 @@ class CustomLanguageDialog extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
-        const Text(
-          "Select Language",
-          style: TextStyle(
+        Text(
+          S.of(context).selectLanguage,
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -216,9 +216,9 @@ class CustomLanguageDialog extends StatelessWidget {
         ListTile(
           leading: const Icon(CupertinoIcons.globe, color: Colors.yellow),
           onTap: () {},
-          title: const Text(
-            "English",
-            style: TextStyle(
+          title: Text(
+            S.of(context).english,
+            style: const TextStyle(
               color: Colors.white,
             ),
           ),
@@ -226,9 +226,9 @@ class CustomLanguageDialog extends StatelessWidget {
         ListTile(
           leading: const Icon(CupertinoIcons.globe, color: Colors.yellow),
           onTap: () {},
-          title: const Text(
-            "Arabic",
-            style: TextStyle(
+          title: Text(
+            S.of(context).arabic,
+            style: const TextStyle(
               color: Colors.white,
             ),
           ),
