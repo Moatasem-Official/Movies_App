@@ -87,6 +87,18 @@ class SettingsScreen extends StatelessWidget {
                           });
                     },
                   ),
+                  const CustomSettingsDivider(),
+                  CustomSettingsTitle(
+                    icon: CupertinoIcons.globe,
+                    title: "Language",
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (_) {
+                            return const CustomLanguageDialog();
+                          });
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 24),
@@ -180,6 +192,48 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomLanguageDialog extends StatelessWidget {
+  const CustomLanguageDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        const Text(
+          "Select Language",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 16),
+        ListTile(
+          leading: const Icon(CupertinoIcons.globe, color: Colors.yellow),
+          onTap: () {},
+          title: const Text(
+            "English",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(CupertinoIcons.globe, color: Colors.yellow),
+          onTap: () {},
+          title: const Text(
+            "Arabic",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }
