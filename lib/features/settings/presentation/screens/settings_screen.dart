@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/cubits/lang/cubit/locale_cubit.dart';
+import 'package:movies_app/core/cubits/theme/cubit/theme_cubit.dart';
 import 'package:movies_app/features/settings/presentation/widgets/custom_app_rating.dart';
 import 'package:movies_app/features/settings/presentation/widgets/custom_clear_watch_list_dialog.dart';
 import 'package:movies_app/features/settings/presentation/widgets/custom_report_a_bug_dialog.dart';
@@ -79,7 +80,10 @@ class SettingsScreen extends StatelessWidget {
                   CustomSettingsTitle(
                     icon: CupertinoIcons.paintbrush_fill,
                     title: S.of(context).theme,
-                    subtitle: S.of(context).dark,
+                    subtitle: context.watch<ThemeCubit>().state.toString() ==
+                            ThemeMode.light.toString()
+                        ? S.of(context).light
+                        : S.of(context).dark,
                     onTap: () {
                       showModalBottomSheet(
                           context: context,
@@ -92,9 +96,10 @@ class SettingsScreen extends StatelessWidget {
                   CustomSettingsTitle(
                     icon: CupertinoIcons.globe,
                     title: S.of(context).language,
-                    subtitle: context.read<LocaleCubit>().language == 'en'
-                        ? S.of(context).english
-                        : S.of(context).arabic,
+                    subtitle:
+                        context.watch<LocaleCubit>().state.languageCode == 'en'
+                            ? S.of(context).english
+                            : S.of(context).arabic,
                     onTap: () {
                       showModalBottomSheet(
                           context: context,

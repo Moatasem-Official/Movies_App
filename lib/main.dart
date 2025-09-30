@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:movies_app/core/cubits/lang/cubit/locale_cubit.dart';
+import 'package:movies_app/core/cubits/theme/cubit/theme_cubit.dart';
 import 'package:movies_app/core/utils/service_locator.dart';
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/features/discover_movies/data/models/cached_category_genre_model.dart';
@@ -23,6 +24,9 @@ void main() async {
   Hive.registerAdapter(CachedCategoryGenreModelAdapter());
   await setupMoviesInjection();
   final locale = getIt<SharedPreferences>().getString('locale');
+  final theme = getIt<SharedPreferences>().getString('theme');
+  getIt<ThemeCubit>().changeTheme(
+      theme == ThemeMode.dark.toString() ? ThemeMode.dark : ThemeMode.light);
   getIt<LocaleCubit>().changeLocale(Locale(locale ?? 'en'));
   runApp(DevicePreview(enabled: true, builder: (context) => const MyApp()));
 }
@@ -42,23 +46,34 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<AddMovieToWatchListAsLocalDataCubit>(
               create: (context) => getIt<AddMovieToWatchListAsLocalDataCubit>()
                 ..getAllWatchListMovies()),
-          BlocProvider<LocaleCubit>(create: (context) => getIt<LocaleCubit>())
+          BlocProvider<LocaleCubit>(create: (context) => getIt<LocaleCubit>()),
+          BlocProvider<ThemeCubit>(create: (context) => getIt<ThemeCubit>())
         ],
         child: BlocBuilder<LocaleCubit, Locale>(
           builder: (context, locale) {
-            return MaterialApp(
-              locale: locale,
-              localizationsDelegates: const [
-                S.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: const [Locale('en'), Locale('ar')],
-              theme:
-                  ThemeData(fontFamily: 'Poppins', brightness: Brightness.dark),
-              debugShowCheckedModeBanner: false,
-              onGenerateRoute: AppRouter.onGenerateRoute,
+            return BlocBuilder<ThemeCubit, ThemeMode>(
+              builder: (context, themeMode) {
+                return MaterialApp(
+                  locale: locale,
+                  themeMode: themeMode,
+                  localizationsDelegates: const [
+                    S.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: const [Locale('en'), Locale('ar')],
+                  theme: ThemeData(
+                    fontFamily: 'Poppins',
+                  ),
+                  darkTheme: ThemeData(
+                    fontFamily: 'Poppins',
+                    brightness: Brightness.dark,
+                  ),
+                  debugShowCheckedModeBanner: false,
+                  onGenerateRoute: AppRouter.onGenerateRoute,
+                );
+              },
             );
           },
         ));

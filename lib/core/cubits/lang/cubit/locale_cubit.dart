@@ -4,13 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LocaleCubit extends Cubit<Locale> {
   final SharedPreferences prefs;
-  String language = '';
 
   LocaleCubit(this.prefs) : super(Locale(prefs.getString('locale') ?? 'en'));
 
   void changeLocale(Locale locale) {
     prefs.setString('locale', locale.languageCode);
-    language = locale.languageCode;
     emit(locale);
   }
 }
