@@ -13,7 +13,6 @@ class SkeletonCustomCard extends StatelessWidget {
       height: 220,
       child: Row(
         children: [
-          // صورة placeholder + زر المفضلة
           Stack(children: [
             const SeeAllBone(
               width: 150,
@@ -26,12 +25,10 @@ class SkeletonCustomCard extends StatelessWidget {
               textDirection: Directionality.of(context),
               child: const Padding(
                 padding: EdgeInsetsDirectional.all(8.0),
-                // ignore: prefer_const_constructors
                 child: SeeAllBone.circle(size: 24),
               ),
             ),
           ]),
-          // النصوص placeholders
           // ignore: prefer_const_constructors
           Expanded(
             child: const Padding(
@@ -41,14 +38,11 @@ class SkeletonCustomCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // title
                   SeeAllBone(
                       width: 100,
                       height: 16,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   SizedBox(height: 15),
-
-                  // سنة الإصدار + تقييم
                   Row(
                     children: [
                       SeeAllBone(
@@ -73,8 +67,6 @@ class SkeletonCustomCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10),
-
-                  // overview
                   SeeAllBone(
                       width: double.infinity,
                       height: 12,

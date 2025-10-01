@@ -4,7 +4,6 @@ import 'package:movies_app/features/see_all_movies/presentation/controllers/cubi
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/features/see_all_movies/presentation/widgets/See_All_Elements_List_Screen/custom_card.dart';
-import 'package:movies_app/features/see_all_movies/presentation/widgets/skeletonizer_loading_widgets/see_all_bone.dart';
 import 'package:movies_app/features/see_all_movies/presentation/widgets/skeletonizer_loading_widgets/skeleton_custom_card.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -18,7 +17,7 @@ class SeeAllElementsListScreen extends StatefulWidget {
 
   final String title;
   final String? movieType;
-  final int? movieId; // عشان similar movies
+  final int? movieId;
 
   @override
   State<SeeAllElementsListScreen> createState() =>

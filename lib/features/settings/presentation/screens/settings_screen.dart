@@ -1,16 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cubits/lang/cubit/locale_cubit.dart';
-import 'package:movies_app/core/cubits/theme/cubit/theme_cubit.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_app_rating.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_clear_watch_list_dialog.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_report_a_bug_dialog.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_divider.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_section.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_title.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_suggest_a_feature_dialog.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_theme_dialog.dart';
+import 'package:movies_app/features/settings/presentation/widgets/custom_about_app_container.dart';
+import 'package:movies_app/features/settings/presentation/widgets/custom_appearance_container.dart';
+import 'package:movies_app/features/settings/presentation/widgets/custom_privacy_and_content_container.dart';
+import 'package:movies_app/features/settings/presentation/widgets/custom_rating_and_support_container.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 import 'package:movies_app/generated/l10n.dart';
@@ -74,119 +68,13 @@ class SettingsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              CustomSettingsSection(
-                title: S.of(context).appearance,
-                children: [
-                  CustomSettingsTitle(
-                    icon: CupertinoIcons.paintbrush_fill,
-                    title: S.of(context).theme,
-                    subtitle: context.watch<ThemeCubit>().state.toString() ==
-                            ThemeMode.light.toString()
-                        ? S.of(context).light
-                        : S.of(context).dark,
-                    onTap: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (_) {
-                            return const CustomThemeDialog();
-                          });
-                    },
-                  ),
-                  const CustomSettingsDivider(),
-                  CustomSettingsTitle(
-                    icon: CupertinoIcons.globe,
-                    title: S.of(context).language,
-                    subtitle:
-                        context.watch<LocaleCubit>().state.languageCode == 'en'
-                            ? S.of(context).english
-                            : S.of(context).arabic,
-                    onTap: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (_) {
-                            return const CustomLanguageDialog();
-                          });
-                    },
-                  ),
-                ],
-              ),
+              const CustomAppearanceContainer(),
               const SizedBox(height: 24),
-              CustomSettingsSection(
-                title: S.of(context).contentAndPrivacy,
-                children: [
-                  CustomSettingsTitle(
-                    icon: CupertinoIcons.trash_fill,
-                    title: S.of(context).clearWatchlist,
-                    onTap: () async {
-                      final shouldClear = await showDialog<bool>(
-                        context: context,
-                        builder: (context) => CustomConfirmationDialog(
-                          title: S.of(context).clearWatchlist,
-                          content: S.of(context).clearWatchlistConfirmation,
-                          confirmText: S.of(context).clear,
-                        ),
-                      );
-
-                      if (shouldClear ?? false) {
-                        // ignore: use_build_context_synchronously
-                        context
-                            .read<AddMovieToWatchListAsLocalDataCubit>()
-                            .clearAllMoviesFromWatchList();
-                      }
-                    },
-                    isDestructive: true,
-                  ),
-                ],
-              ),
+              const CustomPrivacyAndContentContainer(),
               const SizedBox(height: 24),
-              CustomSettingsSection(
-                title: S.of(context).feedbackAndSupport,
-                children: [
-                  CustomSettingsTitle(
-                    icon: CupertinoIcons.ant_fill,
-                    title: S.of(context).reportABug,
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (_) => const ReportBugBottomSheet(),
-                      );
-                    },
-                  ),
-                  const CustomSettingsDivider(),
-                  CustomSettingsTitle(
-                    icon: CupertinoIcons.lightbulb_fill,
-                    title: S.of(context).suggestAFeature,
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (_) => const SuggestFeatureBottomSheet(),
-                      );
-                    },
-                  ),
-                ],
-              ),
+              const CustomRatingAndSupportContainer(),
               const SizedBox(height: 24),
-              CustomSettingsSection(
-                title: S.of(context).about,
-                children: [
-                  CustomSettingsTitle(
-                    icon: CupertinoIcons.star_fill,
-                    title: S.of(context).rateApp,
-                    onTap: () {
-                      showModalBottomSheet(
-                          context: context,
-                          backgroundColor: Colors.transparent,
-                          builder: (_) {
-                            return const RatingBottomSheet();
-                          });
-                    },
-                  ),
-                ],
-              ),
+              const CustomAboutAppContainer(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: Text(
@@ -201,68 +89,6 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class CustomLanguageDialog extends StatelessWidget {
-  const CustomLanguageDialog({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Text(
-          S.of(context).selectLanguage,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        const SizedBox(height: 16),
-        ListTile(
-          trailing: context.watch<LocaleCubit>().state.languageCode == 'en'
-              ? const Icon(CupertinoIcons.checkmark,
-                  color: Color.fromARGB(255, 21, 86, 129))
-              : null,
-          leading: const Icon(CupertinoIcons.globe,
-              color: Color.fromARGB(255, 21, 86, 129)),
-          onTap: () {
-            context.read<LocaleCubit>().changeLocale(const Locale('en'));
-            Future.delayed(const Duration(seconds: 1), () {
-              Navigator.pop(context);
-            });
-          },
-          title: Text(
-            S.of(context).english,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-        ListTile(
-          trailing: context.watch<LocaleCubit>().state.languageCode == 'ar'
-              ? const Icon(CupertinoIcons.checkmark,
-                  color: Color.fromARGB(255, 21, 86, 129))
-              : null,
-          leading: const Icon(CupertinoIcons.globe,
-              color: Color.fromARGB(255, 21, 86, 129)),
-          onTap: () {
-            context.read<LocaleCubit>().changeLocale(const Locale('ar'));
-            Future.delayed(const Duration(seconds: 1), () {
-              Navigator.pop(context);
-            });
-          },
-          title: Text(
-            S.of(context).arabic,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ]),
     );
   }
 }
