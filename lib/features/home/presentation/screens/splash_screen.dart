@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController.forward();
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, AppRouter.appHomeScreen);
     });
   }
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    const darkBackgroundColor = Color.fromARGB(255, 30, 45, 53);
+    const darkBackgroundColor = Color(0xFF141218);
 
     return Scaffold(
       body: Container(
@@ -70,13 +70,16 @@ class _SplashScreenState extends State<SplashScreen>
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
                     return const LinearGradient(
-                      colors: [Color(0xFFFF5722), Color(0xFFFFCC80)],
+                      colors: [
+                        Color.fromARGB(255, 20, 49, 96),
+                        Color.fromARGB(255, 51, 57, 95)
+                      ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ).createShader(bounds);
                   },
                   child: const Text(
-                    'Reel Time',
+                    'Movify',
                     style: TextStyle(
                       fontSize: 48.0,
                       fontWeight: FontWeight.bold,

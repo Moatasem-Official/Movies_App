@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import 'package:movies_app/features/home/presentation/widgets/home_skeletonizer_loading_widgets/home_bone.dart';
 import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movie_card.dart';
 import 'package:skeletonizer/skeletonizer.dart' hide Bone;
@@ -109,17 +110,18 @@ class CustomSearchMoviesGridResult extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     // title
-                                    Bone(width: 120, height: 16),
+                                    HomeBone(width: 120, height: 16),
                                     SizedBox(height: 4),
                                     Row(
                                       children: [
-                                        Bone(
+                                        HomeBone(
                                             width: 40,
                                             height: 12), // سنة الإصدار
                                         Spacer(),
-                                        Bone.circle(size: 16), // نجمة
+                                        HomeBone.circle(size: 16), // نجمة
                                         SizedBox(width: 4),
-                                        Bone(width: 24, height: 12), // تقييم
+                                        HomeBone(
+                                            width: 24, height: 12), // تقييم
                                       ],
                                     ),
                                   ],
@@ -129,7 +131,7 @@ class CustomSearchMoviesGridResult extends StatelessWidget {
                               const Positioned(
                                 top: 5,
                                 left: 15,
-                                child: Bone.circle(size: 48),
+                                child: HomeBone.circle(size: 48),
                               ),
                             ],
                           ),

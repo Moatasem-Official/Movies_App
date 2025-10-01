@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/utils/app_router.dart';
-import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_credits_entity.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
@@ -243,25 +242,6 @@ class MovieDetailsScreen extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 50)),
         ],
       ),
-    );
-  }
-}
-
-class CustomBone extends StatelessWidget {
-  final double width;
-  final double height;
-
-  const CustomBone({
-    super.key,
-    required this.width,
-    required this.height,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Bone(
-      width: width,
-      height: height,
     );
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cubits/lang/cubit/locale_cubit.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/core/errors/failure.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/features/home/presentation/widgets/home_skeletonizer_loading_widgets/home_bone.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -48,7 +48,7 @@ class CustomHorizontalListView<
                             const Positioned(
                               top: 5,
                               left: 15,
-                              child: SaveIconBone.circle(
+                              child: HomeBone.circle(
                                 size: 40,
                               ),
                             ),
@@ -137,37 +137,6 @@ class CustomHorizontalListView<
             ) ??
             const SizedBox.shrink();
       },
-    );
-  }
-}
-
-class SaveIconBone extends StatelessWidget {
-  final double? width;
-  final double? height;
-  final ShapeBorder shape;
-
-  const SaveIconBone({
-    super.key,
-    this.width,
-    this.height,
-  }) : shape = const StadiumBorder();
-
-  const SaveIconBone.circle({
-    super.key,
-    required double size,
-  })  : width = size,
-        height = size,
-        shape = const CircleBorder();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: ShapeDecoration(
-        color: Colors.grey.shade900,
-        shape: shape,
-      ),
     );
   }
 }

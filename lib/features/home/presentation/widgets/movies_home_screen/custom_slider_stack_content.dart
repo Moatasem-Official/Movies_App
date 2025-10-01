@@ -33,7 +33,7 @@ class CustomSliderStackContent extends StatelessWidget {
               const SizedBox(width: 7),
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
