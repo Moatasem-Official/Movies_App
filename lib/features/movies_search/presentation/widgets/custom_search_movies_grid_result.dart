@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/features/home/presentation/widgets/home_skeletonizer_loading_widgets/home_bone.dart';
-import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movie_card.dart';
 import 'package:skeletonizer/skeletonizer.dart' hide Bone;
 
@@ -31,7 +30,6 @@ class CustomSearchMoviesGridResult extends StatelessWidget {
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  // امنع start > 1.0 لأن Interval يتطلب 0..1
                   double start = 0.3 + (index * 0.1);
                   if (start > 1.0) start = 1.0;
 
@@ -55,8 +53,6 @@ class CustomSearchMoviesGridResult extends StatelessWidget {
               ),
             ),
           ),
-
-          // لو محتاج لودينج لصفحات إضافية، بنعرضه كـ SliverToBoxAdapter (footer)
           if (showLoading)
             SliverToBoxAdapter(
               child: Padding(
@@ -80,15 +76,12 @@ class CustomSearchMoviesGridResult extends StatelessWidget {
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
-                              // Placeholder للبوستر
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors
-                                      .grey.shade900, // لون قريب للكارد النهائي
+                                  color: Colors.grey.shade900,
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                               ),
-                              // Gradient افتراضي مثل الكارد النهائي
                               Container(
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
@@ -101,7 +94,6 @@ class CustomSearchMoviesGridResult extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              // Placeholder للنصوص (title + release + rating)
                               const Positioned(
                                 bottom: 12,
                                 left: 12,
@@ -109,25 +101,20 @@ class CustomSearchMoviesGridResult extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // title
                                     HomeBone(width: 120, height: 16),
                                     SizedBox(height: 4),
                                     Row(
                                       children: [
-                                        HomeBone(
-                                            width: 40,
-                                            height: 12), // سنة الإصدار
+                                        HomeBone(width: 40, height: 12),
                                         Spacer(),
-                                        HomeBone.circle(size: 16), // نجمة
+                                        HomeBone.circle(size: 16),
                                         SizedBox(width: 4),
-                                        HomeBone(
-                                            width: 24, height: 12), // تقييم
+                                        HomeBone(width: 24, height: 12),
                                       ],
                                     ),
                                   ],
                                 ),
                               ),
-                              // زر المفضلة placeholder (دايرة فوق)
                               const Positioned(
                                 top: 5,
                                 left: 15,

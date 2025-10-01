@@ -6,7 +6,6 @@ import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states
 import 'package:movies_app/features/movie_videos/presentation/widgets/show_and_play_videos_screen/custom_video_card.dart';
 import 'package:movies_app/core/errors/failure.dart';
 import 'package:movies_app/features/movie_videos/presentation/widgets/skeletonizer_loading_widgets/custom_movie_videos_skeletonizer_loading_widget.dart';
-import 'package:movies_app/features/movie_videos/presentation/widgets/skeletonizer_loading_widgets/custom_skeletonizer_videos_bon.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomVideosListWidget extends StatelessWidget {
