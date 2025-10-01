@@ -94,12 +94,18 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
                               borderRadius: BorderRadius.circular(6)),
                         ),
                         loaded: (videos) {
-                          return Text(
-                            videos[_selectedIndex].name,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
+                          return Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              start: 10,
+                              end: 10,
+                            ),
+                            child: Text(
+                              videos[_selectedIndex].name,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           );
                         },

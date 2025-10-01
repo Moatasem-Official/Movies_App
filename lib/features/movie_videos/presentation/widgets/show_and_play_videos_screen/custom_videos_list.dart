@@ -36,10 +36,16 @@ class CustomVideosListWidget extends StatelessWidget {
               loaded: (videos) {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
-                    return CustomVideoCardWidget(
-                      isSelected: index == selectedIndex,
-                      onTap: () => onTap(index),
-                      video: videos[index],
+                    return Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        start: 10,
+                        end: 10,
+                      ),
+                      child: CustomVideoCardWidget(
+                        isSelected: index == selectedIndex,
+                        onTap: () => onTap(index),
+                        video: videos[index],
+                      ),
                     );
                   }, childCount: videos.length),
                 );

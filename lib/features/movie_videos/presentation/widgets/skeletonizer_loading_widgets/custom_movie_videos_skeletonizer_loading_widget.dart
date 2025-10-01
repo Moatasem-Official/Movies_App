@@ -36,7 +36,7 @@ class CustomMovieVideosSkeletonizerLoadingWidget extends StatelessWidget {
               // تفاصيل الفيديو
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
+                  padding: const EdgeInsetsDirectional.symmetric(
                       vertical: 12.0, horizontal: 5.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
