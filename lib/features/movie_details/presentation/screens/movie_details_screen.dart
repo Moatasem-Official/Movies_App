@@ -102,13 +102,15 @@ class MovieDetailsScreen extends StatelessWidget {
             sectionIndex: 5,
             builder: (data) {
               return data.genres.isEmpty
-                  ? Center(
-                      child: Text(S.of(context).noGenresAvailable,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 233, 233, 233),
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          )),
+                  ? SliverToBoxAdapter(
+                      child: Center(
+                        child: Text(S.of(context).noGenresAvailable,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 233, 233, 233),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
                     )
                   : CustomMovieGenresWidget(
                       genres: data.genres.map((e) => e.name).join(", "),

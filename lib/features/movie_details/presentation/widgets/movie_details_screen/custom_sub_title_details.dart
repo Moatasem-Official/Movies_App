@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
-import 'package:movies_app/core/utils/app_helpers.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_actions_and_status.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_chip_list.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_primary_info.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_production_companies.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_stats_table.dart';
 import 'package:movies_app/generated/l10n.dart';
 
 class CustomSubTitleDetails extends StatelessWidget {
@@ -22,11 +22,11 @@ class CustomSubTitleDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // الجزء الأول: المعلومات الأساسية (سنة، تقييم، مدة)
-            _buildPrimaryInfo(),
+            CustomPrimaryInfo(movieDetailsEntity: movieDetailsEntity),
             const SizedBox(height: 20),
 
             // الجزء الثاني: زر الإضافة للمفضلة والحالة
-            _buildActionsAndStatus(),
+            CustomActionsAndStatus(movieDetailsEntity: movieDetailsEntity),
             const SizedBox(height: 20),
 
             // فاصل بصري
@@ -34,23 +34,23 @@ class CustomSubTitleDetails extends StatelessWidget {
             const SizedBox(height: 20),
 
             // الجزء الثالث: جدول الإحصائيات (ميزانية، إيرادات، إلخ)
-            _buildStatsTable(context),
+            CustomStatsTable(movieDetailsEntity: movieDetailsEntity),
             const SizedBox(height: 20),
 
-            _buildProductionCompanies(context),
+            CustomProductionCompanies(
+              movieDetailsEntity: movieDetailsEntity,
+            ),
             const SizedBox(height: 20),
 
             // الجزء الرابع: قائمة بالـ Chips (الدول واللغات)
-            _buildChipList(
-              context: context,
+            CustomChipList(
               title: S.of(context).productionCountries,
               items: movieDetailsEntity.productionCountries
                   .map((e) => e['name'].toString())
                   .toList(),
             ),
             const SizedBox(height: 16),
-            _buildChipList(
-              context: context,
+            CustomChipList(
               title: S.of(context).spokenLanguages,
               items: movieDetailsEntity.spokenLanguages
                   .map((e) => e.name.toString())
@@ -59,328 +59,6 @@ class CustomSubTitleDetails extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildProductionCompanies(BuildContext context) {
-    // فلترة الشركات التي ليس لها اسم أو شعار قد تكون فكرة جيدة
-    final companies = movieDetailsEntity.productionCompanies;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          S.of(context).productionCompanies,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 12),
-        companies.isEmpty
-            ? Center(
-                child: Text(S.of(context).noProductionCompaniesFound,
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 233, 233, 233),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    )),
-              )
-            : SizedBox(
-                height: 80, // ارتفاع محدد للقائمة الأفقية
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: companies.length,
-                  itemBuilder: (context, index) {
-                    final company = companies[index];
-                    final logoPath = company['logo_path'];
-
-                    return Container(
-                      margin: const EdgeInsets.only(right: 12),
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.white
-                            .withOpacity(0.9), // خلفية بيضاء للشعارات
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Center(
-                        child: logoPath != null && logoPath.isNotEmpty
-                            // في حالة وجود شعار
-                            ? Image.network(
-                                '${AppConstants.imagePathUrl}$logoPath',
-                                width: 100, // عرض محدد للصورة
-                                fit: BoxFit.contain,
-                                // لإظهار اسم الشركة كحل بديل في حال فشل تحميل الصورة
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Center(
-                                    child: Text(
-                                      company['name'],
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              )
-                            // في حالة عدم وجود شعار، نعرض الاسم
-                            : SizedBox(
-                                width: 100,
-                                child: Center(
-                                  child: Text(
-                                    company['name'],
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-      ],
-    );
-  }
-
-  /// ويدجت لعرض المعلومات الأساسية باستخدام Wrap لتجنب الـ Overflow
-  Widget _buildPrimaryInfo() {
-    return Wrap(
-      spacing: 16.0, // المسافة الأفقية بين العناصر
-      runSpacing: 8.0, // المسافة الرأسية في حالة النزول لسطر جديد
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        // السنة
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.white70),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Text(
-            movieDetailsEntity.releaseDate.split('-')[0],
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-        // التقييم
-        _buildIconText(
-          icon: Icons.star_rounded,
-          text: '${movieDetailsEntity.voteAverage.toStringAsFixed(1)}/10',
-          iconColor: Colors.amber,
-        ),
-        // المدة
-        _buildIconText(
-          icon: Icons.timer_outlined,
-          text: AppHelpers.formatRuntime(movieDetailsEntity.runtime),
-        ),
-      ],
-    );
-  }
-
-  /// ويدجت لعرض زر الإضافة والحالة
-  Widget _buildActionsAndStatus() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // الحالة
-        Text(
-          movieDetailsEntity.status,
-          style: TextStyle(
-            color: Colors.greenAccent.shade400,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1.2,
-          ),
-        ),
-        // زر الإضافة للمفضلة
-        BlocBuilder<AddMovieToWatchListAsLocalDataCubit,
-            AddMovieToWatchListAsLocalDataState>(
-          builder: (context, state) {
-            final watchlistCubit =
-                context.watch<AddMovieToWatchListAsLocalDataCubit>();
-            final isMovieInWatchList =
-                watchlistCubit.isMovieInWatchList(movieDetailsEntity.id);
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-              child: IconButton(
-                onPressed: () {
-                  watchlistCubit.toggleMovieInWatchList(
-                      movieDetailsEntity.toResultEntity());
-                },
-                icon: Icon(
-                  isMovieInWatchList
-                      ? Icons.bookmark_rounded
-                      : Icons.bookmark_border_rounded,
-                  color: Colors.white,
-                  size: 26,
-                ),
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  /// ويدجت لعرض الإحصائيات في جدول منظم
-  Widget _buildStatsTable(BuildContext context) {
-    const labelStyle = TextStyle(
-      color: Colors.white70,
-      fontSize: 15,
-      height: 1.8, // لزيادة المسافة بين الصفوف
-    );
-    const valueStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 15,
-      fontWeight: FontWeight.bold,
-      height: 1.8,
-    );
-
-    return Table(
-      columnWidths: const {
-        0: FlexColumnWidth(1), // العمود الأول يأخذ ثلث المساحة
-        1: FlexColumnWidth(2), // العمود الثاني يأخذ ثلثي المساحة
-      },
-      children: [
-        _buildTableRow(
-          S.of(context).budget,
-          AppHelpers.formatCurrency(movieDetailsEntity.budget),
-          labelStyle,
-          valueStyle,
-        ),
-        _buildTableRow(
-          S.of(context).revenue,
-          AppHelpers.formatCurrency(movieDetailsEntity.revenue),
-          labelStyle,
-          valueStyle,
-        ),
-        _buildTableRow(
-          S.of(context).popularity,
-          movieDetailsEntity.popularity.toStringAsFixed(0),
-          labelStyle,
-          valueStyle,
-        ),
-        _buildTableRow(
-          S.of(context).voteCount,
-          movieDetailsEntity.voteCount.toString(),
-          labelStyle,
-          valueStyle,
-        ),
-        _buildTableRow(
-          S.of(context).originalLanguage,
-          movieDetailsEntity.originalLanguage.toUpperCase(),
-          labelStyle,
-          valueStyle,
-        ),
-      ],
-    );
-  }
-
-  /// دالة مساعدة لإنشاء صف في الجدول
-  TableRow _buildTableRow(
-    String label,
-    String value,
-    TextStyle labelStyle,
-    TextStyle valueStyle,
-  ) {
-    return TableRow(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Text(label, style: labelStyle),
-        ),
-        Text(value, style: valueStyle, textAlign: TextAlign.start),
-      ],
-    );
-  }
-
-  /// ويدجت مساعد لإنشاء صف من أيقونة ونص
-  Widget _buildIconText({
-    required IconData icon,
-    required String text,
-    Color iconColor = Colors.white70,
-  }) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 20, color: iconColor),
-        const SizedBox(width: 6),
-        Text(
-          text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
-    );
-  }
-
-  /// ويدجت مساعد لإنشاء قائمة من الـ Chips
-  Widget _buildChipList(
-      {required String title,
-      required List<String> items,
-      required BuildContext context}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
-        items.isEmpty
-            ? Center(
-                child: Text(S.of(context).noTitledFound(title),
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 233, 233, 233),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    )),
-              )
-            : Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                children: items
-                    .map(
-                      (item) => Chip(
-                        label: Text(item),
-                        backgroundColor: Colors.white.withOpacity(0.1),
-                        labelStyle: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        side: BorderSide(color: Colors.white.withOpacity(0.2)),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-      ],
     );
   }
 }
