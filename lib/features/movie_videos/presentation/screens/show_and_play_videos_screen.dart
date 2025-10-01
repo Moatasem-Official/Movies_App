@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_loading_widget.dart';
 import 'package:movies_app/features/movie_videos/presentation/controllers/cubit/all_movie_videos_cubit.dart';
 import 'package:movies_app/features/movie_videos/presentation/widgets/show_and_play_videos_screen/custom_app_bar.dart';
 import 'package:movies_app/features/movie_videos/presentation/widgets/show_and_play_videos_screen/custom_videos_list.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
 import 'package:movies_app/core/errors/failure.dart';
+import 'package:movies_app/features/movie_videos/presentation/widgets/skeletonizer_loading_widgets/custom_skeletonizer_videos_bon.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ShowAndPlayVideosScreen extends StatefulWidget {
@@ -54,7 +55,14 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
             builder: (context, state) {
               return state.whenOrNull(
                     idle: () => Container(),
-                    loading: () => const CustomLoadingStateWidget(),
+                    loading: () => Skeletonizer(
+                      enabled: true,
+                      child: CustomSkeletonizerVideosBon(
+                        width: double.infinity,
+                        height: 250,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                     loaded: (videos) {
                       if (_controller == null) {
                         _initController(videos[_selectedIndex].key);
@@ -78,7 +86,13 @@ class _ShowAndPlayVideosScreenState extends State<ShowAndPlayVideosScreen> {
                 builder: (context, state) {
                   return state.whenOrNull(
                         idle: () => Container(),
-                        loading: () => const CustomLoadingStateWidget(),
+                        loading: () => Skeletonizer(
+                          enabled: true,
+                          child: CustomSkeletonizerVideosBon(
+                              width: 100,
+                              height: 20,
+                              borderRadius: BorderRadius.circular(6)),
+                        ),
                         loaded: (videos) {
                           return Text(
                             videos[_selectedIndex].name,

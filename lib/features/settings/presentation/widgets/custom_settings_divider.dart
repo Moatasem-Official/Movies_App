@@ -10,7 +10,8 @@ class CustomSettingsDivider extends StatelessWidget {
       height: 1,
       thickness: 1,
       color: Colors.white.withOpacity(0.08),
-      indent: 50,
+      indent: 20,
+      endIndent: 20,
     );
   }
 }
