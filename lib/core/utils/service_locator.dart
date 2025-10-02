@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movies_app/core/cubits/lang/cubit/locale_cubit.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
 import 'package:movies_app/core/cubits/theme/cubit/theme_cubit.dart';
 import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_local_data_source.dart';
 import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_local_data_source_impl.dart';
@@ -294,6 +295,8 @@ Future<void> setupMoviesInjection() async {
       getIt<SharedPreferences>(),
     ),
   );
+
+  getIt.registerFactory<NetworkCubit>(() => NetworkCubit());
 }
 
 Dio getDioInfo() {
