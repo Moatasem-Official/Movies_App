@@ -65,7 +65,9 @@ class MovieDetailsScreen extends StatelessWidget {
 
         // لو مفيش نت && مفيش أي بيانات في الكيوبت
         if (isDisconnected && movieDetailsState is! Loaded) {
-          return const CustomNoInternetWidget();
+          return const CustomNoInternetWidget(
+            showExitButton: true,
+          );
         }
 
         // لو فيه بيانات في الكيوبت (حتى لو النت مقطوع) → اعرض التفاصيل

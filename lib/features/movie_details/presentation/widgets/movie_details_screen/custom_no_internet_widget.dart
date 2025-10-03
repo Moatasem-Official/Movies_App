@@ -4,8 +4,10 @@ import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
 import 'package:movies_app/generated/l10n.dart';
 
 class CustomNoInternetWidget extends StatelessWidget {
+  final bool showExitButton;
   const CustomNoInternetWidget({
     super.key,
+    this.showExitButton = false,
   });
 
   @override
@@ -52,19 +54,21 @@ class CustomNoInternetWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text(
-              S.of(context).exit,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          )
+          showExitButton
+              ? TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    S.of(context).exit,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );

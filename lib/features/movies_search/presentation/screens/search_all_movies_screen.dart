@@ -2,9 +2,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/discover_movies/presentation/helpers/custom_snack_bar_widget.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
 import 'package:movies_app/features/movies_search/presentation/controllers/cubit/movies_search_cubit.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_initial_search_widget.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_no_movies_widget.dart';
@@ -112,58 +115,89 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
         ),
         backgroundColor: const Color(0xFF141218),
         body: BlocListener<AddMovieToWatchListAsLocalDataCubit,
-            AddMovieToWatchListAsLocalDataState>(listener: (context, state) {
-          state.maybeWhen(
-            movieAddedToWatchlist: (message) {
-              ScaffoldMessenger.of(context).showSnackBar(
+            AddMovieToWatchListAsLocalDataState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              movieAddedToWatchlist: (message) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  customSnackBar(
+                      message: S.of(context).movieAddedToWatchlistMessage),
+                );
+              },
+              movieRemovedFromWatchlist: (message) =>
+                  ScaffoldMessenger.of(context).showSnackBar(
                 customSnackBar(
-                    message: S.of(context).movieAddedToWatchlistMessage),
+                    message: S.of(context).movieRemovedFromWatchlistMessage),
+              ),
+              orElse: () => null,
+            );
+          },
+          child: BlocConsumer<NetworkCubit, NetworkState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                connected: (_) {
+                  context.read<MoviesSearchCubit>().searchMovies(
+                      query: _searchController.text,
+                      apiKey: AppConstants.kApiKey);
+                },
+                orElse: () {},
               );
             },
-            movieRemovedFromWatchlist: (message) =>
-                ScaffoldMessenger.of(context).showSnackBar(
-              customSnackBar(
-                  message: S.of(context).movieRemovedFromWatchlistMessage),
-            ),
-            orElse: () => null,
-          );
-        }, child: BlocBuilder<MoviesSearchCubit,
-            MoviesModuleStates<List<ResultEntity>>>(
-          builder: (context, state) {
-            return state.whenOrNull(
-                    idle: () => const CustomInitialSearchWidget(),
-                    loading: () {
-                      return const CustomMoviesSearchSkeletonizerGridViewLoadingWidget();
-                    },
-                    paginated: (movies) {
-                      final hasMore = context.read<MoviesSearchCubit>().hasMore;
-                      return CustomSearchMoviesGridResult(
-                        movies: movies,
-                        fadeAnimation: _animationController,
-                        scrollController: _scrollController,
-                        showLoading: hasMore,
-                      );
-                    },
-                    loaded: (movies) {
-                      _isLoadingMore = false;
+            builder: (context, state) {
+              final isDisconnected = state.maybeWhen(
+                disconnected: () => true,
+                orElse: () => false,
+              );
 
-                      if (movies.isEmpty) {
-                        return const CustomNoMoviesWidget();
-                      }
+              // نجيب حالة Cubit بتاع تفاصيل الفيلم
+              final moviesSearchState =
+                  context.watch<MoviesSearchCubit>().state;
 
-                      return CustomSearchMoviesGridResult(
-                        movies: movies,
-                        fadeAnimation: _animationController,
-                        scrollController: _scrollController,
-                        showLoading: false,
-                      );
-                    },
-                    error: (failure) {
-                      _isLoadingMore = false;
-                      return Center(child: Text(failure.message));
-                    }) ??
-                const SizedBox.shrink();
-          },
-        )));
+              // لو مفيش نت && مفيش أي بيانات في الكيوبت
+              if (isDisconnected && moviesSearchState is Loading) {
+                return const CustomNoInternetWidget();
+              }
+              return BlocBuilder<MoviesSearchCubit,
+                  MoviesModuleStates<List<ResultEntity>>>(
+                builder: (context, state) {
+                  return state.whenOrNull(
+                          idle: () => const CustomInitialSearchWidget(),
+                          loading: () {
+                            return const CustomMoviesSearchSkeletonizerGridViewLoadingWidget();
+                          },
+                          paginated: (movies) {
+                            final hasMore =
+                                context.read<MoviesSearchCubit>().hasMore;
+                            return CustomSearchMoviesGridResult(
+                              movies: movies,
+                              fadeAnimation: _animationController,
+                              scrollController: _scrollController,
+                              showLoading: hasMore,
+                            );
+                          },
+                          loaded: (movies) {
+                            _isLoadingMore = false;
+
+                            if (movies.isEmpty) {
+                              return const CustomNoMoviesWidget();
+                            }
+
+                            return CustomSearchMoviesGridResult(
+                              movies: movies,
+                              fadeAnimation: _animationController,
+                              scrollController: _scrollController,
+                              showLoading: false,
+                            );
+                          },
+                          error: (failure) {
+                            _isLoadingMore = false;
+                            return Center(child: Text(failure.message));
+                          }) ??
+                      const SizedBox.shrink();
+                },
+              );
+            },
+          ),
+        ));
   }
 }
