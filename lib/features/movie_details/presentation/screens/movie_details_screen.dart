@@ -21,6 +21,7 @@ import 'package:movies_app/features/movie_details/presentation/widgets/movie_det
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_crew.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_images_gallery.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_more_like_this.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_movie_videos_slider.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_sub_title_details.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
@@ -64,50 +65,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
         // لو مفيش نت && مفيش أي بيانات في الكيوبت
         if (isDisconnected && movieDetailsState is! Loaded) {
-          return SizedBox(
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.wifi_off,
-                  color: Colors.white,
-                  size: 50,
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  S.of(context).noInternetConnection,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                MaterialButton(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  onPressed: () {
-                    context.read<NetworkCubit>().checkNetwork();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      S.of(context).tryAgain,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          );
+          return const CustomNoInternetWidget();
         }
 
         // لو فيه بيانات في الكيوبت (حتى لو النت مقطوع) → اعرض التفاصيل
