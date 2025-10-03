@@ -89,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "documentary": MessageLookupByLibrary.simpleMessage("الوثائقي"),
     "drama": MessageLookupByLibrary.simpleMessage("الدراما"),
     "english": MessageLookupByLibrary.simpleMessage("الانجليزية"),
+    "exit": MessageLookupByLibrary.simpleMessage("خروج"),
     "family": MessageLookupByLibrary.simpleMessage("العائلي"),
     "fantasy": MessageLookupByLibrary.simpleMessage("الفانتازيا"),
     "feedbackAndSupport": MessageLookupByLibrary.simpleMessage(

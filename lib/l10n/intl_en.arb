@@ -2,6 +2,7 @@
   "@@locale": "en",
   "connectedToInternet": "Connected To Internet",
   "noInternetConnection": "No Internet Connection",
+  "exit": "Exit",
   "tryAgain": "Try Again",
   "nowPlaying": "NOW PLAYING",
   "popularMovies": "Popular Movies",

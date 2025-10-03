@@ -74,6 +74,11 @@ class S {
     );
   }
 
+  /// `Exit`
+  String get exit {
+    return Intl.message('Exit', name: 'exit', desc: '', args: []);
+  }
+
   /// `Try Again`
   String get tryAgain {
     return Intl.message('Try Again', name: 'tryAgain', desc: '', args: []);

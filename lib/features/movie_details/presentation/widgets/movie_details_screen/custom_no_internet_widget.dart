@@ -50,6 +50,20 @@ class CustomNoInternetWidget extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          const SizedBox(height: 20),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              S.of(context).exit,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           )
         ],
       ),
