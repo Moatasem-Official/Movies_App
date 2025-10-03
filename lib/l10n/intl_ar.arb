@@ -1,5 +1,8 @@
 {
   "@@locale": "ar",
+  "connectedToInternet": "متصل بالانترنت",
+  "noInternetConnection": "لا يوجد اتصال بالانترنت",
+  "tryAgain": "حاول مجددًا",
   "nowPlaying": "يُعرض الآن",
   "popularMovies": "الأفلام الأكثر شهرة",
   "seeAll": "عرض الكل",

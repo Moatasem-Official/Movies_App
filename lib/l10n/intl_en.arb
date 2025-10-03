@@ -1,5 +1,8 @@
 {
   "@@locale": "en",
+  "connectedToInternet": "Connected To Internet",
+  "noInternetConnection": "No Internet Connection",
+  "tryAgain": "Try Again",
   "nowPlaying": "NOW PLAYING",
   "popularMovies": "Popular Movies",
   "seeAll": "See All",

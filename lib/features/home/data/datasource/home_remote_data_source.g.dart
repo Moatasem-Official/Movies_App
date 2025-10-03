@@ -37,7 +37,7 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
     )
         .compose(
           _dio.options,
-          'movie/now_playing?api_key=0c0c7744db435d591d976e6422a9ef8e&page={page}',
+          'movie/now_playing?api_key=0c0c7744db435d591d976e6422a9ef8e',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -71,7 +71,7 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
     )
         .compose(
           _dio.options,
-          'movie/popular?api_key=0c0c7744db435d591d976e6422a9ef8e&page={page}',
+          'movie/popular?api_key=0c0c7744db435d591d976e6422a9ef8e',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -105,7 +105,7 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
     )
         .compose(
           _dio.options,
-          'movie/top_rated?api_key=0c0c7744db435d591d976e6422a9ef8e&page={page}',
+          'movie/top_rated?api_key=0c0c7744db435d591d976e6422a9ef8e',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -139,7 +139,7 @@ class _HomeRemoteDataSource implements HomeRemoteDataSource {
     )
         .compose(
           _dio.options,
-          'movie/upcoming?api_key=0c0c7744db435d591d976e6422a9ef8e&page={page}',
+          'movie/upcoming?api_key=0c0c7744db435d591d976e6422a9ef8e',
           queryParameters: queryParameters,
           data: _data,
         )

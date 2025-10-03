@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_credits_entity.dart';
@@ -32,218 +35,296 @@ class MovieDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
-              MovieDetailsEntity>(
-            cubit: context.read<MovieDetailsCubit>(),
-            sectionIndex: 1,
-            builder: (movieDetailsEntity) => CustomMovieDetailsSliverAppBar(
-              baseUrl: AppConstants.imagePathUrl,
-              imagePath: movieDetailsEntity.posterPath,
-            ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
-          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
-              MovieDetailsEntity>(
-            cubit: context.read<MovieDetailsCubit>(),
-            sectionIndex: 2,
-            builder: (movieDetailsEntity) => SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsetsDirectional.all(8.0),
-                child: Text(
-                  movieDetailsEntity.title,
+      body:
+          BlocConsumer<NetworkCubit, NetworkState>(listener: (context, state) {
+        state.maybeWhen(
+          connected: (_) {
+            context
+                .read<MovieDetailsCubit>()
+                .getMovieDetails(movieId: movie.id);
+            context
+                .read<SimilarMoviesCubit>()
+                .getSimilarMovies(movieId: movie.id);
+            context.read<MovieImagesCubit>().getMovieImages(movieId: movie.id);
+            context.read<MovieVideosCubit>().getMovieVideos(movieId: movie.id);
+            context
+                .read<MovieCreditsCubit>()
+                .getMovieCredits(movieId: movie.id);
+          },
+          orElse: () {},
+        );
+      }, builder: (context, state) {
+        final isDisconnected = state.maybeWhen(
+          disconnected: () => true,
+          orElse: () => false,
+        );
+
+        // نجيب حالة Cubit بتاع تفاصيل الفيلم
+        final movieDetailsState = context.watch<MovieDetailsCubit>().state;
+
+        // لو مفيش نت && مفيش أي بيانات في الكيوبت
+        if (isDisconnected && movieDetailsState is! Loaded) {
+          return SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.wifi_off,
+                  color: Colors.white,
+                  size: 50,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  S.of(context).noInternetConnection,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(height: 20),
+                MaterialButton(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  onPressed: () {
+                    context.read<NetworkCubit>().checkNetwork();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      S.of(context).tryAgain,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+
+        // لو فيه بيانات في الكيوبت (حتى لو النت مقطوع) → اعرض التفاصيل
+        return CustomScrollView(
+          slivers: [
+            CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+                MovieDetailsEntity>(
+              cubit: context.read<MovieDetailsCubit>(),
+              sectionIndex: 1,
+              builder: (movieDetailsEntity) => CustomMovieDetailsSliverAppBar(
+                baseUrl: AppConstants.imagePathUrl,
+                imagePath: movieDetailsEntity.posterPath,
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 5)),
-          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
-              MovieDetailsEntity>(
-            cubit: context.read<MovieDetailsCubit>(),
-            sectionIndex: 3,
-            builder: (movieDetailsEntity) =>
-                CustomSubTitleDetails(movieDetailsEntity: movieDetailsEntity),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 30)),
-          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
-              MovieDetailsEntity>(
-            cubit: context.read<MovieDetailsCubit>(),
-            sectionIndex: 4,
-            builder: (movieDetailsEntity) => SliverToBoxAdapter(
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+                MovieDetailsEntity>(
+              cubit: context.read<MovieDetailsCubit>(),
+              sectionIndex: 2,
+              builder: (movieDetailsEntity) => SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.all(8.0),
+                  child: Text(
+                    movieDetailsEntity.title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 5)),
+            CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+                MovieDetailsEntity>(
+              cubit: context.read<MovieDetailsCubit>(),
+              sectionIndex: 3,
+              builder: (movieDetailsEntity) =>
+                  CustomSubTitleDetails(movieDetailsEntity: movieDetailsEntity),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 30)),
+            CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+                MovieDetailsEntity>(
+              cubit: context.read<MovieDetailsCubit>(),
+              sectionIndex: 4,
+              builder: (movieDetailsEntity) => SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 8),
+                  child: movieDetailsEntity.overview.isEmpty
+                      ? Center(
+                          child: Text(S.of(context).noOverviewAvailable,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 233, 233, 233),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        )
+                      : Text(
+                          movieDetailsEntity.overview,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
+                        ),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 30)),
+            CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
+                MovieDetailsEntity>(
+              cubit: context.read<MovieDetailsCubit>(),
+              sectionIndex: 5,
+              builder: (data) {
+                return data.genres.isEmpty
+                    ? SliverToBoxAdapter(
+                        child: Center(
+                          child: Text(S.of(context).noGenresAvailable,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 233, 233, 233),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
+                      )
+                    : CustomMovieGenresWidget(
+                        genres: data.genres.map((e) => e.name).join(", "),
+                      );
+              },
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 40)),
+            SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsetsDirectional.only(start: 8),
-                child: movieDetailsEntity.overview.isEmpty
-                    ? Center(
-                        child: Text(S.of(context).noOverviewAvailable,
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 233, 233, 233),
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      )
-                    : Text(
-                        movieDetailsEntity.overview,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 16),
-                      ),
+                child: Text(
+                  S.of(context).cast,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 30)),
-          CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
-              MovieDetailsEntity>(
-            cubit: context.read<MovieDetailsCubit>(),
-            sectionIndex: 5,
-            builder: (data) {
-              return data.genres.isEmpty
-                  ? SliverToBoxAdapter(
-                      child: Center(
-                        child: Text(S.of(context).noGenresAvailable,
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 233, 233, 233),
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                    )
-                  : CustomMovieGenresWidget(
-                      genres: data.genres.map((e) => e.name).join(", "),
-                    );
-            },
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(start: 8),
-              child: Text(
-                S.of(context).cast,
-                style: const TextStyle(color: Colors.white, fontSize: 20),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            CustomMovieDetailsBlocBuilderTemplete<MovieCreditsCubit,
+                MovieCreditsEntity>(
+              cubit: context.read<MovieCreditsCubit>(),
+              sectionIndex: 6,
+              builder: (data) => CustomMovieCredits(
+                movieCreditsEntity: data,
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
-          CustomMovieDetailsBlocBuilderTemplete<MovieCreditsCubit,
-              MovieCreditsEntity>(
-            cubit: context.read<MovieCreditsCubit>(),
-            sectionIndex: 6,
-            builder: (data) => CustomMovieCredits(
-              movieCreditsEntity: data,
-            ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(start: 8),
-              child: Text(
-                S.of(context).keyCrew,
-                style: const TextStyle(color: Colors.white, fontSize: 20),
+            const SliverToBoxAdapter(child: SizedBox(height: 40)),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(start: 8),
+                child: Text(
+                  S.of(context).keyCrew,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
-          CustomMovieDetailsBlocBuilderTemplete<MovieCreditsCubit,
-              MovieCreditsEntity>(
-            cubit: context.read<MovieCreditsCubit>(),
-            sectionIndex: 7,
-            builder: (data) => CustomMovieCrew(crew: data.crew),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(start: 8),
-              child: Text(
-                S.of(context).movieGallery,
-                style: const TextStyle(color: Colors.white, fontSize: 20),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            CustomMovieDetailsBlocBuilderTemplete<MovieCreditsCubit,
+                MovieCreditsEntity>(
+              cubit: context.read<MovieCreditsCubit>(),
+              sectionIndex: 7,
+              builder: (data) => CustomMovieCrew(crew: data.crew),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 40)),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(start: 8),
+                child: Text(
+                  S.of(context).movieGallery,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
-          CustomMovieDetailsBlocBuilderTemplete<MovieImagesCubit,
-              MovieImagesEntity>(
-            cubit: context.read<MovieImagesCubit>(),
-            sectionIndex: 8,
-            builder: (data) => MovieImageGallery(
-              images: data,
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            CustomMovieDetailsBlocBuilderTemplete<MovieImagesCubit,
+                MovieImagesEntity>(
+              cubit: context.read<MovieImagesCubit>(),
+              sectionIndex: 8,
+              builder: (data) => MovieImageGallery(
+                images: data,
+              ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(start: 8, end: 8),
-              child: Row(
-                children: [
-                  Text(
-                    S.of(context).moreLikeThis,
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  const Spacer(),
-                  context.watch<SimilarMoviesCubit>().similarMovies.isEmpty
-                      ? Container()
-                      : GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                                AppRouter.seeAllElementsListScreen,
-                                arguments: {
-                                  "title": S.of(context).similarTo(movie.title),
-                                  "movieId": movie.id
-                                });
-                          },
-                          child: Row(
-                            children: [
-                              Text(
-                                S.of(context).viewAll,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                              ),
-                              const Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white,
-                                size: 16,
-                              ),
-                            ],
+            const SliverToBoxAdapter(child: SizedBox(height: 40)),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(start: 8, end: 8),
+                child: Row(
+                  children: [
+                    Text(
+                      S.of(context).moreLikeThis,
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    const Spacer(),
+                    context.watch<SimilarMoviesCubit>().similarMovies.isEmpty
+                        ? Container()
+                        : GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                  AppRouter.seeAllElementsListScreen,
+                                  arguments: {
+                                    "title":
+                                        S.of(context).similarTo(movie.title),
+                                    "movieId": movie.id
+                                  });
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  S.of(context).viewAll,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                                const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
-          CustomMovieDetailsBlocBuilderTemplete<SimilarMoviesCubit,
-              List<ResultEntity>>(
-            cubit: context.read<SimilarMoviesCubit>(),
-            sectionIndex: 9,
-            builder: (data) => CustomMovieMoreLikeThisWidget(
-              baseUrl: AppConstants.imagePathUrl,
-              similarMovies: data,
-            ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 40)),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsetsDirectional.only(start: 8),
-              child: Text(
-                S.of(context).videos,
-                style: const TextStyle(color: Colors.white, fontSize: 20),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            CustomMovieDetailsBlocBuilderTemplete<SimilarMoviesCubit,
+                List<ResultEntity>>(
+              cubit: context.read<SimilarMoviesCubit>(),
+              sectionIndex: 9,
+              builder: (data) => CustomMovieMoreLikeThisWidget(
+                baseUrl: AppConstants.imagePathUrl,
+                similarMovies: data,
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
-          CustomMovieDetailsBlocBuilderTemplete<MovieVideosCubit,
-              List<ResultVideoEntity>>(
-            cubit: context.read<MovieVideosCubit>(),
-            sectionIndex: 10,
-            builder: (data) =>
-                CustomMovieVideosSlider(videos: data, movie: movie),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 50)),
-        ],
-      ),
+            const SliverToBoxAdapter(child: SizedBox(height: 40)),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(start: 8),
+                child: Text(
+                  S.of(context).videos,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            CustomMovieDetailsBlocBuilderTemplete<MovieVideosCubit,
+                List<ResultVideoEntity>>(
+              cubit: context.read<MovieVideosCubit>(),
+              sectionIndex: 10,
+              builder: (data) =>
+                  CustomMovieVideosSlider(videos: data, movie: movie),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 50)),
+          ],
+        );
+      }),
     );
   }
 }

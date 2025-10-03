@@ -11,22 +11,22 @@ abstract class HomeRemoteDataSource {
   factory HomeRemoteDataSource(Dio dio, {String baseUrl}) =
       _HomeRemoteDataSource;
 
-  @GET("movie/now_playing?api_key=${AppConstants.kApiKey}&page={page}")
+  @GET("movie/now_playing?api_key=${AppConstants.kApiKey}")
   Future<DisplayDifferentMoviesTypesModel> getNowPlayingMovies({
     @Query("page") int page = 1,
   });
 
-  @GET('movie/popular?api_key=${AppConstants.kApiKey}&page={page}')
+  @GET('movie/popular?api_key=${AppConstants.kApiKey}')
   Future<DisplayDifferentMoviesTypesModel> getPopularMovies({
     @Query("page") int page = 1,
   });
 
-  @GET("movie/top_rated?api_key=${AppConstants.kApiKey}&page={page}")
+  @GET("movie/top_rated?api_key=${AppConstants.kApiKey}")
   Future<DisplayDifferentMoviesTypesModel> getTopRatedMovies({
     @Query("page") int page = 1,
   });
 
-  @GET("movie/upcoming?api_key=${AppConstants.kApiKey}&page={page}")
+  @GET("movie/upcoming?api_key=${AppConstants.kApiKey}")
   Future<DisplayDifferentMoviesTypesModel> getUpcomingMovies({
     @Query("page") int page = 1,
   });
