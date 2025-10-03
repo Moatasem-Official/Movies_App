@@ -14,6 +14,7 @@ import 'package:movies_app/features/movie_details/presentation/controllers/movie
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_images_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/movie_videos_cubit.dart';
 import 'package:movies_app/features/movie_details/presentation/controllers/movie_details_screen/cubits/similar_movies_cubit.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/general_loading_shapes.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_app_bar.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_bloc_builder_templete.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_genres.dart';
@@ -63,10 +64,29 @@ class MovieDetailsScreen extends StatelessWidget {
         // نجيب حالة Cubit بتاع تفاصيل الفيلم
         final movieDetailsState = context.watch<MovieDetailsCubit>().state;
 
-        // لو مفيش نت && مفيش أي بيانات في الكيوبت
-        if (isDisconnected && movieDetailsState is! Loaded) {
-          return const CustomNoInternetWidget(
-            showExitButton: true,
+        // 🟢 حالة: النت مقطوع و مفيش بيانات خالص
+        if (isDisconnected && movieDetailsState is Idle) {
+          return const CustomNoInternetWidget(showExitButton: true);
+        }
+
+        // 🟢 حالة: النت مقطوع و لسه بيحمل لأول مرة (loading)
+        if (isDisconnected && movieDetailsState is Loading) {
+          return FutureBuilder(
+            future: Future.delayed(const Duration(seconds: 3)),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return const CustomNoInternetWidget(showExitButton: true);
+              }
+
+              // skeleton لحد ما يعدي الـ 3 ثواني
+              return CustomScrollView(
+                slivers: List.generate(
+                  11,
+                  (index) =>
+                      GeneralLoadingShapes.buildLoadingSection(index + 1),
+                ),
+              );
+            },
           );
         }
 

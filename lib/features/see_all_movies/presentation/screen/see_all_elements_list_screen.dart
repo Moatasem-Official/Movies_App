@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
 import 'package:movies_app/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
@@ -36,10 +39,12 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
     _scrollController.addListener(_onScroll);
 
     final cubit = context.read<SeeAllMoviesCubit>();
-    if (widget.movieType != null) {
-      cubit.getSeeAllMovies(movieType: widget.movieType!, reset: true);
-    } else if (widget.movieId != null) {
-      cubit.getSimilarMovies(movieId: widget.movieId!, reset: true);
+    if (cubit.state is Idle) {
+      if (widget.movieType != null) {
+        cubit.getSeeAllMovies(movieType: widget.movieType!, reset: true);
+      } else if (widget.movieId != null) {
+        cubit.getSimilarMovies(movieId: widget.movieId!, reset: true);
+      }
     }
   }
 
@@ -90,40 +95,99 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
           child: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 15),
-        child: BlocConsumer<SeeAllMoviesCubit,
-            MoviesModuleStates<List<ResultEntity>>>(
-          listener: (context, state) {
-            state.whenOrNull(
-              loaded: (_) => isLoading = false,
-              error: (_) => isLoading = false,
-            );
-          },
-          builder: (context, state) {
-            return state.whenOrNull(
-                  idle: () => const Center(child: CircularProgressIndicator()),
-                  loading: () {
-                    return Skeletonizer(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return const SkeletonCustomCard();
-                        },
-                      ),
-                    );
-                  },
-                  paginated: (movies) =>
-                      _buildMoviesList(movies, showLoading: true),
-                  loaded: (movies) =>
-                      _buildMoviesList(movies, showLoading: false),
-                  error: (failure) => Center(child: Text(failure.message)),
-                ) ??
-                const SizedBox.shrink();
-          },
-        ),
+      body: BlocConsumer<NetworkCubit, NetworkState>(
+        listener: (context, state) {
+          if (state is Connected) {
+            final cubit = context.read<SeeAllMoviesCubit>();
+            if (cubit.state is Idle || cubit.state is Error) {
+              if (widget.movieType != null) {
+                cubit.getSeeAllMovies(
+                    movieType: widget.movieType!, reset: true);
+              } else if (widget.movieId != null) {
+                cubit.getSimilarMovies(movieId: widget.movieId!, reset: true);
+              }
+            }
+          }
+        },
+        builder: (context, networkState) {
+          final isDisconnected = networkState.maybeWhen(
+            disconnected: () => true,
+            orElse: () => false,
+          );
+
+          final categoryMoviesState = context.watch<SeeAllMoviesCubit>().state;
+
+          // 🟢 1- لو النت قاطع ومافيش أي بيانات قبل كده
+          if (isDisconnected && categoryMoviesState is Idle) {
+            return const CustomNoInternetWidget();
+          }
+
+          if (isDisconnected &&
+              categoryMoviesState is! Idle &&
+              categoryMoviesState is Paginated) {
+            return _buildMoviesList((categoryMoviesState as Paginated).movies,
+                showLoading: false);
+          }
+
+          return Padding(
+            padding: const EdgeInsets.only(top: 15),
+            child: BlocConsumer<SeeAllMoviesCubit,
+                MoviesModuleStates<List<ResultEntity>>>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  loaded: (_) => isLoading = false,
+                  error: (_) => isLoading = false,
+                );
+              },
+              builder: (context, state) {
+                return state.whenOrNull(
+                      idle: () =>
+                          const Center(child: CircularProgressIndicator()),
+                      loading: () {
+                        if (isDisconnected) {
+                          return FutureBuilder(
+                            future: Future.delayed(const Duration(seconds: 3)),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return const CustomNoInternetWidget();
+                              }
+                              return Skeletonizer(
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount: 10,
+                                  itemBuilder: (context, index) {
+                                    return const SkeletonCustomCard();
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                        }
+
+                        return Skeletonizer(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return const SkeletonCustomCard();
+                            },
+                          ),
+                        );
+                      },
+                      paginated: (movies) =>
+                          _buildMoviesList(movies, showLoading: true),
+                      loaded: (movies) =>
+                          _buildMoviesList(movies, showLoading: false),
+                      error: (failure) => Center(child: Text(failure.message)),
+                    ) ??
+                    const SizedBox.shrink();
+              },
+            ),
+          );
+        },
       ),
     );
   }
@@ -131,6 +195,7 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
   Widget _buildMoviesList(List<ResultEntity> movies,
       {bool showLoading = false}) {
     return ListView.builder(
+      key: PageStorageKey(widget.title),
       controller: _scrollController,
       itemCount: movies.length + (showLoading ? 1 : 0),
       itemBuilder: (context, index) {

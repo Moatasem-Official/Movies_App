@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/helpers/movies_categories_language_converter.dart';
 import 'package:movies_app/features/discover_movies/presentation/widgets/discover_skeletonizer_loading_widgets/skeleton_genre_card.dart';
 import 'package:movies_app/features/discover_movies/presentation/widgets/show_and_search_movies_of_category_screen/custom_discover_genre_card.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
 import 'package:movies_app/generated/l10n.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -14,6 +16,11 @@ class DiscoverMoviesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final networkState = context.watch<NetworkCubit>().state;
+    final isDisconnected = networkState.maybeWhen(
+      disconnected: () => true,
+      orElse: () => false,
+    );
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
@@ -36,6 +43,30 @@ class DiscoverMoviesScreen extends StatelessWidget {
             return state.whenOrNull(
                   idle: () => const SizedBox.shrink(),
                   loading: () {
+                    if (isDisconnected) {
+                      return FutureBuilder(
+                        future: Future.delayed(const Duration(seconds: 3)),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return const CustomNoInternetWidget();
+                          }
+                          return GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 16.0,
+                              mainAxisSpacing: 16.0,
+                            ),
+                            itemCount: 8,
+                            itemBuilder: (context, index) {
+                              return const SkeletonGenreCard();
+                            },
+                          );
+                        },
+                      );
+                    }
+
                     return GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(

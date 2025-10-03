@@ -2,11 +2,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/category_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/helpers/custom_snack_bar_widget.dart';
 import 'package:movies_app/features/discover_movies/presentation/widgets/discover_skeletonizer_loading_widgets/custom_category_movies_skeletonizer_loading_widget.dart';
 import 'package:movies_app/features/discover_movies/presentation/widgets/show_and_search_movies_of_category_screen/custom_category_app_bar.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_initial_search_widget.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_no_movies_widget.dart';
 import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movies_grid_result.dart';
@@ -143,41 +146,103 @@ class _ShowAndSearchMoviesOfCategoryScreenState
           ),
         ),
         backgroundColor: const Color(0xFF141218),
-        body: BlocBuilder<CategoryMoviesCubit,
-            MoviesModuleStates<List<ResultEntity>>>(
-          builder: (context, state) {
-            return state.when(
-              idle: () => const CustomInitialSearchWidget(),
-              loading: () {
-                return const CustomCategoryMoviesSkeletonizerLoadingWidget();
+        body: BlocConsumer<NetworkCubit, NetworkState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              connected: (_) {
+                context
+                    .read<CategoryMoviesCubit>()
+                    .fetchCategoryMovies(genreId: widget.genreId, reset: false);
               },
-              error: (failure) => Center(
-                child: Text(
-                  failure.message,
-                  style: const TextStyle(color: Colors.red),
-                ),
-              ),
-              loaded: (movies) {
-                _isLoadingMore = false;
-                if (movies.isEmpty) {
-                  return const CustomNoMoviesWidget();
-                }
-                return CustomSearchMoviesGridResult(
-                  movies: movies,
-                  fadeAnimation: _animationController,
-                  scrollController: _scrollController,
-                  showLoading: false,
-                );
-              },
-              empty: () => const CustomNoMoviesWidget(),
-              paginated: (movies) {
-                _isLoadingMore = false;
-                final cubit = context.read<CategoryMoviesCubit>();
-                return CustomSearchMoviesGridResult(
-                  movies: movies,
-                  fadeAnimation: _animationController,
-                  scrollController: _scrollController,
-                  showLoading: cubit.hasMore,
+              orElse: () {},
+            );
+          },
+          builder: (context, networkState) {
+            final isDisconnected = networkState.maybeWhen(
+              disconnected: () => true,
+              orElse: () => false,
+            );
+
+            final categoryMoviesState =
+                context.watch<CategoryMoviesCubit>().state;
+
+            // 🟢 1- لو النت قاطع ومافيش أي بيانات قبل كده
+            if (isDisconnected && categoryMoviesState is Idle) {
+              return const CustomNoInternetWidget();
+            }
+
+            // 🟢 2- لو النت قاطع واليوزر بيبحث لأول مرة
+            if (isDisconnected &&
+                _isSearching &&
+                categoryMoviesState is Loading) {
+              return const CustomNoInternetWidget();
+            }
+
+            // 🟢 3- لو النت قاطع أثناء pagination → متعرضش NoInternet كامل، خليك على اللي موجود
+            if (isDisconnected &&
+                _isLoadingMore &&
+                categoryMoviesState is Paginated) {
+              return CustomSearchMoviesGridResult(
+                movies: (categoryMoviesState as Paginated).movies,
+                fadeAnimation: _animationController,
+                scrollController: _scrollController,
+                showLoading: false, // ماتعرضش لودنج تحت
+              );
+            }
+
+            // 🟢 4- باقي الحالات الطبيعية
+            return BlocBuilder<CategoryMoviesCubit,
+                MoviesModuleStates<List<ResultEntity>>>(
+              builder: (context, state) {
+                return state.when(
+                  idle: () => const CustomInitialSearchWidget(),
+                  loading: () {
+                    if (isDisconnected) {
+                      return FutureBuilder(
+                        future: Future.delayed(const Duration(seconds: 3)),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return const CustomNoInternetWidget();
+                          }
+                          // لحد ما يخلص الـ 3 ثواني، يفضل skeleton
+                          return const CustomCategoryMoviesSkeletonizerLoadingWidget();
+                        },
+                      );
+                    }
+
+                    // لو في نت، رجع اللودنج العادي
+                    return const CustomCategoryMoviesSkeletonizerLoadingWidget();
+                  },
+                  error: (failure) => Center(
+                    child: Text(
+                      failure.message,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                  loaded: (movies) {
+                    _isLoadingMore = false;
+                    if (movies.isEmpty) {
+                      return const CustomNoMoviesWidget();
+                    }
+                    return CustomSearchMoviesGridResult(
+                      movies: movies,
+                      fadeAnimation: _animationController,
+                      scrollController: _scrollController,
+                      showLoading: false,
+                    );
+                  },
+                  empty: () => const CustomNoMoviesWidget(),
+                  paginated: (movies) {
+                    _isLoadingMore = false;
+                    final cubit = context.read<CategoryMoviesCubit>();
+                    return CustomSearchMoviesGridResult(
+                      movies: movies,
+                      fadeAnimation: _animationController,
+                      scrollController: _scrollController,
+                      showLoading: cubit.hasMore,
+                    );
+                  },
                 );
               },
             );

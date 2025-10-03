@@ -157,6 +157,26 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
               if (isDisconnected && moviesSearchState is Loading) {
                 return const CustomNoInternetWidget();
               }
+
+              // 🟢 2- لو النت قاطع واليوزر بيبحث لأول مرة
+              if (isDisconnected &&
+                  _isSearching &&
+                  moviesSearchState is Loading) {
+                return const CustomNoInternetWidget();
+              }
+
+              // 🟢 3- لو النت قاطع أثناء pagination → متعرضش NoInternet كامل، خليك على اللي موجود
+              if (isDisconnected &&
+                  _isLoadingMore &&
+                  moviesSearchState is Paginated) {
+                return CustomSearchMoviesGridResult(
+                  movies: (moviesSearchState as Paginated).movies,
+                  fadeAnimation: _animationController,
+                  scrollController: _scrollController,
+                  showLoading: false, // ماتعرضش لودنج تحت
+                );
+              }
+
               return BlocBuilder<MoviesSearchCubit,
                   MoviesModuleStates<List<ResultEntity>>>(
                 builder: (context, state) {
