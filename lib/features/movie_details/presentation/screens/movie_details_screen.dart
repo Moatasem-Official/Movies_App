@@ -41,56 +41,15 @@ class MovieDetailsScreen extends StatelessWidget {
           BlocConsumer<NetworkCubit, NetworkState>(listener: (context, state) {
         state.maybeWhen(
           connected: (_) {
-            context
-                .read<MovieDetailsCubit>()
-                .getMovieDetails(movieId: movie.id);
-            context
-                .read<SimilarMoviesCubit>()
-                .getSimilarMovies(movieId: movie.id);
-            context.read<MovieImagesCubit>().getMovieImages(movieId: movie.id);
-            context.read<MovieVideosCubit>().getMovieVideos(movieId: movie.id);
-            context
-                .read<MovieCreditsCubit>()
-                .getMovieCredits(movieId: movie.id);
+            refreshMovieDetailsCubits(context);
           },
           orElse: () {},
         );
-      }, builder: (context, state) {
-        final isDisconnected = state.maybeWhen(
-          disconnected: () => true,
-          orElse: () => false,
-        );
-
-        // نجيب حالة Cubit بتاع تفاصيل الفيلم
+      }, builder: (context, networkState) {
         final movieDetailsState = context.watch<MovieDetailsCubit>().state;
+        checkMovieDetailsScreenInternetConnection(
+            networkState, movieDetailsState);
 
-        // 🟢 حالة: النت مقطوع و مفيش بيانات خالص
-        if (isDisconnected && movieDetailsState is Idle) {
-          return const CustomNoInternetWidget(showExitButton: true);
-        }
-
-        // 🟢 حالة: النت مقطوع و لسه بيحمل لأول مرة (loading)
-        if (isDisconnected && movieDetailsState is Loading) {
-          return FutureBuilder(
-            future: Future.delayed(const Duration(seconds: 3)),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return const CustomNoInternetWidget(showExitButton: true);
-              }
-
-              // skeleton لحد ما يعدي الـ 3 ثواني
-              return CustomScrollView(
-                slivers: List.generate(
-                  11,
-                  (index) =>
-                      GeneralLoadingShapes.buildLoadingSection(index + 1),
-                ),
-              );
-            },
-          );
-        }
-
-        // لو فيه بيانات في الكيوبت (حتى لو النت مقطوع) → اعرض التفاصيل
         return CustomScrollView(
           slivers: [
             CustomMovieDetailsBlocBuilderTemplete<MovieDetailsCubit,
@@ -306,5 +265,47 @@ class MovieDetailsScreen extends StatelessWidget {
         );
       }),
     );
+  }
+
+  void refreshMovieDetailsCubits(BuildContext context) {
+    context.read<MovieDetailsCubit>().getMovieDetails(movieId: movie.id);
+    context.read<SimilarMoviesCubit>().getSimilarMovies(movieId: movie.id);
+    context.read<MovieImagesCubit>().getMovieImages(movieId: movie.id);
+    context.read<MovieVideosCubit>().getMovieVideos(movieId: movie.id);
+    context.read<MovieCreditsCubit>().getMovieCredits(movieId: movie.id);
+  }
+
+  Widget checkMovieDetailsScreenInternetConnection(
+    NetworkState networkState,
+    MoviesModuleStates<MovieDetailsEntity> movieDetailsState,
+  ) {
+    final isDisconnected = networkState.maybeWhen(
+      disconnected: () => true,
+      orElse: () => false,
+    );
+
+    if (isDisconnected && movieDetailsState is Idle) {
+      return const CustomNoInternetWidget(showExitButton: true);
+    }
+
+    if (isDisconnected && movieDetailsState is Loading) {
+      return FutureBuilder(
+        future: Future.delayed(const Duration(seconds: 3)),
+        builder: (_, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return const CustomNoInternetWidget(showExitButton: true);
+          }
+
+          return CustomScrollView(
+            slivers: List.generate(
+              11,
+              (index) => GeneralLoadingShapes.buildLoadingSection(index + 1),
+            ),
+          );
+        },
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 }
