@@ -162,35 +162,15 @@ class _ShowAndSearchMoviesOfCategoryScreenState
               disconnected: () => true,
               orElse: () => false,
             );
+            _checkCategoryMoviesScreenInternetConnection(
+              context,
+              _isSearching,
+              _isLoadingMore,
+              networkState,
+              _animationController,
+              _scrollController,
+            );
 
-            final categoryMoviesState =
-                context.watch<CategoryMoviesCubit>().state;
-
-            // 🟢 1- لو النت قاطع ومافيش أي بيانات قبل كده
-            if (isDisconnected && categoryMoviesState is Idle) {
-              return const CustomNoInternetWidget();
-            }
-
-            // 🟢 2- لو النت قاطع واليوزر بيبحث لأول مرة
-            if (isDisconnected &&
-                _isSearching &&
-                categoryMoviesState is Loading) {
-              return const CustomNoInternetWidget();
-            }
-
-            // 🟢 3- لو النت قاطع أثناء pagination → متعرضش NoInternet كامل، خليك على اللي موجود
-            if (isDisconnected &&
-                _isLoadingMore &&
-                categoryMoviesState is Paginated) {
-              return CustomSearchMoviesGridResult(
-                movies: (categoryMoviesState as Paginated).movies,
-                fadeAnimation: _animationController,
-                scrollController: _scrollController,
-                showLoading: false, // ماتعرضش لودنج تحت
-              );
-            }
-
-            // 🟢 4- باقي الحالات الطبيعية
             return BlocBuilder<CategoryMoviesCubit,
                 MoviesModuleStates<List<ResultEntity>>>(
               builder: (context, state) {
@@ -250,5 +230,42 @@ class _ShowAndSearchMoviesOfCategoryScreenState
         ),
       ),
     );
+  }
+
+  Widget _checkCategoryMoviesScreenInternetConnection(
+      BuildContext context,
+      bool isSearching,
+      bool isLoadingMore,
+      NetworkState networkState,
+      AnimationController animationController,
+      ScrollController scrollController) {
+    final isDisconnected = networkState.maybeWhen(
+      disconnected: () => true,
+      orElse: () => false,
+    );
+
+    final categoryMoviesState = context.watch<CategoryMoviesCubit>().state;
+
+    // 🟢 1- لو النت قاطع ومافيش أي بيانات قبل كده
+    if (isDisconnected && categoryMoviesState is Idle) {
+      return const CustomNoInternetWidget();
+    }
+
+    // 🟢 2- لو النت قاطع واليوزر بيبحث لأول مرة
+    if (isDisconnected && isSearching && categoryMoviesState is Loading) {
+      return const CustomNoInternetWidget();
+    }
+
+    // 🟢 3- لو النت قاطع أثناء pagination → متعرضش NoInternet كامل، خليك على اللي موجود
+    if (isDisconnected && isLoadingMore && categoryMoviesState is Paginated) {
+      return CustomSearchMoviesGridResult(
+        movies: (categoryMoviesState as Paginated).movies,
+        fadeAnimation: animationController,
+        scrollController: scrollController,
+        showLoading: false, // ماتعرضش لودنج تحت
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 }
