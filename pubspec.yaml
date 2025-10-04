@@ -21,6 +21,7 @@ dependencies:
     sdk: flutter
   flutter_animate: ^4.5.2
   flutter_bloc: ^8.1.5
+  flutter_launcher_icons: ^0.14.4
   flutter_localizations:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
@@ -87,3 +88,10 @@ flutter_intl:
   enabled: true
   arb_dir: lib/l10n
   output_dir: lib/generated
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo/Grey Orange Minimalist Film Production Logo_2.png"
+  min_sdk_android: 21
+

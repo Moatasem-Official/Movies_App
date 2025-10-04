@@ -11,4 +11,6 @@ abstract class SeeAllFeatureDomainRepo {
     required int movieId,
     int page = 1,
   });
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedSeeAllMovies({required String movieType});
 }

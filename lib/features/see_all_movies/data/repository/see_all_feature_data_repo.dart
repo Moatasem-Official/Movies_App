@@ -56,4 +56,22 @@ class SeeAllFeatureDataRepo extends SeeAllFeatureDomainRepo {
       return Left(FailureMapper.mapExceptionToFailure(exception));
     }
   }
+
+  @override
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedSeeAllMovies({
+    required String movieType,
+  }) async {
+    final cached = await seeAllLocalDataSource.getAllMovies(movieType);
+    if (cached.isNotEmpty) {
+      return Right(DisplayDifferentMoviesTypesEntity(
+        page: 1,
+        dates: null,
+        results: cached,
+      ));
+    }
+    return const Left(CacheFailure(
+      'No movies found in cache',
+    ));
+  }
 }

@@ -31,6 +31,8 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
   late final ScrollController _scrollController;
   int nextPage = 2;
   bool isLoading = false;
+  bool _waitingForNetwork = false;
+  bool _showNoInternetWidget = false;
 
   @override
   void initState() {
@@ -39,10 +41,19 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
     _scrollController.addListener(_onScroll);
 
     final cubit = context.read<SeeAllMoviesCubit>();
-    if (cubit.state is Idle) {
-      if (widget.movieType != null) {
+    final hasInternet = context.read<NetworkCubit>().state.maybeWhen(
+          connected: (_) => true,
+          orElse: () => false,
+        );
+
+    if (widget.movieType != null) {
+      if (hasInternet) {
         cubit.getSeeAllMovies(movieType: widget.movieType!, reset: true);
-      } else if (widget.movieId != null) {
+      } else {
+        cubit.getCachedSeeAllMovies(movieType: widget.movieType!);
+      }
+    } else if (widget.movieId != null) {
+      if (hasInternet) {
         cubit.getSimilarMovies(movieId: widget.movieId!, reset: true);
       }
     }
@@ -97,25 +108,24 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
       ),
       body: BlocConsumer<NetworkCubit, NetworkState>(
         listener: (context, state) {
-          seeAllElementsChecker(state, context);
+          seeAllElementsChecker(
+            state,
+            context.read<SeeAllMoviesCubit>(),
+            context.read<SeeAllMoviesCubit>().state,
+          );
         },
         builder: (context, networkState) {
-          final categoryMoviesState = context.watch<SeeAllMoviesCubit>().state;
+          final moviesCubit = context.watch<SeeAllMoviesCubit>();
           final isDisconnected = networkState.maybeWhen(
             disconnected: () => true,
             orElse: () => false,
           );
 
-          // 🟢 1- لو النت قاطع ومافيش أي بيانات قبل كده
-          if (isDisconnected && categoryMoviesState is Idle) {
-            return const CustomNoInternetWidget();
-          }
+          final internetWidget =
+              checkInternetConnectionBuilder(networkState, moviesCubit.state);
 
-          if (isDisconnected &&
-              categoryMoviesState is! Idle &&
-              categoryMoviesState is Paginated) {
-            return _buildMoviesList((categoryMoviesState as Paginated).movies,
-                showLoading: false);
+          if (internetWidget is! SizedBox) {
+            return internetWidget;
           }
 
           return Padding(
@@ -132,29 +142,37 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
                 return state.whenOrNull(
                       idle: () =>
                           const Center(child: CircularProgressIndicator()),
+                      // 🟡 لو النت قطع أثناء التحميل
                       loading: () {
                         if (isDisconnected) {
-                          return FutureBuilder(
-                            future: Future.delayed(const Duration(seconds: 3)),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                return const CustomNoInternetWidget();
+                          if (!_waitingForNetwork) {
+                            _waitingForNetwork = true;
+                            Future.delayed(const Duration(seconds: 3), () {
+                              if (mounted) {
+                                setState(() {
+                                  _showNoInternetWidget = true;
+                                });
                               }
-                              return Skeletonizer(
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const BouncingScrollPhysics(),
-                                  itemCount: 10,
-                                  itemBuilder: (context, index) {
-                                    return const SkeletonCustomCard();
-                                  },
-                                ),
-                              );
-                            },
+                            });
+                          }
+
+                          if (_showNoInternetWidget) {
+                            return const CustomNoInternetWidget();
+                          }
+
+                          return Skeletonizer(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: 10,
+                              itemBuilder: (context, index) {
+                                return const SkeletonCustomCard();
+                              },
+                            ),
                           );
                         }
 
+                        // 🟢 لودنج طبيعي
                         return Skeletonizer(
                           child: ListView.builder(
                             shrinkWrap: true,
@@ -181,10 +199,10 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
     );
   }
 
-  void seeAllElementsChecker(NetworkState state, BuildContext context) {
-    if (state is Connected) {
-      final cubit = context.read<SeeAllMoviesCubit>();
-      if (cubit.state is Idle || cubit.state is Error) {
+  void seeAllElementsChecker(NetworkState networkState, SeeAllMoviesCubit cubit,
+      MoviesModuleStates state) {
+    if (networkState is Connected) {
+      if (state is Idle || cubit.state is Error) {
         if (widget.movieType != null) {
           cubit.getSeeAllMovies(movieType: widget.movieType!, reset: true);
         } else if (widget.movieId != null) {
@@ -192,6 +210,33 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
         }
       }
     }
+  }
+
+  Widget checkInternetConnectionBuilder(NetworkState networkState,
+      MoviesModuleStates<List<ResultEntity>> categoryMoviesState) {
+    final isDisconnected = networkState.maybeWhen(
+      disconnected: () => true,
+      orElse: () => false,
+    );
+
+    if (isDisconnected) {
+      if (categoryMoviesState is Paginated || categoryMoviesState is Loaded) {
+        final movies = categoryMoviesState.whenOrNull(
+          paginated: (movies) => movies,
+          loaded: (movies) => movies,
+        );
+
+        if (movies != null && movies.isNotEmpty) {
+          return _buildMoviesList(movies, showLoading: false);
+        } else {
+          return const CustomNoInternetWidget();
+        }
+      }
+
+      return const CustomNoInternetWidget();
+    }
+
+    return const SizedBox.shrink();
   }
 
   Widget _buildMoviesList(List<ResultEntity> movies,

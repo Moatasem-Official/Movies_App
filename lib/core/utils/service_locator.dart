@@ -53,6 +53,7 @@ import 'package:movies_app/features/see_all_movies/data/datasource/see_all_local
 import 'package:movies_app/features/see_all_movies/data/datasource/see_all_remote_data_source.dart';
 import 'package:movies_app/features/see_all_movies/data/repository/see_all_feature_data_repo.dart';
 import 'package:movies_app/features/see_all_movies/domain/repository/see_all_feature_domain_repo.dart';
+import 'package:movies_app/features/see_all_movies/domain/usecase/get_cached_see_all_movies_use_case.dart';
 import 'package:movies_app/features/see_all_movies/domain/usecase/get_movie_similar_movies_use_case.dart';
 import 'package:movies_app/features/see_all_movies/domain/usecase/get_see_all_movies_use_case.dart';
 import 'package:movies_app/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
@@ -218,6 +219,11 @@ Future<void> setupMoviesInjection() async {
             seeAllFeatureDomainRepo: getIt<SeeAllFeatureDomainRepo>(),
           ));
 
+  getIt.registerLazySingleton<GetCachedSeeAllMoviesUseCase>(
+      () => GetCachedSeeAllMoviesUseCase(
+            seeAllFeatureDomainRepo: getIt<SeeAllFeatureDomainRepo>(),
+          ));
+
   getIt.registerFactory<NowPlayingMoviesCubit>(
     () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
   );
@@ -236,7 +242,9 @@ Future<void> setupMoviesInjection() async {
 
   getIt.registerFactory<SeeAllMoviesCubit>(
     () => SeeAllMoviesCubit(
-        getIt<GetSeeAllMoviesUseCase>(), getIt<GetMovieSimilarMoviesUseCase>()),
+        getIt<GetSeeAllMoviesUseCase>(),
+        getIt<GetMovieSimilarMoviesUseCase>(),
+        getIt<GetCachedSeeAllMoviesUseCase>()),
   );
 
   getIt.registerFactory<MovieDetailsCubit>(
