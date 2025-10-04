@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
 import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
 import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
@@ -8,6 +11,7 @@ import 'package:movies_app/features/home/presentation/widgets/movies_home_screen
 import 'package:movies_app/features/home/presentation/widgets/public_widgets/custom_horizontal_list_view.dart';
 import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
 import 'package:movies_app/core/utils/app_router.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
@@ -69,77 +73,134 @@ class MoviesHomeScreen extends StatelessWidget {
                   ));
         },
         child: Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: CustomSlider(
-                  title: S.of(context).nowPlaying,
-                  cubit: context.read<NowPlayingMoviesCubit>(),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 50)),
-              SliverToBoxAdapter(
-                child: CustomTitleOfListOfElements(
-                  title: S.of(context).popularMovies,
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    AppRouter.seeAllElementsListScreen,
-                    arguments: {
-                      "title": S.of(context).popularMovies,
-                      "movie_type": "popular"
-                    },
+          body: BlocConsumer<NetworkCubit, NetworkState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                connected: (_) {
+                  context.read<NowPlayingMoviesCubit>().getNowPlayingMovies();
+                  context.read<UpcommingMoviesCubit>().getUpcommingMovies();
+                  context.read<PopularMoviesCubit>().getPopularMovies();
+                  context.read<TopRatedMoviesCubit>().getTopRatedMovies();
+                },
+                orElse: () => false,
+              );
+            },
+            builder: (context, state) {
+              checkHomeScreenInternetConnection(
+                context.read<NowPlayingMoviesCubit>().state,
+                context.read<UpcommingMoviesCubit>().state,
+                context.read<PopularMoviesCubit>().state,
+                context.read<TopRatedMoviesCubit>().state,
+                state,
+              );
+
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: CustomSlider(
+                      title: S.of(context).nowPlaying,
+                      cubit: context.read<NowPlayingMoviesCubit>(),
+                    ),
                   ),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 10)),
-              SliverToBoxAdapter(
-                child: CustomHorizontalListView(
-                  cubit: context.read<PopularMoviesCubit>(),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 30)),
-              SliverToBoxAdapter(
-                child: CustomTitleOfListOfElements(
-                  title: S.of(context).topRatedMovies,
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    AppRouter.seeAllElementsListScreen,
-                    arguments: {
-                      "title": S.of(context).topRatedMovies,
-                      "movie_type": "top_rated",
-                    },
+                  const SliverToBoxAdapter(child: SizedBox(height: 50)),
+                  SliverToBoxAdapter(
+                    child: CustomTitleOfListOfElements(
+                      title: S.of(context).popularMovies,
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        AppRouter.seeAllElementsListScreen,
+                        arguments: {
+                          "title": S.of(context).popularMovies,
+                          "movie_type": "popular"
+                        },
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 10)),
-              SliverToBoxAdapter(
-                child: CustomHorizontalListView(
-                  cubit: context.read<TopRatedMoviesCubit>(),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 30)),
-              SliverToBoxAdapter(
-                child: CustomTitleOfListOfElements(
-                  title: S.of(context).upcomingMovies,
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    AppRouter.seeAllElementsListScreen,
-                    arguments: {
-                      "title": S.of(context).upcomingMovies,
-                      "movie_type": "upcoming",
-                    },
+                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                  SliverToBoxAdapter(
+                    child: CustomHorizontalListView(
+                      cubit: context.read<PopularMoviesCubit>(),
+                    ),
                   ),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 10)),
-              SliverToBoxAdapter(
-                child: CustomHorizontalListView(
-                  cubit: context.read<UpcommingMoviesCubit>(),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 50)),
-            ],
+                  const SliverToBoxAdapter(child: SizedBox(height: 30)),
+                  SliverToBoxAdapter(
+                    child: CustomTitleOfListOfElements(
+                      title: S.of(context).topRatedMovies,
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        AppRouter.seeAllElementsListScreen,
+                        arguments: {
+                          "title": S.of(context).topRatedMovies,
+                          "movie_type": "top_rated",
+                        },
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                  SliverToBoxAdapter(
+                    child: CustomHorizontalListView(
+                      cubit: context.read<TopRatedMoviesCubit>(),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 30)),
+                  SliverToBoxAdapter(
+                    child: CustomTitleOfListOfElements(
+                      title: S.of(context).upcomingMovies,
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        AppRouter.seeAllElementsListScreen,
+                        arguments: {
+                          "title": S.of(context).upcomingMovies,
+                          "movie_type": "upcoming",
+                        },
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                  SliverToBoxAdapter(
+                    child: CustomHorizontalListView(
+                      cubit: context.read<UpcommingMoviesCubit>(),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 50)),
+                ],
+              );
+            },
           ),
         ));
+  }
+
+  Widget checkHomeScreenInternetConnection(
+      MoviesModuleStates nowPlayingState,
+      MoviesModuleStates upcommingState,
+      MoviesModuleStates popularState,
+      MoviesModuleStates topRatedState,
+      NetworkState state) {
+    final isDisconnected = state.maybeWhen(
+      disconnected: () => true,
+      orElse: () => false,
+    );
+
+    if (isDisconnected &&
+        nowPlayingState is Idle &&
+        upcommingState is Idle &&
+        popularState is Idle &&
+        topRatedState is Idle) {
+      return const CustomNoInternetWidget();
+    }
+
+    bool isCubitEmptyOrError(MoviesModuleStates state) {
+      return state is Idle || state is Error;
+    }
+
+    if (isDisconnected &&
+        isCubitEmptyOrError(nowPlayingState) &&
+        isCubitEmptyOrError(upcommingState) &&
+        isCubitEmptyOrError(popularState) &&
+        isCubitEmptyOrError(topRatedState)) {
+      return const CustomNoInternetWidget();
+    }
+
+    return const SizedBox.shrink();
   }
 }
