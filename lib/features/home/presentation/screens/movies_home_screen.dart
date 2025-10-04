@@ -77,10 +77,7 @@ class MoviesHomeScreen extends StatelessWidget {
             listener: (context, state) {
               state.maybeWhen(
                 connected: (_) {
-                  context.read<NowPlayingMoviesCubit>().getNowPlayingMovies();
-                  context.read<UpcommingMoviesCubit>().getUpcommingMovies();
-                  context.read<PopularMoviesCubit>().getPopularMovies();
-                  context.read<TopRatedMoviesCubit>().getTopRatedMovies();
+                  connectedToInternetRefreshMethod(context);
                 },
                 orElse: () => false,
               );
@@ -168,6 +165,13 @@ class MoviesHomeScreen extends StatelessWidget {
             },
           ),
         ));
+  }
+
+  void connectedToInternetRefreshMethod(BuildContext context) {
+    context.read<NowPlayingMoviesCubit>().getNowPlayingMovies();
+    context.read<UpcommingMoviesCubit>().getUpcommingMovies();
+    context.read<PopularMoviesCubit>().getPopularMovies();
+    context.read<TopRatedMoviesCubit>().getTopRatedMovies();
   }
 
   Widget checkHomeScreenInternetConnection(
