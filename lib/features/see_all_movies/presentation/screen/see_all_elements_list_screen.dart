@@ -97,25 +97,14 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
       ),
       body: BlocConsumer<NetworkCubit, NetworkState>(
         listener: (context, state) {
-          if (state is Connected) {
-            final cubit = context.read<SeeAllMoviesCubit>();
-            if (cubit.state is Idle || cubit.state is Error) {
-              if (widget.movieType != null) {
-                cubit.getSeeAllMovies(
-                    movieType: widget.movieType!, reset: true);
-              } else if (widget.movieId != null) {
-                cubit.getSimilarMovies(movieId: widget.movieId!, reset: true);
-              }
-            }
-          }
+          seeAllElementsChecker(state, context);
         },
         builder: (context, networkState) {
+          final categoryMoviesState = context.watch<SeeAllMoviesCubit>().state;
           final isDisconnected = networkState.maybeWhen(
             disconnected: () => true,
             orElse: () => false,
           );
-
-          final categoryMoviesState = context.watch<SeeAllMoviesCubit>().state;
 
           // 🟢 1- لو النت قاطع ومافيش أي بيانات قبل كده
           if (isDisconnected && categoryMoviesState is Idle) {
@@ -190,6 +179,19 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
         },
       ),
     );
+  }
+
+  void seeAllElementsChecker(NetworkState state, BuildContext context) {
+    if (state is Connected) {
+      final cubit = context.read<SeeAllMoviesCubit>();
+      if (cubit.state is Idle || cubit.state is Error) {
+        if (widget.movieType != null) {
+          cubit.getSeeAllMovies(movieType: widget.movieType!, reset: true);
+        } else if (widget.movieId != null) {
+          cubit.getSimilarMovies(movieId: widget.movieId!, reset: true);
+        }
+      }
+    }
   }
 
   Widget _buildMoviesList(List<ResultEntity> movies,

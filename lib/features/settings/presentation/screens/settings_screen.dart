@@ -55,7 +55,6 @@ class SettingsScreen extends StatelessWidget {
             S.of(context).settings,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontFamily: 'Poppins',
             ),
           ),
           backgroundColor: Colors.transparent,

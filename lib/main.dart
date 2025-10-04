@@ -28,8 +28,12 @@ void main() async {
   await setupMoviesInjection();
   final locale = getIt<SharedPreferences>().getString('locale');
   final theme = getIt<SharedPreferences>().getString('theme');
-  getIt<ThemeCubit>().changeTheme(
-      theme == ThemeMode.dark.toString() ? ThemeMode.dark : ThemeMode.light);
+  final themeMode = theme == ThemeMode.dark.toString()
+      ? ThemeMode.dark
+      : theme == ThemeMode.light.toString()
+          ? ThemeMode.light
+          : ThemeMode.dark;
+  getIt<ThemeCubit>().changeTheme(themeMode);
   getIt<LocaleCubit>().changeLocale(Locale(locale ?? 'en'));
   runApp(DevicePreview(enabled: true, builder: (context) => const MyApp()));
 }
@@ -73,9 +77,11 @@ class _MyAppState extends State<MyApp> {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: const [Locale('en'), Locale('ar')],
-                theme: ThemeData(fontFamily: 'Poppins'),
+                theme: ThemeData(
+                    fontFamily:
+                        locale.languageCode == 'en' ? 'Poppins' : 'Cairo'),
                 darkTheme: ThemeData(
-                  fontFamily: 'Poppins',
+                  fontFamily: locale.languageCode == 'en' ? 'Poppins' : 'Cairo',
                   brightness: Brightness.dark,
                 ),
                 debugShowCheckedModeBanner: false,

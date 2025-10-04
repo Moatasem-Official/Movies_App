@@ -77,6 +77,11 @@ flutter:
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
 
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+
+
 flutter_intl:
   enabled: true
   arb_dir: lib/l10n

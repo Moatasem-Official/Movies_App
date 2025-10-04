@@ -144,37 +144,15 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
               );
             },
             builder: (context, state) {
-              final isDisconnected = state.maybeWhen(
-                disconnected: () => true,
-                orElse: () => false,
-              );
-
-              // نجيب حالة Cubit بتاع تفاصيل الفيلم
               final moviesSearchState =
                   context.watch<MoviesSearchCubit>().state;
+              final internetWidget = checkSearchAllMoviesInternetConnection(
+                moviesSearchState,
+                state,
+              );
 
-              // لو مفيش نت && مفيش أي بيانات في الكيوبت
-              if (isDisconnected && moviesSearchState is Loading) {
-                return const CustomNoInternetWidget();
-              }
-
-              // 🟢 2- لو النت قاطع واليوزر بيبحث لأول مرة
-              if (isDisconnected &&
-                  _isSearching &&
-                  moviesSearchState is Loading) {
-                return const CustomNoInternetWidget();
-              }
-
-              // 🟢 3- لو النت قاطع أثناء pagination → متعرضش NoInternet كامل، خليك على اللي موجود
-              if (isDisconnected &&
-                  _isLoadingMore &&
-                  moviesSearchState is Paginated) {
-                return CustomSearchMoviesGridResult(
-                  movies: (moviesSearchState as Paginated).movies,
-                  fadeAnimation: _animationController,
-                  scrollController: _scrollController,
-                  showLoading: false, // ماتعرضش لودنج تحت
-                );
+              if (internetWidget is! SizedBox) {
+                return internetWidget;
               }
 
               return BlocBuilder<MoviesSearchCubit,
@@ -219,5 +197,36 @@ class _SearchAllMoviesScreenState extends State<SearchAllMoviesScreen>
             },
           ),
         ));
+  }
+
+  Widget checkSearchAllMoviesInternetConnection(
+      MoviesModuleStates<List<ResultEntity>> moviesSearchState,
+      NetworkState state) {
+    final isDisconnected = state.maybeWhen(
+      disconnected: () => true,
+      orElse: () => false,
+    );
+
+    // لو مفيش نت && مفيش أي بيانات في الكيوبت
+    if (isDisconnected && moviesSearchState is Loading) {
+      return const CustomNoInternetWidget();
+    }
+
+    // 🟢 2- لو النت قاطع واليوزر بيبحث لأول مرة
+    if (isDisconnected && _isSearching && moviesSearchState is Loading) {
+      return const CustomNoInternetWidget();
+    }
+
+    // 🟢 3- لو النت قاطع أثناء pagination → متعرضش NoInternet كامل، خليك على اللي موجود
+    if (isDisconnected && _isLoadingMore && moviesSearchState is Paginated) {
+      return CustomSearchMoviesGridResult(
+        movies: (moviesSearchState as Paginated).movies,
+        fadeAnimation: _animationController,
+        scrollController: _scrollController,
+        showLoading: false, // ماتعرضش لودنج تحت
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 }

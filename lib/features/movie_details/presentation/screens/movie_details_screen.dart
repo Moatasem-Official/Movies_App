@@ -47,8 +47,12 @@ class MovieDetailsScreen extends StatelessWidget {
         );
       }, builder: (context, networkState) {
         final movieDetailsState = context.watch<MovieDetailsCubit>().state;
-        checkMovieDetailsScreenInternetConnection(
+        final internetWidget = checkMovieDetailsScreenInternetConnection(
             networkState, movieDetailsState);
+
+        if (internetWidget is! SizedBox) {
+          return internetWidget;
+        }
 
         return CustomScrollView(
           slivers: [

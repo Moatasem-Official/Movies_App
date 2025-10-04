@@ -9,8 +9,13 @@ class ThemeCubit extends Cubit<ThemeMode> {
 
   static ThemeMode _getThemeFromPrefs(SharedPreferences prefs) {
     final themeString = prefs.getString('theme');
-    if (themeString == ThemeMode.dark.toString()) return ThemeMode.dark;
-    return ThemeMode.light;
+    if (themeString == ThemeMode.dark.toString()) {
+      return ThemeMode.dark;
+    } else if (themeString == ThemeMode.light.toString()) {
+      return ThemeMode.light;
+    } else {
+      return ThemeMode.dark;
+    }
   }
 
   void changeTheme(ThemeMode theme) {
