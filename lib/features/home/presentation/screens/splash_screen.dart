@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_app/core/utils/app_router.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -52,45 +51,32 @@ class _SplashScreenState extends State<SplashScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.string(
-                  '''
-                  <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" stroke="#FF5722" stroke-width="2"/>
-                    <path d="M12 2V12L18 6" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 12L18 18" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 12L6 18" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 12L6 6" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="12" cy="12" r="2" fill="#FF5722"/>
-                  </svg>
-                  ''',
-                  width: 100,
-                  height: 100,
-                ),
-                const SizedBox(height: 24.0),
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(
-                      colors: [
-                        Color.fromARGB(255, 20, 49, 96),
-                        Color.fromARGB(255, 51, 57, 95)
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ).createShader(bounds);
-                  },
-                  child: const Text(
-                    'Movify',
-                    style: TextStyle(
-                      fontSize: 48.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                Stack(
+                  alignment: Alignment.center,
+                  clipBehavior: Clip.none,
+                  children: [
+                    Image.asset(
+                        'assets/logo/Grey_Orange_Minimalist_Film_Production_Logo-removebg-preview.png',
+                        fit: BoxFit.contain, frameBuilder:
+                            (context, child, frame, wasSynchronouslyLoaded) {
+                      if (wasSynchronouslyLoaded) {
+                        return child;
+                      } else {
+                        return AnimatedOpacity(
+                          opacity: frame == null ? 0.0 : 1.0,
+                          duration: const Duration(milliseconds: 500),
+                          child: child,
+                        );
+                      }
+                    }),
+                    const Positioned(
+                      bottom: 100,
+                      child: Text(
+                        'Discover Movies & TV Shows',
+                        style: TextStyle(fontSize: 16.0, color: Colors.white70),
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 8.0),
-                const Text(
-                  'Discover Movies & TV Shows',
-                  style: TextStyle(fontSize: 16.0, color: Colors.white70),
+                  ],
                 ),
               ],
             ),
