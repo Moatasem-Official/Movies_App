@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -35,7 +36,8 @@ void main() async {
           : ThemeMode.dark;
   getIt<ThemeCubit>().changeTheme(themeMode);
   getIt<LocaleCubit>().changeLocale(Locale(locale ?? 'en'));
-  runApp(DevicePreview(enabled: true, builder: (context) => const MyApp()));
+  runApp(DevicePreview(
+      enabled: kDebugMode ? true : false, builder: (context) => const MyApp()));
 }
 
 class MyApp extends StatefulWidget {

@@ -48,12 +48,14 @@ class DiscoverMoviesScreen extends StatelessWidget {
                   loading: () => _buildLoadingState(isDisconnected),
 
                   /// 🔴 عند الخطأ
-                  error: (failure) => Center(
-                    child: Text(
-                      failure.message,
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  ),
+                  error: (failure) {
+                    if (failure.message == "No Internet and No Cached Data") {
+                      return const CustomNoInternetWidget();
+                    }
+                    return Center(
+                        child: Text(failure.message,
+                            style: const TextStyle(color: Colors.red)));
+                  },
 
                   /// ✅ عند تحميل البيانات
                   loaded: (moviesCategories) =>
