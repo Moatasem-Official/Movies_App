@@ -10,9 +10,28 @@ class NetworkCubit extends Cubit<NetworkState> {
   StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
 
   NetworkCubit() : super(const NetworkState.disconnected()) {
-    _init();
+    _initialize();
+  }
 
-    // متابعة الاتصال بالإنترنت
+  Future<void> _initialize() async {
+    // ✅ نضيف تأخير بسيط لضمان استقرار الاتصالات أول التشغيل
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    // ✅ تحقق فعلي من الحالة الحالية قبل أي listeners
+    final connectivityResult = await Connectivity().checkConnectivity();
+    final type = connectivityResult.isNotEmpty
+        ? _mapConnectivityToType(connectivityResult.first)
+        : "none";
+
+    final hasInternet = await InternetConnection().hasInternetAccess;
+
+    if (hasInternet && type != "none") {
+      emit(NetworkState.connected(type));
+    } else {
+      emit(const NetworkState.disconnected());
+    }
+
+    // ✅ بعد معرفة الحالة الحقيقية، نبدأ نتابع التغييرات
     _internetSub = InternetConnection().onStatusChange.listen((status) async {
       final connectivityResult = await Connectivity().checkConnectivity();
       final type = connectivityResult.isNotEmpty
@@ -26,7 +45,6 @@ class NetworkCubit extends Cubit<NetworkState> {
       }
     });
 
-    // متابعة نوع الاتصال (wifi / mobile)
     _connectivitySub =
         Connectivity().onConnectivityChanged.listen((connectivityResults) {
       final type = connectivityResults.isNotEmpty
@@ -37,21 +55,6 @@ class NetworkCubit extends Cubit<NetworkState> {
         emit(NetworkState.connected(type));
       }
     });
-  }
-
-  Future<void> _init() async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    final type = connectivityResult.isNotEmpty
-        ? _mapConnectivityToType(connectivityResult.first)
-        : "none";
-
-    final status = await InternetConnection().hasInternetAccess;
-
-    if (status && type != "none") {
-      emit(NetworkState.connected(type));
-    } else {
-      emit(const NetworkState.disconnected());
-    }
   }
 
   static String _mapConnectivityToType(ConnectivityResult result) {
@@ -72,9 +75,18 @@ class NetworkCubit extends Cubit<NetworkState> {
     return super.close();
   }
 
-  void checkNetwork() {
-    if (state is Connected) {
-      emit(NetworkState.connected((state as Connected).connectionType));
+  Future<void> checkNetwork() async {
+    final connectivityResult = await Connectivity().checkConnectivity();
+    final type = connectivityResult.isNotEmpty
+        ? _mapConnectivityToType(connectivityResult.first)
+        : "none";
+
+    final hasInternet = await InternetConnection().hasInternetAccess;
+
+    if (hasInternet && type != "none") {
+      emit(NetworkState.connected(type));
+    } else {
+      emit(const NetworkState.disconnected());
     }
   }
 }

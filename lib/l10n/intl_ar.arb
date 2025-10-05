@@ -1,10 +1,11 @@
 {
   "@@locale": "ar",
-  "connectedToInternet": "متصل بالانترنت",
+  "connectedToInternet": "أنت الآن متصل بالانترنت",
   "noInternetConnection": "لا يوجد اتصال بالانترنت",
   "exit": "خروج",
   "tryAgain": "حاول مجددًا",
   "nowPlaying": "يُعرض الآن",
+  "nowPlayingMovies": "الافلام التي تُعرض الان",
   "popularMovies": "الأفلام الأكثر شهرة",
   "seeAll": "عرض الكل",
   "topRatedMovies": "الأفلام الأكثر تقييمًا",

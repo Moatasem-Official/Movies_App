@@ -10,6 +10,7 @@ import 'package:movies_app/features/home/presentation/widgets/movies_home_screen
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/core/errors/failure.dart';
 import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import 'package:movies_app/generated/l10n.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
@@ -47,7 +48,7 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
                         context,
                         AppRouter.seeAllElementsListScreen,
                         arguments: {
-                          "title": "Now Playing Movies",
+                          "title": S.of(context).nowPlayingMovies,
                           "movie_type": "now_playing",
                         },
                       ),
@@ -76,7 +77,8 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
                                     errorWidget: (context, url, error) =>
                                         const Icon(
                                       Icons.tv_rounded,
-                                      color: Color.fromARGB(255, 55, 56, 72),
+                                      size: 100,
+                                      color: Color.fromARGB(255, 36, 43, 145),
                                     ),
                                     fit: BoxFit.cover,
                                     width: double.infinity,

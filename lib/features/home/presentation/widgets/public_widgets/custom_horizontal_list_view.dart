@@ -97,7 +97,8 @@ class CustomHorizontalListView<
                                       '${AppConstants.imagePathUrl}${movies[index].posterPath}',
                                       errorListener: (_) => const Icon(
                                         Icons.tv_rounded,
-                                        color: Color.fromARGB(255, 55, 56, 72),
+                                        size: 100,
+                                        color: Color.fromARGB(255, 36, 43, 145),
                                       ),
                                     ),
                                     fit: BoxFit.cover,
