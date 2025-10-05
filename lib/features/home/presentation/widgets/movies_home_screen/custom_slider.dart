@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,8 +70,14 @@ class CustomSlider<C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
                                     ).createShader(rect);
                                   },
                                   blendMode: BlendMode.dstIn,
-                                  child: Image.network(
-                                    '${AppConstants.imagePathUrl}${movies[itemIndex].backdropPath}',
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        '${AppConstants.imagePathUrl}${movies[itemIndex].backdropPath}',
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(
+                                      Icons.tv_rounded,
+                                      color: Color.fromARGB(255, 55, 56, 72),
+                                    ),
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     height: 400,

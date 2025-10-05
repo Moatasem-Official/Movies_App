@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
@@ -40,7 +41,8 @@ class CustomActorDetailsDialog extends StatelessWidget {
                 ),
                 child: ClipOval(
                   child: imageUrl != null
-                      ? Image.network(imageUrl, fit: BoxFit.cover)
+                      ? CachedNetworkImage(
+                          imageUrl: imageUrl, fit: BoxFit.cover)
                       : _buildPlaceholder(),
                 ),
               ),

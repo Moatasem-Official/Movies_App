@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
@@ -48,15 +49,15 @@ class CustomCastCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: imageUrl != null
-                    ? Image.network(
-                        imageUrl,
+                    ? CachedNetworkImage(
+                        imageUrl: imageUrl,
                         fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
+                        progressIndicatorBuilder:
+                            (context, child, loadingProgress) {
                           return const Center(
                               child: CircularProgressIndicator(strokeWidth: 2));
                         },
-                        errorBuilder: (context, error, stackTrace) =>
+                        errorWidget: (context, error, stackTrace) =>
                             _buildPlaceholder(),
                       )
                     : _buildPlaceholder(),

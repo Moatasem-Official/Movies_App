@@ -120,4 +120,80 @@ class HomeFeatureDataRepo implements HomeFeatureDomainRepo {
       return Left(FailureMapper.mapExceptionToFailure(exception));
     }
   }
+
+  @override
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedNowPlayingMovies() async {
+    final cached = await homeLocalDataSource
+        .getNowPlayingMovies(AppConstants.kNowPlayingMoviesBoxName);
+
+    if (cached.isNotEmpty) {
+      return Right(
+        DisplayDifferentMoviesTypesEntity(
+          page: 1,
+          dates: null,
+          results: cached,
+        ),
+      );
+    } else {
+      return const Left(CacheFailure('No cached Now Playing movies found.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedPopularMovies() async {
+    final cached = await homeLocalDataSource
+        .getPopularMovies(AppConstants.kPopularMoviesBoxName);
+
+    if (cached.isNotEmpty) {
+      return Right(
+        DisplayDifferentMoviesTypesEntity(
+          page: 1,
+          dates: null,
+          results: cached,
+        ),
+      );
+    } else {
+      return const Left(CacheFailure('No cached Popular movies found.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedTopRatedMovies() async {
+    final cached = await homeLocalDataSource
+        .getTopRatedMovies(AppConstants.kTopRatedMoviesBoxName);
+
+    if (cached.isNotEmpty) {
+      return Right(
+        DisplayDifferentMoviesTypesEntity(
+          page: 1,
+          dates: null,
+          results: cached,
+        ),
+      );
+    } else {
+      return const Left(CacheFailure('No cached Top Rated movies found.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedUpcomingMovies() async {
+    final cached = await homeLocalDataSource
+        .getUpcomingMovies(AppConstants.kUpcomingMoviesBoxName);
+
+    if (cached.isNotEmpty) {
+      return Right(
+        DisplayDifferentMoviesTypesEntity(
+          page: 1,
+          dates: null,
+          results: cached,
+        ),
+      );
+    } else {
+      return const Left(CacheFailure('No cached Upcoming movies found.'));
+    }
+  }
 }

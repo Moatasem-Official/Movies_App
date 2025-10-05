@@ -17,6 +17,10 @@ import 'package:movies_app/features/home/data/datasource/home_local_data_source_
 import 'package:movies_app/features/home/data/datasource/home_remote_data_source.dart';
 import 'package:movies_app/features/home/data/repository/home_feature_data_repo.dart';
 import 'package:movies_app/features/home/domain/repository/home_feature_domain_repo.dart';
+import 'package:movies_app/features/home/domain/usecases/Movies_Home_Screen/get_now_playing_cached_movies_use_case.dart';
+import 'package:movies_app/features/home/domain/usecases/Movies_Home_Screen/get_popular_cached_movies_use_case.dart';
+import 'package:movies_app/features/home/domain/usecases/Movies_Home_Screen/get_top_rated_cached_movies_use_case.dart';
+import 'package:movies_app/features/home/domain/usecases/Movies_Home_Screen/get_upcomming__cached_movies_use_case.dart';
 import 'package:movies_app/features/movie_details/data/datasource/movie_details_remote_data_source.dart';
 import 'package:movies_app/features/movie_details/data/repository/movie_details_feature_data_repo.dart';
 import 'package:movies_app/features/movie_details/domain/repository/movie_details_feature_domain_repo.dart';
@@ -224,20 +228,44 @@ Future<void> setupMoviesInjection() async {
             seeAllFeatureDomainRepo: getIt<SeeAllFeatureDomainRepo>(),
           ));
 
+  getIt.registerLazySingleton<GetNowPlayingCachedMoviesUseCase>(
+      () => GetNowPlayingCachedMoviesUseCase(
+            getIt<HomeFeatureDomainRepo>(),
+          ));
+
+  getIt.registerLazySingleton<GetTopRatedCachedMoviesUseCase>(
+      () => GetTopRatedCachedMoviesUseCase(
+            homeFeatureDomainRepo: getIt<HomeFeatureDomainRepo>(),
+          ));
+
+  getIt.registerLazySingleton<GetPopularCachedMoviesUseCase>(
+      () => GetPopularCachedMoviesUseCase(
+            homeFeatureDomainRepo: getIt<HomeFeatureDomainRepo>(),
+          ));
+
+  getIt.registerLazySingleton<GetUpcommingCachedMoviesUseCase>(
+      () => GetUpcommingCachedMoviesUseCase(
+            getIt<HomeFeatureDomainRepo>(),
+          ));
+
   getIt.registerFactory<NowPlayingMoviesCubit>(
-    () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>()),
+    () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>(),
+        getIt<GetNowPlayingCachedMoviesUseCase>()),
   );
 
   getIt.registerFactory<TopRatedMoviesCubit>(
-    () => TopRatedMoviesCubit(getIt<GetTopRatedMoviesUseCase>()),
+    () => TopRatedMoviesCubit(getIt<GetTopRatedMoviesUseCase>(),
+        getIt<GetTopRatedCachedMoviesUseCase>()),
   );
 
   getIt.registerFactory<PopularMoviesCubit>(
-    () => PopularMoviesCubit(getIt<GetPopularMoviesUseCase>()),
+    () => PopularMoviesCubit(getIt<GetPopularMoviesUseCase>(),
+        getIt<GetPopularCachedMoviesUseCase>()),
   );
 
   getIt.registerFactory<UpcommingMoviesCubit>(
-    () => UpcommingMoviesCubit(getIt<GetUpcommingMoviesUseCase>()),
+    () => UpcommingMoviesCubit(getIt<GetUpcommingMoviesUseCase>(),
+        getIt<GetUpcommingCachedMoviesUseCase>()),
   );
 
   getIt.registerFactory<SeeAllMoviesCubit>(

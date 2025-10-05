@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_router.dart';
 import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
@@ -24,10 +25,11 @@ class CustomWatchListCard extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              Image.network(
-                '${AppConstants.imagePathUrl}${movie.posterPath}' ?? '',
+              CachedNetworkImage(
+                imageUrl:
+                    '${AppConstants.imagePathUrl}${movie.posterPath}' ?? '',
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => const Center(
+                errorWidget: (context, error, stackTrace) => const Center(
                   child: Icon(Icons.movie, color: Colors.white24, size: 50),
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/base_movie_images_entity.dart';
@@ -30,7 +31,7 @@ class CustomFullScreenMovieImagesViewer extends StatelessWidget {
               final imageUrl = '${AppConstants.imagePathUrl}${image.filePath}';
               final heroTag = '$heroTagPrefix-$index';
               return PhotoViewGalleryPageOptions(
-                imageProvider: NetworkImage(imageUrl),
+                imageProvider: CachedNetworkImageProvider(imageUrl),
                 minScale: PhotoViewComputedScale.contained,
                 maxScale: PhotoViewComputedScale.covered * 2,
                 heroAttributes: PhotoViewHeroAttributes(tag: heroTag),

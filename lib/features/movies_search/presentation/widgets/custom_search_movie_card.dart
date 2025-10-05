@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/utils/app_router.dart';
@@ -25,25 +26,21 @@ class MovieCard extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Image.network(
-              movie.posterPath != null
+            CachedNetworkImage(
+              imageUrl: movie.posterPath != null
                   ? '${AppConstants.imagePathUrl}${movie.posterPath}'
                   : '${AppConstants.imagePathUrl}${movie.backdropPath}',
               fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
+              progressIndicatorBuilder: (context, child, loadingProgress) {
                 return Center(
                   child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
+                    value: loadingProgress.progress,
                     strokeWidth: 2,
                     color: Colors.white,
                   ),
                 );
               },
-              errorBuilder: (context, error, stackTrace) {
+              errorWidget: (context, error, stackTrace) {
                 return const CustomMovieImageErrorWidget();
               },
             ),

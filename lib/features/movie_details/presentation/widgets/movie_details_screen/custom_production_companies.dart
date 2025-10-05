@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
@@ -55,12 +56,13 @@ class CustomProductionCompanies extends StatelessWidget {
                       child: Center(
                         child: logoPath != null && logoPath.isNotEmpty
                             // في حالة وجود شعار
-                            ? Image.network(
-                                '${AppConstants.imagePathUrl}$logoPath',
+                            ? CachedNetworkImage(
+                                imageUrl:
+                                    '${AppConstants.imagePathUrl}$logoPath',
                                 width: 100, // عرض محدد للصورة
                                 fit: BoxFit.contain,
                                 // لإظهار اسم الشركة كحل بديل في حال فشل تحميل الصورة
-                                errorBuilder: (context, error, stackTrace) {
+                                errorWidget: (context, error, stackTrace) {
                                   return Center(
                                     child: Text(
                                       company['name'],

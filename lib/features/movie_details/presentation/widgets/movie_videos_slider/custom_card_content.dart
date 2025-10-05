@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_video_content.dart';
@@ -26,12 +27,13 @@ class CustomCardContent extends StatelessWidget {
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),
               ),
-              child: Image.network(
-                'https://img.youtube.com/vi/${video[index].key}/0.jpg',
+              child: CachedNetworkImage(
+                imageUrl:
+                    'https://img.youtube.com/vi/${video[index].key}/0.jpg',
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
+                errorWidget: (context, error, stackTrace) {
                   return const Center(
                     child: Icon(
                       Icons.error_outline,

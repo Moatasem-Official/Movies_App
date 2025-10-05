@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CustomMovieDetailsSliverAppBar extends StatelessWidget {
@@ -35,10 +36,10 @@ class CustomMovieDetailsSliverAppBar extends StatelessWidget {
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         background: hasImage
-            ? Image.network(
-                '$baseUrl$imagePath',
+            ? CachedNetworkImage(
+                imageUrl: '$baseUrl$imagePath',
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
+                errorWidget: (context, error, stackTrace) {
                   return Container(
                     color: Colors.grey[900],
                     child: const Center(

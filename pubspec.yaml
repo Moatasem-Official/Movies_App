@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.4
+  cached_network_image: ^3.4.1
   carousel_slider: ^5.1.1
   connectivity_plus: ^7.0.0
   cupertino_icons: ^1.0.8
@@ -94,4 +95,3 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/logo/Grey Orange Minimalist Film Production Logo_2.png"
   min_sdk_android: 21
-

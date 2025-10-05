@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
@@ -51,18 +52,17 @@ class CustomMovieImagesGrid extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Image.network(
-                  imageUrl,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
                   fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
+                  progressIndicatorBuilder: (context, child, loadingProgress) {
                     return Shimmer.fromColors(
                       baseColor: Colors.grey.shade800,
                       highlightColor: Colors.grey.shade700,
                       child: Container(color: Colors.black),
                     );
                   },
-                  errorBuilder: (context, error, stackTrace) =>
+                  errorWidget: (context, error, stackTrace) =>
                       const Center(child: Icon(Icons.error, color: Colors.red)),
                 ),
               ),

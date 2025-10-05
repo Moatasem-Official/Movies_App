@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/entities/movie_videos_entity.dart';
 
@@ -17,8 +18,12 @@ class CustomThumbnail extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
-            child: Image.network(
-              'https://img.youtube.com/vi/${video.key}/0.jpg',
+            child: CachedNetworkImage(
+              imageUrl: 'https://img.youtube.com/vi/${video.key}/0.jpg',
+              errorWidget: (context, url, error) => const Icon(
+                Icons.video_library_outlined,
+                color: Color.fromARGB(255, 55, 56, 72),
+              ),
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,

@@ -185,23 +185,15 @@ class MoviesHomeScreen extends StatelessWidget {
       orElse: () => false,
     );
 
-    if (isDisconnected &&
-        nowPlayingState is Idle &&
-        upcommingState is Idle &&
-        popularState is Idle &&
-        topRatedState is Idle) {
-      return const CustomNoInternetWidget();
-    }
-
-    bool isCubitEmptyOrError(MoviesModuleStates state) {
-      return state is Idle || state is Error;
-    }
+    // ✅ لو مفيش نت والكاش فاضي لكل الـ cubits
+    bool isAllEmptyOrIdle(MoviesModuleStates s) =>
+        s is Idle || s is Error || (s is Loaded && s.movies.isEmpty);
 
     if (isDisconnected &&
-        isCubitEmptyOrError(nowPlayingState) &&
-        isCubitEmptyOrError(upcommingState) &&
-        isCubitEmptyOrError(popularState) &&
-        isCubitEmptyOrError(topRatedState)) {
+        isAllEmptyOrIdle(nowPlayingState) &&
+        isAllEmptyOrIdle(upcommingState) &&
+        isAllEmptyOrIdle(popularState) &&
+        isAllEmptyOrIdle(topRatedState)) {
       return const CustomNoInternetWidget();
     }
 

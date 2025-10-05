@@ -16,4 +16,12 @@ abstract class HomeFeatureDomainRepo {
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getUpcomingMovies({
     int page = 1,
   });
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedNowPlayingMovies();
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedPopularMovies();
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedTopRatedMovies();
+  Future<Either<Failure, DisplayDifferentMoviesTypesEntity>>
+      getCachedUpcomingMovies();
 }
