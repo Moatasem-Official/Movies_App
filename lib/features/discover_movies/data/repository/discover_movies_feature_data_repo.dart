@@ -50,4 +50,21 @@ class DiscoverMoviesFeatureDataRepo extends DiscoverMoviesFeatureDomainRepo {
       return Left(FailureMapper.mapExceptionToFailure(exception));
     }
   }
+
+  @override
+  Future<Either<Failure, MoviesCategoriesEntity>>
+      getCachedDiscoverMovies() async {
+    final cached = await discoverMoviesLocalDataSource
+        .getAllMoviesCategories(AppConstants.kDiscoverMoviesCategoriesBoxName);
+
+    if (cached.isNotEmpty) {
+      return Right(
+        MoviesCategoriesEntity(
+          genres: cached,
+        ),
+      );
+    } else {
+      return const Left(CacheFailure('No cached Discover movies found.'));
+    }
+  }
 }

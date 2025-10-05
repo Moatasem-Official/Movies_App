@@ -9,7 +9,6 @@ import 'package:movies_app/features/discover_movies/presentation/widgets/discove
 import 'package:movies_app/features/discover_movies/presentation/widgets/show_and_search_movies_of_category_screen/custom_discover_genre_card.dart';
 import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
 import 'package:movies_app/generated/l10n.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class DiscoverMoviesScreen extends StatelessWidget {
   const DiscoverMoviesScreen({super.key});
@@ -21,6 +20,7 @@ class DiscoverMoviesScreen extends StatelessWidget {
       disconnected: () => true,
       orElse: () => false,
     );
+
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
@@ -41,85 +41,83 @@ class DiscoverMoviesScreen extends StatelessWidget {
         child: BlocBuilder<DiscoverMoviesCubit, MoviesModuleStates>(
           builder: (context, state) {
             return state.whenOrNull(
+                  /// 🟡 الحالة الافتراضية (Idle)
                   idle: () => const SizedBox.shrink(),
-                  loading: () {
-                    if (isDisconnected) {
-                      return FutureBuilder(
-                        future: Future.delayed(const Duration(seconds: 3)),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return const CustomNoInternetWidget();
-                          }
-                          return GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 16.0,
-                              mainAxisSpacing: 16.0,
-                            ),
-                            itemCount: 8,
-                            itemBuilder: (context, index) {
-                              return const SkeletonGenreCard();
-                            },
-                          );
-                        },
-                      );
-                    }
 
-                    return GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 16.0,
-                        mainAxisSpacing: 16.0,
-                      ),
-                      itemCount: 8,
-                      itemBuilder: (context, index) {
-                        return const SkeletonGenreCard();
-                      },
-                    );
-                  },
+                  /// 🟢 أثناء التحميل
+                  loading: () => _buildLoadingState(isDisconnected),
+
+                  /// 🔴 عند الخطأ
                   error: (failure) => Center(
                     child: Text(
                       failure.message,
                       style: const TextStyle(color: Colors.red),
                     ),
                   ),
-                  loaded: (moviesCategories) {
-                    return GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 16.0,
-                        mainAxisSpacing: 16.0,
-                      ),
-                      itemCount: moviesCategories.genres.length,
-                      itemBuilder: (context, index) {
-                        final genreFromApi = moviesCategories.genres[index];
 
-                        final style =
-                            AppConstants.genreDetails[genreFromApi.id];
-
-                        final color =
-                            style?['color'] as Color? ?? Colors.grey.shade800;
-                        final icon =
-                            style?['icon'] as IconData? ?? Icons.movie_rounded;
-
-                        return CustomDiscoverGenreCard(
-                          genreName: getGenreName(context, genreFromApi.name),
-                          genreId: genreFromApi.id,
-                          genreColor: color,
-                          genreIcon: icon,
-                        );
-                      },
-                    );
-                  },
+                  /// ✅ عند تحميل البيانات
+                  loaded: (moviesCategories) =>
+                      _buildGenresGrid(moviesCategories),
                 ) ??
                 const SizedBox.shrink();
           },
         ),
       ),
+    );
+  }
+
+  /// 🟢 ويدجت التحميل (Skeleton أو No Internet بعد تأخير)
+  Widget _buildLoadingState(bool isDisconnected) {
+    if (isDisconnected) {
+      return FutureBuilder(
+        future: Future.delayed(const Duration(seconds: 3)),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return const CustomNoInternetWidget();
+          }
+          return _buildSkeletonGrid();
+        },
+      );
+    }
+    return _buildSkeletonGrid();
+  }
+
+  /// 🟢 ويدجت الشبكة السكلتونية أثناء التحميل
+  Widget _buildSkeletonGrid() {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16.0,
+        mainAxisSpacing: 16.0,
+      ),
+      itemCount: 8,
+      itemBuilder: (context, index) => const SkeletonGenreCard(),
+    );
+  }
+
+  /// ✅ ويدجت عرض التصنيفات بعد التحميل
+  Widget _buildGenresGrid(dynamic moviesCategories) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16.0,
+        mainAxisSpacing: 16.0,
+      ),
+      itemCount: moviesCategories.genres.length,
+      itemBuilder: (context, index) {
+        final genreFromApi = moviesCategories.genres[index];
+        final style = AppConstants.genreDetails[genreFromApi.id];
+
+        final color = style?['color'] as Color? ?? Colors.grey.shade800;
+        final icon = style?['icon'] as IconData? ?? Icons.movie_rounded;
+
+        return CustomDiscoverGenreCard(
+          genreName: getGenreName(context, genreFromApi.name),
+          genreId: genreFromApi.id,
+          genreColor: color,
+          genreIcon: icon,
+        );
+      },
     );
   }
 }

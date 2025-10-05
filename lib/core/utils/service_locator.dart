@@ -8,6 +8,7 @@ import 'package:movies_app/features/discover_movies/data/datasource/discover_mov
 import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_remote_data_source.dart';
 import 'package:movies_app/features/discover_movies/data/repository/discover_movies_feature_data_repo.dart';
 import 'package:movies_app/features/discover_movies/domain/repository/discover_movies_feature_domain_repo.dart';
+import 'package:movies_app/features/discover_movies/domain/usecases/get_cached_discover_movies_use_case.dart';
 import 'package:movies_app/features/discover_movies/domain/usecases/get_category_movies_use_case.dart';
 import 'package:movies_app/features/discover_movies/domain/usecases/get_discover_movies_use_case.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/category_movies_cubit.dart';
@@ -248,6 +249,11 @@ Future<void> setupMoviesInjection() async {
             getIt<HomeFeatureDomainRepo>(),
           ));
 
+  getIt.registerLazySingleton<GetCachedDiscoverMoviesUseCase>(
+      () => GetCachedDiscoverMoviesUseCase(
+            getIt<DiscoverMoviesFeatureDomainRepo>(),
+          ));
+
   getIt.registerFactory<NowPlayingMoviesCubit>(
     () => NowPlayingMoviesCubit(getIt<GetNowPlayingMoviesUseCase>(),
         getIt<GetNowPlayingCachedMoviesUseCase>()),
@@ -312,7 +318,8 @@ Future<void> setupMoviesInjection() async {
   );
 
   getIt.registerFactory<DiscoverMoviesCubit>(
-    () => DiscoverMoviesCubit(getIt<GetDiscoverMoviesUseCase>()),
+    () => DiscoverMoviesCubit(getIt<GetDiscoverMoviesUseCase>(),
+        getIt<GetCachedDiscoverMoviesUseCase>()),
   );
 
   getIt.registerFactory<CategoryMoviesCubit>(

@@ -5,6 +5,7 @@ import 'package:movies_app/features/discover_movies/domain/entities/movies_categ
 
 abstract class DiscoverMoviesFeatureDomainRepo {
   Future<Either<Failure, MoviesCategoriesEntity>> getDiscoverMovies();
+  Future<Either<Failure, MoviesCategoriesEntity>> getCachedDiscoverMovies();
   Future<Either<Failure, DisplayDifferentMoviesTypesEntity>> getcategoryMovies(
       {required int genreId, int page = 1});
 }
