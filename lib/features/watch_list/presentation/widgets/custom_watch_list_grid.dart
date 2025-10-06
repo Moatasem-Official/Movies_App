@@ -18,7 +18,11 @@ class CustomWatchListGrid extends StatelessWidget {
             child: Center(child: CustomEmptyWatchListWidget()),
           ),
           getListLoading: () => const SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(
+                child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: Colors.white,
+            )),
           ),
           getListSuccess: (result) {
             if (result.isEmpty) {

@@ -55,7 +55,8 @@ class CustomCastCard extends StatelessWidget {
                         progressIndicatorBuilder:
                             (context, child, loadingProgress) {
                           return const Center(
-                              child: CircularProgressIndicator(strokeWidth: 2));
+                              child: CircularProgressIndicator(
+                                  strokeWidth: 2, color: Colors.white));
                         },
                         errorWidget: (context, error, stackTrace) =>
                             _buildPlaceholder(),

@@ -38,7 +38,10 @@ class CustomFullScreenMovieImagesViewer extends StatelessWidget {
               );
             },
             loadingBuilder: (context, event) => const Center(
-              child: CircularProgressIndicator(color: Colors.white),
+              child: CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 2,
+              ),
             ),
           ),
           Positioned(

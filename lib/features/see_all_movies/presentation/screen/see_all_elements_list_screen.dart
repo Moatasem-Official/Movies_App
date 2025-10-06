@@ -140,8 +140,11 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
               },
               builder: (context, state) {
                 return state.whenOrNull(
-                      idle: () =>
-                          const Center(child: CircularProgressIndicator()),
+                      idle: () => const Center(
+                          child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      )),
                       // 🟡 لو النت قطع أثناء التحميل
                       loading: () {
                         if (isDisconnected) {
