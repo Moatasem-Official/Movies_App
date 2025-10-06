@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
+import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
 import '../../../../../core/entities/display_different_movies_types_entity.dart';
 import '../../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
 import '../../../../../core/utils/app_router.dart';
@@ -14,135 +17,185 @@ class CustomHorizontalListView<
         C extends Cubit<MoviesModuleStates<List<ResultEntity>>>>
     extends StatelessWidget {
   final C cubit;
-  const CustomHorizontalListView({super.key, required this.cubit});
+  final void Function() whenConnectedFunction;
+  final MoviesModuleStates moviesState;
+  const CustomHorizontalListView(
+      {super.key,
+      required this.cubit,
+      required this.whenConnectedFunction,
+      required this.moviesState});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<C, MoviesModuleStates<List<ResultEntity>>>(
-      bloc: cubit,
+    return BlocConsumer<NetworkCubit, NetworkState>(
+      listener: (context, state) {
+        state.maybeWhen(
+            connected: (connectionType) =>
+                connectedToInternetRefreshMethod(context),
+            orElse: () {});
+      },
       builder: (context, state) {
-        return state.whenOrNull(
-              idle: () => const Center(child: CircularProgressIndicator()),
-              loading: () {
-                return Skeletonizer(
-                  enabled: true,
-                  child: SizedBox(
-                    height: 200,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return Stack(
-                          children: [
-                            // البوستر placeholder
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Bone(
-                                width: 150,
-                                height: 200,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            // الدايرة placeholder فوق البوستر
-                            const Positioned(
-                              top: 5,
-                              left: 15,
-                              child: HomeBone.circle(
-                                size: 40,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                );
-              },
-              loaded: (List<ResultEntity> movies) {
-                return SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: movies.length,
-                    itemBuilder: (context, index) {
-                      final watchlistCubit =
-                          context.watch<AddMovieToWatchListAsLocalDataCubit>();
-                      final isMovieInWatchList =
-                          watchlistCubit.isMovieInWatchList(movies[index].id);
-                      return GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          AppRouter.movieDetailsScreen,
-                          arguments: {
-                            "resultEntity": movies[index],
-                            "id": movies[index].id,
+        final isDisconnected = state.maybeWhen(
+          disconnected: () => true,
+          orElse: () => false,
+        );
+        checkHomeScreenInternetConnection(moviesState, state);
+        return BlocBuilder<C, MoviesModuleStates<List<ResultEntity>>>(
+          bloc: cubit,
+          builder: (context, state) {
+            return state.whenOrNull(
+                  idle: () {
+                    if (isDisconnected) {
+                      return const CustomNoInternetWidget();
+                    }
+                    return null;
+                  },
+                  loading: () {
+                    return Skeletonizer(
+                      enabled: true,
+                      child: SizedBox(
+                        height: 200,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return Stack(
+                              children: [
+                                // البوستر placeholder
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Bone(
+                                    width: 150,
+                                    height: 200,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                // الدايرة placeholder فوق البوستر
+                                const Positioned(
+                                  top: 5,
+                                  left: 15,
+                                  child: HomeBone.circle(
+                                    size: 40,
+                                  ),
+                                ),
+                              ],
+                            );
                           },
                         ),
-                        child: Stack(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              child: Container(
-                                width: 150,
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                    image: CachedNetworkImageProvider(
-                                      '${AppConstants.imagePathUrl}${movies[index].posterPath}',
-                                      errorListener: (_) => const Icon(
-                                        Icons.tv_rounded,
-                                        size: 100,
-                                        color: Color.fromARGB(255, 36, 43, 145),
+                      ),
+                    );
+                  },
+                  loaded: (List<ResultEntity> movies) {
+                    return SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: movies.length,
+                        itemBuilder: (context, index) {
+                          final watchlistCubit = context
+                              .watch<AddMovieToWatchListAsLocalDataCubit>();
+                          final isMovieInWatchList = watchlistCubit
+                              .isMovieInWatchList(movies[index].id);
+                          return GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              AppRouter.movieDetailsScreen,
+                              arguments: {
+                                "resultEntity": movies[index],
+                                "id": movies[index].id,
+                              },
+                            ),
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: Container(
+                                    width: 150,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: CachedNetworkImageProvider(
+                                          '${AppConstants.imagePathUrl}${movies[index].posterPath}',
+                                          errorListener: (_) => const Icon(
+                                            Icons.tv_rounded,
+                                            size: 100,
+                                            color: Color.fromARGB(
+                                                255, 36, 43, 145),
+                                          ),
+                                        ),
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 5,
-                              left: 15,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black54.withAlpha(150),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: IconButton(
-                                  onPressed: () {
-                                    context
-                                        .read<
-                                            AddMovieToWatchListAsLocalDataCubit>()
-                                        .toggleMovieInWatchList(movies[index]);
-                                  },
-                                  icon: Icon(
-                                    isMovieInWatchList
-                                        ? Icons.bookmark_rounded
-                                        : Icons.bookmark_border_rounded,
-                                    color: Colors.white,
+                                Positioned(
+                                  top: 5,
+                                  left: 15,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.black54.withAlpha(150),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        context
+                                            .read<
+                                                AddMovieToWatchListAsLocalDataCubit>()
+                                            .toggleMovieInWatchList(
+                                                movies[index]);
+                                      },
+                                      icon: Icon(
+                                        isMovieInWatchList
+                                            ? Icons.bookmark_rounded
+                                            : Icons.bookmark_border_rounded,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
-              error: (Failure failure) {
-                return Center(child: Text(failure.message));
-              },
-            ) ??
-            const SizedBox.shrink();
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  error: (Failure failure) {
+                    return Center(child: Text(failure.message));
+                  },
+                ) ??
+                const SizedBox.shrink();
+          },
+        );
       },
     );
+  }
+
+  void connectedToInternetRefreshMethod(BuildContext context) {
+    whenConnectedFunction();
+  }
+
+  Widget checkHomeScreenInternetConnection(
+      MoviesModuleStates moviesModuleStates, NetworkState state) {
+    final isDisconnected = state.maybeWhen(
+      disconnected: () => true,
+      orElse: () => false,
+    );
+
+    // ✅ لو مفيش نت والكاش فاضي لكل الـ cubits
+    bool isAllEmptyOrIdle(MoviesModuleStates s) =>
+        s is Idle || s is Error || (s is Loaded && s.movies.isEmpty);
+
+    if (isDisconnected && isAllEmptyOrIdle(moviesModuleStates)) {
+      return const CustomNoInternetWidget();
+    }
+
+    return const SizedBox.shrink();
   }
 }
