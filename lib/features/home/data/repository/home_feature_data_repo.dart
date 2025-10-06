@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/home/data/datasource/home_local_data_source.dart';
-import 'package:movies_app/features/home/data/datasource/home_remote_data_source.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/features/home/domain/repository/home_feature_domain_repo.dart';
-import 'package:movies_app/core/errors/exceptions/failure_mapper.dart';
-import 'package:movies_app/core/errors/exceptions/network_exception.dart';
-import 'package:movies_app/core/errors/failure.dart';
+import '../../../../core/utils/app_constants.dart';
+import '../datasource/home_local_data_source.dart';
+import '../datasource/home_remote_data_source.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../domain/repository/home_feature_domain_repo.dart';
+import '../../../../core/errors/exceptions/failure_mapper.dart';
+import '../../../../core/errors/exceptions/network_exception.dart';
+import '../../../../core/errors/failure.dart';
 
 class HomeFeatureDataRepo implements HomeFeatureDomainRepo {
   final HomeRemoteDataSource homeRemoteDataSource;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
-import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
-import 'package:movies_app/features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/features/see_all_movies/presentation/widgets/See_All_Elements_List_Screen/custom_card.dart';
-import 'package:movies_app/features/see_all_movies/presentation/widgets/skeletonizer_loading_widgets/skeleton_custom_card.dart';
+import '../../../../core/cubits/network/cubit/network_cubit.dart';
+import '../../../../core/cubits/network/cubit/network_state.dart';
+import '../../../movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
+import '../controllers/cubit/see_all_movies_cubit.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
+import '../widgets/See_All_Elements_List_Screen/custom_card.dart';
+import '../widgets/skeletonizer_loading_widgets/skeleton_custom_card.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class SeeAllElementsListScreen extends StatefulWidget {

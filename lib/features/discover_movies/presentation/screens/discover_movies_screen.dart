@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
-import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
-import 'package:movies_app/features/discover_movies/presentation/helpers/movies_categories_language_converter.dart';
-import 'package:movies_app/features/discover_movies/presentation/widgets/discover_skeletonizer_loading_widgets/skeleton_genre_card.dart';
-import 'package:movies_app/features/discover_movies/presentation/widgets/show_and_search_movies_of_category_screen/custom_discover_genre_card.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
+import '../../../../core/cubits/network/cubit/network_cubit.dart';
+import '../../../../core/cubits/network/cubit/network_state.dart';
+import '../../../../core/utils/app_constants.dart';
+import '../controllers/cubit/discover_movies_cubit.dart';
+import '../helpers/movies_categories_language_converter.dart';
+import '../widgets/discover_skeletonizer_loading_widgets/skeleton_genre_card.dart';
+import '../widgets/show_and_search_movies_of_category_screen/custom_discover_genre_card.dart';
+import '../../../movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
+import '../../../../generated/l10n.dart';
 
 class DiscoverMoviesScreen extends StatelessWidget {
   const DiscoverMoviesScreen({super.key});

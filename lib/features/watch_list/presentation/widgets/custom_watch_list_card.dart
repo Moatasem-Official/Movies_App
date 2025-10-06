@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/utils/app_router.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/watch_list/presentation/widgets/custom_add_to_watch_list_card_icon.dart';
+import '../../../../core/utils/app_router.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/utils/app_constants.dart';
+import 'custom_add_to_watch_list_card_icon.dart';
 
 class CustomWatchListCard extends StatelessWidget {
   final ResultEntity movie;

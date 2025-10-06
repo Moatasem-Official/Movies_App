@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/utils/app_router.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_empty_elements_widget.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../../core/utils/app_router.dart';
+import '../../../../../core/entities/display_different_movies_types_entity.dart';
+import 'custom_empty_elements_widget.dart';
+import '../../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomMovieMoreLikeThisWidget extends StatelessWidget {
   const CustomMovieMoreLikeThisWidget({

@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/errors/failure.dart';
-import 'package:movies_app/features/watch_list/domain/usecases/add_movie_to_watch_list_use_case.dart';
-import 'package:movies_app/features/watch_list/domain/usecases/clear_watch_list_use_case.dart';
-import 'package:movies_app/features/watch_list/domain/usecases/get_all_watch_list_movies_use_case.dart';
-import 'package:movies_app/features/watch_list/domain/usecases/remove_movie_from_watch_list_use_case.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import '../../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../../core/errors/failure.dart';
+import '../../../domain/usecases/add_movie_to_watch_list_use_case.dart';
+import '../../../domain/usecases/clear_watch_list_use_case.dart';
+import '../../../domain/usecases/get_all_watch_list_movies_use_case.dart';
+import '../../../domain/usecases/remove_movie_from_watch_list_use_case.dart';
+import 'add_movie_to_watch_list_as_local_data_state.dart';
 
 class AddMovieToWatchListAsLocalDataCubit
     extends Cubit<AddMovieToWatchListAsLocalDataState> {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_cast_skeletonizer_loading_widget.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_crew_skeletonizer_loading_widget.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_gallery_skeletonizer_loading_widget.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_genres_skeletonizer_loading_widget.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_over_view_skeletonizer_loading_widget.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_similar_skeletonizer_loading_widget.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_skeletonizer_bon.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_skeletonizer_sub_title_loading_widget.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_videos_skeletonizer_loading_widget.dart';
+import 'skeletonizer_loading_widgets/custom_cast_skeletonizer_loading_widget.dart';
+import 'skeletonizer_loading_widgets/custom_crew_skeletonizer_loading_widget.dart';
+import 'skeletonizer_loading_widgets/custom_gallery_skeletonizer_loading_widget.dart';
+import 'skeletonizer_loading_widgets/custom_genres_skeletonizer_loading_widget.dart';
+import 'skeletonizer_loading_widgets/custom_over_view_skeletonizer_loading_widget.dart';
+import 'skeletonizer_loading_widgets/custom_similar_skeletonizer_loading_widget.dart';
+import 'skeletonizer_loading_widgets/custom_skeletonizer_bon.dart';
+import 'skeletonizer_loading_widgets/custom_skeletonizer_sub_title_loading_widget.dart';
+import 'skeletonizer_loading_widgets/custom_videos_skeletonizer_loading_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class GeneralLoadingShapes {

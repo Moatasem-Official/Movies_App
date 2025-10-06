@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
 import 'package:hive/hive.dart';
 part 'hive_movie_model.g.dart';
 

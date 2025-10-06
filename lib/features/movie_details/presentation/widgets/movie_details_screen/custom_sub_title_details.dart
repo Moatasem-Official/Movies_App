@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_actions_and_status.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_chip_list.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_primary_info.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_production_companies.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_stats_table.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../domain/entities/movie_details_entity.dart';
+import 'custom_actions_and_status.dart';
+import 'custom_chip_list.dart';
+import 'custom_primary_info.dart';
+import 'custom_production_companies.dart';
+import 'custom_stats_table.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomSubTitleDetails extends StatelessWidget {
   const CustomSubTitleDetails({super.key, required this.movieDetailsEntity});

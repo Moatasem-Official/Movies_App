@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/errors/failure.dart';
+import '../../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../../core/errors/failure.dart';
 
 part 'add_movie_to_watch_list_as_local_data_state.freezed.dart';
 

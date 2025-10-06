@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_crew_entity.dart';
+import '../../domain/entities/movie_crew_entity.dart';
 
 part 'movie_crew_model.g.dart';
 

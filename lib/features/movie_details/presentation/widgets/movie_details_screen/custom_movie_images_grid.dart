@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/movie_details/domain/entities/base_movie_images_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_full_screen_movie_images_viewer.dart';
+import '../../../../../core/utils/app_constants.dart';
+import '../../../domain/entities/base_movie_images_entity.dart';
+import 'custom_full_screen_movie_images_viewer.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomMovieImagesGrid extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import '../controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../../../../generated/l10n.dart';
 
 class CustomAddToWatchListCardIcon extends StatelessWidget {
   const CustomAddToWatchListCardIcon({

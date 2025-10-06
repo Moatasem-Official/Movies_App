@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import '../../../../generated/l10n.dart';
 
 class CustomWatchListSliverAppBar extends StatelessWidget {
   const CustomWatchListSliverAppBar({super.key});

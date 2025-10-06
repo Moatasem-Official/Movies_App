@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/utils/app_router.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/movies_search/presentation/widgets/custom_movie_image_error_widget.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import '../../../../core/utils/app_router.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/utils/app_constants.dart';
+import 'custom_movie_image_error_widget.dart';
+import '../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
 class MovieCard extends StatelessWidget {
   final ResultEntity movie;

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_clear_watch_list_dialog.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_section.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_title.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/generated/l10n.dart';
+import 'custom_clear_watch_list_dialog.dart';
+import 'custom_settings_section.dart';
+import 'custom_settings_title.dart';
+import '../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../../../../generated/l10n.dart';
 
 class CustomPrivacyAndContentContainer extends StatelessWidget {
   const CustomPrivacyAndContentContainer({super.key});

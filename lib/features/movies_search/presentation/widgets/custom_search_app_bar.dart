@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_bar.dart';
-import 'package:movies_app/generated/l10n.dart';
+import 'custom_search_bar.dart';
+import '../../../../generated/l10n.dart';
 
 class CustomSearchAppBar extends StatelessWidget {
   const CustomSearchAppBar({

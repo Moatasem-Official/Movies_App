@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_cast_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_actor_dialog_row_item.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../../core/utils/app_constants.dart';
+import '../../../domain/entities/movie_cast_entity.dart';
+import 'custom_actor_dialog_row_item.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomActorDetailsDialog extends StatelessWidget {
   const CustomActorDetailsDialog({super.key, required this.actor});

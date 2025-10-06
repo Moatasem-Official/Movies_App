@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/features/home/domain/usecases/Movies_Home_Screen/get_now_playing_cached_movies_use_case.dart';
-import 'package:movies_app/features/home/domain/usecases/Movies_Home_Screen/get_now_playing_movies_use_case.dart';
+import '../../../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
+import '../../../../domain/usecases/Movies_Home_Screen/get_now_playing_cached_movies_use_case.dart';
+import '../../../../domain/usecases/Movies_Home_Screen/get_now_playing_movies_use_case.dart';
 
 class NowPlayingMoviesCubit
     extends Cubit<MoviesModuleStates<List<ResultEntity>>> {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomMovieGenresWidget extends StatelessWidget {
   const CustomMovieGenresWidget({super.key, required this.genres});

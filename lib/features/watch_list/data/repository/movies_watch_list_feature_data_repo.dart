@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/errors/failure.dart';
-import 'package:movies_app/features/watch_list/data/datasource/movies_watch_list_local_data_source.dart';
-import 'package:movies_app/features/watch_list/domain/repository/movies_watch_list_feature_domain_repo.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/errors/failure.dart';
+import '../datasource/movies_watch_list_local_data_source.dart';
+import '../../domain/repository/movies_watch_list_feature_domain_repo.dart';
 
 class MoviesWatchListFeatureDataRepo extends MoviesWatchListFeatureDomainRepo {
   final MoviesWatchListLocalDataSource moviesWatchListLocalDataSource;

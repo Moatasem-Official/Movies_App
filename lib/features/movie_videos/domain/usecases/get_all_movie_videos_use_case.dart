@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:movies_app/features/movie_videos/domain/repository/movie_videos_feature_domain_repo.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/core/errors/failure.dart';
+import '../repository/movie_videos_feature_domain_repo.dart';
+import '../../../../core/entities/movie_videos_entity.dart';
+import '../../../../core/errors/failure.dart';
 
 class GetAllMovieVideosUseCase {
   final MovieVideosFeatureDomainRepo movieVideosFeatureDomainRepo;

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
-import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
-import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
-import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
-import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
-import 'package:movies_app/features/home/presentation/controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
-import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_elements_row_title.dart';
-import 'package:movies_app/features/home/presentation/widgets/public_widgets/custom_horizontal_list_view.dart';
-import 'package:movies_app/features/home/presentation/widgets/movies_home_screen/custom_slider.dart';
-import 'package:movies_app/core/utils/app_router.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import '../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
+import '../../../../core/cubits/network/cubit/network_cubit.dart';
+import '../../../../core/cubits/network/cubit/network_state.dart';
+import '../controllers/movies_home_screen/cubits/now_playing_movies_cubit.dart';
+import '../controllers/movies_home_screen/cubits/popular_movies_cubit.dart';
+import '../controllers/movies_home_screen/cubits/top_rated_movies_cubit.dart';
+import '../controllers/movies_home_screen/cubits/upcomming_movies_cubit.dart';
+import '../widgets/movies_home_screen/custom_elements_row_title.dart';
+import '../widgets/public_widgets/custom_horizontal_list_view.dart';
+import '../widgets/movies_home_screen/custom_slider.dart';
+import '../../../../core/utils/app_router.dart';
+import '../../../movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
+import '../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
 import '../../../../generated/l10n.dart';
 

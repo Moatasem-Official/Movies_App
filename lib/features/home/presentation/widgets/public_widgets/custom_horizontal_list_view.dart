@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/core/utils/app_router.dart';
-import 'package:movies_app/core/errors/failure.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/home/presentation/widgets/home_skeletonizer_loading_widgets/home_bone.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
+import '../../../../../core/utils/app_router.dart';
+import '../../../../../core/errors/failure.dart';
+import '../../../../../core/utils/app_constants.dart';
+import '../home_skeletonizer_loading_widgets/home_bone.dart';
+import '../../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomHorizontalListView<

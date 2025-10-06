@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/discover_movies/presentation/widgets/discover_skeletonizer_loading_widgets/discover_bone.dart';
+import 'discover_bone.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class SkeletonGenreCard extends StatelessWidget {

@@ -1,13 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_empty_elements_widget.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_card_content.dart';
-import 'package:movies_app/core/utils/app_router.dart';
+import '../../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../../core/entities/movie_videos_entity.dart';
+import '../movie_details_screen/custom_empty_elements_widget.dart';
+import 'custom_card_content.dart';
+import '../../../../../core/utils/app_router.dart';
 import 'dart:ui';
 
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomMovieVideosSlider extends StatelessWidget {
   const CustomMovieVideosSlider({

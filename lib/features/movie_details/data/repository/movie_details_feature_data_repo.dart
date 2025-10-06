@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
-import 'package:movies_app/features/movie_details/data/datasource/movie_details_remote_data_source.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_credits_entity.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_images_entity.dart';
-import 'package:movies_app/features/movie_details/domain/repository/movie_details_feature_domain_repo.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/errors/exceptions/failure_mapper.dart';
-import 'package:movies_app/core/errors/exceptions/network_exception.dart';
-import 'package:movies_app/core/errors/failure.dart';
+import '../datasource/movie_details_remote_data_source.dart';
+import '../../domain/entities/movie_credits_entity.dart';
+import '../../domain/entities/movie_details_entity.dart';
+import '../../../../core/entities/movie_videos_entity.dart';
+import '../../domain/entities/movie_images_entity.dart';
+import '../../domain/repository/movie_details_feature_domain_repo.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/errors/exceptions/failure_mapper.dart';
+import '../../../../core/errors/exceptions/network_exception.dart';
+import '../../../../core/errors/failure.dart';
 
 class MovieDetailsFeatureDataRepo extends MovieDetailsFeatureDomainRepo {
   final MovieDetailsRemoteDataSource movieDetailsRemoteDataSource;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/features/home/presentation/widgets/home_skeletonizer_loading_widgets/home_bone.dart';
-import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movie_card.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../home/presentation/widgets/home_skeletonizer_loading_widgets/home_bone.dart';
+import 'custom_search_movie_card.dart';
 import 'package:skeletonizer/skeletonizer.dart' hide Bone;
 
 class CustomSearchMoviesGridResult extends StatelessWidget {

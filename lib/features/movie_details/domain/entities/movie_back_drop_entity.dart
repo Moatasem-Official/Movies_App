@@ -1,4 +1,4 @@
-import 'package:movies_app/features/movie_details/domain/entities/base_movie_images_entity.dart';
+import 'base_movie_images_entity.dart';
 
 class MovieBackDropEntity extends BaseImageEntity {
   final double aspectRatio;

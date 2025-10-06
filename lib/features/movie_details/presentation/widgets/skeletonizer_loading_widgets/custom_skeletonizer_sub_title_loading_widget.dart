@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/skeletonizer_loading_widgets/custom_skeletonizer_bon.dart';
+import 'custom_skeletonizer_bon.dart';
 
 class CustomSkeletonizerSubTitleLoadingWidget extends StatelessWidget {
   const CustomSkeletonizerSubTitleLoadingWidget({

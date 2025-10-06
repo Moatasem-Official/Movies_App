@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
-import 'package:movies_app/features/watch_list/presentation/widgets/custom_empty_watch_list_widget.dart';
-import 'package:movies_app/features/watch_list/presentation/widgets/custom_watch_list_card.dart';
+import '../controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import 'custom_empty_watch_list_widget.dart';
+import 'custom_watch_list_card.dart';
 
 class CustomWatchListGrid extends StatelessWidget {
   const CustomWatchListGrid({super.key});

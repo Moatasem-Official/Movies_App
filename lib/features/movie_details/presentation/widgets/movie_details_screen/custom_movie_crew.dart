@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_crew_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_crew_card.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../domain/entities/movie_crew_entity.dart';
+import 'custom_crew_card.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomMovieCrew extends StatelessWidget {
   const CustomMovieCrew({super.key, required this.crew});

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cubits/lang/cubit/locale_cubit.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../core/cubits/lang/cubit/locale_cubit.dart';
+import '../../../../generated/l10n.dart';
 
 class CustomLanguageDialog extends StatelessWidget {
   const CustomLanguageDialog({super.key});

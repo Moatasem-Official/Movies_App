@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/movie_videos/presentation/controllers/cubit/all_movie_videos_cubit.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/features/movie_videos/presentation/widgets/show_and_play_videos_screen/custom_video_card.dart';
-import 'package:movies_app/core/errors/failure.dart';
-import 'package:movies_app/features/movie_videos/presentation/widgets/skeletonizer_loading_widgets/custom_movie_videos_skeletonizer_loading_widget.dart';
+import '../../controllers/cubit/all_movie_videos_cubit.dart';
+import '../../../../../core/entities/movie_videos_entity.dart';
+import '../../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
+import 'custom_video_card.dart';
+import '../../../../../core/errors/failure.dart';
+import '../skeletonizer_loading_widgets/custom_movie_videos_skeletonizer_loading_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomVideosListWidget extends StatelessWidget {

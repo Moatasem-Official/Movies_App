@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_about_app_container.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_appearance_container.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_privacy_and_content_container.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_rating_and_support_container.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../widgets/custom_about_app_container.dart';
+import '../widgets/custom_appearance_container.dart';
+import '../widgets/custom_privacy_and_content_container.dart';
+import '../widgets/custom_rating_and_support_container.dart';
+import '../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import '../../../../generated/l10n.dart';
 
 const Color kGradientColorStart = Color(0xFF6A11CB);
 const Color kGradientColorEnd = Color(0xFF2575FC);

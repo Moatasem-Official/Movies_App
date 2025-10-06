@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:movies_app/features/movie_details/data/models/movie_cast_model.dart';
-import 'package:movies_app/features/movie_details/data/models/movie_crew_model.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_credits_entity.dart';
+import 'movie_cast_model.dart';
+import 'movie_crew_model.dart';
+import '../../domain/entities/movie_credits_entity.dart';
 
 part 'movie_credits_model.g.dart';
 

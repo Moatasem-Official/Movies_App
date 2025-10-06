@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
+import '../../../../../core/entities/movie_videos_entity.dart';
 
 class CustomThumbnail extends StatelessWidget {
   final ResultVideoEntity video;

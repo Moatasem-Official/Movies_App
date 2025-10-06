@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/movie_details/domain/entities/base_movie_images_entity.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_images_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_movie_images_grid.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../domain/entities/base_movie_images_entity.dart';
+import '../../../domain/entities/movie_images_entity.dart';
+import 'custom_movie_images_grid.dart';
+import '../../../../../generated/l10n.dart';
 
 class MovieImageGallery extends StatelessWidget {
   const MovieImageGallery({super.key, required this.images});

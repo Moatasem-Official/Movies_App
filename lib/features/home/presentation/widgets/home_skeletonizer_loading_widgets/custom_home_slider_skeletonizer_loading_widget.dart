@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/home/presentation/widgets/home_skeletonizer_loading_widgets/home_bone.dart';
+import 'home_bone.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomHomeSliderSkeletonizerLoadingWidget extends StatelessWidget {

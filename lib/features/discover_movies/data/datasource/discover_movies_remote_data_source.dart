@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:movies_app/core/models/display_different_movies_types_model.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/discover_movies/data/models/movies_categories_model.dart';
+import '../../../../core/models/display_different_movies_types_model.dart';
+import '../../../../core/utils/app_constants.dart';
+import '../models/movies_categories_model.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 part 'discover_movies_remote_data_source.g.dart';

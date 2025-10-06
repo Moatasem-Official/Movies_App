@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/core/network/error_model.dart';
+import '../../network/error_model.dart';
 
 part 'network_exception.freezed.dart';
 

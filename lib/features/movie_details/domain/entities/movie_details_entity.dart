@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:movies_app/features/movie_details/domain/entities/genres_entity.dart';
-import 'package:movies_app/features/movie_details/domain/entities/spoken_language_entity.dart';
+import 'genres_entity.dart';
+import 'spoken_language_entity.dart';
 
 class MovieDetailsEntity extends Equatable {
   final bool adult;

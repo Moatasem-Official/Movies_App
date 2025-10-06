@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/core/utils/app_helpers.dart';
-import 'package:movies_app/features/movie_videos/presentation/widgets/show_and_play_videos_screen/custom_thumbnail.dart';
+import '../../../../../core/entities/movie_videos_entity.dart';
+import '../../../../../core/utils/app_helpers.dart';
+import 'custom_thumbnail.dart';
 import 'dart:ui';
 
 import 'package:timeago/timeago.dart' as timeago;

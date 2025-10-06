@@ -1,4 +1,4 @@
-import 'package:movies_app/features/discover_movies/domain/entities/category_genre_entity.dart';
+import '../../domain/entities/category_genre_entity.dart';
 
 abstract class DiscoverMoviesLocalDataSource {
   Future<void> cacheMovies(

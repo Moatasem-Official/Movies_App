@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_video_info.dart';
-import 'package:movies_app/core/utils/app_helpers.dart';
+import '../../../../../core/entities/movie_videos_entity.dart';
+import 'custom_video_info.dart';
+import '../../../../../core/utils/app_helpers.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CustomVideoContent extends StatelessWidget {

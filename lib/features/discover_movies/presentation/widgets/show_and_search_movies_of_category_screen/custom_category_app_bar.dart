@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/discover_movies/presentation/widgets/show_and_search_movies_of_category_screen/custom_category_search_bar.dart';
-import 'package:movies_app/generated/l10n.dart';
+import 'custom_category_search_bar.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomCategoryAppBar extends StatelessWidget {
   const CustomCategoryAppBar({

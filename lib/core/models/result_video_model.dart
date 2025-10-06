@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
+import '../entities/movie_videos_entity.dart';
 part 'result_video_model.g.dart';
 
 @JsonSerializable()

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/core/errors/failure.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/general_loading_shapes.dart';
+import '../../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
+import '../../../../../core/errors/failure.dart';
+import '../general_loading_shapes.dart';
 
 class CustomMovieDetailsBlocBuilderTemplete<
     C extends Cubit<MoviesModuleStates<T>>, T> extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:hive_flutter/adapters.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
 
 part 'cached_see_all_movies_model.g.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/see_all_movies/presentation/widgets/skeletonizer_loading_widgets/see_all_bone.dart';
+import 'see_all_bone.dart';
 
 class SkeletonCustomCard extends StatelessWidget {
   const SkeletonCustomCard({super.key});

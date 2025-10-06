@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/features/home/data/datasource/home_local_data_source.dart';
-import 'package:movies_app/features/home/data/models/cached_movies_model.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import 'home_local_data_source.dart';
+import '../models/cached_movies_model.dart';
 
 class HomeLocalDataSourceImpl extends HomeLocalDataSource {
   @override

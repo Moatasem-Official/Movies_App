@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:movies_app/features/discover_movies/domain/entities/category_genre_entity.dart';
+import '../../domain/entities/category_genre_entity.dart';
 
 part 'cached_category_genre_model.g.dart';
 

@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/features/movie_details/data/models/genres_model.dart';
-import 'package:movies_app/features/movie_details/data/models/spoken_language_model.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
+import 'genres_model.dart';
+import 'spoken_language_model.dart';
+import '../../domain/entities/movie_details_entity.dart';
 part 'movie_details_model.g.dart';
 
 @JsonSerializable()

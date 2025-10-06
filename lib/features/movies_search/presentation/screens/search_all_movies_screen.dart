@@ -1,22 +1,22 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
-import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/discover_movies/presentation/helpers/custom_snack_bar_widget.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
-import 'package:movies_app/features/movies_search/presentation/controllers/cubit/movies_search_cubit.dart';
-import 'package:movies_app/features/movies_search/presentation/widgets/custom_initial_search_widget.dart';
-import 'package:movies_app/features/movies_search/presentation/widgets/custom_no_movies_widget.dart';
-import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_app_bar.dart';
-import 'package:movies_app/features/movies_search/presentation/widgets/custom_search_movies_grid_result.dart';
-import 'package:movies_app/features/movies_search/presentation/widgets/skeletonizer_loading_widgets/custom_movies_search_skeletonizer_grid_view_loading_widget.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
+import '../../../../core/cubits/network/cubit/network_cubit.dart';
+import '../../../../core/cubits/network/cubit/network_state.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/utils/app_constants.dart';
+import '../../../discover_movies/presentation/helpers/custom_snack_bar_widget.dart';
+import '../../../movie_details/presentation/widgets/movie_details_screen/custom_no_internet_widget.dart';
+import '../controllers/cubit/movies_search_cubit.dart';
+import '../widgets/custom_initial_search_widget.dart';
+import '../widgets/custom_no_movies_widget.dart';
+import '../widgets/custom_search_app_bar.dart';
+import '../widgets/custom_search_movies_grid_result.dart';
+import '../widgets/skeletonizer_loading_widgets/custom_movies_search_skeletonizer_grid_view_loading_widget.dart';
+import '../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import '../../../../generated/l10n.dart';
 import 'package:skeletonizer/skeletonizer.dart' hide Bone;
 
 class SearchAllMoviesScreen extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/features/movie_details/domain/usecases/Movie_Details_Screen/get_movie_videos_use_case.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
+import '../../../../../../core/entities/movie_videos_entity.dart';
+import '../../../../domain/usecases/Movie_Details_Screen/get_movie_videos_use_case.dart';
+import '../../../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
 
 class MovieVideosCubit
     extends Cubit<MoviesModuleStates<List<ResultVideoEntity>>> {

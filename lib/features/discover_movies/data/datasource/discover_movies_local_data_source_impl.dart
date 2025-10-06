@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
-import 'package:movies_app/features/discover_movies/data/datasource/discover_movies_local_data_source.dart';
-import 'package:movies_app/features/discover_movies/data/models/cached_category_genre_model.dart';
-import 'package:movies_app/features/discover_movies/domain/entities/category_genre_entity.dart';
+import 'discover_movies_local_data_source.dart';
+import '../models/cached_category_genre_model.dart';
+import '../../domain/entities/category_genre_entity.dart';
 
 class DiscoverMoviesLocalDataSourceImpl extends DiscoverMoviesLocalDataSource {
   @override

@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../generated/l10n.dart';
 
 class ReportBugBottomSheet extends StatefulWidget {
   const ReportBugBottomSheet({super.key});

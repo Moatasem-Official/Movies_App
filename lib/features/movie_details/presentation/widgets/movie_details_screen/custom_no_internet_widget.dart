@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../../core/cubits/network/cubit/network_cubit.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomNoInternetWidget extends StatelessWidget {
   final bool showExitButton;

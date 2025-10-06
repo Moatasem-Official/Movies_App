@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/utils/app_helpers.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_icon_text.dart';
+import '../../../../../core/utils/app_helpers.dart';
+import '../../../domain/entities/movie_details_entity.dart';
+import 'custom_icon_text.dart';
 
 class CustomPrimaryInfo extends StatelessWidget {
   const CustomPrimaryInfo({super.key, required this.movieDetailsEntity});

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movies_app/features/movie_details/domain/entities/spoken_language_entity.dart';
+import '../../domain/entities/spoken_language_entity.dart';
 part 'spoken_language_model.g.dart';
 
 @JsonSerializable()

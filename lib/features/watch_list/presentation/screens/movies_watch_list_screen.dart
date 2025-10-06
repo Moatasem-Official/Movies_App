@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/discover_movies/presentation/helpers/custom_snack_bar_widget.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
-import 'package:movies_app/features/watch_list/presentation/widgets/custom_watch_list_grid.dart';
-import 'package:movies_app/features/watch_list/presentation/widgets/custom_watch_list_sliver_app_bar.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../discover_movies/presentation/helpers/custom_snack_bar_widget.dart';
+import '../controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import '../widgets/custom_watch_list_grid.dart';
+import '../widgets/custom_watch_list_sliver_app_bar.dart';
+import '../../../../generated/l10n.dart';
 
 class MoviesWatchListScreen extends StatelessWidget {
   const MoviesWatchListScreen({super.key});

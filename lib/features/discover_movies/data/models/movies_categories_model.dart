@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:movies_app/features/discover_movies/data/models/category_genre_model.dart';
-import 'package:movies_app/features/discover_movies/domain/entities/movies_categories_entity.dart';
+import 'category_genre_model.dart';
+import '../../domain/entities/movies_categories_entity.dart';
 
 part 'movies_categories_model.g.dart';
 

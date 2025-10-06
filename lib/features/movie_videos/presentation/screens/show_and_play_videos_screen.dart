@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/movie_videos/presentation/controllers/cubit/all_movie_videos_cubit.dart';
-import 'package:movies_app/features/movie_videos/presentation/widgets/show_and_play_videos_screen/custom_app_bar.dart';
-import 'package:movies_app/features/movie_videos/presentation/widgets/show_and_play_videos_screen/custom_videos_list.dart';
-import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/core/errors/failure.dart';
-import 'package:movies_app/features/movie_videos/presentation/widgets/skeletonizer_loading_widgets/custom_skeletonizer_videos_bon.dart';
+import '../controllers/cubit/all_movie_videos_cubit.dart';
+import '../widgets/show_and_play_videos_screen/custom_app_bar.dart';
+import '../widgets/show_and_play_videos_screen/custom_videos_list.dart';
+import '../../../../core/cubits/Movies_Module_States/movies_module_states.dart';
+import '../../../../core/entities/movie_videos_entity.dart';
+import '../../../../core/errors/failure.dart';
+import '../widgets/skeletonizer_loading_widgets/custom_skeletonizer_videos_bon.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 

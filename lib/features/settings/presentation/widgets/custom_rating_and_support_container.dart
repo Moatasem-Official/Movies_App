@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_report_a_bug_dialog.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_divider.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_section.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_title.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_suggest_a_feature_dialog.dart';
-import 'package:movies_app/generated/l10n.dart';
+import 'custom_report_a_bug_dialog.dart';
+import 'custom_settings_divider.dart';
+import 'custom_settings_section.dart';
+import 'custom_settings_title.dart';
+import 'custom_suggest_a_feature_dialog.dart';
+import '../../../../generated/l10n.dart';
 
 class CustomRatingAndSupportContainer extends StatelessWidget {
   const CustomRatingAndSupportContainer({super.key});

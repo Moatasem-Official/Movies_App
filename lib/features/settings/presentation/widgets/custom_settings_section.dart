@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/settings/presentation/screens/settings_screen.dart';
+import '../screens/settings_screen.dart';
 
 class CustomSettingsSection extends StatelessWidget {
   final String title;

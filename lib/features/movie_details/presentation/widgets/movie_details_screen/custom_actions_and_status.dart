@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_details_screen/custom_sub_title_details.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
-import 'package:movies_app/features/watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
+import '../../../domain/entities/movie_details_entity.dart';
+import 'custom_sub_title_details.dart';
+import '../../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_cubit.dart';
+import '../../../../watch_list/presentation/controllers/cubit/add_movie_to_watch_list_as_local_data_state.dart';
 
 class CustomActionsAndStatus extends StatelessWidget {
   final MovieDetailsEntity movieDetailsEntity;

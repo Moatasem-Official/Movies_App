@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
-import 'package:movies_app/features/see_all_movies/data/datasource/see_all_local_data_source.dart';
-import 'package:movies_app/features/see_all_movies/data/models/cached_see_all_movies_model.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
+import 'see_all_local_data_source.dart';
+import '../models/cached_see_all_movies_model.dart';
 
 class SeeAllLocalDataSourceImpl extends SeeAllLocalDataSource {
   @override

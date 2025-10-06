@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/utils/app_constants.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../../core/utils/app_constants.dart';
+import '../../../domain/entities/movie_details_entity.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomProductionCompanies extends StatelessWidget {
   final MovieDetailsEntity movieDetailsEntity;

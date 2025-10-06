@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_app_rating.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_section.dart';
-import 'package:movies_app/features/settings/presentation/widgets/custom_settings_title.dart';
-import 'package:movies_app/generated/l10n.dart';
+import 'custom_app_rating.dart';
+import 'custom_settings_section.dart';
+import 'custom_settings_title.dart';
+import '../../../../generated/l10n.dart';
 
 class CustomAboutAppContainer extends StatelessWidget {
   const CustomAboutAppContainer({super.key});

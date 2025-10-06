@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
 
 part 'cached_movies_model.g.dart';
 

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/entities/movie_videos_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/widgets/movie_videos_slider/custom_video_content.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../../core/entities/movie_videos_entity.dart';
+import 'custom_video_content.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomCardContent extends StatelessWidget {
   const CustomCardContent({

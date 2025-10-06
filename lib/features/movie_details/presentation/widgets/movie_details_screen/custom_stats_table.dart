@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/core/utils/app_helpers.dart';
-import 'package:movies_app/features/movie_details/domain/entities/movie_details_entity.dart';
-import 'package:movies_app/features/movie_details/presentation/helpers/custom_table_row.dart';
-import 'package:movies_app/generated/l10n.dart';
+import '../../../../../core/utils/app_helpers.dart';
+import '../../../domain/entities/movie_details_entity.dart';
+import '../../helpers/custom_table_row.dart';
+import '../../../../../generated/l10n.dart';
 
 class CustomStatsTable extends StatelessWidget {
   final MovieDetailsEntity movieDetailsEntity;

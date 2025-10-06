@@ -1,4 +1,4 @@
-import 'package:movies_app/core/entities/display_different_movies_types_entity.dart';
+import '../../../../core/entities/display_different_movies_types_entity.dart';
 
 abstract class SeeAllLocalDataSource {
   Future<void> cacheMovies(List<ResultEntity> movies, String boxName);
