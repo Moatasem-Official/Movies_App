@@ -23,7 +23,7 @@ import '../../features/movies_search/presentation/screens/search_all_movies_scre
 import '../../features/see_all_movies/presentation/controllers/cubit/see_all_movies_cubit.dart';
 import '../../features/see_all_movies/presentation/screen/see_all_elements_list_screen.dart';
 import '../../features/movie_videos/presentation/screens/show_and_play_videos_screen.dart';
-import '../../features/home/presentation/screens/splash_screen.dart';
+import '../../features/splash/presentation/screens/splash_screen.dart';
 import 'service_locator.dart';
 import '../../features/watch_list/presentation/screens/movies_watch_list_screen.dart';
 
