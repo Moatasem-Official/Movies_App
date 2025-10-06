@@ -27,7 +27,7 @@ class CustomCategoryAppBar extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 70),
+          const SizedBox(height: 50),
           // تم استخدام Row لوضع زر الرجوع والعنوان في سطر واحد
           Row(
             children: [

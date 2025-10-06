@@ -123,7 +123,7 @@ class _ShowAndSearchMoviesOfCategoryScreenState
       },
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(200),
+          preferredSize: const Size.fromHeight(205),
           child: CustomCategoryAppBar(
             moviesCategoryName: widget.moviesCategoryName,
             onSearchChanged: (value) {
