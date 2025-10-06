@@ -36,6 +36,8 @@ void main() async {
           : ThemeMode.dark;
   getIt<ThemeCubit>().changeTheme(themeMode);
   getIt<LocaleCubit>().changeLocale(Locale(locale ?? 'en'));
+  final networkCubit = getIt<NetworkCubit>();
+  await networkCubit.checkNetwork();
   runApp(DevicePreview(
       enabled: kDebugMode ? true : false, builder: (context) => const MyApp()));
 }
@@ -91,10 +93,12 @@ class _MyAppState extends State<MyApp> {
                 builder: (context, child) {
                   return BlocListener<NetworkCubit, NetworkState>(
                     listener: (context, state) {
-                      // أول Emit عند فتح التطبيق
+                      // 🟡 متعرضش أي SnackBar أثناء التهيئة
+                      if (state is Initializing) return;
+
                       if (!_hasShownInitialSnackBar) {
                         _hasShownInitialSnackBar = true;
-                        // لو disconnected أول مرة، اعرض SnackBar فورًا
+
                         if (state is Disconnected) {
                           scaffoldMessengerKey.currentState?.showSnackBar(
                             customSnackBar(
@@ -113,6 +117,7 @@ class _MyAppState extends State<MyApp> {
                           icon:
                               state is Connected ? Icons.wifi : Icons.wifi_off,
                           message: state.when(
+                            initializing: () => '',
                             connected: (_) => S.of(context).connectedToInternet,
                             disconnected: () =>
                                 S.of(context).noInternetConnection,
@@ -120,7 +125,7 @@ class _MyAppState extends State<MyApp> {
                         ),
                       );
                     },
-                    child: child, // ده أي صفحة هتجيلك من onGenerateRoute
+                    child: child,
                   );
                 },
               );

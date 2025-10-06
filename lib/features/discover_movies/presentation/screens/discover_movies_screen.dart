@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/cubits/Movies_Module_States/movies_module_states.dart';
 import 'package:movies_app/core/cubits/network/cubit/network_cubit.dart';
+import 'package:movies_app/core/cubits/network/cubit/network_state.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/features/discover_movies/presentation/controllers/cubit/discover_movies_cubit.dart';
 import 'package:movies_app/features/discover_movies/presentation/helpers/movies_categories_language_converter.dart';
@@ -36,33 +37,43 @@ class DiscoverMoviesScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: BlocBuilder<DiscoverMoviesCubit, MoviesModuleStates>(
-          builder: (context, state) {
-            return state.whenOrNull(
-                  /// 🟡 الحالة الافتراضية (Idle)
-                  idle: () => const SizedBox.shrink(),
+      body: BlocListener<NetworkCubit, NetworkState>(
+        listener: (context, state) {
+          if (state.maybeWhen(
+            connected: (_) => true,
+            orElse: () => false,
+          )) {
+            context.read<DiscoverMoviesCubit>().fetchDiscoverMovies();
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: BlocBuilder<DiscoverMoviesCubit, MoviesModuleStates>(
+            builder: (context, state) {
+              return state.whenOrNull(
+                    /// 🟡 الحالة الافتراضية (Idle)
+                    idle: () => const SizedBox.shrink(),
 
-                  /// 🟢 أثناء التحميل
-                  loading: () => _buildLoadingState(isDisconnected),
+                    /// 🟢 أثناء التحميل
+                    loading: () => _buildLoadingState(isDisconnected),
 
-                  /// 🔴 عند الخطأ
-                  error: (failure) {
-                    if (failure.message == "No Internet and No Cached Data") {
-                      return const CustomNoInternetWidget();
-                    }
-                    return Center(
-                        child: Text(failure.message,
-                            style: const TextStyle(color: Colors.red)));
-                  },
+                    /// 🔴 عند الخطأ
+                    error: (failure) {
+                      if (failure.message == "No Internet and No Cached Data") {
+                        return const CustomNoInternetWidget();
+                      }
+                      return Center(
+                          child: Text(failure.message,
+                              style: const TextStyle(color: Colors.red)));
+                    },
 
-                  /// ✅ عند تحميل البيانات
-                  loaded: (moviesCategories) =>
-                      _buildGenresGrid(moviesCategories),
-                ) ??
-                const SizedBox.shrink();
-          },
+                    /// ✅ عند تحميل البيانات
+                    loaded: (moviesCategories) =>
+                        _buildGenresGrid(moviesCategories),
+                  ) ??
+                  const SizedBox.shrink();
+            },
+          ),
         ),
       ),
     );
