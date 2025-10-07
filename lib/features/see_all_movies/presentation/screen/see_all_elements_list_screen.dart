@@ -145,7 +145,6 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
                         strokeWidth: 2,
                         color: Colors.white,
                       )),
-                      // 🟡 لو النت قطع أثناء التحميل
                       loading: () {
                         if (isDisconnected) {
                           if (!_waitingForNetwork) {
@@ -175,7 +174,6 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
                           );
                         }
 
-                        // 🟢 لودنج طبيعي
                         return Skeletonizer(
                           child: ListView.builder(
                             shrinkWrap: true,
@@ -202,14 +200,28 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
     );
   }
 
-  void seeAllElementsChecker(NetworkState networkState, SeeAllMoviesCubit cubit,
-      MoviesModuleStates state) {
+  void seeAllElementsChecker(
+    NetworkState networkState,
+    SeeAllMoviesCubit cubit,
+    MoviesModuleStates state,
+  ) {
     if (networkState is Connected) {
-      if (state is Idle || cubit.state is Error) {
+      if (state is Error || state is Idle) {
         if (widget.movieType != null) {
           cubit.getSeeAllMovies(movieType: widget.movieType!, reset: true);
         } else if (widget.movieId != null) {
           cubit.getSimilarMovies(movieId: widget.movieId!, reset: true);
+        }
+      } else if (state is Paginated || state is Loaded) {
+        final scrollPos = _scrollController.position.pixels;
+        final maxPos = _scrollController.position.maxScrollExtent;
+
+        if (maxPos - scrollPos <= 250) {
+          if (widget.movieType != null) {
+            cubit.getSeeAllMovies(movieType: widget.movieType!);
+          } else if (widget.movieId != null) {
+            cubit.getSimilarMovies(movieId: widget.movieId!);
+          }
         }
       }
     }

@@ -9,17 +9,30 @@ class SeeAllMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
   final GetSeeAllMoviesUseCase seeAllMoviesTypes;
   final GetMovieSimilarMoviesUseCase getMovieSimilarMoviesUseCase;
   final GetCachedSeeAllMoviesUseCase getCachedSeeAllMoviesUseCase;
-  SeeAllMoviesCubit(this.seeAllMoviesTypes, this.getMovieSimilarMoviesUseCase,
-      this.getCachedSeeAllMoviesUseCase)
-      : super(const Idle());
+
+  SeeAllMoviesCubit(
+    this.seeAllMoviesTypes,
+    this.getMovieSimilarMoviesUseCase,
+    this.getCachedSeeAllMoviesUseCase,
+  ) : super(const Idle());
 
   final List<ResultEntity> _allMovies = [];
-  int _currentPage = 1;
 
-  void getSeeAllMovies({required String movieType, bool reset = false}) async {
+  int _currentPage = 1;
+  String? _lastMovieType;
+  int? _lastMovieId;
+  bool _isSimilarMode = false;
+
+  int get currentPage => _currentPage;
+  String? get lastMovieType => _lastMovieType;
+
+  Future<void> getSeeAllMovies(
+      {required String movieType, bool reset = false}) async {
+    _isSimilarMode = false;
+    _lastMovieType = movieType;
+
     if (reset) {
-      _allMovies.clear();
-      _currentPage = 1;
+      _reset();
       emit(const Loading());
     } else {
       emit(Paginated(List.unmodifiable(_allMovies)));
@@ -38,11 +51,11 @@ class SeeAllMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
     );
   }
 
-  /// 📌 الحالة الثانية: get similar movies by id
-  void getSimilarMovies({
-    required int movieId,
-    bool reset = false,
-  }) async {
+  Future<void> getSimilarMovies(
+      {required int movieId, bool reset = false}) async {
+    _isSimilarMode = true;
+    _lastMovieId = movieId;
+
     if (reset) {
       _reset();
       emit(const Loading());
@@ -63,7 +76,7 @@ class SeeAllMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
     );
   }
 
-  void getCachedSeeAllMovies({required String movieType}) async {
+  Future<void> getCachedSeeAllMovies({required String movieType}) async {
     emit(const Loading());
     final result = await getCachedSeeAllMoviesUseCase(movieType: movieType);
     result.fold(
@@ -75,6 +88,14 @@ class SeeAllMoviesCubit extends Cubit<MoviesModuleStates<List<ResultEntity>>> {
         emit(Loaded(List.unmodifiable(_allMovies)));
       },
     );
+  }
+
+  Future<void> retryLastRequest() async {
+    if (_isSimilarMode && _lastMovieId != null) {
+      await getSimilarMovies(movieId: _lastMovieId!, reset: false);
+    } else if (_lastMovieType != null) {
+      await getSeeAllMovies(movieType: _lastMovieType!, reset: false);
+    }
   }
 
   void _reset() {
