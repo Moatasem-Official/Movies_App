@@ -6,53 +6,45 @@ import 'network_state.dart';
 
 class NetworkCubit extends Cubit<NetworkState> {
   StreamSubscription<InternetStatus>? _internetSub;
-  StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
+  Timer? _debounceTimer;
+  String _lastConnectionType = "none";
 
   NetworkCubit() : super(const NetworkState.initializing()) {
     _initialize();
   }
 
   Future<void> _initialize() async {
-    // تأخير بسيط لضمان استقرار الشبكة في بداية التشغيل
-    await Future.delayed(const Duration(milliseconds: 400));
+    await Future.delayed(const Duration(milliseconds: 300));
 
+    await _checkAndEmitStatus();
+
+    _internetSub = InternetConnection().onStatusChange.listen((status) async {
+      // ⏳ Debounce لتجنب التغييرات اللحظية
+      _debounceTimer?.cancel();
+      _debounceTimer = Timer(const Duration(milliseconds: 800), () async {
+        await _checkAndEmitStatus();
+      });
+    });
+  }
+
+  Future<void> _checkAndEmitStatus() async {
     final connectivityResult = await Connectivity().checkConnectivity();
     final type = connectivityResult.isNotEmpty
         ? _mapConnectivityToType(connectivityResult.first)
         : "none";
+    _lastConnectionType = type;
 
     final hasInternet = await InternetConnection().hasInternetAccess;
 
-    if (hasInternet && type != "none") {
-      emit(NetworkState.connected(type));
-    } else {
-      emit(const NetworkState.disconnected());
+    final newState = hasInternet && type != "none"
+        ? NetworkState.connected(type)
+        : const NetworkState.disconnected();
+
+    // ✅ منعملش emit لنفس الحالة لتجنب تكرار SnackBars
+    if (state.runtimeType != newState.runtimeType ||
+        (state is Connected && (state as Connected).connectionType != type)) {
+      emit(newState);
     }
-
-    // نبدأ نتابع التغييرات بعد التهيئة
-    _internetSub = InternetConnection().onStatusChange.listen((status) async {
-      final connectivityResult = await Connectivity().checkConnectivity();
-      final type = connectivityResult.isNotEmpty
-          ? _mapConnectivityToType(connectivityResult.first)
-          : "none";
-
-      if (status == InternetStatus.connected && type != "none") {
-        emit(NetworkState.connected(type));
-      } else {
-        emit(const NetworkState.disconnected());
-      }
-    });
-
-    _connectivitySub =
-        Connectivity().onConnectivityChanged.listen((connectivityResults) {
-      final type = connectivityResults.isNotEmpty
-          ? _mapConnectivityToType(connectivityResults.first)
-          : "none";
-
-      if (state is Connected && type != "none") {
-        emit(NetworkState.connected(type));
-      }
-    });
   }
 
   static String _mapConnectivityToType(ConnectivityResult result) {
@@ -69,22 +61,11 @@ class NetworkCubit extends Cubit<NetworkState> {
   @override
   Future<void> close() async {
     await _internetSub?.cancel();
-    await _connectivitySub?.cancel();
+    _debounceTimer?.cancel();
     return super.close();
   }
 
   Future<void> checkNetwork() async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    final type = connectivityResult.isNotEmpty
-        ? _mapConnectivityToType(connectivityResult.first)
-        : "none";
-
-    final hasInternet = await InternetConnection().hasInternetAccess;
-
-    if (hasInternet && type != "none") {
-      emit(NetworkState.connected(type));
-    } else {
-      emit(const NetworkState.disconnected());
-    }
+    await _checkAndEmitStatus();
   }
 }

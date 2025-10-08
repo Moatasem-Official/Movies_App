@@ -108,6 +108,16 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
       ),
       body: BlocConsumer<NetworkCubit, NetworkState>(
         listener: (context, state) {
+          if (state is Connected) {
+            Future.delayed(const Duration(milliseconds: 500), () {
+              final moviesCubit = context.read<SeeAllMoviesCubit>();
+              final state = moviesCubit.state;
+              if (state is Error || state is Idle) {
+                moviesCubit.retryLastRequest();
+              }
+            });
+          }
+
           seeAllElementsChecker(
             state,
             context.read<SeeAllMoviesCubit>(),
@@ -216,12 +226,16 @@ class _SeeAllElementsListScreenState extends State<SeeAllElementsListScreen> {
         final scrollPos = _scrollController.position.pixels;
         final maxPos = _scrollController.position.maxScrollExtent;
 
-        if (maxPos - scrollPos <= 250) {
+        if (maxPos - scrollPos <= 250 && !_waitingForNetwork) {
+          _waitingForNetwork = true;
           if (widget.movieType != null) {
             cubit.getSeeAllMovies(movieType: widget.movieType!);
           } else if (widget.movieId != null) {
             cubit.getSimilarMovies(movieId: widget.movieId!);
           }
+          Future.delayed(const Duration(seconds: 1), () {
+            _waitingForNetwork = false;
+          });
         }
       }
     }
