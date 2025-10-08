@@ -31,8 +31,12 @@ class CustomWatchListSliverAppBar extends StatelessWidget {
                     return cubit.watchlistIds.isNotEmpty
                         ? IconButton(
                             onPressed: () async {
+                              final safeContext =
+                                  Navigator.of(context, rootNavigator: true)
+                                      .context;
+
                               final shouldClear = await showDialog<bool>(
-                                context: context,
+                                context: safeContext,
                                 builder: (context) => AlertDialog(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20.0),

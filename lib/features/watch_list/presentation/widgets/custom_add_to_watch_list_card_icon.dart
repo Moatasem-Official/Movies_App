@@ -24,8 +24,11 @@ class CustomAddToWatchListCardIcon extends StatelessWidget {
         ),
         child: IconButton(
           onPressed: () async {
+            final safeContext =
+                Navigator.of(context, rootNavigator: true).context;
+
             final shouldClear = await showDialog<bool>(
-              context: context,
+              context: safeContext,
               builder: (context) => AlertDialog(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
