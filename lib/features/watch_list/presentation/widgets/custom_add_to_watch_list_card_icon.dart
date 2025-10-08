@@ -24,12 +24,10 @@ class CustomAddToWatchListCardIcon extends StatelessWidget {
         ),
         child: IconButton(
           onPressed: () async {
-            final safeContext =
-                Navigator.of(context, rootNavigator: true).context;
-
             final shouldClear = await showDialog<bool>(
-              context: safeContext,
-              builder: (context) => AlertDialog(
+              context: context,
+              useRootNavigator: true,
+              builder: (dialogContext) => AlertDialog(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -39,12 +37,12 @@ class CustomAddToWatchListCardIcon extends StatelessWidget {
                   size: 50,
                 ),
                 title: Text(
-                  S.of(context).removeMovie,
+                  S.of(dialogContext).removeMovie,
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 content: Text(
-                  S.of(context).removeMovieFromWatchlist,
+                  S.of(dialogContext).removeMovieFromWatchlist,
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 14),
                 ),
@@ -52,27 +50,34 @@ class CustomAddToWatchListCardIcon extends StatelessWidget {
                 actionsPadding:
                     const EdgeInsets.only(bottom: 20, left: 20, right: 20),
                 actions: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.pop(context, false),
-                      child: Text(
-                        S.of(context).cancel,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () => Navigator.pop(dialogContext, false),
+                          child: Text(S.of(dialogContext).cancel),
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 34, 51, 85),
-                        foregroundColor: Theme.of(context).colorScheme.onError,
-                      ),
-                      onPressed: () => Navigator.pop(context, true),
-                      child: Text(S.of(context).remove,
-                          style: const TextStyle(
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 34, 51, 85),
+                            foregroundColor:
+                                Theme.of(dialogContext).colorScheme.onError,
+                          ),
+                          onPressed: () => Navigator.pop(dialogContext, true),
+                          child: Text(
+                            S.of(dialogContext).remove,
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                    ),
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

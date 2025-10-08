@@ -30,73 +30,83 @@ class CustomWatchListSliverAppBar extends StatelessWidget {
                         context.watch<AddMovieToWatchListAsLocalDataCubit>();
                     return cubit.watchlistIds.isNotEmpty
                         ? IconButton(
-                            onPressed: () async {
-                              final safeContext =
-                                  Navigator.of(context, rootNavigator: true)
-                                      .context;
-
-                              final shouldClear = await showDialog<bool>(
-                                context: safeContext,
-                                builder: (context) => AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  icon: const Icon(
-                                    Icons.delete_sweep_outlined,
-                                    color: Color.fromARGB(255, 31, 56, 106),
-                                    size: 50,
-                                  ),
-                                  title: Text(
-                                    S.of(context).clearWatchlist,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  content: Text(
-                                    S.of(context).clearWatchlistConfirmation,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                  actionsAlignment: MainAxisAlignment.center,
-                                  actionsPadding: const EdgeInsets.only(
-                                      bottom: 20, left: 20, right: 20),
-                                  actions: [
-                                    Expanded(
-                                      child: OutlinedButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, false),
-                                        child: Text(
-                                          S.of(context).cancel,
+                            onPressed: () {
+                              WidgetsBinding.instance
+                                  .addPostFrameCallback((_) async {
+                                final shouldClear = await showDialog<bool>(
+                                  context: context,
+                                  useRootNavigator: false,
+                                  builder: (dialogContext) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      icon: const Icon(
+                                        Icons.delete_sweep_outlined,
+                                        color: Color.fromARGB(255, 31, 56, 106),
+                                        size: 50,
+                                      ),
+                                      title: Text(
+                                        S.of(dialogContext).clearWatchlist,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 34, 51, 85),
-                                          foregroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .onError,
-                                        ),
-                                        onPressed: () =>
-                                            Navigator.pop(context, true),
-                                        child: Text(S.of(context).clear,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white)),
+                                      content: Text(
+                                        S
+                                            .of(dialogContext)
+                                            .clearWatchlistConfirmation,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(fontSize: 14),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              );
+                                      actionsAlignment:
+                                          MainAxisAlignment.center,
+                                      actionsPadding: const EdgeInsets.only(
+                                          bottom: 20, left: 20, right: 20),
+                                      actions: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            OutlinedButton(
+                                              onPressed: () => Navigator.pop(
+                                                  dialogContext, false),
+                                              child: Text(
+                                                  S.of(dialogContext).cancel),
+                                            ),
+                                            const SizedBox(width: 12),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 34, 51, 85),
+                                              ),
+                                              onPressed: () => Navigator.pop(
+                                                  dialogContext, true),
+                                              child: Text(
+                                                S.of(dialogContext).clear,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
 
-                              if (shouldClear == true) {
-                                context
-                                    .read<AddMovieToWatchListAsLocalDataCubit>()
-                                    .clearAllMoviesFromWatchList();
-                              }
+                                if (shouldClear == true) {
+                                  context
+                                      .read<
+                                          AddMovieToWatchListAsLocalDataCubit>()
+                                      .clearAllMoviesFromWatchList();
+                                }
+                              });
                             },
                             icon: const Icon(
                               Icons.clear_all_rounded,
